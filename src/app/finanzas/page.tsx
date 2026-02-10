@@ -101,12 +101,12 @@ const calculadoras = [
     bgHover: "group-hover:bg-red-50 dark:group-hover:bg-red-950/50",
   },
   {
-    nombre: "Dividir Cuenta",
-    descripcion: "Divide gastos entre amigos de forma justa y sin complicaciones",
-    href: "/finanzas/calculadora-dividir-cuenta",
-    emoji: "🧾",
-    gradient: "from-pink-400 to-rose-500",
-    bgHover: "group-hover:bg-pink-50 dark:group-hover:bg-pink-950/50",
+    nombre: "Prestación de Servicios",
+    descripcion: "Calcula tus ingresos netos como independiente: retención, salud y pensión",
+    href: "/finanzas/calculadora-prestacion-servicios",
+    emoji: "📄",
+    gradient: "from-amber-400 to-orange-500",
+    bgHover: "group-hover:bg-amber-50 dark:group-hover:bg-amber-950/50",
   },
 ];
 

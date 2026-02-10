@@ -20,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const finanzas = [
     { slug: "calculadora-interes-compuesto", priority: 0.9 },
     { slug: "calculadora-prestamos", priority: 0.9 },
-    { slug: "calculadora-dividir-cuenta", priority: 0.8 },
+    { slug: "calculadora-prestacion-servicios", priority: 0.9 },
   ];
 
   // Calculadoras de salud
@@ -35,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { slug: "conversor-unidades", priority: 0.9 },
     { slug: "calculadora-diferencia-fechas", priority: 0.8 },
     { slug: "calculadora-dias-vividos", priority: 0.8 },
+    { slug: "calculadora-dividir-cuenta", priority: 0.8 },
   ];
 
   const calculadorasUrls = [

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 const siteUrl = "https://vidaencifras.com";
-const pageUrl = `${siteUrl}/finanzas/calculadora-dividir-cuenta`;
+const pageUrl = `${siteUrl}/herramientas/calculadora-dividir-cuenta`;
 
 export const metadata: Metadata = {
   title: "Calculadora para Dividir Cuenta entre Amigos",

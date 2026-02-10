@@ -143,10 +143,10 @@ export default function DividirCuenta() {
   return (
     <div className="space-y-8">
       <Link
-        href="/"
+        href="/herramientas"
         className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
-        <span>←</span> Volver al inicio
+        <span>←</span> Volver a Herramientas
       </Link>
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-pink-500/5">

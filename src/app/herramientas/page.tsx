@@ -50,6 +50,14 @@ const calculadoras = [
     gradient: "from-teal-400 to-cyan-500",
     bgHover: "group-hover:bg-teal-50 dark:group-hover:bg-teal-950/50",
   },
+  {
+    nombre: "Dividir Cuenta",
+    descripcion: "Divide gastos entre amigos de forma justa y sin complicaciones",
+    href: "/herramientas/calculadora-dividir-cuenta",
+    emoji: "🧾",
+    gradient: "from-pink-400 to-rose-500",
+    bgHover: "group-hover:bg-pink-50 dark:group-hover:bg-pink-950/50",
+  },
 ];
 
 export default function HerramientasPage() {
