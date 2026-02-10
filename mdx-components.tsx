@@ -8,6 +8,8 @@ import { CaloriesChart } from "@/components/charts/CaloriesChart";
 import { PercentageChart } from "@/components/charts/PercentageChart";
 import { ExpenseSplitChart } from "@/components/charts/ExpenseSplitChart";
 import { WeeklyTimeChart } from "@/components/charts/WeeklyTimeChart";
+import { SalaryBreakdownChart } from "@/components/charts/SalaryBreakdownChart";
+import { OvertimeRatesChart } from "@/components/charts/OvertimeRatesChart";
 import { Callout } from "@/components/Callout";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
@@ -104,6 +106,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     PercentageChart,
     ExpenseSplitChart,
     WeeklyTimeChart,
+    SalaryBreakdownChart,
+    OvertimeRatesChart,
     Callout,
     ...components,
   };

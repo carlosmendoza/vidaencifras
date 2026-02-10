@@ -1,0 +1,376 @@
+"use client";
+
+import { useState } from "react";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { FAQ } from "@/components/FAQ";
+import { RelatedCalculators } from "@/components/RelatedCalculators";
+
+type TipoHora = "extra_diurna" | "extra_nocturna" | "extra_dom_diurna" | "extra_dom_nocturna" | "recargo_nocturno" | "recargo_dominical" | "recargo_dom_nocturno";
+
+interface TipoHoraInfo {
+  id: TipoHora;
+  nombre: string;
+  descripcion: string;
+  recargo: number;
+  color: string;
+}
+
+interface Resultado {
+  valorHoraBase: number;
+  recargo: number;
+  valorHoraTotal: number;
+  totalHoras: number;
+  totalPagar: number;
+}
+
+export default function CalculadoraHorasExtras() {
+  const [salario, setSalario] = useState<string>("");
+  const [tipoHora, setTipoHora] = useState<TipoHora>("extra_diurna");
+  const [cantidad, setCantidad] = useState<string>("");
+  const [resultado, setResultado] = useState<Resultado | null>(null);
+
+  const SMMLV = 1750905;
+  // Jornada laboral 2026: 42 horas semanales
+  const HORAS_MES = 182; // 42 * 4.33
+
+  const tiposHora: TipoHoraInfo[] = [
+    {
+      id: "extra_diurna",
+      nombre: "Extra diurna",
+      descripcion: "Lun-Sáb, 6am-9pm, después de jornada",
+      recargo: 0.25,
+      color: "amber",
+    },
+    {
+      id: "extra_nocturna",
+      nombre: "Extra nocturna",
+      descripcion: "Lun-Sáb, 9pm-6am",
+      recargo: 0.75,
+      color: "indigo",
+    },
+    {
+      id: "extra_dom_diurna",
+      nombre: "Extra dominical diurna",
+      descripcion: "Dom/festivo, 6am-9pm",
+      recargo: 1.00,
+      color: "orange",
+    },
+    {
+      id: "extra_dom_nocturna",
+      nombre: "Extra dominical nocturna",
+      descripcion: "Dom/festivo, 9pm-6am",
+      recargo: 1.50,
+      color: "rose",
+    },
+    {
+      id: "recargo_nocturno",
+      nombre: "Recargo nocturno",
+      descripcion: "Trabajo normal 9pm-6am",
+      recargo: 0.35,
+      color: "violet",
+    },
+    {
+      id: "recargo_dominical",
+      nombre: "Recargo dominical",
+      descripcion: "Trabajo normal dom/festivo",
+      recargo: 0.75,
+      color: "cyan",
+    },
+    {
+      id: "recargo_dom_nocturno",
+      nombre: "Recargo dom. nocturno",
+      descripcion: "Dom/festivo, 9pm-6am (normal)",
+      recargo: 1.10,
+      color: "pink",
+    },
+  ];
+
+  const calcular = () => {
+    const salarioNum = parseFloat(salario);
+    const cantidadNum = parseFloat(cantidad);
+
+    if (isNaN(salarioNum) || isNaN(cantidadNum) || salarioNum <= 0 || cantidadNum <= 0) return;
+
+    const valorHoraBase = salarioNum / HORAS_MES;
+    const tipoSeleccionado = tiposHora.find((t) => t.id === tipoHora)!;
+    const recargo = valorHoraBase * tipoSeleccionado.recargo;
+    const valorHoraTotal = valorHoraBase + recargo;
+    const totalPagar = valorHoraTotal * cantidadNum;
+
+    setResultado({
+      valorHoraBase,
+      recargo,
+      valorHoraTotal,
+      totalHoras: cantidadNum,
+      totalPagar,
+    });
+  };
+
+  const formatMoney = (num: number) => {
+    return new Intl.NumberFormat("es-CO", {
+      style: "currency",
+      currency: "COP",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(num);
+  };
+
+  const tipoSeleccionado = tiposHora.find((t) => t.id === tipoHora)!;
+
+  const faqs = [
+    {
+      question: "¿Cómo se calcula el valor de la hora extra?",
+      answer:
+        "El valor hora se calcula dividiendo el salario mensual entre las horas de la jornada mensual (182 horas para jornada de 42h/semana en 2026). Luego se aplica el recargo según el tipo de hora extra.",
+    },
+    {
+      question: "¿Cuál es la diferencia entre hora extra y recargo?",
+      answer:
+        "La hora extra es tiempo adicional después de completar tu jornada laboral. El recargo aplica cuando trabajas en horario nocturno o dominical dentro de tu jornada normal, sin ser tiempo adicional.",
+    },
+    {
+      question: "¿Cuántas horas extras puedo trabajar al mes?",
+      answer:
+        "El máximo legal en Colombia es de 2 horas extras diarias y 12 semanales. El empleador debe solicitar autorización al Ministerio de Trabajo para que sus empleados trabajen horas extras.",
+    },
+    {
+      question: "¿Las horas extras pagan aportes a salud y pensión?",
+      answer:
+        "Sí. Las horas extras hacen parte del salario y sobre ellas se calculan los aportes a salud, pensión y parafiscales. También se incluyen en la base para calcular prestaciones sociales.",
+    },
+  ];
+
+  const relatedCalculators = [
+    {
+      name: "Calculadora de Salario Neto",
+      href: "/finanzas/calculadora-salario-neto",
+      description: "Calcula tu sueldo después de descuentos",
+      emoji: "💵",
+    },
+    {
+      name: "Calculadora de Liquidación",
+      href: "/finanzas/calculadora-liquidacion",
+      description: "Calcula tu liquidación laboral",
+      emoji: "📋",
+    },
+    {
+      name: "Calculadora de Vacaciones",
+      href: "/finanzas/calculadora-vacaciones",
+      description: "Calcula tus días y dinero",
+      emoji: "🏖️",
+    },
+  ];
+
+  return (
+    <div className="space-y-8">
+      <Breadcrumbs />
+
+      <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-amber-500/5">
+        <div className="text-center mb-10">
+          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">
+            ⏰
+          </div>
+          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
+            Calculadora de Horas Extras
+          </h1>
+          <p className="text-slate-500 dark:text-slate-400 font-medium">
+            Recargos laborales Colombia 2026
+          </p>
+        </div>
+
+        <div className="space-y-6">
+          {/* Salario */}
+          <div className="space-y-3">
+            <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
+              Salario mensual
+            </label>
+            <div className="relative">
+              <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold">
+                $
+              </span>
+              <input
+                type="number"
+                value={salario}
+                onChange={(e) => setSalario(e.target.value)}
+                placeholder="1.750.905"
+                className="w-full pl-10 pr-6 py-4 rounded-2xl text-xl font-semibold"
+              />
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setSalario(SMMLV.toString())}
+                className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
+                  salario === SMMLV.toString()
+                    ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+                }`}
+              >
+                1 SMMLV
+              </button>
+              <button
+                onClick={() => setSalario((SMMLV * 2).toString())}
+                className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
+                  salario === (SMMLV * 2).toString()
+                    ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+                }`}
+              >
+                2 SMMLV
+              </button>
+            </div>
+          </div>
+
+          {/* Tipo de hora */}
+          <div className="space-y-3">
+            <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
+              Tipo de hora/recargo
+            </label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {tiposHora.map((tipo) => (
+                <button
+                  key={tipo.id}
+                  onClick={() => setTipoHora(tipo.id)}
+                  className={`p-3 rounded-xl text-left transition-all ${
+                    tipoHora === tipo.id
+                      ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg"
+                      : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
+                  }`}
+                >
+                  <div className="flex justify-between items-center">
+                    <span className="font-bold text-sm">{tipo.nombre}</span>
+                    <span className={`text-xs font-black ${tipoHora === tipo.id ? "text-white" : "text-amber-600 dark:text-amber-400"}`}>
+                      +{(tipo.recargo * 100).toFixed(0)}%
+                    </span>
+                  </div>
+                  <p className={`text-xs mt-1 ${tipoHora === tipo.id ? "text-amber-100" : "text-slate-400"}`}>
+                    {tipo.descripcion}
+                  </p>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Cantidad de horas */}
+          <div className="space-y-3">
+            <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
+              Cantidad de horas
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={cantidad}
+                onChange={(e) => setCantidad(e.target.value)}
+                placeholder="10"
+                step="0.5"
+                className="w-full px-6 py-4 rounded-2xl text-xl font-semibold pr-16"
+              />
+              <span className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold">
+                horas
+              </span>
+            </div>
+          </div>
+
+          <button
+            onClick={calcular}
+            className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-amber-500/20 active:scale-[0.99]"
+          >
+            Calcular horas extras
+          </button>
+
+          {resultado && (
+            <div className="mt-8 space-y-4">
+              {/* Resultado principal */}
+              <div className="p-8 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/50 dark:to-orange-950/50 rounded-3xl text-center ring-1 ring-amber-100 dark:ring-amber-900">
+                <p className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest text-xs mb-3">
+                  Total a recibir
+                </p>
+                <p className="text-5xl md:text-6xl font-black text-amber-600 dark:text-amber-400 tracking-tighter">
+                  {formatMoney(resultado.totalPagar)}
+                </p>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
+                  Por {resultado.totalHoras} horas de {tipoSeleccionado.nombre.toLowerCase()}
+                </p>
+              </div>
+
+              {/* Desglose */}
+              <div className="p-6 bg-white/60 dark:bg-slate-800/60 rounded-2xl ring-1 ring-slate-100 dark:ring-slate-800">
+                <h3 className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-4">
+                  Desglose del cálculo
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-slate-500 dark:text-slate-400">Valor hora base</span>
+                    <span className="font-bold text-slate-700 dark:text-slate-200">
+                      {formatMoney(resultado.valorHoraBase)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-slate-500 dark:text-slate-400">
+                      + Recargo ({(tipoSeleccionado.recargo * 100).toFixed(0)}%)
+                    </span>
+                    <span className="font-bold text-amber-600 dark:text-amber-400">
+                      +{formatMoney(resultado.recargo)}
+                    </span>
+                  </div>
+                  <div className="border-t border-slate-200 dark:border-slate-700 pt-3 flex justify-between items-center">
+                    <span className="font-bold text-slate-700 dark:text-slate-200">Valor hora total</span>
+                    <span className="font-black text-amber-600 dark:text-amber-400">
+                      {formatMoney(resultado.valorHoraTotal)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-slate-500 dark:text-slate-400">× {resultado.totalHoras} horas</span>
+                  </div>
+                  <div className="border-t-2 border-amber-200 dark:border-amber-800 pt-3 flex justify-between items-center">
+                    <span className="font-black text-slate-800 dark:text-slate-100">TOTAL</span>
+                    <span className="font-black text-xl text-amber-600 dark:text-amber-400">
+                      {formatMoney(resultado.totalPagar)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Tabla de referencia */}
+      <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
+        <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
+          <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-base">
+            📊
+          </span>
+          Tabla de recargos Colombia
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-slate-200 dark:border-slate-700">
+                <th className="text-left py-2 font-bold text-slate-700 dark:text-slate-300">Tipo</th>
+                <th className="text-right py-2 font-bold text-slate-700 dark:text-slate-300">Recargo</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tiposHora.map((tipo) => (
+                <tr key={tipo.id} className="border-b border-slate-100 dark:border-slate-800">
+                  <td className="py-2 text-slate-600 dark:text-slate-400">{tipo.nombre}</td>
+                  <td className="py-2 text-right font-bold text-amber-600 dark:text-amber-400">
+                    +{(tipo.recargo * 100).toFixed(0)}%
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
+        <FAQ items={faqs} colorClass="amber" />
+      </div>
+
+      <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
+        <RelatedCalculators calculators={relatedCalculators} />
+      </div>
+    </div>
+  );
+}
