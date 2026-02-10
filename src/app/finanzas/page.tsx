@@ -5,21 +5,45 @@ import { getAllPosts, categoryColors } from "@/lib/blog";
 export const metadata: Metadata = {
   title: "Calculadoras de Finanzas Personales Colombia",
   description:
-    "Calculadoras financieras gratuitas: interés compuesto, préstamos, presupuesto 50/30/20, ahorro, jubilación e inflación. Toma el control de tu dinero.",
+    "Calculadoras financieras gratuitas: liquidación laboral, prima, cesantías, 4x1000, préstamos, ahorro y más. Herramientas para empleados y finanzas personales.",
   keywords: [
-    "calculadora financiera",
-    "calculadora interes compuesto",
+    "calculadora liquidacion",
+    "calculadora prima",
+    "calculadora cesantias",
+    "calculadora 4x1000",
     "calculadora prestamos",
-    "presupuesto 50 30 20",
-    "calculadora ahorro",
-    "calculadora jubilacion",
-    "calculadora inflacion Colombia",
+    "calculadora interes compuesto",
     "finanzas personales Colombia",
-    "planificacion financiera",
+    "prestaciones sociales Colombia",
+    "calculadora laboral",
   ],
 };
 
 const calculadoras = [
+  {
+    nombre: "Calculadora de Liquidación",
+    descripcion: "Calcula tu liquidación laboral completa: prima, cesantías, vacaciones e indemnización",
+    href: "/finanzas/calculadora-liquidacion",
+    emoji: "📋",
+    gradient: "from-purple-400 to-pink-500",
+    bgHover: "group-hover:bg-purple-50 dark:group-hover:bg-purple-950/50",
+  },
+  {
+    nombre: "Calculadora de Prima",
+    descripcion: "Calcula tu prima de servicios de junio y diciembre",
+    href: "/finanzas/calculadora-prima",
+    emoji: "🎁",
+    gradient: "from-green-400 to-emerald-500",
+    bgHover: "group-hover:bg-green-50 dark:group-hover:bg-green-950/50",
+  },
+  {
+    nombre: "Calculadora de Cesantías",
+    descripcion: "Calcula tus cesantías e intereses sobre cesantías",
+    href: "/finanzas/calculadora-cesantias",
+    emoji: "💼",
+    gradient: "from-cyan-400 to-teal-500",
+    bgHover: "group-hover:bg-cyan-50 dark:group-hover:bg-cyan-950/50",
+  },
   {
     nombre: "Calculadora de Interés Compuesto",
     descripcion: "Calcula cuánto crecerá tu dinero con el tiempo gracias al poder del interés compuesto",
@@ -35,6 +59,14 @@ const calculadoras = [
     emoji: "🏦",
     gradient: "from-rose-400 to-pink-500",
     bgHover: "group-hover:bg-rose-50 dark:group-hover:bg-rose-950/50",
+  },
+  {
+    nombre: "Calculadora 4x1000",
+    descripcion: "Calcula el impuesto a movimientos financieros de cualquier transacción",
+    href: "/finanzas/calculadora-4x1000",
+    emoji: "🏛️",
+    gradient: "from-indigo-400 to-blue-500",
+    bgHover: "group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950/50",
   },
   {
     nombre: "Presupuesto 50/30/20",
