@@ -3,17 +3,19 @@ import type { Metadata } from "next";
 import { getAllPosts, categoryColors } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "Calculadoras de Finanzas Personales",
+  title: "Calculadoras de Finanzas Personales Colombia",
   description:
-    "Calculadoras financieras gratuitas: interés compuesto, préstamos, división de gastos. Toma el control de tu dinero con herramientas precisas.",
+    "Calculadoras financieras gratuitas: interés compuesto, préstamos, presupuesto 50/30/20, ahorro, jubilación e inflación. Toma el control de tu dinero.",
   keywords: [
     "calculadora financiera",
     "calculadora interes compuesto",
     "calculadora prestamos",
-    "calculadora cuotas",
-    "dividir gastos",
-    "amortizacion",
-    "finanzas personales",
+    "presupuesto 50 30 20",
+    "calculadora ahorro",
+    "calculadora jubilacion",
+    "calculadora inflacion Colombia",
+    "finanzas personales Colombia",
+    "planificacion financiera",
   ],
 };
 
@@ -33,6 +35,38 @@ const calculadoras = [
     emoji: "🏦",
     gradient: "from-rose-400 to-pink-500",
     bgHover: "group-hover:bg-rose-50 dark:group-hover:bg-rose-950/50",
+  },
+  {
+    nombre: "Presupuesto 50/30/20",
+    descripcion: "Organiza tu plata de forma simple: necesidades, deseos y ahorro",
+    href: "/finanzas/calculadora-presupuesto",
+    emoji: "📊",
+    gradient: "from-violet-400 to-purple-500",
+    bgHover: "group-hover:bg-violet-50 dark:group-hover:bg-violet-950/50",
+  },
+  {
+    nombre: "Calculadora de Ahorro",
+    descripcion: "Planifica cuánto ahorrar para alcanzar tus metas financieras",
+    href: "/finanzas/calculadora-ahorro",
+    emoji: "🎯",
+    gradient: "from-blue-400 to-cyan-500",
+    bgHover: "group-hover:bg-blue-50 dark:group-hover:bg-blue-950/50",
+  },
+  {
+    nombre: "Calculadora de Jubilación",
+    descripcion: "Planifica tu retiro y calcula cuánto necesitas para vivir tranquilo",
+    href: "/finanzas/calculadora-jubilacion",
+    emoji: "🏖️",
+    gradient: "from-orange-400 to-amber-500",
+    bgHover: "group-hover:bg-orange-50 dark:group-hover:bg-orange-950/50",
+  },
+  {
+    nombre: "Calculadora de Inflación",
+    descripcion: "Entiende cómo la inflación afecta tu dinero con datos del IPC",
+    href: "/finanzas/calculadora-inflacion",
+    emoji: "📉",
+    gradient: "from-red-400 to-rose-500",
+    bgHover: "group-hover:bg-red-50 dark:group-hover:bg-red-950/50",
   },
   {
     nombre: "Dividir Cuenta",
@@ -130,14 +164,6 @@ export default function FinanzasPage() {
         </section>
       )}
 
-      <section className="card-glass rounded-3xl p-8 text-center">
-        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-4">
-          Próximamente más herramientas financieras
-        </h2>
-        <p className="text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
-          Estamos trabajando en calculadoras de ahorro, inflación, presupuesto 50/30/20 y jubilación.
-        </p>
-      </section>
     </div>
   );
 }

@@ -47,6 +47,16 @@ export function FAQ({ items, title = "Preguntas Frecuentes", colorClass = "indig
       text: "text-cyan-600 dark:text-cyan-400",
       ring: "ring-cyan-100 dark:ring-cyan-900",
     },
+    blue: {
+      bg: "bg-blue-50 dark:bg-blue-950/50",
+      text: "text-blue-600 dark:text-blue-400",
+      ring: "ring-blue-100 dark:ring-blue-900",
+    },
+    red: {
+      bg: "bg-red-50 dark:bg-red-950/50",
+      text: "text-red-600 dark:text-red-400",
+      ring: "ring-red-100 dark:ring-red-900",
+    },
   };
 
   const colors = colorStyles[colorClass] || colorStyles.indigo;
