@@ -169,7 +169,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
       </head>
       <body className={`${inter.className} antialiased`}>
-        <ScrollToTop />
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-TF8GVTZ4"
@@ -178,6 +177,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
+        <ScrollToTop />
         <nav className="glass sticky top-0 z-50 border-b border-indigo-100/50 dark:border-indigo-900/50">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
             <Link
