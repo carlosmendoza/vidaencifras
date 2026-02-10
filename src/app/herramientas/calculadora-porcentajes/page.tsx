@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-
-// Metadata se exporta desde un archivo separado para páginas client
-// Ver: porcentajes/metadata.ts
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { FAQ } from "@/components/FAQ";
+import { RelatedCalculators } from "@/components/RelatedCalculators";
 
 type TipoCalculo = "porcentaje_de" | "que_porcentaje" | "aumento" | "descuento" | "diferencia";
 
@@ -81,14 +80,47 @@ export default function Porcentajes() {
 
   const labels = getLabels();
 
+  const faqs = [
+    {
+      question: "¿Cómo calcular el porcentaje de un número?",
+      answer:
+        "Para calcular el X% de un número Y, multiplica Y por X y divide entre 100. Ejemplo: el 15% de 200 es (200 × 15) / 100 = 30.",
+    },
+    {
+      question: "¿Cómo saber qué porcentaje es un número de otro?",
+      answer:
+        "Divide el número menor entre el mayor y multiplica por 100. Ejemplo: para saber qué porcentaje es 30 de 200: (30 / 200) × 100 = 15%.",
+    },
+    {
+      question: "¿Cómo calcular un descuento porcentual?",
+      answer:
+        "Multiplica el precio original por (1 - descuento/100). Ejemplo: un producto de $100 con 25% de descuento: 100 × (1 - 0.25) = $75.",
+    },
+    {
+      question: "¿Cómo calcular un aumento porcentual?",
+      answer:
+        "Multiplica el valor original por (1 + aumento/100). Ejemplo: un salario de $1000 con aumento del 10%: 1000 × (1 + 0.10) = $1100.",
+    },
+  ];
+
+  const relatedCalculators = [
+    {
+      name: "Calculadora de Préstamos",
+      href: "/finanzas/calculadora-prestamos",
+      description: "Calcula cuotas e intereses",
+      emoji: "🏦",
+    },
+    {
+      name: "Calculadora de Interés Compuesto",
+      href: "/finanzas/calculadora-interes-compuesto",
+      description: "Simula el crecimiento de tu dinero",
+      emoji: "📈",
+    },
+  ];
+
   return (
     <div className="space-y-8">
-      <Link
-        href="/"
-        className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 inline-flex items-center gap-2 font-medium transition-colors"
-      >
-        <span>←</span> Volver al inicio
-      </Link>
+      <Breadcrumbs />
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-cyan-500/5 dark:shadow-cyan-500/10">
         <div className="text-center mb-10">
@@ -202,6 +234,14 @@ export default function Porcentajes() {
             <p className="text-slate-500 dark:text-slate-400">Valor × (1 - X/100)</p>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
+        <FAQ items={faqs} colorClass="cyan" />
+      </div>
+
+      <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
+        <RelatedCalculators calculators={relatedCalculators} />
       </div>
     </div>
   );

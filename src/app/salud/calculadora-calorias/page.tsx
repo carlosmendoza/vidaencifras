@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { FAQ } from "@/components/FAQ";
+import { RelatedCalculators } from "@/components/RelatedCalculators";
 
 type Sexo = "hombre" | "mujer";
 type NivelActividad = "sedentario" | "ligero" | "moderado" | "activo" | "muy_activo";
@@ -90,14 +92,47 @@ export default function Calorias() {
     });
   };
 
+  const faqs = [
+    {
+      question: "¿Qué es el TDEE y cómo se calcula?",
+      answer:
+        "TDEE (Total Daily Energy Expenditure) es el total de calorías que quemas al día, incluyendo actividad física. Se calcula multiplicando tu TMB (metabolismo basal) por un factor de actividad.",
+    },
+    {
+      question: "¿Qué es el metabolismo basal (TMB)?",
+      answer:
+        "El TMB son las calorías que tu cuerpo necesita en reposo absoluto para funciones vitales como respirar, bombear sangre y mantener la temperatura corporal.",
+    },
+    {
+      question: "¿Cuántas calorías debo comer para bajar de peso?",
+      answer:
+        "Para perder peso de forma saludable, se recomienda un déficit de 300-500 calorías diarias respecto a tu TDEE. Esto permite perder aproximadamente 0.5 kg por semana.",
+    },
+    {
+      question: "¿Qué son los macronutrientes?",
+      answer:
+        "Los macronutrientes son proteínas, carbohidratos y grasas. Su distribución afecta tus resultados: más proteína ayuda a mantener músculo, los carbos dan energía, y las grasas son esenciales para hormonas.",
+    },
+  ];
+
+  const relatedCalculators = [
+    {
+      name: "Calculadora de IMC",
+      href: "/salud/calculadora-imc",
+      description: "Calcula tu Índice de Masa Corporal",
+      emoji: "⚖️",
+    },
+    {
+      name: "Calculadora de Porcentajes",
+      href: "/herramientas/calculadora-porcentajes",
+      description: "Para calcular % de macros",
+      emoji: "%",
+    },
+  ];
+
   return (
     <div className="space-y-8">
-      <Link
-        href="/"
-        className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 inline-flex items-center gap-2 font-medium transition-colors"
-      >
-        <span>←</span> Volver al inicio
-      </Link>
+      <Breadcrumbs />
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-orange-500/5">
         <div className="text-center mb-10">
@@ -293,6 +328,14 @@ export default function Calorias() {
             Distribución sugerida de proteínas, carbohidratos y grasas
           </li>
         </ul>
+      </div>
+
+      <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
+        <FAQ items={faqs} colorClass="orange" />
+      </div>
+
+      <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
+        <RelatedCalculators calculators={relatedCalculators} />
       </div>
     </div>
   );

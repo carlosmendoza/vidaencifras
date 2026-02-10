@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { FAQ } from "@/components/FAQ";
+import { RelatedCalculators } from "@/components/RelatedCalculators";
 
 type Sistema = "metrico" | "imperial";
 
@@ -96,14 +98,47 @@ export default function IMC() {
     return `${kg.toFixed(1)} kg`;
   };
 
+  const faqs = [
+    {
+      question: "¿Qué es el IMC y cómo se calcula?",
+      answer:
+        "El IMC (Índice de Masa Corporal) es una medida que relaciona tu peso con tu altura. Se calcula dividiendo tu peso en kg entre tu altura en metros al cuadrado: IMC = peso / (altura × altura).",
+    },
+    {
+      question: "¿Cuáles son los rangos normales de IMC?",
+      answer:
+        "Según la OMS: bajo peso es menos de 18.5, peso normal es 18.5-24.9, sobrepeso es 25-29.9, y obesidad es 30 o más.",
+    },
+    {
+      question: "¿El IMC es preciso para todas las personas?",
+      answer:
+        "El IMC tiene limitaciones. No distingue entre masa muscular y grasa, por lo que atletas musculosos pueden tener IMC alto sin exceso de grasa.",
+    },
+    {
+      question: "¿Cuál es mi peso ideal según el IMC?",
+      answer:
+        "Tu peso ideal es el rango donde tu IMC está entre 18.5 y 24.9. Para calcularlo: peso mínimo = 18.5 × altura² y peso máximo = 24.9 × altura² (altura en metros).",
+    },
+  ];
+
+  const relatedCalculators = [
+    {
+      name: "Calculadora de Calorías",
+      href: "/salud/calculadora-calorias",
+      description: "Calcula tu TDEE y macros",
+      emoji: "🔥",
+    },
+    {
+      name: "Conversor de Unidades",
+      href: "/herramientas/conversor-unidades",
+      description: "Convierte kg a libras",
+      emoji: "🔄",
+    },
+  ];
+
   return (
     <div className="space-y-8">
-      <Link
-        href="/"
-        className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 inline-flex items-center gap-2 font-medium transition-colors"
-      >
-        <span>←</span> Volver al inicio
-      </Link>
+      <Breadcrumbs />
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-violet-500/5">
         <div className="text-center mb-10">
@@ -318,6 +353,14 @@ export default function IMC() {
           Sin embargo, no considera factores como la masa muscular, la edad o
           el sexo, por lo que es solo una referencia general.
         </p>
+      </div>
+
+      <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
+        <FAQ items={faqs} colorClass="violet" />
+      </div>
+
+      <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
+        <RelatedCalculators calculators={relatedCalculators} />
       </div>
     </div>
   );
