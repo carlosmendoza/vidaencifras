@@ -1,16 +1,58 @@
 import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
-import { InterestComparisonChart } from "@/components/charts/InterestComparisonChart";
-import { AmortizationChart } from "@/components/charts/AmortizationChart";
-import { BMIRangeChart } from "@/components/charts/BMIRangeChart";
-import { LifeDaysChart } from "@/components/charts/LifeDaysChart";
-import { CaloriesChart } from "@/components/charts/CaloriesChart";
-import { PercentageChart } from "@/components/charts/PercentageChart";
-import { ExpenseSplitChart } from "@/components/charts/ExpenseSplitChart";
-import { WeeklyTimeChart } from "@/components/charts/WeeklyTimeChart";
-import { SalaryBreakdownChart } from "@/components/charts/SalaryBreakdownChart";
-import { OvertimeRatesChart } from "@/components/charts/OvertimeRatesChart";
+import dynamic from "next/dynamic";
 import { Callout } from "@/components/Callout";
+
+// Dynamic imports para mejorar performance - los charts se cargan solo cuando se usan
+const InterestComparisonChart = dynamic(
+  () => import("@/components/charts/InterestComparisonChart").then((mod) => mod.InterestComparisonChart),
+  { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
+);
+
+const AmortizationChart = dynamic(
+  () => import("@/components/charts/AmortizationChart").then((mod) => mod.AmortizationChart),
+  { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
+);
+
+const BMIRangeChart = dynamic(
+  () => import("@/components/charts/BMIRangeChart").then((mod) => mod.BMIRangeChart),
+  { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
+);
+
+const LifeDaysChart = dynamic(
+  () => import("@/components/charts/LifeDaysChart").then((mod) => mod.LifeDaysChart),
+  { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
+);
+
+const CaloriesChart = dynamic(
+  () => import("@/components/charts/CaloriesChart").then((mod) => mod.CaloriesChart),
+  { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
+);
+
+const PercentageChart = dynamic(
+  () => import("@/components/charts/PercentageChart").then((mod) => mod.PercentageChart),
+  { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
+);
+
+const ExpenseSplitChart = dynamic(
+  () => import("@/components/charts/ExpenseSplitChart").then((mod) => mod.ExpenseSplitChart),
+  { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
+);
+
+const WeeklyTimeChart = dynamic(
+  () => import("@/components/charts/WeeklyTimeChart").then((mod) => mod.WeeklyTimeChart),
+  { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
+);
+
+const SalaryBreakdownChart = dynamic(
+  () => import("@/components/charts/SalaryBreakdownChart").then((mod) => mod.SalaryBreakdownChart),
+  { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
+);
+
+const OvertimeRatesChart = dynamic(
+  () => import("@/components/charts/OvertimeRatesChart").then((mod) => mod.OvertimeRatesChart),
+  { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
+);
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {

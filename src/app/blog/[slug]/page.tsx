@@ -5,6 +5,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { getAllSlugs, getPostBySlug, categoryLabels, categoryColors } from "@/lib/blog";
 import { useMDXComponents } from "../../../../mdx-components";
+import { BlogPostJsonLd } from "@/components/BlogPostJsonLd";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -45,8 +46,16 @@ export default async function BlogPostPage({ params }: Props) {
   const components = useMDXComponents({});
 
   return (
-    <article className="max-w-3xl mx-auto">
-      <header className="mb-10">
+    <>
+      <BlogPostJsonLd
+        title={post.title}
+        description={post.description}
+        slug={slug}
+        category={post.category}
+        image={post.image}
+      />
+      <article className="max-w-3xl mx-auto">
+        <header className="mb-10">
         <div className="flex items-center gap-3 mb-4">
           <Link
             href="/blog"
@@ -116,6 +125,7 @@ export default async function BlogPostPage({ params }: Props) {
           ← Ver más artículos
         </Link>
       </footer>
-    </article>
+      </article>
+    </>
   );
 }

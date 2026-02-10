@@ -1,69 +1,6 @@
 import Link from "next/link";
 import { getAllPosts, categoryLabels, categoryColors } from "@/lib/blog";
-
-const pilares = [
-  {
-    nombre: "Salud",
-    descripcion: "Cuida tu bienestar físico con datos precisos sobre calorías, IMC y más",
-    href: "/salud",
-    emoji: "❤️",
-    gradient: "from-orange-400 to-red-500",
-    bgHover: "group-hover:bg-red-50 dark:group-hover:bg-red-950/50",
-    color: "text-red-600 dark:text-red-400",
-    calculadoras: ["Calorías (TDEE)", "IMC"],
-  },
-  {
-    nombre: "Finanzas",
-    descripcion: "Toma el control de tu dinero con herramientas de inversión y préstamos",
-    href: "/finanzas",
-    emoji: "💰",
-    gradient: "from-emerald-400 to-teal-500",
-    bgHover: "group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50",
-    color: "text-emerald-600 dark:text-emerald-400",
-    calculadoras: ["Liquidación", "Prima", "Cesantías"],
-  },
-  {
-    nombre: "Productividad",
-    descripcion: "Optimiza tu tiempo con herramientas de hábitos, metas y gestión personal",
-    href: "/productividad",
-    emoji: "⏱️",
-    gradient: "from-amber-400 to-orange-500",
-    bgHover: "group-hover:bg-amber-50 dark:group-hover:bg-amber-950/50",
-    color: "text-amber-600 dark:text-amber-400",
-    calculadoras: ["Próximamente"],
-  },
-];
-
-const utilidades = [
-  {
-    nombre: "Calculadora de Porcentajes",
-    descripcion: "Calcula cualquier porcentaje",
-    href: "/herramientas/calculadora-porcentajes",
-    emoji: "%",
-    gradient: "from-cyan-400 to-blue-500",
-  },
-  {
-    nombre: "Calculadora de Descuentos",
-    descripcion: "Precio final y cuánto ahorras",
-    href: "/herramientas/calculadora-descuentos",
-    emoji: "🏷️",
-    gradient: "from-pink-400 to-rose-500",
-  },
-  {
-    nombre: "Conversor de Unidades",
-    descripcion: "Convierte longitud, peso y más",
-    href: "/herramientas/conversor-unidades",
-    emoji: "🔄",
-    gradient: "from-indigo-400 to-purple-500",
-  },
-  {
-    nombre: "Dividir Cuenta",
-    descripcion: "Divide gastos entre amigos",
-    href: "/herramientas/calculadora-dividir-cuenta",
-    emoji: "🧾",
-    gradient: "from-amber-400 to-orange-500",
-  },
-];
+import { pilares, utilidadesDestacadas } from "@/lib/calculators";
 
 export default function Home() {
   const posts = getAllPosts().slice(0, 3);
@@ -135,7 +72,7 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100">Herramientas de uso diario</h2>
         </div>
         <div className="grid gap-6 md:grid-cols-2 max-w-3xl mx-auto">
-          {utilidades.map((util) => (
+          {utilidadesDestacadas.map((util) => (
             <Link
               key={util.href}
               href={util.href}

@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `${siteUrl}/og-image.png`,
+        url: `${siteUrl}/og`,
         width: 1200,
         height: 630,
         alt: "VidaEnCifras - Calculadoras Online Gratis",
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     title: "VidaEnCifras - Calculadoras Online Gratis",
     description:
       "Herramientas de cálculo gratuitas: porcentajes, calorías, préstamos, IMC y más.",
-    images: [`${siteUrl}/og-image.png`],
+    images: [`${siteUrl}/og`],
   },
   robots: {
     index: true,
@@ -113,11 +113,31 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = {
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "VidaEnCifras",
+    url: siteUrl,
+    logo: `${siteUrl}/favicon.svg`,
+    description: "Calculadoras online gratis para finanzas, salud y productividad en Colombia y Latinoamérica",
+    foundingDate: "2024",
+    areaServed: {
+      "@type": "GeoShape",
+      name: "Latinoamérica",
+    },
+    knowsAbout: [
+      "Finanzas personales",
+      "Cálculos laborales Colombia",
+      "Salud y bienestar",
+      "Productividad personal",
+    ],
+  };
+
+  const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "VidaEnCifras",
-    description: "Calculadoras online gratis para todo lo que necesites",
+    description: "Calculadoras online gratis para finanzas, salud y productividad",
     url: siteUrl,
     potentialAction: {
       "@type": "SearchAction",
@@ -167,7 +187,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
       <body className={`${inter.className} antialiased`}>
