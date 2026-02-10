@@ -1,6 +1,10 @@
 import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
 import { InterestComparisonChart } from "@/components/charts/InterestComparisonChart";
+import { AmortizationChart } from "@/components/charts/AmortizationChart";
+import { BMIRangeChart } from "@/components/charts/BMIRangeChart";
+import { LifeDaysChart } from "@/components/charts/LifeDaysChart";
+import { CaloriesChart } from "@/components/charts/CaloriesChart";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -62,21 +66,37 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </strong>
     ),
     table: ({ children }) => (
-      <div className="overflow-x-auto my-6">
-        <table className="w-full border-collapse">{children}</table>
+      <div className="my-6 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm bg-white dark:bg-slate-800">
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse text-sm">{children}</table>
+        </div>
       </div>
     ),
+    thead: ({ children }) => (
+      <thead className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
+        {children}
+      </thead>
+    ),
     th: ({ children }) => (
-      <th className="bg-slate-100 dark:bg-slate-800 px-4 py-2 text-left font-semibold text-slate-800 dark:text-white border border-slate-200 dark:border-slate-700">
+      <th className="px-4 py-3 text-left font-semibold text-white first:rounded-tl-lg last:rounded-tr-lg">
         {children}
       </th>
     ),
+    tr: ({ children }) => (
+      <tr className="border-b border-slate-100 dark:border-slate-700 last:border-0 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+        {children}
+      </tr>
+    ),
     td: ({ children }) => (
-      <td className="px-4 py-2 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300">
+      <td className="px-4 py-3 text-slate-600 dark:text-slate-300">
         {children}
       </td>
     ),
     InterestComparisonChart,
+    AmortizationChart,
+    BMIRangeChart,
+    LifeDaysChart,
+    CaloriesChart,
     ...components,
   };
 }
