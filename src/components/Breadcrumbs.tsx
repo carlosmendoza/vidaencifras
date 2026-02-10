@@ -26,6 +26,10 @@ const calculatorNames: Record<string, string> = {
   "conversor-unidades": "Conversor de Unidades",
   "calculadora-diferencia-fechas": "Diferencia entre Fechas",
   "calculadora-dias-vividos": "Días Vividos",
+  "valor-hora": "Valor de tu Hora",
+  "calculadora-habitos": "Calculadora de Hábitos",
+  "auditoria-tiempo": "Auditoría de Tiempo",
+  "vida-en-semanas": "Tu Vida en Semanas",
 };
 
 export function Breadcrumbs() {

@@ -11,23 +11,45 @@ interface Resultado {
   descuentoSalud: number;
   descuentoPension: number;
   fondoSolidaridad: number;
+  retencionFuente: number;
   totalDescuentos: number;
   salarioNeto: number;
+  // Detalle retención
+  baseGravable: number;
+  deducciones: number;
+  rentaExenta: number;
 }
 
 export default function CalculadoraSalarioNeto() {
   const [salario, setSalario] = useState<string>("");
   const [incluyeTransporte, setIncluyeTransporte] = useState<boolean>(true);
+  const [mostrarRetencion, setMostrarRetencion] = useState<boolean>(false);
+  const [dependientes, setDependientes] = useState<number>(0);
+  const [medicinaPrepagada, setMedicinaPrepagada] = useState<string>("");
+  const [interesesVivienda, setInteresesVivienda] = useState<string>("");
+  const [aportesAfc, setAportesAfc] = useState<string>("");
   const [resultado, setResultado] = useState<Resultado | null>(null);
 
   // Valores 2026 Colombia
   const SMMLV = 1750905;
   const AUXILIO_TRANSPORTE = 249095;
   const TOPE_AUXILIO = SMMLV * 2;
+  const UVT = 52374; // Valor UVT 2026
 
   // Porcentajes de descuento (parte del trabajador)
   const PORCENTAJE_SALUD = 0.04; // 4%
   const PORCENTAJE_PENSION = 0.04; // 4%
+
+  // Tabla de retención en la fuente (Art. 383 ET) - Procedimiento 1
+  const calcularRetencion = (baseGravableUVT: number): number => {
+    if (baseGravableUVT <= 95) return 0;
+    if (baseGravableUVT <= 150) return (baseGravableUVT - 95) * 0.19;
+    if (baseGravableUVT <= 360) return (baseGravableUVT - 150) * 0.28 + 10.45;
+    if (baseGravableUVT <= 640) return (baseGravableUVT - 360) * 0.33 + 69.25;
+    if (baseGravableUVT <= 945) return (baseGravableUVT - 640) * 0.35 + 161.65;
+    if (baseGravableUVT <= 2300) return (baseGravableUVT - 945) * 0.37 + 268.40;
+    return (baseGravableUVT - 2300) * 0.39 + 769.75;
+  };
 
   const calcular = () => {
     const salarioBruto = parseFloat(salario);
@@ -52,7 +74,64 @@ export default function CalculadoraSalarioNeto() {
       }
     }
 
-    const totalDescuentos = descuentoSalud + descuentoPension + fondoSolidaridad;
+    // Cálculo de retención en la fuente
+    let retencionFuente = 0;
+    let baseGravable = 0;
+    let deducciones = 0;
+    let rentaExenta = 0;
+
+    if (mostrarRetencion) {
+      // Paso 1: Ingreso laboral gravado = Salario - Aportes obligatorios
+      const aportesObligatorios = descuentoSalud + descuentoPension + fondoSolidaridad;
+      const ingresoLaboral = salarioBruto - aportesObligatorios;
+
+      // Paso 2: Deducciones permitidas
+      // Dependientes: 10% del ingreso por cada dependiente (máx 4), hasta 32 UVT cada uno
+      const deduccionDependientes = Math.min(
+        dependientes * ingresoLaboral * 0.10,
+        dependientes * 32 * UVT
+      );
+
+      // Medicina prepagada: hasta 16 UVT mensuales
+      const medicina = parseFloat(medicinaPrepagada) || 0;
+      const deduccionMedicina = Math.min(medicina, 16 * UVT);
+
+      // Intereses de vivienda: hasta 100 UVT mensuales
+      const intereses = parseFloat(interesesVivienda) || 0;
+      const deduccionIntereses = Math.min(intereses, 100 * UVT);
+
+      // Aportes AFC: hasta 30% del ingreso
+      const afc = parseFloat(aportesAfc) || 0;
+      const deduccionAfc = Math.min(afc, ingresoLaboral * 0.30);
+
+      deducciones = deduccionDependientes + deduccionMedicina + deduccionIntereses + deduccionAfc;
+
+      // Paso 3: Renta exenta del 25% (máximo 240 UVT mensuales)
+      const baseParaExencion = ingresoLaboral - deducciones;
+      rentaExenta = Math.min(baseParaExencion * 0.25, 240 * UVT);
+
+      // Paso 4: Límite del 40% - Las deducciones + renta exenta no pueden superar 40% del ingreso
+      const limiteDeducciones = ingresoLaboral * 0.40;
+      const totalBeneficios = deducciones + rentaExenta;
+
+      if (totalBeneficios > limiteDeducciones) {
+        // Ajustar proporcionalmente
+        const factor = limiteDeducciones / totalBeneficios;
+        deducciones = deducciones * factor;
+        rentaExenta = rentaExenta * factor;
+      }
+
+      // Base gravable final
+      baseGravable = ingresoLaboral - deducciones - rentaExenta;
+      if (baseGravable < 0) baseGravable = 0;
+
+      // Convertir a UVT y calcular retención
+      const baseGravableUVT = baseGravable / UVT;
+      const retencionUVT = calcularRetencion(baseGravableUVT);
+      retencionFuente = Math.round(retencionUVT * UVT);
+    }
+
+    const totalDescuentos = descuentoSalud + descuentoPension + fondoSolidaridad + retencionFuente;
     const salarioNeto = salarioBruto - totalDescuentos + auxilioTransporte;
 
     setResultado({
@@ -61,8 +140,12 @@ export default function CalculadoraSalarioNeto() {
       descuentoSalud,
       descuentoPension,
       fondoSolidaridad,
+      retencionFuente,
       totalDescuentos,
       salarioNeto,
+      baseGravable,
+      deducciones,
+      rentaExenta,
     });
   };
 
@@ -81,7 +164,7 @@ export default function CalculadoraSalarioNeto() {
     {
       question: "¿Qué descuentos se hacen al salario en Colombia?",
       answer:
-        "Los descuentos obligatorios son: salud (4%) y pensión (4%), ambos calculados sobre el salario básico. Si ganas más de 4 SMMLV, también se descuenta el Fondo de Solidaridad Pensional (1% adicional).",
+        "Los descuentos obligatorios son: salud (4%), pensión (4%), y para salarios altos, Fondo de Solidaridad (1%+) y retención en la fuente. La retención depende del salario y las deducciones personales.",
     },
     {
       question: "¿El auxilio de transporte tiene descuentos?",
@@ -89,14 +172,19 @@ export default function CalculadoraSalarioNeto() {
         "No. El auxilio de transporte no tiene descuentos de salud ni pensión. Se suma íntegro al salario neto. Aplica para quienes ganan hasta 2 SMMLV.",
     },
     {
+      question: "¿Desde qué salario aplica retención en la fuente?",
+      answer:
+        "La retención aplica cuando la base gravable supera 95 UVT (aprox. $4.975.000 en 2026). Puedes reducirla declarando dependientes, medicina prepagada, intereses de vivienda o aportes AFC.",
+    },
+    {
+      question: "¿Cómo reduzco la retención en la fuente?",
+      answer:
+        "Puedes reducirla con: dependientes económicos (10% cada uno, máx 4), medicina prepagada (hasta 16 UVT/mes), intereses de vivienda (hasta 100 UVT/mes), y aportes voluntarios AFC o pensión.",
+    },
+    {
       question: "¿Qué es el Fondo de Solidaridad Pensional?",
       answer:
         "Es un aporte adicional del 1% que deben hacer los trabajadores que ganan 4 SMMLV o más. Este dinero se destina a subsidiar las pensiones de adultos mayores de escasos recursos.",
-    },
-    {
-      question: "¿La retención en la fuente se descuenta del salario?",
-      answer:
-        "Sí, pero solo aplica para salarios altos (generalmente desde 4.5 SMMLV). El valor depende de deducciones personales como dependientes, medicina prepagada, intereses de vivienda, etc.",
     },
   ];
 
@@ -198,6 +286,119 @@ export default function CalculadoraSalarioNeto() {
             </div>
           </div>
 
+          {/* Retención en la fuente */}
+          <div className="p-4 bg-amber-50 dark:bg-amber-950/30 rounded-2xl space-y-4">
+            <div className="flex items-start gap-3">
+              <button
+                onClick={() => setMostrarRetencion(!mostrarRetencion)}
+                className={`relative flex-shrink-0 w-12 h-7 rounded-full transition-colors ${
+                  mostrarRetencion ? "bg-amber-500" : "bg-slate-300 dark:bg-slate-600"
+                }`}
+              >
+                <span
+                  className={`absolute top-1 left-1 w-5 h-5 bg-white rounded-full shadow transition-transform ${
+                    mostrarRetencion ? "translate-x-5" : "translate-x-0"
+                  }`}
+                />
+              </button>
+              <div>
+                <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  Calcular retención en la fuente
+                </span>
+                <p className="text-xs text-slate-400 dark:text-slate-500">
+                  Aplica para salarios altos (generalmente desde 4.5 SMMLV)
+                </p>
+              </div>
+            </div>
+
+            {mostrarRetencion && (
+              <div className="space-y-4 pt-2 border-t border-amber-200 dark:border-amber-800">
+                <p className="text-xs font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wide">
+                  Deducciones para reducir retención
+                </p>
+
+                {/* Dependientes */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                    Dependientes económicos (0-4)
+                  </label>
+                  <div className="flex gap-2">
+                    {[0, 1, 2, 3, 4].map((n) => (
+                      <button
+                        key={n}
+                        onClick={() => setDependientes(n)}
+                        className={`w-10 h-10 rounded-xl font-bold transition-all ${
+                          dependientes === n
+                            ? "bg-amber-500 text-white shadow-lg"
+                            : "bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-amber-100"
+                        }`}
+                      >
+                        {n}
+                      </button>
+                    ))}
+                  </div>
+                  <p className="text-xs text-slate-400">
+                    Hijos menores, cónyuge sin ingresos, padres dependientes
+                  </p>
+                </div>
+
+                {/* Medicina prepagada */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                    Medicina prepagada (mensual)
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
+                    <input
+                      type="number"
+                      value={medicinaPrepagada}
+                      onChange={(e) => setMedicinaPrepagada(e.target.value)}
+                      placeholder="0"
+                      className="w-full pl-8 pr-4 py-3 rounded-xl text-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Intereses vivienda */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                    Intereses crédito vivienda (mensual)
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
+                    <input
+                      type="number"
+                      value={interesesVivienda}
+                      onChange={(e) => setInteresesVivienda(e.target.value)}
+                      placeholder="0"
+                      className="w-full pl-8 pr-4 py-3 rounded-xl text-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* AFC */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                    Aportes AFC/FVP (mensual)
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
+                    <input
+                      type="number"
+                      value={aportesAfc}
+                      onChange={(e) => setAportesAfc(e.target.value)}
+                      placeholder="0"
+                      className="w-full pl-8 pr-4 py-3 rounded-xl text-sm"
+                    />
+                  </div>
+                  <p className="text-xs text-slate-400">
+                    Ahorro en Fondo de Cesantías o Pensión Voluntaria
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+
           <button
             onClick={calcular}
             className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-emerald-500/20 active:scale-[0.99]"
@@ -266,6 +467,15 @@ export default function CalculadoraSalarioNeto() {
                     </div>
                   )}
 
+                  {resultado.retencionFuente > 0 && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-slate-500 dark:text-slate-400">Retención en la fuente</span>
+                      <span className="font-bold text-rose-600 dark:text-rose-400">
+                        -{formatMoney(resultado.retencionFuente)}
+                      </span>
+                    </div>
+                  )}
+
                   <div className="border-t border-slate-200 dark:border-slate-700 pt-3 flex justify-between items-center">
                     <span className="font-bold text-slate-700 dark:text-slate-200">Total descuentos</span>
                     <span className="font-black text-rose-600 dark:text-rose-400">
@@ -297,6 +507,55 @@ export default function CalculadoraSalarioNeto() {
                   <p className="text-xs font-bold text-slate-400">recibes</p>
                 </div>
               </div>
+
+              {/* Detalle retención en la fuente */}
+              {mostrarRetencion && (
+                <div className="p-6 bg-amber-50 dark:bg-amber-950/30 rounded-2xl ring-1 ring-amber-200 dark:ring-amber-800">
+                  <h3 className="text-sm font-bold text-amber-700 dark:text-amber-400 mb-4 flex items-center gap-2">
+                    <span>📊</span> Cálculo de retención en la fuente
+                  </h3>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Ingreso laboral (después de aportes)</span>
+                      <span className="font-medium text-slate-700 dark:text-slate-300">
+                        {formatMoney(resultado.salarioBruto - resultado.descuentoSalud - resultado.descuentoPension - resultado.fondoSolidaridad)}
+                      </span>
+                    </div>
+                    {resultado.deducciones > 0 && (
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">- Deducciones (dependientes, medicina, etc.)</span>
+                        <span className="font-medium text-amber-600">
+                          -{formatMoney(resultado.deducciones)}
+                        </span>
+                      </div>
+                    )}
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">- Renta exenta 25%</span>
+                      <span className="font-medium text-amber-600">
+                        -{formatMoney(resultado.rentaExenta)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between pt-2 border-t border-amber-200 dark:border-amber-800">
+                      <span className="font-bold text-slate-700 dark:text-slate-300">Base gravable</span>
+                      <span className="font-bold text-slate-700 dark:text-slate-300">
+                        {formatMoney(resultado.baseGravable)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-xs text-slate-400">Base en UVT ({formatMoney(UVT)}/UVT)</span>
+                      <span className="text-xs text-slate-400">
+                        {(resultado.baseGravable / UVT).toFixed(2)} UVT
+                      </span>
+                    </div>
+                    <div className="flex justify-between pt-2 border-t border-amber-200 dark:border-amber-800">
+                      <span className="font-black text-amber-700 dark:text-amber-400">Retención en la fuente</span>
+                      <span className="font-black text-amber-700 dark:text-amber-400">
+                        {formatMoney(resultado.retencionFuente)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
