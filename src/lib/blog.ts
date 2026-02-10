@@ -95,13 +95,13 @@ export function getAllSlugs(): string[] {
 export const categoryLabels: Record<string, string> = {
   finanzas: "Finanzas Personales",
   salud: "Salud y Bienestar",
-  tiempo: "Tiempo y Vida",
-  educacion: "Educación y Trabajo",
+  productividad: "Productividad",
+  herramientas: "Herramientas",
 };
 
 export const categoryColors: Record<string, string> = {
   finanzas: "from-emerald-500 to-teal-500",
   salud: "from-orange-500 to-red-500",
-  tiempo: "from-amber-500 to-orange-500",
-  educacion: "from-blue-500 to-indigo-500",
+  productividad: "from-amber-500 to-orange-500",
+  herramientas: "from-indigo-500 to-purple-500",
 };

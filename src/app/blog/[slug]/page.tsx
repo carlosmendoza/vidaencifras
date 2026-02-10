@@ -74,17 +74,9 @@ export default async function BlogPostPage({ params }: Props) {
           {post.title}
         </h1>
 
-        <p className="text-xl text-slate-600 dark:text-slate-300 mb-4">
+        <p className="text-xl text-slate-600 dark:text-slate-300">
           {post.description}
         </p>
-
-        <time className="text-sm text-slate-500 dark:text-slate-400">
-          {new Date(post.date).toLocaleDateString("es-ES", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </time>
       </header>
 
       <div className="prose-custom">

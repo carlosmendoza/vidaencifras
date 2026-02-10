@@ -1,5 +1,6 @@
 import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
+import { InterestComparisonChart } from "@/components/charts/InterestComparisonChart";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -75,6 +76,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </td>
     ),
+    InterestComparisonChart,
     ...components,
   };
 }
