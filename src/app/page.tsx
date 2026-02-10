@@ -20,7 +20,7 @@ const pilares = [
     gradient: "from-emerald-400 to-teal-500",
     bgHover: "group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50",
     color: "text-emerald-600 dark:text-emerald-400",
-    calculadoras: ["Interés Compuesto", "Préstamos", "Dividir Cuenta"],
+    calculadoras: ["Liquidación", "Prima", "Cesantías"],
   },
   {
     nombre: "Productividad",
@@ -66,8 +66,8 @@ export default function Home() {
           <span className="gradient-text">en cifras</span>
         </h1>
         <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-          Calculadoras para entender tu <strong>salud</strong>, dominar tus <strong>finanzas</strong> y aprovechar tu <strong>tiempo</strong>.
-          Totalmente gratis y privadas.
+          Todo lo que necesitas para mejorar tu <strong>salud</strong>, <strong>finanzas</strong> y <strong>productividad</strong>.
+          Calculadoras, tutoriales, comparativas y plantillas.
         </p>
       </section>
 
