@@ -5,6 +5,10 @@ import { AmortizationChart } from "@/components/charts/AmortizationChart";
 import { BMIRangeChart } from "@/components/charts/BMIRangeChart";
 import { LifeDaysChart } from "@/components/charts/LifeDaysChart";
 import { CaloriesChart } from "@/components/charts/CaloriesChart";
+import { PercentageChart } from "@/components/charts/PercentageChart";
+import { ExpenseSplitChart } from "@/components/charts/ExpenseSplitChart";
+import { WeeklyTimeChart } from "@/components/charts/WeeklyTimeChart";
+import { Callout } from "@/components/Callout";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -97,6 +101,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     BMIRangeChart,
     LifeDaysChart,
     CaloriesChart,
+    PercentageChart,
+    ExpenseSplitChart,
+    WeeklyTimeChart,
+    Callout,
     ...components,
   };
 }

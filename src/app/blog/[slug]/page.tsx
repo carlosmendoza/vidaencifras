@@ -97,7 +97,7 @@ export default async function BlogPostPage({ params }: Props) {
             Prueba la calculadora
           </h3>
           <p className="text-slate-600 dark:text-slate-300 mb-4">
-            Aplica lo que aprendiste con nuestra herramienta gratuita.
+            Aplica lo que aprendiste con nuestra calculadora gratuita.
           </p>
           <Link
             href={post.calculadora}
