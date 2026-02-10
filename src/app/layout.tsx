@@ -136,6 +136,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
+        <meta name="google-site-verification" content="hYHWKohgrr1oBRch8cS7bFpBDkF15gHhAYoGmeJQJl4" />
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
