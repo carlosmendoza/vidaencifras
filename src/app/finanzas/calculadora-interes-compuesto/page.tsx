@@ -1,62 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
+import { useCurrency } from "@/context/CurrencyContext";
+import { CurrencySelector } from "@/components/CurrencySelector";
 
 type TipoTasa = "anual" | "mensual" | "nominal" | "efectiva_trimestral" | "efectiva_semestral";
 type FrecuenciaAporte = "mensual" | "trimestral" | "semestral" | "anual" | "ninguno";
-
-interface Moneda {
-  codigo: string;
-  simbolo: string;
-  nombre: string;
-  locale: string;
-}
-
-const monedas: Moneda[] = [
-  { codigo: "USD", simbolo: "$", nombre: "Dólar estadounidense", locale: "en-US" },
-  { codigo: "EUR", simbolo: "€", nombre: "Euro", locale: "es-ES" },
-  { codigo: "ARS", simbolo: "$", nombre: "Peso argentino", locale: "es-AR" },
-  { codigo: "MXN", simbolo: "$", nombre: "Peso mexicano", locale: "es-MX" },
-  { codigo: "COP", simbolo: "$", nombre: "Peso colombiano", locale: "es-CO" },
-  { codigo: "CLP", simbolo: "$", nombre: "Peso chileno", locale: "es-CL" },
-  { codigo: "PEN", simbolo: "S/", nombre: "Sol peruano", locale: "es-PE" },
-  { codigo: "BRL", simbolo: "R$", nombre: "Real brasileño", locale: "pt-BR" },
-  { codigo: "UYU", simbolo: "$", nombre: "Peso uruguayo", locale: "es-UY" },
-  { codigo: "BOB", simbolo: "Bs", nombre: "Boliviano", locale: "es-BO" },
-  { codigo: "PYG", simbolo: "₲", nombre: "Guaraní paraguayo", locale: "es-PY" },
-  { codigo: "VES", simbolo: "Bs", nombre: "Bolívar venezolano", locale: "es-VE" },
-  { codigo: "GTQ", simbolo: "Q", nombre: "Quetzal guatemalteco", locale: "es-GT" },
-  { codigo: "HNL", simbolo: "L", nombre: "Lempira hondureño", locale: "es-HN" },
-  { codigo: "NIO", simbolo: "C$", nombre: "Córdoba nicaragüense", locale: "es-NI" },
-  { codigo: "CRC", simbolo: "₡", nombre: "Colón costarricense", locale: "es-CR" },
-  { codigo: "PAB", simbolo: "B/.", nombre: "Balboa panameño", locale: "es-PA" },
-  { codigo: "DOP", simbolo: "RD$", nombre: "Peso dominicano", locale: "es-DO" },
-  { codigo: "CUP", simbolo: "$", nombre: "Peso cubano", locale: "es-CU" },
-];
-
-function detectarMoneda(): Moneda {
-  if (typeof navigator === "undefined") return monedas[0];
-
-  const locale = navigator.language || "en-US";
-  const encontrada = monedas.find(m => m.locale.toLowerCase() === locale.toLowerCase());
-
-  if (encontrada) return encontrada;
-
-  // Buscar por código de país
-  const codigoPais = locale.split("-")[1]?.toUpperCase();
-  if (codigoPais) {
-    const porPais = monedas.find(m => m.locale.endsWith(codigoPais));
-    if (porPais) return porPais;
-  }
-
-  // Buscar por idioma
-  const idioma = locale.split("-")[0].toLowerCase();
-  if (idioma === "es") return monedas[0]; // USD por defecto para español genérico
-  if (idioma === "pt") return monedas.find(m => m.codigo === "BRL") || monedas[0];
-
-  return monedas[0]; // USD por defecto
-}
 
 interface ResultadoCalculo {
   montoFinal: number;
@@ -74,6 +24,7 @@ interface ResultadoCalculo {
 }
 
 export default function InteresCompuesto() {
+  const { moneda } = useCurrency();
   const [capital, setCapital] = useState<string>("");
   const [tasa, setTasa] = useState<string>("");
   const [tipoTasa, setTipoTasa] = useState<TipoTasa>("anual");
@@ -85,12 +36,6 @@ export default function InteresCompuesto() {
   const [resultado, setResultado] = useState<ResultadoCalculo | null>(null);
   const [mostrarAvanzado, setMostrarAvanzado] = useState<boolean>(false);
   const [mostrarTabla, setMostrarTabla] = useState<boolean>(false);
-  const [moneda, setMoneda] = useState<Moneda>(monedas[0]);
-  const [mostrarSelectorMoneda, setMostrarSelectorMoneda] = useState<boolean>(false);
-
-  useEffect(() => {
-    setMoneda(detectarMoneda());
-  }, []);
 
   const tiposTasaSimple = [
     { valor: "anual" as TipoTasa, nombre: "Anual" },
@@ -295,37 +240,8 @@ export default function InteresCompuesto() {
               <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
                 ¿Cuánto vas a invertir?
               </label>
-              <button
-                onClick={() => setMostrarSelectorMoneda(!mostrarSelectorMoneda)}
-                className="text-xs font-medium text-slate-400 dark:text-slate-500 hover:text-emerald-600 flex items-center gap-1 transition-colors"
-              >
-                {moneda.codigo} {moneda.simbolo}
-                <span className="text-[10px]">▼</span>
-              </button>
+              <CurrencySelector colorClass="emerald" />
             </div>
-
-            {mostrarSelectorMoneda && (
-              <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 max-h-48 overflow-y-auto">
-                <div className="grid grid-cols-2 gap-1">
-                  {monedas.map((m) => (
-                    <button
-                      key={m.codigo}
-                      onClick={() => {
-                        setMoneda(m);
-                        setMostrarSelectorMoneda(false);
-                      }}
-                      className={`px-3 py-2 rounded-lg text-left text-sm transition-colors ${
-                        moneda.codigo === m.codigo
-                          ? "bg-emerald-100 text-emerald-700 font-semibold"
-                          : "hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300"
-                      }`}
-                    >
-                      <span className="font-medium">{m.simbolo}</span> {m.codigo}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
 
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">{moneda.simbolo}</span>

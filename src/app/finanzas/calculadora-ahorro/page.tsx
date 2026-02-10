@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
+import { useCurrency } from "@/context/CurrencyContext";
+import { CurrencySelector } from "@/components/CurrencySelector";
 
 const faqs = [
   {
@@ -43,6 +45,7 @@ interface ResultadoAhorro {
 }
 
 export default function CalculadoraAhorro() {
+  const { moneda } = useCurrency();
   const [meta, setMeta] = useState<string>("");
   const [plazoMeses, setPlazoMeses] = useState<string>("");
   const [ahorroActual, setAhorroActual] = useState<string>("");
@@ -185,7 +188,7 @@ export default function CalculadoraAhorro() {
   };
 
   const formatMoney = (num: number) => {
-    return new Intl.NumberFormat("es-CO", {
+    return new Intl.NumberFormat(moneda.locale, {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(num);
@@ -246,11 +249,14 @@ export default function CalculadoraAhorro() {
 
           {/* Meta de ahorro */}
           <div className="space-y-3">
-            <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
-              ¿Cuál es tu meta de ahorro?
-            </label>
+            <div className="flex items-center justify-between">
+              <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
+                ¿Cuál es tu meta de ahorro?
+              </label>
+              <CurrencySelector colorClass="blue" />
+            </div>
             <div className="relative">
-              <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
+              <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">{moneda.simbolo}</span>
               <input
                 type="number"
                 value={meta}
@@ -270,7 +276,7 @@ export default function CalculadoraAhorro() {
               ¿Cuánto tienes ahorrado actualmente? (opcional)
             </label>
             <div className="relative">
-              <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
+              <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">{moneda.simbolo}</span>
               <input
                 type="number"
                 value={ahorroActual}
@@ -317,7 +323,7 @@ export default function CalculadoraAhorro() {
                 ¿Cuánto puedes ahorrar al mes?
               </label>
               <div className="relative">
-                <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
+                <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">{moneda.simbolo}</span>
                 <input
                   type="number"
                   value={ahorroMensual}
@@ -376,11 +382,11 @@ export default function CalculadoraAhorro() {
                           Necesitas ahorrar
                         </p>
                         <p className="text-4xl font-black text-blue-600">
-                          ${formatMoney(resultado.ahorroMensualRequerido)}
+                          {moneda.simbolo}{formatMoney(resultado.ahorroMensualRequerido)}
                           <span className="text-lg font-bold text-blue-400">/mes</span>
                         </p>
                         <p className="text-slate-500 dark:text-slate-400 mt-2">
-                          ≈ ${formatMoney(resultado.ahorroSemanalRequerido)} por semana
+                          ≈ {moneda.simbolo}{formatMoney(resultado.ahorroSemanalRequerido)} por semana
                         </p>
                       </div>
                     ) : (
@@ -399,13 +405,13 @@ export default function CalculadoraAhorro() {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl text-center">
                       <p className="text-2xl font-black text-slate-700 dark:text-slate-200">
-                        ${formatMoney(resultado.totalAportado)}
+                        {moneda.simbolo}{formatMoney(resultado.totalAportado)}
                       </p>
                       <p className="text-xs text-slate-500 mt-1">total aportado</p>
                     </div>
                     <div className="p-4 bg-emerald-50 dark:bg-emerald-900/30 rounded-2xl text-center">
                       <p className="text-2xl font-black text-emerald-600">
-                        +${formatMoney(resultado.interesesGanados)}
+                        +{moneda.simbolo}{formatMoney(resultado.interesesGanados)}
                       </p>
                       <p className="text-xs text-emerald-500 mt-1">intereses ganados</p>
                     </div>
@@ -432,13 +438,13 @@ export default function CalculadoraAhorro() {
                               <tr key={row.mes} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                                 <td className="px-4 py-3 font-semibold text-slate-800 dark:text-slate-100">{row.mes}</td>
                                 <td className="px-4 py-3 text-right text-slate-600 dark:text-slate-300">
-                                  ${formatMoney(row.ahorrado)}
+                                  {moneda.simbolo}{formatMoney(row.ahorrado)}
                                 </td>
                                 <td className="px-4 py-3 text-right text-emerald-600">
-                                  ${formatMoney(row.intereses)}
+                                  {moneda.simbolo}{formatMoney(row.intereses)}
                                 </td>
                                 <td className="px-4 py-3 text-right font-bold text-blue-600">
-                                  ${formatMoney(row.total)}
+                                  {moneda.simbolo}{formatMoney(row.total)}
                                 </td>
                               </tr>
                             ))}

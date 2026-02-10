@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
+import { useCurrency } from "@/context/CurrencyContext";
+import { CurrencySelector } from "@/components/CurrencySelector";
 
 const faqs = [
   {
@@ -41,6 +43,7 @@ interface ResultadoJubilacion {
 }
 
 export default function CalculadoraJubilacion() {
+  const { moneda } = useCurrency();
   const [edadActual, setEdadActual] = useState<string>("");
   const [edadJubilacion, setEdadJubilacion] = useState<string>("62");
   const [gastoMensualActual, setGastoMensualActual] = useState<string>("");
@@ -149,14 +152,14 @@ export default function CalculadoraJubilacion() {
     if (num >= 1000000) {
       return `${(num / 1000000).toFixed(0)} millones`;
     }
-    return new Intl.NumberFormat("es-CO", {
+    return new Intl.NumberFormat(moneda.locale, {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(num);
   };
 
   const formatMoneyFull = (num: number) => {
-    return new Intl.NumberFormat("es-CO", {
+    return new Intl.NumberFormat(moneda.locale, {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(num);
@@ -232,11 +235,14 @@ export default function CalculadoraJubilacion() {
 
           {/* Gastos mensuales */}
           <div className="space-y-3">
-            <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
-              ¿Cuánto gastas al mes actualmente?
-            </label>
+            <div className="flex items-center justify-between">
+              <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
+                ¿Cuánto gastas al mes actualmente?
+              </label>
+              <CurrencySelector colorClass="orange" />
+            </div>
             <div className="relative">
-              <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
+              <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">{moneda.simbolo}</span>
               <input
                 type="number"
                 value={gastoMensualActual}
@@ -256,7 +262,7 @@ export default function CalculadoraJubilacion() {
               ¿Cuánto tienes ahorrado para tu jubilación?
             </label>
             <div className="relative">
-              <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
+              <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">{moneda.simbolo}</span>
               <input
                 type="number"
                 value={ahorroActual}
@@ -276,7 +282,7 @@ export default function CalculadoraJubilacion() {
               ¿Cuánto ahorras al mes para jubilación?
             </label>
             <div className="relative">
-              <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
+              <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">{moneda.simbolo}</span>
               <input
                 type="number"
                 value={ahorroMensual}
@@ -368,7 +374,7 @@ export default function CalculadoraJubilacion() {
                     Para mantener tu nivel de vida necesitas
                   </p>
                   <p className="text-3xl font-black text-orange-600">
-                    ${formatMoney(resultado.ahorroNecesario)}
+                    {moneda.simbolo}{formatMoney(resultado.ahorroNecesario)}
                   </p>
                   <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
                     al momento de jubilarte (en {resultado.añosParaJubilarse} años)
@@ -381,7 +387,7 @@ export default function CalculadoraJubilacion() {
                 <div className="p-5 bg-white dark:bg-slate-800 rounded-2xl ring-1 ring-slate-200 dark:ring-slate-700">
                   <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">Tendrás acumulado</p>
                   <p className="text-2xl font-black text-slate-700 dark:text-slate-200">
-                    ${formatMoney(resultado.ahorroActualProyectado)}
+                    {moneda.simbolo}{formatMoney(resultado.ahorroActualProyectado)}
                   </p>
                   <p className="text-xs text-slate-400 mt-1">
                     con tu ahorro actual y aportes
@@ -392,7 +398,7 @@ export default function CalculadoraJubilacion() {
                   <div className="p-5 bg-red-50 dark:bg-red-900/20 rounded-2xl ring-1 ring-red-200 dark:ring-red-800">
                     <p className="text-sm text-red-600 dark:text-red-400 mb-1">Te faltarían</p>
                     <p className="text-2xl font-black text-red-600">
-                      ${formatMoney(resultado.brecha)}
+                      {moneda.simbolo}{formatMoney(resultado.brecha)}
                     </p>
                     <p className="text-xs text-red-500 mt-1">
                       para alcanzar tu meta
@@ -416,7 +422,7 @@ export default function CalculadoraJubilacion() {
                 <div className="p-6 bg-blue-50 dark:bg-blue-900/20 rounded-2xl ring-1 ring-blue-200 dark:ring-blue-800">
                   <p className="text-sm text-blue-600 dark:text-blue-400 mb-1">Para cerrar la brecha necesitas ahorrar</p>
                   <p className="text-3xl font-black text-blue-600">
-                    ${formatMoneyFull(resultado.ahorroMensualRequerido)}<span className="text-lg font-bold text-blue-400">/mes</span>
+                    {moneda.simbolo}{formatMoneyFull(resultado.ahorroMensualRequerido)}<span className="text-lg font-bold text-blue-400">/mes</span>
                   </p>
                   <p className="text-xs text-blue-500 mt-2">
                     Esto es adicional a lo que ya ahorras
@@ -430,7 +436,7 @@ export default function CalculadoraJubilacion() {
                   Con tu ahorro actual, podrías pagarte una pensión de
                 </p>
                 <p className="text-2xl font-black text-slate-700 dark:text-slate-200">
-                  ${formatMoneyFull(resultado.pensionEstimadaMensual)}<span className="text-base font-bold text-slate-400">/mes</span>
+                  {moneda.simbolo}{formatMoneyFull(resultado.pensionEstimadaMensual)}<span className="text-base font-bold text-slate-400">/mes</span>
                 </p>
                 <p className="text-xs text-slate-400 mt-1">
                   Durante {añosJubilacion} años (en pesos de hoy)
@@ -456,7 +462,7 @@ export default function CalculadoraJubilacion() {
                           <tr key={row.edad} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                             <td className="px-4 py-3 font-semibold text-slate-800 dark:text-slate-100">{row.edad} años</td>
                             <td className="px-4 py-3 text-right font-bold text-orange-600">
-                              ${formatMoney(row.ahorro)}
+                              {moneda.simbolo}{formatMoney(row.ahorro)}
                             </td>
                           </tr>
                         ))}

@@ -1,38 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
-
-interface Moneda {
-  codigo: string;
-  simbolo: string;
-  nombre: string;
-  locale: string;
-}
-
-const monedas: Moneda[] = [
-  { codigo: "USD", simbolo: "$", nombre: "Dólar estadounidense", locale: "en-US" },
-  { codigo: "EUR", simbolo: "€", nombre: "Euro", locale: "es-ES" },
-  { codigo: "ARS", simbolo: "$", nombre: "Peso argentino", locale: "es-AR" },
-  { codigo: "MXN", simbolo: "$", nombre: "Peso mexicano", locale: "es-MX" },
-  { codigo: "COP", simbolo: "$", nombre: "Peso colombiano", locale: "es-CO" },
-  { codigo: "CLP", simbolo: "$", nombre: "Peso chileno", locale: "es-CL" },
-  { codigo: "PEN", simbolo: "S/", nombre: "Sol peruano", locale: "es-PE" },
-  { codigo: "BRL", simbolo: "R$", nombre: "Real brasileño", locale: "pt-BR" },
-];
-
-function detectarMoneda(): Moneda {
-  if (typeof navigator === "undefined") return monedas[0];
-  const locale = navigator.language || "en-US";
-  const encontrada = monedas.find(m => m.locale.toLowerCase() === locale.toLowerCase());
-  if (encontrada) return encontrada;
-  const codigoPais = locale.split("-")[1]?.toUpperCase();
-  if (codigoPais) {
-    const porPais = monedas.find(m => m.locale.endsWith(codigoPais));
-    if (porPais) return porPais;
-  }
-  return monedas[0];
-}
+import { useCurrency } from "@/context/CurrencyContext";
+import { CurrencySelector } from "@/components/CurrencySelector";
 
 interface Resultado {
   cuotaMensual: number;
@@ -48,17 +19,12 @@ interface Resultado {
 }
 
 export default function Prestamos() {
+  const { moneda } = useCurrency();
   const [monto, setMonto] = useState<string>("");
   const [tasaAnual, setTasaAnual] = useState<string>("");
   const [plazoMeses, setPlazoMeses] = useState<string>("");
   const [resultado, setResultado] = useState<Resultado | null>(null);
   const [mostrarTabla, setMostrarTabla] = useState<boolean>(false);
-  const [moneda, setMoneda] = useState<Moneda>(monedas[0]);
-  const [mostrarSelectorMoneda, setMostrarSelectorMoneda] = useState<boolean>(false);
-
-  useEffect(() => {
-    setMoneda(detectarMoneda());
-  }, []);
 
   const calcular = () => {
     const P = parseFloat(monto);
@@ -141,37 +107,8 @@ export default function Prestamos() {
               <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
                 Monto del préstamo
               </label>
-              <button
-                onClick={() => setMostrarSelectorMoneda(!mostrarSelectorMoneda)}
-                className="text-xs font-medium text-slate-400 dark:text-slate-500 hover:text-rose-600 flex items-center gap-1 transition-colors"
-              >
-                {moneda.codigo} {moneda.simbolo}
-                <span className="text-[10px]">▼</span>
-              </button>
+              <CurrencySelector colorClass="rose" />
             </div>
-
-            {mostrarSelectorMoneda && (
-              <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 max-h-48 overflow-y-auto">
-                <div className="grid grid-cols-2 gap-1">
-                  {monedas.map((m) => (
-                    <button
-                      key={m.codigo}
-                      onClick={() => {
-                        setMoneda(m);
-                        setMostrarSelectorMoneda(false);
-                      }}
-                      className={`px-3 py-2 rounded-lg text-left text-sm transition-colors ${
-                        moneda.codigo === m.codigo
-                          ? "bg-rose-100 text-rose-700 font-semibold"
-                          : "hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300"
-                      }`}
-                    >
-                      <span className="font-medium">{m.simbolo}</span> {m.codigo}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
 
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold">{moneda.simbolo}</span>

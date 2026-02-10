@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
+import { useCurrency } from "@/context/CurrencyContext";
+import { CurrencySelector } from "@/components/CurrencySelector";
 
 const faqs = [
   {
@@ -43,6 +45,7 @@ interface Categoria {
 }
 
 export default function CalculadoraPresupuesto() {
+  const { moneda } = useCurrency();
   const [ingresos, setIngresos] = useState<string>("");
   const [resultado, setResultado] = useState<Distribucion | null>(null);
   const [personalizarPorcentajes, setPersonalizarPorcentajes] = useState(false);
@@ -66,7 +69,7 @@ export default function CalculadoraPresupuesto() {
   };
 
   const formatMoney = (num: number) => {
-    return new Intl.NumberFormat("es-CO", {
+    return new Intl.NumberFormat(moneda.locale, {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(num);
@@ -124,11 +127,14 @@ export default function CalculadoraPresupuesto() {
 
         <div className="space-y-6">
           <div className="space-y-3">
-            <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
-              ¿Cuánto ganas al mes?
-            </label>
+            <div className="flex items-center justify-between">
+              <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
+                ¿Cuánto ganas al mes?
+              </label>
+              <CurrencySelector colorClass="violet" />
+            </div>
             <div className="relative">
-              <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
+              <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">{moneda.simbolo}</span>
               <input
                 type="number"
                 value={ingresos}
@@ -230,7 +236,7 @@ export default function CalculadoraPresupuesto() {
                 <div className="text-center mb-6">
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">Tu ingreso mensual</p>
                   <p className="text-3xl font-black text-violet-600">
-                    ${formatMoney(parseFloat(ingresos))}
+                    {moneda.simbolo}{formatMoney(parseFloat(ingresos))}
                   </p>
                 </div>
 
@@ -275,7 +281,7 @@ export default function CalculadoraPresupuesto() {
                         </div>
                       </div>
                       <p className="text-2xl font-black text-slate-800 dark:text-slate-100">
-                        ${formatMoney(cat.monto)}
+                        {moneda.simbolo}{formatMoney(cat.monto)}
                       </p>
                     </div>
 
