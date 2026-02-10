@@ -13,6 +13,9 @@ export const metadata: Metadata = {
     "indice masa corporal",
     "gasto calorico",
     "macronutrientes",
+    "calculadora hidratacion",
+    "frecuencia cardiaca",
+    "ciclos de sueño",
   ],
 };
 
@@ -32,6 +35,30 @@ const calculadoras = [
     emoji: "⚖️",
     gradient: "from-violet-400 to-purple-500",
     bgHover: "group-hover:bg-violet-50 dark:group-hover:bg-violet-950/50",
+  },
+  {
+    nombre: "Calculadora de Hidratación",
+    descripcion: "Descubre cuántos litros de agua necesitas beber según tu peso y actividad",
+    href: "/salud/calculadora-hidratacion",
+    emoji: "💧",
+    gradient: "from-cyan-400 to-blue-500",
+    bgHover: "group-hover:bg-cyan-50 dark:group-hover:bg-cyan-950/50",
+  },
+  {
+    nombre: "Calculadora de Frecuencia Cardíaca",
+    descripcion: "Calcula tu FC máxima y zonas de entrenamiento personalizadas",
+    href: "/salud/calculadora-frecuencia-cardiaca",
+    emoji: "❤️",
+    gradient: "from-rose-400 to-red-500",
+    bgHover: "group-hover:bg-rose-50 dark:group-hover:bg-rose-950/50",
+  },
+  {
+    nombre: "Calculadora de Sueño",
+    descripcion: "Optimiza tus ciclos de sueño para despertar descansado",
+    href: "/salud/calculadora-sueno",
+    emoji: "😴",
+    gradient: "from-indigo-400 to-purple-500",
+    bgHover: "group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950/50",
   },
 ];
 
@@ -82,14 +109,6 @@ export default function SaludPage() {
         ))}
       </section>
 
-      <section className="card-glass rounded-3xl p-8 text-center">
-        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-4">
-          Próximamente más herramientas de salud
-        </h2>
-        <p className="text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
-          Estamos trabajando en calculadoras de hidratación, frecuencia cardíaca, horas de sueño y más.
-        </p>
-      </section>
     </div>
   );
 }
