@@ -4,12 +4,12 @@ const siteUrl = "https://vidaencifras.com";
 const pageUrl = `${siteUrl}/finanzas/calculadora-cesantias`;
 
 export const metadata: Metadata = {
-  title: "Calculadora de Cesantías 2024 Colombia - Cesantías e Intereses",
+  title: "Calculadora de Cesantías 2026 Colombia - Cesantías e Intereses",
   description:
-    "Calcula tus cesantías e intereses sobre cesantías 2024. Incluye auxilio de transporte y cálculo proporcional por días trabajados.",
+    "Calcula tus cesantías e intereses sobre cesantías 2026. Incluye auxilio de transporte y cálculo proporcional por días trabajados.",
   keywords: [
     "calculadora cesantias",
-    "cesantias 2024",
+    "cesantias 2026",
     "calcular cesantias Colombia",
     "intereses cesantias",
     "formula cesantias",

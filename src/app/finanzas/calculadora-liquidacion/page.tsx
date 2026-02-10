@@ -39,13 +39,13 @@ export default function CalculadoraLiquidacion() {
   const [tipoContrato, setTipoContrato] = useState<TipoContrato>("indefinido");
   const [diasVacacionesPendientes, setDiasVacacionesPendientes] = useState<string>("");
 
-  const AUXILIO_TRANSPORTE_2024 = 162000;
-  const SMMLV_2024 = 1300000;
-  const TOPE_AUXILIO = SMMLV_2024 * 2;
+  const AUXILIO_TRANSPORTE = 249095;
+  const SMMLV = 1750905;
+  const TOPE_AUXILIO = SMMLV * 2;
 
   const salarioNum = parseFloat(salario) || 0;
   const aplicaAuxilio = incluyeTransporte && salarioNum <= TOPE_AUXILIO && salarioNum > 0;
-  const salarioBase = salarioNum + (aplicaAuxilio ? AUXILIO_TRANSPORTE_2024 : 0);
+  const salarioBase = salarioNum + (aplicaAuxilio ? AUXILIO_TRANSPORTE : 0);
   const salarioDia = salarioNum / 30;
 
   // Calcular días y años trabajados
@@ -125,7 +125,7 @@ export default function CalculadoraLiquidacion() {
 
     // Contrato indefinido
     const añosCompletos = Math.floor(añosTrabajados);
-    const salarioAlto = salarioNum >= SMMLV_2024 * 10;
+    const salarioAlto = salarioNum >= SMMLV * 10;
 
     if (añosTrabajados < 1) {
       return salarioDia * 30; // 30 días
@@ -269,7 +269,7 @@ export default function CalculadoraLiquidacion() {
                   Recibo auxilio de transporte
                 </span>
                 <p className="text-xs text-slate-500">
-                  ${formatMoney(AUXILIO_TRANSPORTE_2024)}
+                  ${formatMoney(AUXILIO_TRANSPORTE)}
                 </p>
               </div>
             </label>

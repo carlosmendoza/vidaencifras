@@ -13,7 +13,7 @@ const faqs = [
   {
     question: "¿Qué transacciones están exentas del 4x1000?",
     answer:
-      "Puedes marcar UNA cuenta de ahorros o corriente como exenta del 4x1000 para retiros hasta 350 UVT mensuales (aproximadamente $16.5 millones en 2024). Los traslados entre cuentas del mismo titular en el mismo banco también están exentos.",
+      "Puedes marcar UNA cuenta de ahorros o corriente como exenta del 4x1000 para retiros hasta 350 UVT mensuales (aproximadamente $18.3 millones en 2026). Los traslados entre cuentas del mismo titular en el mismo banco también están exentos.",
   },
   {
     question: "¿Cómo marco mi cuenta como exenta del 4x1000?",

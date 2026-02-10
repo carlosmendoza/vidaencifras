@@ -4,16 +4,16 @@ const siteUrl = "https://vidaencifras.com";
 const pageUrl = `${siteUrl}/finanzas/calculadora-liquidacion`;
 
 export const metadata: Metadata = {
-  title: "Calculadora de Liquidación Laboral 2024 Colombia",
+  title: "Calculadora de Liquidación Laboral 2026 Colombia",
   description:
-    "Calcula tu liquidación laboral completa: prima, cesantías, intereses, vacaciones e indemnización por despido. Actualizada 2024.",
+    "Calcula tu liquidación laboral completa: prima, cesantías, intereses, vacaciones e indemnización por despido. Actualizada 2026.",
   keywords: [
     "calculadora liquidacion",
     "liquidacion laboral Colombia",
     "calcular liquidacion",
     "indemnizacion despido",
     "prima cesantias vacaciones",
-    "liquidacion 2024",
+    "liquidacion 2026",
     "cuanto me toca de liquidacion",
     "despido sin justa causa",
     "liquidacion contrato",

@@ -4,12 +4,12 @@ const siteUrl = "https://vidaencifras.com";
 const pageUrl = `${siteUrl}/finanzas/calculadora-prima`;
 
 export const metadata: Metadata = {
-  title: "Calculadora de Prima 2024 Colombia - Calcula tu Prima de Servicios",
+  title: "Calculadora de Prima 2026 Colombia - Calcula tu Prima de Servicios",
   description:
-    "Calcula tu prima de servicios de junio y diciembre 2024. Incluye auxilio de transporte y días proporcionales. Fórmula oficial actualizada.",
+    "Calcula tu prima de servicios de junio y diciembre 2026. Incluye auxilio de transporte y días proporcionales. Fórmula oficial actualizada.",
   keywords: [
     "calculadora prima",
-    "prima de servicios 2024",
+    "prima de servicios 2026",
     "calcular prima Colombia",
     "prima junio",
     "prima diciembre",

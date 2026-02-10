@@ -23,7 +23,7 @@ const faqs = [
   {
     question: "¿El auxilio de transporte se incluye en la prima?",
     answer:
-      "Sí. Si ganas hasta 2 SMMLV ($2.600.000 en 2024) y recibes auxilio de transporte, este se suma al salario para calcular la prima. El auxilio de transporte en 2024 es $162.000.",
+      "Sí. Si ganas hasta 2 SMMLV ($3.501.810 en 2026) y recibes auxilio de transporte, este se suma al salario para calcular la prima. El auxilio de transporte en 2026 es $249.095.",
   },
 ];
 
@@ -33,13 +33,13 @@ export default function CalculadoraPrima() {
   const [fechaIngreso, setFechaIngreso] = useState<string>("");
   const [periodo, setPeriodo] = useState<"junio" | "diciembre">("junio");
 
-  const AUXILIO_TRANSPORTE_2024 = 162000;
-  const SMMLV_2024 = 1300000;
-  const TOPE_AUXILIO = SMMLV_2024 * 2;
+  const AUXILIO_TRANSPORTE = 249095;
+  const SMMLV = 1750905;
+  const TOPE_AUXILIO = SMMLV * 2;
 
   const salarioNum = parseFloat(salario) || 0;
   const aplicaAuxilio = incluyeTransporte && salarioNum <= TOPE_AUXILIO && salarioNum > 0;
-  const salarioBase = salarioNum + (aplicaAuxilio ? AUXILIO_TRANSPORTE_2024 : 0);
+  const salarioBase = salarioNum + (aplicaAuxilio ? AUXILIO_TRANSPORTE : 0);
 
   // Calcular días trabajados en el semestre
   const calcularDiasTrabajados = (): number => {
@@ -98,7 +98,7 @@ export default function CalculadoraPrima() {
             Calculadora de Prima
           </h1>
           <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Calcula tu prima de servicios 2024
+            Calcula tu prima de servicios 2026
           </p>
         </div>
 
@@ -180,7 +180,7 @@ export default function CalculadoraPrima() {
                   Incluir auxilio de transporte
                 </span>
                 <p className="text-xs text-slate-500">
-                  ${formatMoney(AUXILIO_TRANSPORTE_2024)} (aplica si ganas hasta 2 SMMLV)
+                  ${formatMoney(AUXILIO_TRANSPORTE)} (aplica si ganas hasta 2 SMMLV)
                 </p>
               </div>
             </label>
@@ -231,7 +231,7 @@ export default function CalculadoraPrima() {
                   <div className="flex justify-between items-center p-3 bg-white dark:bg-slate-800 rounded-xl">
                     <span className="text-slate-600 dark:text-slate-300">+ Auxilio transporte</span>
                     <span className="font-bold text-green-600">
-                      ${formatMoney(AUXILIO_TRANSPORTE_2024)}
+                      ${formatMoney(AUXILIO_TRANSPORTE)}
                     </span>
                   </div>
                 )}
