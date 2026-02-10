@@ -219,7 +219,7 @@ export default function Home() {
             <div className="w-16 h-16 bg-gradient-to-br from-violet-400 to-purple-500 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-2 shadow-lg">🆓</div>
             <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100">Siempre Gratis</h3>
             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-              Accede a todas nuestras herramientas sin pagar nunca ni un solo céntimo.
+              Accede a todas nuestras herramientas sin pagar un solo peso.
             </p>
           </div>
         </div>
