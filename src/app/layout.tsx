@@ -201,9 +201,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <footer className="glass border-t border-indigo-100/50 dark:border-indigo-900/50 mt-20">
           <div className="max-w-5xl mx-auto px-6 py-10">
             <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-              <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">
-                &copy; {new Date().getFullYear()} VidaEnCifras. Hecho con amor para ti.
-              </p>
+              <div className="flex flex-col md:flex-row items-center gap-4">
+                <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">
+                  &copy; {new Date().getFullYear()} VidaEnCifras
+                </p>
+                <nav className="flex gap-4 text-sm text-slate-500 dark:text-slate-400">
+                  <Link href="/privacidad" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                    Privacidad
+                  </Link>
+                  <Link href="/terminos" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                    Términos
+                  </Link>
+                </nav>
+              </div>
               <div className="flex gap-4 text-xs font-semibold">
                 <span className="badge badge-indigo">100% Gratis</span>
                 <span className="badge badge-pink">Sin Registro</span>
