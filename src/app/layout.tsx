@@ -170,8 +170,8 @@ export default function RootLayout({
                 <Link href="/#calculadoras" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                   Calculadoras
                 </Link>
-                <Link href="/#beneficios" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                  Beneficios
+                <Link href="/blog" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                  Blog
                 </Link>
               </nav>
               <ThemeToggle />
