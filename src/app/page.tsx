@@ -1,89 +1,59 @@
 import Link from "next/link";
+import { getAllPosts, categoryLabels, categoryColors } from "@/lib/blog";
 
-const calculadoras = [
+const pilares = [
   {
-    nombre: "Calculadora de Porcentajes",
-    descripcion: "Calcula cualquier porcentaje, aumento o descuento",
-    href: "/porcentajes",
-    emoji: "%",
-    gradient: "from-cyan-400 to-blue-500",
-    bgHover: "group-hover:bg-cyan-50 dark:group-hover:bg-cyan-950/50",
-  },
-  {
-    nombre: "Calorías Diarias (TDEE)",
-    descripcion: "Calcula tu gasto calórico y macronutrientes",
-    href: "/calorias",
-    emoji: "🔥",
+    nombre: "Salud",
+    descripcion: "Cuida tu bienestar físico con datos precisos sobre calorías, IMC y más",
+    href: "/salud",
+    emoji: "❤️",
     gradient: "from-orange-400 to-red-500",
-    bgHover: "group-hover:bg-orange-50 dark:group-hover:bg-orange-950/50",
+    bgHover: "group-hover:bg-red-50 dark:group-hover:bg-red-950/50",
+    color: "text-red-600 dark:text-red-400",
+    calculadoras: ["Calorías (TDEE)", "IMC"],
   },
   {
-    nombre: "Interés Compuesto",
-    descripcion: "Calcula cuánto crecerá tu dinero con el tiempo",
-    href: "/interes-compuesto",
+    nombre: "Finanzas",
+    descripcion: "Toma el control de tu dinero con herramientas de inversión y préstamos",
+    href: "/finanzas",
     emoji: "💰",
     gradient: "from-emerald-400 to-teal-500",
     bgHover: "group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50",
+    color: "text-emerald-600 dark:text-emerald-400",
+    calculadoras: ["Interés Compuesto", "Préstamos", "Dividir Cuenta"],
   },
   {
-    nombre: "Calculadora de Préstamos",
-    descripcion: "Calcula cuotas y amortización de préstamos",
-    href: "/prestamos",
-    emoji: "🏦",
-    gradient: "from-rose-400 to-pink-500",
-    bgHover: "group-hover:bg-rose-50 dark:group-hover:bg-rose-950/50",
+    nombre: "Productividad",
+    descripcion: "Optimiza tu tiempo con herramientas de hábitos, metas y gestión personal",
+    href: "/productividad",
+    emoji: "⏱️",
+    gradient: "from-amber-400 to-orange-500",
+    bgHover: "group-hover:bg-amber-50 dark:group-hover:bg-amber-950/50",
+    color: "text-amber-600 dark:text-amber-400",
+    calculadoras: ["Próximamente"],
+  },
+];
+
+const utilidades = [
+  {
+    nombre: "Calculadora de Porcentajes",
+    descripcion: "Calcula cualquier porcentaje",
+    href: "/herramientas/calculadora-porcentajes",
+    emoji: "%",
+    gradient: "from-cyan-400 to-blue-500",
   },
   {
     nombre: "Conversor de Unidades",
-    descripcion: "Convierte longitud, peso, temperatura y más",
-    href: "/conversor-unidades",
+    descripcion: "Convierte longitud, peso y más",
+    href: "/herramientas/conversor-unidades",
     emoji: "🔄",
     gradient: "from-indigo-400 to-purple-500",
-    bgHover: "group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950/50",
-  },
-  {
-    nombre: "Diferencia entre Fechas",
-    descripcion: "Calcula el tiempo exacto entre dos fechas",
-    href: "/diferencia-fechas",
-    emoji: "📆",
-    gradient: "from-teal-400 to-cyan-500",
-    bgHover: "group-hover:bg-teal-50 dark:group-hover:bg-teal-950/50",
-  },
-  {
-    nombre: "Índice de Masa Corporal",
-    descripcion: "Calcula tu IMC y conoce tu estado",
-    href: "/imc",
-    emoji: "⚖️",
-    gradient: "from-violet-400 to-purple-500",
-    bgHover: "group-hover:bg-violet-50 dark:group-hover:bg-violet-950/50",
-  },
-  {
-    nombre: "Promedio de Notas",
-    descripcion: "Calcula tu promedio ponderado o simple",
-    href: "/promedio-notas",
-    emoji: "📚",
-    gradient: "from-blue-400 to-indigo-500",
-    bgHover: "group-hover:bg-blue-50 dark:group-hover:bg-blue-950/50",
-  },
-  {
-    nombre: "Días Vividos",
-    descripcion: "Descubre cuántos días, horas y minutos has vivido",
-    href: "/dias-vividos",
-    emoji: "📅",
-    gradient: "from-amber-400 to-orange-500",
-    bgHover: "group-hover:bg-amber-50 dark:group-hover:bg-amber-950/50",
-  },
-  {
-    nombre: "Dividir Cuenta",
-    descripcion: "Divide gastos entre amigos fácilmente",
-    href: "/dividir-cuenta",
-    emoji: "🧾",
-    gradient: "from-pink-400 to-rose-500",
-    bgHover: "group-hover:bg-pink-50 dark:group-hover:bg-pink-950/50",
   },
 ];
 
 export default function Home() {
+  const posts = getAllPosts().slice(0, 3);
+
   return (
     <div className="space-y-20">
       <section className="text-center space-y-8 py-8">
@@ -92,44 +62,50 @@ export default function Home() {
           Herramientas gratuitas
         </div>
         <h1 className="text-5xl md:text-7xl font-black tracking-tight text-slate-800 dark:text-slate-100 leading-tight">
-          Calculadoras para <br />
-          <span className="gradient-text">
-            todo lo que necesites
-          </span>
+          Tu vida{" "}
+          <span className="gradient-text">en cifras</span>
         </h1>
         <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-          Herramientas potentes, simples y rápidas diseñadas para facilitar tu día a día.
-          Totalmente gratis y sin complicaciones.
+          Calculadoras para entender tu <strong>salud</strong>, dominar tus <strong>finanzas</strong> y aprovechar tu <strong>tiempo</strong>.
+          Totalmente gratis y privadas.
         </p>
-        <div className="flex gap-4 justify-center pt-4">
-          <a href="#calculadoras" className="btn-primary px-8 py-4 text-lg">
-            Explorar Herramientas
-          </a>
-        </div>
       </section>
 
-      <section id="calculadoras" className="scroll-mt-24">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {calculadoras.map((calc) => (
+      {/* Pilares principales */}
+      <section id="pilares" className="scroll-mt-24">
+        <div className="grid gap-8 md:grid-cols-3">
+          {pilares.map((pilar) => (
             <Link
-              key={calc.href}
-              href={calc.href}
+              key={pilar.href}
+              href={pilar.href}
               className="card-glass card-hover rounded-3xl p-8 group relative overflow-hidden"
             >
-              <div className={`absolute inset-0 opacity-0 ${calc.bgHover} transition-opacity duration-300`} />
-              <div className="absolute top-0 right-0 w-40 h-40 opacity-20 -z-10">
-                <div className={`w-full h-full bg-gradient-to-br ${calc.gradient} rounded-full blur-3xl`} />
+              <div className={`absolute inset-0 opacity-0 ${pilar.bgHover} transition-opacity duration-300`} />
+              <div className="absolute top-0 right-0 w-48 h-48 opacity-20 -z-10">
+                <div className={`w-full h-full bg-gradient-to-br ${pilar.gradient} rounded-full blur-3xl`} />
               </div>
               <div className="relative">
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center text-3xl mb-6 shadow-lg transform group-hover:scale-110 transition-transform`}>
-                  {calc.emoji}
+                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${pilar.gradient} flex items-center justify-center text-4xl mb-6 shadow-lg transform group-hover:scale-110 transition-transform`}>
+                  {pilar.emoji}
                 </div>
-                <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                  {calc.nombre}
+                <h2 className={`text-3xl font-black mb-3 ${pilar.color} transition-colors`}>
+                  {pilar.nombre}
                 </h2>
-                <p className="text-slate-500 dark:text-slate-400 leading-relaxed">{calc.descripcion}</p>
-                <div className="mt-8 flex items-center text-indigo-600 dark:text-indigo-400 font-bold text-sm">
-                  Usar calculadora
+                <p className="text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
+                  {pilar.descripcion}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {pilar.calculadoras.map((calc) => (
+                    <span
+                      key={calc}
+                      className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                    >
+                      {calc}
+                    </span>
+                  ))}
+                </div>
+                <div className={`flex items-center ${pilar.color} font-bold text-sm`}>
+                  Ver calculadoras
                   <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
                 </div>
               </div>
@@ -138,6 +114,87 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Utilidades */}
+      <section id="utilidades">
+        <div className="text-center mb-10">
+          <span className="badge badge-indigo mb-4">Utilidades</span>
+          <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100">Herramientas de uso diario</h2>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2 max-w-3xl mx-auto">
+          {utilidades.map((util) => (
+            <Link
+              key={util.href}
+              href={util.href}
+              className="card-glass card-hover rounded-2xl p-6 group flex items-center gap-4"
+            >
+              <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${util.gradient} flex items-center justify-center text-2xl shadow-lg transform group-hover:scale-110 transition-transform flex-shrink-0`}>
+                {util.emoji}
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  {util.nombre}
+                </h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400">{util.descripcion}</p>
+              </div>
+              <span className="text-indigo-600 dark:text-indigo-400 group-hover:translate-x-1 transition-transform">→</span>
+            </Link>
+          ))}
+        </div>
+        <div className="text-center mt-6">
+          <Link
+            href="/herramientas"
+            className="text-sm text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+          >
+            Ver todas las herramientas →
+          </Link>
+        </div>
+      </section>
+
+      {/* Blog */}
+      {posts.length > 0 && (
+        <section id="blog">
+          <div className="text-center mb-10">
+            <span className="badge badge-pink mb-4">Blog</span>
+            <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100">Últimos artículos</h2>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {posts.map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="card-glass card-hover rounded-2xl p-6 group"
+              >
+                <span
+                  className={`inline-block px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${
+                    categoryColors[post.category] || "from-slate-500 to-slate-600"
+                  } text-white mb-3`}
+                >
+                  {categoryLabels[post.category] || post.category}
+                </span>
+                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mb-2 line-clamp-2">
+                  {post.title}
+                </h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 mb-3">
+                  {post.description}
+                </p>
+                <span className="text-indigo-600 dark:text-indigo-400 font-medium text-sm group-hover:translate-x-1 transition-transform inline-block">
+                  Leer más →
+                </span>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center mt-6">
+            <Link
+              href="/blog"
+              className="text-sm text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+            >
+              Ver todos los artículos →
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {/* Beneficios */}
       <section id="beneficios" className="pt-10">
         <div className="text-center mb-12">
           <span className="badge badge-indigo mb-4">Ventajas</span>

@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
+import { ScrollToTop } from "@/components/ScrollToTop";
+import { MobileMenu } from "@/components/MobileMenu";
+import { NavDropdown } from "@/components/NavDropdown";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -165,6 +168,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
       </head>
       <body className={`${inter.className} antialiased`}>
+        <ScrollToTop />
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-TF8GVTZ4"
@@ -182,16 +186,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             >
               VidaEnCifras
             </Link>
-            <div className="flex items-center gap-6">
-              <nav className="hidden md:flex gap-6 text-sm font-medium text-slate-500 dark:text-slate-400" aria-label="Navegación principal">
-                <Link href="/#calculadoras" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                  Calculadoras
-                </Link>
-                <Link href="/blog" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+            <div className="flex items-center gap-4">
+              <nav className="hidden md:flex items-center gap-6 text-sm font-medium" aria-label="Navegación principal">
+                <NavDropdown />
+                <Link href="/blog" className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                   Blog
                 </Link>
               </nav>
               <ThemeToggle />
+              <MobileMenu />
             </div>
           </div>
         </nav>
@@ -206,6 +209,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   &copy; {new Date().getFullYear()} VidaEnCifras
                 </p>
                 <nav className="flex gap-4 text-sm text-slate-500 dark:text-slate-400">
+                  <Link href="/blog" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                    Blog
+                  </Link>
                   <Link href="/privacidad" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                     Privacidad
                   </Link>
