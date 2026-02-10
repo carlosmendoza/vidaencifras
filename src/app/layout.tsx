@@ -95,12 +95,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteUrl,
   },
-  manifest: "/manifest.json",
+  manifest: "/site.webmanifest",
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
     ],
+    shortcut: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
   category: "technology",
@@ -181,10 +182,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
             <Link
               href="/"
-              className="text-2xl font-black tracking-tighter gradient-text-subtle hover:opacity-80 transition-opacity flex-shrink-0"
+              className="flex items-center gap-2 hover:opacity-80 transition-opacity flex-shrink-0"
               aria-label="VidaEnCifras - Inicio"
             >
-              VidaEnCifras
+              <svg viewBox="0 0 64 64" className="w-8 h-8" aria-hidden="true">
+                <rect width="64" height="64" rx="14" fill="#4f46e5"/>
+                <text x="32" y="44" textAnchor="middle" fontFamily="system-ui, sans-serif" fontSize="32" fontWeight="800" fill="white">VC</text>
+              </svg>
+              <span className="text-2xl font-black tracking-tighter gradient-text-subtle">
+                VidaEnCifras
+              </span>
             </Link>
             <div className="flex items-center gap-4">
               <nav className="hidden md:flex items-center gap-6 text-sm font-medium" aria-label="Navegación principal">
