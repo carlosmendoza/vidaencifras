@@ -43,11 +43,25 @@ const utilidades = [
     gradient: "from-cyan-400 to-blue-500",
   },
   {
+    nombre: "Calculadora de Descuentos",
+    descripcion: "Precio final y cuánto ahorras",
+    href: "/herramientas/calculadora-descuentos",
+    emoji: "🏷️",
+    gradient: "from-pink-400 to-rose-500",
+  },
+  {
     nombre: "Conversor de Unidades",
     descripcion: "Convierte longitud, peso y más",
     href: "/herramientas/conversor-unidades",
     emoji: "🔄",
     gradient: "from-indigo-400 to-purple-500",
+  },
+  {
+    nombre: "Dividir Cuenta",
+    descripcion: "Divide gastos entre amigos",
+    href: "/herramientas/calculadora-dividir-cuenta",
+    emoji: "🧾",
+    gradient: "from-amber-400 to-orange-500",
   },
 ];
 

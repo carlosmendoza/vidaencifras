@@ -7,6 +7,7 @@ export const metadata: Metadata = {
     "Calculadoras de uso diario: porcentajes, conversión de unidades y más. Herramientas simples para resolver cálculos cotidianos.",
   keywords: [
     "calculadora porcentajes",
+    "calculadora descuentos",
     "conversor unidades",
     "calculadora online",
     "herramientas calculo",
@@ -25,6 +26,14 @@ const calculadoras = [
     emoji: "%",
     gradient: "from-cyan-400 to-blue-500",
     bgHover: "group-hover:bg-cyan-50 dark:group-hover:bg-cyan-950/50",
+  },
+  {
+    nombre: "Calculadora de Descuentos",
+    descripcion: "Calcula el precio final y cuánto ahorras con descuentos y ofertas",
+    href: "/herramientas/calculadora-descuentos",
+    emoji: "🏷️",
+    gradient: "from-pink-400 to-rose-500",
+    bgHover: "group-hover:bg-pink-50 dark:group-hover:bg-pink-950/50",
   },
   {
     nombre: "Conversor de Unidades",
@@ -55,8 +64,8 @@ const calculadoras = [
     descripcion: "Divide gastos entre amigos de forma justa y sin complicaciones",
     href: "/herramientas/calculadora-dividir-cuenta",
     emoji: "🧾",
-    gradient: "from-pink-400 to-rose-500",
-    bgHover: "group-hover:bg-pink-50 dark:group-hover:bg-pink-950/50",
+    gradient: "from-emerald-400 to-teal-500",
+    bgHover: "group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50",
   },
 ];
 
