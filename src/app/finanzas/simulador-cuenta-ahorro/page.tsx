@@ -171,6 +171,23 @@ function SimuladorCuentaAhorroContent() {
   );
   const [isClient, setIsClient] = useState(false);
 
+  // Estado para meta de ahorro
+  const [mostrarMeta, setMostrarMeta] = useState<boolean>(
+    !!searchParams.get("meta")
+  );
+  const [metaAhorro, setMetaAhorro] = useState<string>(
+    searchParams.get("meta") || "10000000"
+  );
+  const [mesesMeta, setMesesMeta] = useState<string>(
+    searchParams.get("mesesMeta") || "12"
+  );
+  const [capitalInicialMeta, setCapitalInicialMeta] = useState<string>(
+    searchParams.get("capitalMeta") || "0"
+  );
+  const [cuentaMeta, setCuentaMeta] = useState<CuentaId>(
+    (searchParams.get("cuentaMeta") as CuentaId) || "uala"
+  );
+
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -191,8 +208,19 @@ function SimuladorCuentaAhorroContent() {
     if (JSON.stringify(cuentasArray) !== JSON.stringify(cuentasDefectoOrdenadas)) {
       params.set("cuentas", cuentasArray.join(","));
     }
+    // Parámetros de meta de ahorro
+    if (mostrarMeta) {
+      params.set("meta", metaAhorro);
+      params.set("mesesMeta", mesesMeta);
+      if (capitalInicialMeta && capitalInicialMeta !== "0") {
+        params.set("capitalMeta", capitalInicialMeta);
+      }
+      if (cuentaMeta !== "uala") {
+        params.set("cuentaMeta", cuentaMeta);
+      }
+    }
     return `${window.location.origin}${pathname}?${params.toString()}`;
-  }, [montoInicial, meses, inflacion, aporteMensual, cuentasSeleccionadas, pathname]);
+  }, [montoInicial, meses, inflacion, aporteMensual, cuentasSeleccionadas, pathname, mostrarMeta, metaAhorro, mesesMeta, capitalInicialMeta, cuentaMeta]);
 
   useEffect(() => {
     if (!isClient) return;
@@ -214,10 +242,23 @@ function SimuladorCuentaAhorroContent() {
     if (JSON.stringify(cuentasArray) !== JSON.stringify(cuentasDefectoOrdenadas)) {
       params.set("cuentas", cuentasArray.join(","));
     }
+    // Parámetros de meta de ahorro
+    if (mostrarMeta) {
+      params.set("meta", metaAhorro);
+      if (mesesMeta !== "12") {
+        params.set("mesesMeta", mesesMeta);
+      }
+      if (capitalInicialMeta && capitalInicialMeta !== "0") {
+        params.set("capitalMeta", capitalInicialMeta);
+      }
+      if (cuentaMeta !== "uala") {
+        params.set("cuentaMeta", cuentaMeta);
+      }
+    }
     const queryString = params.toString();
     const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
     router.replace(newUrl, { scroll: false });
-  }, [montoInicial, meses, inflacion, aporteMensual, cuentasSeleccionadas, isClient, pathname, router]);
+  }, [montoInicial, meses, inflacion, aporteMensual, cuentasSeleccionadas, isClient, pathname, router, mostrarMeta, metaAhorro, mesesMeta, capitalInicialMeta, cuentaMeta]);
 
   const toggleCuenta = (id: CuentaId) => {
     const nuevas = new Set(cuentasSeleccionadas);
@@ -371,6 +412,85 @@ function SimuladorCuentaAhorroContent() {
   };
 
   const mejorCuenta = resultado?.resumenCuentas[0];
+
+  // Cálculo de meta de ahorro
+  const resultadoMeta = useMemo(() => {
+    const meta = parseFloat(metaAhorro) || 0;
+    const mesesObjetivo = parseInt(mesesMeta) || 0;
+    const capitalInicial = parseFloat(capitalInicialMeta) || 0;
+    const cuenta = CUENTAS_AHORRO.find((c) => c.id === cuentaMeta);
+
+    if (meta <= 0 || mesesObjetivo <= 0 || !cuenta) return null;
+    if (capitalInicial >= meta) {
+      return {
+        aporteMensual: 0,
+        totalAportado: capitalInicial,
+        interesesGanados: 0,
+        cuenta,
+        meta,
+        meses: mesesObjetivo,
+        capitalInicial,
+        mensaje: "Ya tienes el capital suficiente para tu meta",
+      };
+    }
+
+    const tasaMensual = Math.pow(1 + cuenta.tasa / 100, 1 / 12) - 1;
+
+    // Valor futuro del capital inicial
+    const valorFuturoCapital = capitalInicial * Math.pow(1 + tasaMensual, mesesObjetivo);
+
+    // Monto que falta cubrir con aportes
+    const montoFaltante = meta - valorFuturoCapital;
+
+    // Cálculo del aporte mensual usando fórmula de anualidades
+    // FV = PMT * ((1 + r)^n - 1) / r
+    // PMT = FV * r / ((1 + r)^n - 1)
+    let aporteMensual: number;
+    if (tasaMensual === 0) {
+      aporteMensual = montoFaltante / mesesObjetivo;
+    } else {
+      const factor = (Math.pow(1 + tasaMensual, mesesObjetivo) - 1) / tasaMensual;
+      aporteMensual = montoFaltante / factor;
+    }
+
+    if (aporteMensual < 0) aporteMensual = 0;
+
+    const totalAportado = capitalInicial + aporteMensual * mesesObjetivo;
+    const interesesGanados = meta - totalAportado;
+
+    // Comparar con otras cuentas
+    const comparacionCuentas = CUENTAS_AHORRO.filter((c) => c.id !== "colchon").map((c) => {
+      const tasa = Math.pow(1 + c.tasa / 100, 1 / 12) - 1;
+      const vfCapital = capitalInicial * Math.pow(1 + tasa, mesesObjetivo);
+      const faltante = meta - vfCapital;
+      let aporte: number;
+      if (tasa === 0) {
+        aporte = faltante / mesesObjetivo;
+      } else {
+        const f = (Math.pow(1 + tasa, mesesObjetivo) - 1) / tasa;
+        aporte = faltante / f;
+      }
+      if (aporte < 0) aporte = 0;
+      return {
+        ...c,
+        aporteMensual: aporte,
+        totalAportado: capitalInicial + aporte * mesesObjetivo,
+        interesesGanados: meta - (capitalInicial + aporte * mesesObjetivo),
+      };
+    }).sort((a, b) => a.aporteMensual - b.aporteMensual);
+
+    return {
+      aporteMensual,
+      totalAportado,
+      interesesGanados,
+      cuenta,
+      meta,
+      meses: mesesObjetivo,
+      capitalInicial,
+      comparacionCuentas,
+      mensaje: null,
+    };
+  }, [metaAhorro, mesesMeta, capitalInicialMeta, cuentaMeta]);
 
   return (
     <div className="space-y-8">
@@ -705,6 +825,249 @@ function SimuladorCuentaAhorroContent() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Calculadora de Meta de Ahorro */}
+      <div className="max-w-5xl mx-auto">
+        <div className="card-glass rounded-[2.5rem] p-8 md:p-12 shadow-2xl shadow-amber-500/5">
+          <button
+            onClick={() => setMostrarMeta(!mostrarMeta)}
+            className="w-full text-left"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center text-3xl shadow-lg">
+                  🎯
+                </div>
+                <div>
+                  <h2 className="text-2xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                    Calculadora de Meta de Ahorro
+                  </h2>
+                  <p className="text-slate-500 dark:text-slate-400 font-medium">
+                    ¿Cuánto debo ahorrar mensualmente para llegar a mi meta?
+                  </p>
+                </div>
+              </div>
+              <span className={`text-2xl transition-transform ${mostrarMeta ? "rotate-180" : ""}`}>
+                ▼
+              </span>
+            </div>
+          </button>
+
+          {mostrarMeta && (
+            <div className="mt-8 space-y-6 animate-result-appear">
+              {/* Meta de ahorro */}
+              <div className="space-y-3">
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
+                  ¿Cuál es tu meta de ahorro?
+                </label>
+                <div className="relative">
+                  <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
+                  <input
+                    type="number"
+                    value={metaAhorro}
+                    onChange={(e) => setMetaAhorro(e.target.value)}
+                    placeholder="10.000.000"
+                    className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
+                  />
+                </div>
+                <div className="flex gap-2 flex-wrap">
+                  {[5000000, 10000000, 20000000, 50000000].map((monto) => (
+                    <button
+                      key={monto}
+                      onClick={() => setMetaAhorro(monto.toString())}
+                      className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+                        metaAhorro === monto.toString()
+                          ? "bg-amber-500 text-white"
+                          : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
+                      }`}
+                    >
+                      ${formatMoney(monto)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Plazo para la meta */}
+              <div className="space-y-3">
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
+                  ¿En cuánto tiempo quieres lograrlo?
+                </label>
+                <div className="flex rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700">
+                  {[6, 12, 24, 36, 60].map((m) => (
+                    <button
+                      key={m}
+                      onClick={() => setMesesMeta(m.toString())}
+                      className={`flex-1 px-3 py-4 font-semibold transition-colors text-sm ${
+                        mesesMeta === m.toString()
+                          ? "bg-amber-500 text-white"
+                          : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
+                      }`}
+                    >
+                      {m < 12 ? `${m}m` : m === 12 ? "1 año" : `${m / 12}a`}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Capital inicial */}
+              <div className="space-y-3">
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
+                  ¿Con cuánto empiezas? (opcional)
+                </label>
+                <div className="relative max-w-md">
+                  <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
+                  <input
+                    type="number"
+                    value={capitalInicialMeta}
+                    onChange={(e) => setCapitalInicialMeta(e.target.value)}
+                    placeholder="0"
+                    className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
+                  />
+                </div>
+              </div>
+
+              {/* Selector de cuenta */}
+              <div className="space-y-3">
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
+                  ¿En qué cuenta vas a ahorrar?
+                </label>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                  {CUENTAS_AHORRO.filter((c) => c.id !== "colchon").map((cuenta) => (
+                    <button
+                      key={cuenta.id}
+                      onClick={() => setCuentaMeta(cuenta.id)}
+                      className={`p-3 rounded-xl text-left transition-all border-2 ${
+                        cuentaMeta === cuenta.id
+                          ? "border-amber-500 bg-amber-50 dark:bg-amber-950/50"
+                          : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600"
+                      }`}
+                    >
+                      <div className="font-semibold text-sm text-slate-700 dark:text-slate-200">
+                        {cuenta.nombre}
+                      </div>
+                      <div className="text-base font-black" style={{ color: cuenta.color }}>
+                        {cuenta.tasa}% EA
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Resultado de la meta */}
+              {resultadoMeta && (
+                <div className="mt-8 space-y-4">
+                  {resultadoMeta.mensaje ? (
+                    <div className="p-6 bg-emerald-100 dark:bg-emerald-900/50 rounded-3xl text-center">
+                      <p className="text-lg font-bold text-emerald-700 dark:text-emerald-300">
+                        {resultadoMeta.mensaje}
+                      </p>
+                    </div>
+                  ) : (
+                    <>
+                      {/* Resultado principal */}
+                      <div className="p-8 bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-900/50 dark:to-orange-900/50 rounded-3xl text-center">
+                        <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">
+                          Para llegar a tu meta de ${formatMoney(resultadoMeta.meta)}
+                        </p>
+                        <p className="text-lg text-slate-600 dark:text-slate-300 mb-2">
+                          con <strong style={{ color: resultadoMeta.cuenta.color }}>{resultadoMeta.cuenta.nombre}</strong> en {resultadoMeta.meses <= 12 ? `${resultadoMeta.meses} meses` : `${resultadoMeta.meses / 12} años`}
+                        </p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+                          debes ahorrar mensualmente:
+                        </p>
+                        <p className="text-5xl font-black text-amber-600 mb-6">
+                          ${formatMoney(Math.ceil(resultadoMeta.aporteMensual))}
+                        </p>
+
+                        {/* Desglose */}
+                        <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
+                          <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-2xl">
+                            <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Total aportado</p>
+                            <p className="text-lg font-bold text-slate-700 dark:text-slate-200">
+                              ${formatMoney(Math.ceil(resultadoMeta.totalAportado))}
+                            </p>
+                          </div>
+                          <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-2xl">
+                            <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Intereses ganados</p>
+                            <p className="text-lg font-bold text-emerald-600">
+                              +${formatMoney(Math.floor(resultadoMeta.interesesGanados))}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Barra de progreso visual */}
+                        <div className="mt-6 max-w-md mx-auto">
+                          <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
+                            <span>Tu aporte ({((resultadoMeta.totalAportado / resultadoMeta.meta) * 100).toFixed(0)}%)</span>
+                            <span>Intereses ({((resultadoMeta.interesesGanados / resultadoMeta.meta) * 100).toFixed(0)}%)</span>
+                          </div>
+                          <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden flex">
+                            <div
+                              className="h-full bg-amber-500"
+                              style={{ width: `${(resultadoMeta.totalAportado / resultadoMeta.meta) * 100}%` }}
+                            />
+                            <div
+                              className="h-full bg-emerald-500"
+                              style={{ width: `${(resultadoMeta.interesesGanados / resultadoMeta.meta) * 100}%` }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Comparación con otras cuentas */}
+                      {resultadoMeta.comparacionCuentas && (
+                        <div className="p-6 bg-white dark:bg-slate-800 rounded-3xl ring-1 ring-slate-200 dark:ring-slate-700">
+                          <h3 className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
+                            <span>📊</span> Comparación: ¿cuánto ahorrar en cada cuenta?
+                          </h3>
+                          <div className="space-y-2">
+                            {resultadoMeta.comparacionCuentas.slice(0, 5).map((cuenta, index) => (
+                              <div
+                                key={cuenta.id}
+                                className={`p-3 rounded-xl flex items-center justify-between ${
+                                  cuenta.id === cuentaMeta
+                                    ? "bg-amber-50 dark:bg-amber-950/50 ring-2 ring-amber-500"
+                                    : "bg-slate-50 dark:bg-slate-800/50"
+                                }`}
+                              >
+                                <div className="flex items-center gap-3">
+                                  <div
+                                    className="w-6 h-6 rounded-full flex items-center justify-center text-white font-bold text-xs"
+                                    style={{ backgroundColor: cuenta.color }}
+                                  >
+                                    {index + 1}
+                                  </div>
+                                  <div>
+                                    <span className="font-semibold text-slate-700 dark:text-slate-200">
+                                      {cuenta.nombre}
+                                    </span>
+                                    <span className="text-xs text-slate-400 ml-2">{cuenta.tasa}% EA</span>
+                                  </div>
+                                </div>
+                                <div className="text-right">
+                                  <p className="font-bold" style={{ color: cuenta.color }}>
+                                    ${formatMoney(Math.ceil(cuenta.aporteMensual))}/mes
+                                  </p>
+                                  <p className="text-xs text-emerald-600">
+                                    +${formatMoney(Math.floor(cuenta.interesesGanados))} intereses
+                                  </p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                          <p className="text-xs text-slate-400 mt-4 text-center">
+                            Con mejores tasas, necesitas ahorrar menos cada mes para llegar a la misma meta
+                          </p>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
