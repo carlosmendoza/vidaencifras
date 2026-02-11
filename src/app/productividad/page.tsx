@@ -28,7 +28,6 @@ const herramientas = [
     href: "/productividad/valor-hora",
     icon: "gem",
     gradient: "from-amber-400 to-orange-500",
-    bgHover: "group-hover:bg-amber-50 dark:group-hover:bg-amber-950/50",
   },
   {
     nombre: "Calculadora de Hábitos",
@@ -36,7 +35,6 @@ const herramientas = [
     href: "/productividad/calculadora-habitos",
     icon: "target",
     gradient: "from-emerald-400 to-teal-500",
-    bgHover: "group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50",
   },
   {
     nombre: "Auditoría de Tiempo",
@@ -44,7 +42,6 @@ const herramientas = [
     href: "/productividad/auditoria-tiempo",
     icon: "clock",
     gradient: "from-blue-400 to-indigo-500",
-    bgHover: "group-hover:bg-blue-50 dark:group-hover:bg-blue-950/50",
   },
   {
     nombre: "Tu Vida en Semanas",
@@ -52,7 +49,6 @@ const herramientas = [
     href: "/productividad/vida-en-semanas",
     icon: "calendar",
     gradient: "from-purple-400 to-pink-500",
-    bgHover: "group-hover:bg-purple-50 dark:group-hover:bg-purple-950/50",
   },
   {
     nombre: "Matriz Eisenhower",
@@ -60,7 +56,6 @@ const herramientas = [
     href: "/productividad/matriz-eisenhower",
     icon: "grid",
     gradient: "from-indigo-400 to-violet-500",
-    bgHover: "group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950/50",
   },
   {
     nombre: "Calculadora Pomodoro",
@@ -68,7 +63,6 @@ const herramientas = [
     href: "/productividad/calculadora-pomodoro",
     icon: "timer",
     gradient: "from-red-400 to-rose-500",
-    bgHover: "group-hover:bg-red-50 dark:group-hover:bg-red-950/50",
   },
 ];
 
@@ -100,7 +94,6 @@ export default function ProductividadPage() {
             href={herr.href}
             className="card-glass card-hover card-hover-amber rounded-3xl p-8 group relative overflow-hidden"
           >
-            <div className={`absolute inset-0 opacity-0 ${herr.bgHover} transition-opacity duration-300`} />
             <div className="absolute top-0 right-0 w-40 h-40 opacity-20 -z-10">
               <div className={`w-full h-full bg-gradient-to-br ${herr.gradient} rounded-full blur-3xl`} />
             </div>

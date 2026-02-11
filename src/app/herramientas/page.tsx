@@ -26,7 +26,6 @@ const calculadoras = [
     href: "/herramientas/calculadora-porcentajes",
     icon: "percent",
     gradient: "from-cyan-400 to-blue-500",
-    bgHover: "group-hover:bg-cyan-50 dark:group-hover:bg-cyan-950/50",
   },
   {
     nombre: "Calculadora de Descuentos",
@@ -34,7 +33,6 @@ const calculadoras = [
     href: "/herramientas/calculadora-descuentos",
     icon: "tag",
     gradient: "from-pink-400 to-rose-500",
-    bgHover: "group-hover:bg-pink-50 dark:group-hover:bg-pink-950/50",
   },
   {
     nombre: "Conversor de Unidades",
@@ -42,7 +40,6 @@ const calculadoras = [
     href: "/herramientas/conversor-unidades",
     icon: "refresh",
     gradient: "from-indigo-400 to-purple-500",
-    bgHover: "group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950/50",
   },
   {
     nombre: "Días Vividos",
@@ -50,7 +47,6 @@ const calculadoras = [
     href: "/herramientas/calculadora-dias-vividos",
     icon: "calendar",
     gradient: "from-amber-400 to-orange-500",
-    bgHover: "group-hover:bg-amber-50 dark:group-hover:bg-amber-950/50",
   },
   {
     nombre: "Diferencia entre Fechas",
@@ -58,7 +54,6 @@ const calculadoras = [
     href: "/herramientas/calculadora-diferencia-fechas",
     icon: "calendar-days",
     gradient: "from-teal-400 to-cyan-500",
-    bgHover: "group-hover:bg-teal-50 dark:group-hover:bg-teal-950/50",
   },
   {
     nombre: "Dividir Cuenta",
@@ -66,7 +61,6 @@ const calculadoras = [
     href: "/herramientas/calculadora-dividir-cuenta",
     icon: "receipt",
     gradient: "from-emerald-400 to-teal-500",
-    bgHover: "group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50",
   },
 ];
 
@@ -96,7 +90,6 @@ export default function HerramientasPage() {
             href={calc.href}
             className="card-glass card-hover card-hover-indigo rounded-3xl p-8 group relative overflow-hidden"
           >
-            <div className={`absolute inset-0 opacity-0 ${calc.bgHover} transition-opacity duration-300`} />
             <div className="absolute top-0 right-0 w-40 h-40 opacity-20 -z-10">
               <div className={`w-full h-full bg-gradient-to-br ${calc.gradient} rounded-full blur-3xl`} />
             </div>

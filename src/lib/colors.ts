@@ -26,14 +26,6 @@ export const textColors = {
   herramientas: "text-indigo-600 dark:text-indigo-400",
 } as const;
 
-// Colores de fondo hover por categoría
-export const bgHoverColors = {
-  finanzas: "group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50",
-  salud: "group-hover:bg-red-50 dark:group-hover:bg-red-950/50",
-  productividad: "group-hover:bg-amber-50 dark:group-hover:bg-amber-950/50",
-  herramientas: "group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950/50",
-} as const;
-
 // Badges por categoría (para blog)
 export const categoryBadgeColors = {
   finanzas: "from-emerald-500 to-teal-500",

@@ -33,7 +33,6 @@ export default function Home() {
                 href={pilar.href}
                 className={`card-glass card-hover ${pilar.cardHover} rounded-[2.5rem] p-8 md:p-10 group relative overflow-hidden transition-all duration-500 flex flex-col h-full`}
               >
-                <div className={`absolute inset-0 opacity-0 ${pilar.bgHover} transition-opacity duration-300`} />
                 <div className="absolute -top-10 -right-10 w-48 h-48 opacity-20 -z-10 group-hover:scale-125 transition-transform duration-700">
                   <div className={`w-full h-full bg-gradient-to-br ${pilar.gradient} rounded-full blur-3xl`} />
                 </div>

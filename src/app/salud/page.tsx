@@ -27,7 +27,6 @@ const calculadoras = [
     href: "/salud/calculadora-calorias",
     icon: "flame",
     gradient: "from-orange-400 to-red-500",
-    bgHover: "group-hover:bg-orange-50 dark:group-hover:bg-orange-950/50",
   },
   {
     nombre: "Calculadora de IMC",
@@ -35,7 +34,6 @@ const calculadoras = [
     href: "/salud/calculadora-imc",
     icon: "scale",
     gradient: "from-violet-400 to-purple-500",
-    bgHover: "group-hover:bg-violet-50 dark:group-hover:bg-violet-950/50",
   },
   {
     nombre: "Calculadora de Hidratación",
@@ -43,7 +41,6 @@ const calculadoras = [
     href: "/salud/calculadora-hidratacion",
     icon: "droplets",
     gradient: "from-cyan-400 to-blue-500",
-    bgHover: "group-hover:bg-cyan-50 dark:group-hover:bg-cyan-950/50",
   },
   {
     nombre: "Calculadora de Frecuencia Cardíaca",
@@ -51,7 +48,6 @@ const calculadoras = [
     href: "/salud/calculadora-frecuencia-cardiaca",
     icon: "heart",
     gradient: "from-rose-400 to-red-500",
-    bgHover: "group-hover:bg-rose-50 dark:group-hover:bg-rose-950/50",
   },
   {
     nombre: "Calculadora de Sueño",
@@ -59,7 +55,6 @@ const calculadoras = [
     href: "/salud/calculadora-sueno",
     icon: "moon",
     gradient: "from-indigo-400 to-purple-500",
-    bgHover: "group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950/50",
   },
 ];
 
@@ -89,7 +84,6 @@ export default function SaludPage() {
             href={calc.href}
             className="card-glass card-hover card-hover-red rounded-3xl p-8 group relative overflow-hidden"
           >
-            <div className={`absolute inset-0 opacity-0 ${calc.bgHover} transition-opacity duration-300`} />
             <div className="absolute top-0 right-0 w-40 h-40 opacity-20 -z-10">
               <div className={`w-full h-full bg-gradient-to-br ${calc.gradient} rounded-full blur-3xl`} />
             </div>

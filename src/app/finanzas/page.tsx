@@ -31,7 +31,6 @@ const calculadoras = [
     href: "/finanzas/calculadora-liquidacion",
     icon: "clipboard",
     gradient: "from-purple-400 to-pink-500",
-    bgHover: "group-hover:bg-purple-50 dark:group-hover:bg-purple-950/50",
   },
   {
     nombre: "Calculadora de Prima",
@@ -39,7 +38,6 @@ const calculadoras = [
     href: "/finanzas/calculadora-prima",
     icon: "gift",
     gradient: "from-green-400 to-emerald-500",
-    bgHover: "group-hover:bg-green-50 dark:group-hover:bg-green-950/50",
   },
   {
     nombre: "Calculadora de Cesantías",
@@ -47,7 +45,6 @@ const calculadoras = [
     href: "/finanzas/calculadora-cesantias",
     icon: "briefcase",
     gradient: "from-cyan-400 to-teal-500",
-    bgHover: "group-hover:bg-cyan-50 dark:group-hover:bg-cyan-950/50",
   },
   {
     nombre: "Calculadora de Salario Neto",
@@ -55,7 +52,6 @@ const calculadoras = [
     href: "/finanzas/calculadora-salario-neto",
     icon: "banknote",
     gradient: "from-emerald-400 to-teal-500",
-    bgHover: "group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50",
   },
   {
     nombre: "Calculadora de Horas Extras",
@@ -63,7 +59,6 @@ const calculadoras = [
     href: "/finanzas/calculadora-horas-extras",
     icon: "clock",
     gradient: "from-amber-400 to-orange-500",
-    bgHover: "group-hover:bg-amber-50 dark:group-hover:bg-amber-950/50",
   },
   {
     nombre: "Calculadora de Vacaciones",
@@ -71,7 +66,6 @@ const calculadoras = [
     href: "/finanzas/calculadora-vacaciones",
     icon: "palmtree",
     gradient: "from-sky-400 to-cyan-500",
-    bgHover: "group-hover:bg-sky-50 dark:group-hover:bg-sky-950/50",
   },
   {
     nombre: "Calculadora de Interés Compuesto",
@@ -79,7 +73,6 @@ const calculadoras = [
     href: "/finanzas/calculadora-interes-compuesto",
     icon: "trending-up",
     gradient: "from-emerald-400 to-teal-500",
-    bgHover: "group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50",
   },
   {
     nombre: "Calculadora de Préstamos",
@@ -87,7 +80,6 @@ const calculadoras = [
     href: "/finanzas/calculadora-prestamos",
     icon: "landmark",
     gradient: "from-rose-400 to-pink-500",
-    bgHover: "group-hover:bg-rose-50 dark:group-hover:bg-rose-950/50",
   },
   {
     nombre: "Calculadora 4x1000",
@@ -95,7 +87,6 @@ const calculadoras = [
     href: "/finanzas/calculadora-4x1000",
     icon: "landmark",
     gradient: "from-indigo-400 to-blue-500",
-    bgHover: "group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950/50",
   },
   {
     nombre: "Presupuesto 50/30/20",
@@ -103,7 +94,6 @@ const calculadoras = [
     href: "/finanzas/calculadora-presupuesto",
     icon: "bar-chart",
     gradient: "from-violet-400 to-purple-500",
-    bgHover: "group-hover:bg-violet-50 dark:group-hover:bg-violet-950/50",
   },
   {
     nombre: "Comparador Cuentas de Ahorro",
@@ -111,7 +101,6 @@ const calculadoras = [
     href: "/finanzas/simulador-cuenta-ahorro",
     icon: "piggy-bank",
     gradient: "from-emerald-400 to-teal-500",
-    bgHover: "group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50",
   },
   {
     nombre: "Calculadora de Ahorro",
@@ -119,7 +108,6 @@ const calculadoras = [
     href: "/finanzas/calculadora-meta-ahorro",
     icon: "target",
     gradient: "from-amber-400 to-orange-500",
-    bgHover: "group-hover:bg-amber-50 dark:group-hover:bg-amber-950/50",
   },
   {
     nombre: "Calculadora de Jubilación",
@@ -127,7 +115,6 @@ const calculadoras = [
     href: "/finanzas/calculadora-jubilacion",
     icon: "umbrella",
     gradient: "from-orange-400 to-amber-500",
-    bgHover: "group-hover:bg-orange-50 dark:group-hover:bg-orange-950/50",
   },
   {
     nombre: "Calculadora de Inflación",
@@ -135,7 +122,6 @@ const calculadoras = [
     href: "/finanzas/calculadora-inflacion",
     icon: "trending-down",
     gradient: "from-red-400 to-rose-500",
-    bgHover: "group-hover:bg-red-50 dark:group-hover:bg-red-950/50",
   },
   {
     nombre: "Prestación de Servicios",
@@ -143,7 +129,6 @@ const calculadoras = [
     href: "/finanzas/calculadora-prestacion-servicios",
     icon: "file-text",
     gradient: "from-amber-400 to-orange-500",
-    bgHover: "group-hover:bg-amber-50 dark:group-hover:bg-amber-950/50",
   },
 ];
 
@@ -175,7 +160,6 @@ export default function FinanzasPage() {
             href={calc.href}
             className="card-glass card-hover card-hover-emerald rounded-3xl p-8 group relative overflow-hidden"
           >
-            <div className={`absolute inset-0 opacity-0 ${calc.bgHover} transition-opacity duration-300`} />
             <div className="absolute top-0 right-0 w-40 h-40 opacity-20 -z-10">
               <div className={`w-full h-full bg-gradient-to-br ${calc.gradient} rounded-full blur-3xl`} />
             </div>

@@ -1,4 +1,4 @@
-import { gradients, textColors, bgHoverColors, shadowColors } from "./colors";
+import { gradients, textColors, shadowColors } from "./colors";
 
 export interface Calculadora {
   nombre: string;
@@ -15,7 +15,6 @@ export interface Pilar {
   href: string;
   icon: string;
   gradient: string;
-  bgHover: string;
   color: string;
   cardHover: string;
   calculadoras: string[];
@@ -37,7 +36,6 @@ export const pilares: Pilar[] = [
     href: "/salud",
     icon: "heart",
     gradient: gradients.salud,
-    bgHover: bgHoverColors.salud,
     color: textColors.salud,
     cardHover: cardHoverClasses.salud,
     calculadoras: ["Calorías (TDEE)", "IMC", "Hidratación"],
@@ -48,7 +46,6 @@ export const pilares: Pilar[] = [
     href: "/finanzas",
     icon: "wallet",
     gradient: gradients.finanzas,
-    bgHover: bgHoverColors.finanzas,
     color: textColors.finanzas,
     cardHover: cardHoverClasses.finanzas,
     calculadoras: ["Impuesto Renta", "CDTs", "Arriendo vs Compra"],
@@ -59,7 +56,6 @@ export const pilares: Pilar[] = [
     href: "/productividad",
     icon: "clock",
     gradient: gradients.productividad,
-    bgHover: bgHoverColors.productividad,
     color: textColors.productividad,
     cardHover: cardHoverClasses.productividad,
     calculadoras: ["Matriz Eisenhower", "Pomodoro", "Valor Hora"],
