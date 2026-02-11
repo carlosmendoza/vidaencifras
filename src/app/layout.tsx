@@ -7,6 +7,9 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { MobileMenu } from "@/components/MobileMenu";
 import { NavDropdown } from "@/components/NavDropdown";
 import { Providers } from "@/components/Providers";
+import CommandPalette from "@/components/CommandPalette";
+import SearchTrigger from "@/components/SearchTrigger";
+import { Icon } from "@/lib/icons";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -155,7 +158,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="hYHWKohgrr1oBRch8cS7bFpBDkF15gHhAYoGmeJQJl4" />
         <script
@@ -204,64 +207,67 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           />
         </noscript>
         <Providers>
-        <ScrollToTop />
-        <nav className="glass sticky top-0 z-50 border-b border-indigo-100/50 dark:border-indigo-900/50">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-            <Link
-              href="/"
-              className="flex items-center gap-2 hover:opacity-80 transition-opacity flex-shrink-0"
-              aria-label="VidaEnCifras - Inicio"
-            >
-              <svg viewBox="0 0 64 64" className="w-8 h-8" aria-hidden="true">
-                <rect width="64" height="64" rx="14" fill="#4f46e5"/>
-                <text x="32" y="44" textAnchor="middle" fontFamily="system-ui, sans-serif" fontSize="32" fontWeight="800" fill="white">VC</text>
-              </svg>
-              <span className="text-2xl font-black tracking-tighter gradient-text-subtle">
-                VidaEnCifras
-              </span>
-            </Link>
-            <div className="flex items-center gap-4">
-              <nav className="hidden md:flex items-center gap-6 text-sm font-medium" aria-label="Navegación principal">
-                <NavDropdown />
-                <Link href="/blog" className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                  Blog
-                </Link>
-              </nav>
-              <ThemeToggle />
-              <MobileMenu />
-            </div>
-          </div>
-        </nav>
-        <main className="max-w-5xl mx-auto px-6 py-12 min-h-[calc(100vh-140px)]">
-          {children}
-        </main>
-        <footer className="glass border-t border-indigo-100/50 dark:border-indigo-900/50 mt-20">
-          <div className="max-w-5xl mx-auto px-6 py-10">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-              <div className="flex flex-col md:flex-row items-center gap-4">
-                <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">
-                  &copy; {new Date().getFullYear()} VidaEnCifras
-                </p>
-                <nav className="flex gap-4 text-sm text-slate-500 dark:text-slate-400">
-                  <Link href="/blog" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+          <ScrollToTop />
+          <nav className="glass sticky top-0 z-50 border-b border-indigo-100/50 dark:border-indigo-900/50">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+              <Link
+                href="/"
+                className="flex items-center gap-2 hover:opacity-80 transition-opacity flex-shrink-0"
+                aria-label="VidaEnCifras - Inicio"
+              >
+                <svg viewBox="0 0 64 64" className="w-8 h-8" aria-hidden="true">
+                  <rect width="64" height="64" rx="14" fill="#4f46e5" />
+                  <text x="32" y="44" textAnchor="middle" fontFamily="system-ui, sans-serif" fontSize="32" fontWeight="800" fill="white">VC</text>
+                </svg>
+                <span className="text-2xl font-black tracking-tighter gradient-text-subtle">
+                  VidaEnCifras
+                </span>
+              </Link>
+              <div className="flex items-center gap-4">
+                <nav className="hidden md:flex items-center gap-6 text-sm font-medium" aria-label="Navegación principal">
+                  <NavDropdown />
+                  <Link href="/blog" className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                     Blog
                   </Link>
-                  <Link href="/privacidad" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                    Privacidad
-                  </Link>
-                  <Link href="/terminos" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                    Términos
-                  </Link>
                 </nav>
-              </div>
-              <div className="flex gap-4 text-xs font-semibold">
-                <span className="badge badge-indigo">100% Gratis</span>
-                <span className="badge badge-pink">Sin Registro</span>
-                <span className="badge badge-cyan">Privado</span>
+                <div className="h-6 w-px bg-slate-200 dark:bg-slate-800 hidden md:block" />
+                <SearchTrigger />
+                <ThemeToggle />
+                <MobileMenu />
               </div>
             </div>
-          </div>
-        </footer>
+            <CommandPalette />
+          </nav>
+          <main className="max-w-5xl mx-auto px-6 py-12 min-h-[calc(100vh-140px)]">
+            {children}
+          </main>
+          <footer className="glass border-t border-indigo-100/50 dark:border-indigo-900/50 mt-20">
+            <div className="max-w-5xl mx-auto px-6 py-10">
+              <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div className="flex flex-col md:flex-row items-center gap-4">
+                  <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">
+                    &copy; {new Date().getFullYear()} VidaEnCifras
+                  </p>
+                  <nav className="flex gap-4 text-sm text-slate-500 dark:text-slate-400">
+                    <Link href="/blog" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                      Blog
+                    </Link>
+                    <Link href="/privacidad" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                      Privacidad
+                    </Link>
+                    <Link href="/terminos" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                      Términos
+                    </Link>
+                  </nav>
+                </div>
+                <div className="flex gap-4 text-xs font-semibold">
+                  <span className="badge badge-indigo">100% Gratis</span>
+                  <span className="badge badge-pink">Sin Registro</span>
+                  <span className="badge badge-cyan">Privado</span>
+                </div>
+              </div>
+            </div>
+          </footer>
         </Providers>
       </body>
     </html>
