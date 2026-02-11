@@ -86,6 +86,7 @@ import {
   Globe as PhGlobe,
   Moped as PhMoped,
   Play as PhPlay,
+  Pause as PhPause,
   SmileyWink as PhCigarette,
   Warning as PhWarning,
   Info as PhInfo,
@@ -190,6 +191,7 @@ export const phosphorMap: Record<string, PhIcon> = {
   target: PhTarget,
   grid: PhGrid,
   timer: PhTimer,
+  tomato: PhTimer, // Símbolo del pomodoro
   lightning: PhLightning,
   trash: PhTrash,
   users: PhUsers,
@@ -203,6 +205,7 @@ export const phosphorMap: Record<string, PhIcon> = {
   globe: PhGlobe,
   moped: PhMoped,
   play: PhPlay,
+  pause: PhPause,
   cigarette: PhCigarette,
   warning: PhWarning,
   info: PhInfo,
