@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { Icon } from "@/lib/icons";
 import { calcularLiquidacion, type TipoTerminacion, type TipoContrato } from "@/lib/calculadoras";
 import { AUXILIO_TRANSPORTE, SMMLV, TOPE_AUXILIO } from "@/lib/calculadoras/constantes";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const faqs = [
   {
@@ -31,24 +31,21 @@ const faqs = [
 ];
 
 export default function CalculadoraLiquidacion() {
-  const [salario, setSalario] = useState<string>("");
-  const [incluyeTransporte, setIncluyeTransporte] = useState<boolean>(true);
-  const [fechaIngreso, setFechaIngreso] = useState<string>("");
-  const [fechaSalida, setFechaSalida] = useState<string>("");
-  const [tipoTerminacion, setTipoTerminacion] = useState<TipoTerminacion>("renuncia");
-  const [tipoContrato, setTipoContrato] = useState<TipoContrato>("indefinido");
-  const [diasVacacionesPendientes, setDiasVacacionesPendientes] = useState<string>("");
+  const { values, setField } = useUrlState(
+    { salario: "", incluyeTransporte: "true", fechaIngreso: "", fechaSalida: "", tipoTerminacion: "renuncia", tipoContrato: "indefinido", diasVacacionesPendientes: "" },
+    { paramNames: { incluyeTransporte: "transporte", fechaIngreso: "ingreso", fechaSalida: "salida", tipoTerminacion: "tipo", tipoContrato: "contrato", diasVacacionesPendientes: "vacaciones" } }
+  );
 
-  const salarioNum = parseFloat(salario) || 0;
+  const salarioNum = parseFloat(values.salario) || 0;
 
   const resultado = calcularLiquidacion({
     salario: salarioNum,
-    incluyeTransporte,
-    fechaIngreso,
-    fechaSalida,
-    tipoTerminacion,
-    tipoContrato,
-    diasVacacionesPendientes: diasVacacionesPendientes ? parseFloat(diasVacacionesPendientes) : undefined,
+    incluyeTransporte: values.incluyeTransporte === "true",
+    fechaIngreso: values.fechaIngreso,
+    fechaSalida: values.fechaSalida,
+    tipoTerminacion: values.tipoTerminacion as TipoTerminacion,
+    tipoContrato: values.tipoContrato as TipoContrato,
+    diasVacacionesPendientes: values.diasVacacionesPendientes ? parseFloat(values.diasVacacionesPendientes) : undefined,
   });
 
   const diasTrabajados = resultado?.diasTrabajados ?? 0;
@@ -107,9 +104,9 @@ export default function CalculadoraLiquidacion() {
               ].map((opt) => (
                 <button
                   key={opt.value}
-                  onClick={() => setTipoTerminacion(opt.value as TipoTerminacion)}
+                  onClick={() => setField("tipoTerminacion", opt.value)}
                   className={`px-4 py-3 rounded-xl font-semibold text-sm transition-colors ${
-                    tipoTerminacion === opt.value
+                    values.tipoTerminacion === opt.value
                       ? "bg-purple-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                   }`}
@@ -121,16 +118,16 @@ export default function CalculadoraLiquidacion() {
           </div>
 
           {/* Tipo de contrato (solo si aplica indemnización) */}
-          {tipoTerminacion === "despido_sin_justa_causa" && (
+          {values.tipoTerminacion === "despido_sin_justa_causa" && (
             <div className="space-y-3">
               <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
                 Tipo de contrato
               </label>
               <div className="grid grid-cols-2 gap-2">
                 <button
-                  onClick={() => setTipoContrato("indefinido")}
+                  onClick={() => setField("tipoContrato", "indefinido")}
                   className={`px-4 py-3 rounded-xl font-semibold transition-colors ${
-                    tipoContrato === "indefinido"
+                    values.tipoContrato === "indefinido"
                       ? "bg-purple-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
                   }`}
@@ -138,9 +135,9 @@ export default function CalculadoraLiquidacion() {
                   Indefinido
                 </button>
                 <button
-                  onClick={() => setTipoContrato("fijo")}
+                  onClick={() => setField("tipoContrato", "fijo")}
                   className={`px-4 py-3 rounded-xl font-semibold transition-colors ${
-                    tipoContrato === "fijo"
+                    values.tipoContrato === "fijo"
                       ? "bg-purple-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
                   }`}
@@ -160,8 +157,8 @@ export default function CalculadoraLiquidacion() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
               <input
                 type="number"
-                value={salario}
-                onChange={(e) => setSalario(e.target.value)}
+                value={values.salario}
+                onChange={(e) => setField("salario", e.target.value)}
                 placeholder="1.300.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
@@ -173,8 +170,8 @@ export default function CalculadoraLiquidacion() {
             <label className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl cursor-pointer">
               <input
                 type="checkbox"
-                checked={incluyeTransporte}
-                onChange={(e) => setIncluyeTransporte(e.target.checked)}
+                checked={values.incluyeTransporte === "true"}
+                onChange={(e) => setField("incluyeTransporte", String(e.target.checked))}
                 className="w-5 h-5 rounded-lg border-2 border-slate-300 text-purple-500 focus:ring-purple-500"
               />
               <div>
@@ -196,8 +193,8 @@ export default function CalculadoraLiquidacion() {
               </label>
               <input
                 type="date"
-                value={fechaIngreso}
-                onChange={(e) => setFechaIngreso(e.target.value)}
+                value={values.fechaIngreso}
+                onChange={(e) => setField("fechaIngreso", e.target.value)}
                 className="w-full px-4 py-4 rounded-2xl text-base font-semibold"
               />
             </div>
@@ -207,8 +204,8 @@ export default function CalculadoraLiquidacion() {
               </label>
               <input
                 type="date"
-                value={fechaSalida}
-                onChange={(e) => setFechaSalida(e.target.value)}
+                value={values.fechaSalida}
+                onChange={(e) => setField("fechaSalida", e.target.value)}
                 className="w-full px-4 py-4 rounded-2xl text-base font-semibold"
               />
             </div>
@@ -221,8 +218,8 @@ export default function CalculadoraLiquidacion() {
             </label>
             <input
               type="number"
-              value={diasVacacionesPendientes}
-              onChange={(e) => setDiasVacacionesPendientes(e.target.value)}
+              value={values.diasVacacionesPendientes}
+              onChange={(e) => setField("diasVacacionesPendientes", e.target.value)}
               placeholder="Dejar vacío para calcular automático"
               className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
             />

@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
 import { Icon } from "@/lib/icons";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const faqs = [
   {
@@ -147,28 +148,43 @@ interface Resultado {
 
 export default function CalculadoraHabitosPage() {
   const { moneda } = useCurrency();
-  const [tipoHabito, setTipoHabito] = useState<TipoHabito>("dinero");
-  const [tipoImpacto, setTipoImpacto] = useState<TipoImpacto>("positivo");
-  const [nombreHabito, setNombreHabito] = useState("");
-  const [valorDiario, setValorDiario] = useState("");
-  const [frecuencia, setFrecuencia] = useState("7"); // días por semana
-  const [tasaInteres, setTasaInteres] = useState("10");
-  const [usarInteres, setUsarInteres] = useState(false);
+  const { values, setField, hadInitialParams } = useUrlState(
+    {
+      tipoHabito: "dinero",
+      tipoImpacto: "positivo",
+      nombreHabito: "",
+      valorDiario: "",
+      frecuencia: "7",
+      tasaInteres: "10",
+      usarInteres: "false",
+    },
+    {
+      paramNames: {
+        tipoHabito: "th",
+        tipoImpacto: "ti",
+        nombreHabito: "nh",
+        valorDiario: "vd",
+        frecuencia: "f",
+        tasaInteres: "ta",
+        usarInteres: "ui",
+      },
+    }
+  );
   const [resultado, setResultado] = useState<Resultado | null>(null);
 
   const seleccionarPlantilla = (plantilla: PlantillaHabito) => {
-    setTipoHabito(plantilla.tipo);
-    setTipoImpacto(plantilla.impacto);
-    setNombreHabito(plantilla.nombre);
-    setValorDiario(plantilla.valorDiario.toString());
-    setFrecuencia("7");
+    setField("tipoHabito", plantilla.tipo);
+    setField("tipoImpacto", plantilla.impacto);
+    setField("nombreHabito", plantilla.nombre);
+    setField("valorDiario", plantilla.valorDiario.toString());
+    setField("frecuencia", "7");
     setResultado(null);
   };
 
   const calcular = () => {
-    const valor = parseFloat(valorDiario) || 0;
-    const diasSemana = parseFloat(frecuencia) || 7;
-    const tasa = usarInteres && tipoHabito === "dinero" ? (parseFloat(tasaInteres) || 0) / 100 : 0;
+    const valor = parseFloat(values.valorDiario) || 0;
+    const diasSemana = parseFloat(values.frecuencia) || 7;
+    const tasa = values.usarInteres === "true" && values.tipoHabito === "dinero" ? (parseFloat(values.tasaInteres) || 0) / 100 : 0;
 
     if (valor <= 0) return;
 
@@ -204,7 +220,7 @@ export default function CalculadoraHabitosPage() {
   const calcularEquivalencias = (año: number, cincoAños: number, diezAños: number) => {
     const equivalencias: { periodo: string; descripcion: string }[] = [];
 
-    if (tipoHabito === "tiempo") {
+    if (values.tipoHabito === "tiempo") {
       // Convertir minutos a horas/días
       const horasAño = año / 60;
       const diasAño = horasAño / 24;
@@ -225,13 +241,13 @@ export default function CalculadoraHabitosPage() {
       });
 
       // Equivalencias específicas
-      if (nombreHabito.toLowerCase().includes("leer")) {
+      if (values.nombreHabito.toLowerCase().includes("leer")) {
         equivalencias.push({
           periodo: "Libros",
           descripcion: `~${Math.floor(horasAño / 5)} libros/año (5h promedio por libro)`,
         });
       }
-    } else if (tipoHabito === "dinero") {
+    } else if (values.tipoHabito === "dinero") {
       // Equivalencias monetarias
       const precioVacaciones = moneda.codigo === "COP" ? 5000000 : moneda.codigo === "MXN" ? 30000 : 2000;
       const precioIphone = moneda.codigo === "COP" ? 5500000 : moneda.codigo === "MXN" ? 25000 : 1200;
@@ -246,16 +262,16 @@ export default function CalculadoraHabitosPage() {
       });
 
       // Para 10 años con interés compuesto
-      const aportadoDiez = (parseFloat(valorDiario) || 0) * (parseFloat(frecuencia) || 7) * 4.33 * 12 * 10;
-      if (usarInteres && diezAños > aportadoDiez) {
+      const aportadoDiez = (parseFloat(values.valorDiario) || 0) * (parseFloat(values.frecuencia) || 7) * 4.33 * 12 * 10;
+      if (values.usarInteres === "true" && diezAños > aportadoDiez) {
         equivalencias.push({
           periodo: "Intereses ganados",
           descripcion: `${moneda.simbolo}${formatMoney(diezAños - aportadoDiez)} extras por interés compuesto`,
         });
       }
-    } else if (tipoHabito === "salud") {
+    } else if (values.tipoHabito === "salud") {
       // Equivalencias de salud
-      if (nombreHabito.toLowerCase().includes("caminar") || nombreHabito.toLowerCase().includes("pasos")) {
+      if (values.nombreHabito.toLowerCase().includes("caminar") || values.nombreHabito.toLowerCase().includes("pasos")) {
         const kmAño = año * 0.0008; // ~0.8m por paso
         equivalencias.push({
           periodo: "Distancia/año",
@@ -273,6 +289,10 @@ export default function CalculadoraHabitosPage() {
     return equivalencias;
   };
 
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+  }, [hadInitialParams]);
+
   const formatMoney = (num: number) => {
     return new Intl.NumberFormat(moneda.locale, {
       minimumFractionDigits: 0,
@@ -288,18 +308,18 @@ export default function CalculadoraHabitosPage() {
   };
 
   const getUnidad = () => {
-    if (tipoHabito === "dinero") return moneda.simbolo;
-    if (tipoHabito === "tiempo") return "min";
+    if (values.tipoHabito === "dinero") return moneda.simbolo;
+    if (values.tipoHabito === "tiempo") return "min";
     return "uds";
   };
 
   const getInputPadding = () => {
-    if (tipoHabito === "dinero") return "pl-12";
+    if (values.tipoHabito === "dinero") return "pl-12";
     return "pl-14";
   };
 
   const getColorClass = () => {
-    if (tipoImpacto === "positivo") return "emerald";
+    if (values.tipoImpacto === "positivo") return "emerald";
     return "rose";
   };
 
@@ -335,7 +355,7 @@ export default function CalculadoraHabitosPage() {
               <button
                 key={p.nombre}
                 onClick={() => seleccionarPlantilla(p)}
-                className={`px-3 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${nombreHabito === p.nombre
+                className={`px-3 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${values.nombreHabito === p.nombre
                     ? p.impacto === "positivo"
                       ? "bg-emerald-500 text-white"
                       : "bg-rose-500 text-white"
@@ -355,8 +375,8 @@ export default function CalculadoraHabitosPage() {
             {(["dinero", "tiempo", "salud"] as TipoHabito[]).map((tipo) => (
               <button
                 key={tipo}
-                onClick={() => setTipoHabito(tipo)}
-                className={`flex-1 px-4 py-3 font-semibold transition-colors text-sm ${tipoHabito === tipo
+                onClick={() => setField("tipoHabito", tipo)}
+                className={`flex-1 px-4 py-3 font-semibold transition-colors text-sm ${values.tipoHabito === tipo
                     ? "bg-amber-500 text-white"
                     : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                   }`}
@@ -369,8 +389,8 @@ export default function CalculadoraHabitosPage() {
           {/* Impacto */}
           <div className="flex rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700">
             <button
-              onClick={() => setTipoImpacto("positivo")}
-              className={`flex-1 px-5 py-4 font-semibold transition-colors ${tipoImpacto === "positivo"
+              onClick={() => setField("tipoImpacto", "positivo")}
+              className={`flex-1 px-5 py-4 font-semibold transition-colors ${values.tipoImpacto === "positivo"
                   ? "bg-emerald-500 text-white"
                   : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
@@ -378,8 +398,8 @@ export default function CalculadoraHabitosPage() {
               <span className="inline-flex items-center gap-1"><Icon name="seal-check" className="w-4 h-4" /> Habito positivo</span>
             </button>
             <button
-              onClick={() => setTipoImpacto("negativo")}
-              className={`flex-1 px-5 py-4 font-semibold transition-colors ${tipoImpacto === "negativo"
+              onClick={() => setField("tipoImpacto", "negativo")}
+              className={`flex-1 px-5 py-4 font-semibold transition-colors ${values.tipoImpacto === "negativo"
                   ? "bg-rose-500 text-white"
                   : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
@@ -395,8 +415,8 @@ export default function CalculadoraHabitosPage() {
             </label>
             <input
               type="text"
-              value={nombreHabito}
-              onChange={(e) => setNombreHabito(e.target.value)}
+              value={values.nombreHabito}
+              onChange={(e) => setField("nombreHabito", e.target.value)}
               placeholder="Ej: Leer, Ahorrar, Café..."
               className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
             />
@@ -406,13 +426,13 @@ export default function CalculadoraHabitosPage() {
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
-                {tipoHabito === "dinero"
+                {values.tipoHabito === "dinero"
                   ? "Monto diario"
-                  : tipoHabito === "tiempo"
+                  : values.tipoHabito === "tiempo"
                     ? "Minutos por día"
                     : "Cantidad diaria"}
               </label>
-              {tipoHabito === "dinero" && <CurrencySelector colorClass="amber" />}
+              {values.tipoHabito === "dinero" && <CurrencySelector colorClass="amber" />}
             </div>
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">
@@ -420,9 +440,9 @@ export default function CalculadoraHabitosPage() {
               </span>
               <input
                 type="number"
-                value={valorDiario}
-                onChange={(e) => setValorDiario(e.target.value)}
-                placeholder={tipoHabito === "dinero" ? "10000" : "30"}
+                value={values.valorDiario}
+                onChange={(e) => setField("valorDiario", e.target.value)}
+                placeholder={values.tipoHabito === "dinero" ? "10000" : "30"}
                 className={`w-full ${getInputPadding()} pr-6 py-4 rounded-2xl text-lg font-semibold`}
               />
             </div>
@@ -437,8 +457,8 @@ export default function CalculadoraHabitosPage() {
               {[1, 2, 3, 4, 5, 6, 7].map((d) => (
                 <button
                   key={d}
-                  onClick={() => setFrecuencia(d.toString())}
-                  className={`w-12 h-12 rounded-xl font-bold transition-colors ${frecuencia === d.toString()
+                  onClick={() => setField("frecuencia", d.toString())}
+                  className={`w-12 h-12 rounded-xl font-bold transition-colors ${values.frecuencia === d.toString()
                       ? "bg-amber-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                     }`}
@@ -450,26 +470,26 @@ export default function CalculadoraHabitosPage() {
           </div>
 
           {/* Interés compuesto (solo para dinero positivo) */}
-          {tipoHabito === "dinero" && tipoImpacto === "positivo" && (
+          {values.tipoHabito === "dinero" && values.tipoImpacto === "positivo" && (
             <div className="p-4 bg-emerald-50 dark:bg-emerald-950/30 rounded-2xl space-y-3">
               <label className="flex items-center gap-3 cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={usarInteres}
-                  onChange={(e) => setUsarInteres(e.target.checked)}
+                  checked={values.usarInteres === "true"}
+                  onChange={(e) => setField("usarInteres", String(e.target.checked))}
                   className="w-5 h-5 rounded-lg accent-emerald-500"
                 />
                 <span className="font-semibold text-slate-700 dark:text-slate-300">
                   Aplicar interés compuesto (si invierto el ahorro)
                 </span>
               </label>
-              {usarInteres && (
+              {values.usarInteres === "true" && (
                 <div className="flex items-center gap-3 pl-8">
                   <label className="text-sm text-slate-500">Tasa anual:</label>
                   <input
                     type="number"
-                    value={tasaInteres}
-                    onChange={(e) => setTasaInteres(e.target.value)}
+                    value={values.tasaInteres}
+                    onChange={(e) => setField("tasaInteres", e.target.value)}
                     className="w-20 px-3 py-2 rounded-xl text-sm font-semibold"
                   />
                   <span className="text-slate-500">%</span>
@@ -489,25 +509,25 @@ export default function CalculadoraHabitosPage() {
             <div className="mt-10 space-y-6">
               {/* Encabezado del resultado */}
               <div
-                className={`p-6 rounded-3xl text-center ${tipoImpacto === "positivo"
+                className={`p-6 rounded-3xl text-center ${values.tipoImpacto === "positivo"
                     ? "bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 ring-1 ring-emerald-100 dark:ring-emerald-900"
                     : "bg-gradient-to-br from-rose-50 to-orange-50 dark:from-rose-950/50 dark:to-orange-950/50 ring-1 ring-rose-100 dark:ring-rose-900"
                   }`}
               >
                 <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">
-                  {tipoImpacto === "positivo" ? "En 10 años ganarás" : "En 10 años perderás"}
+                  {values.tipoImpacto === "positivo" ? "En 10 años ganarás" : "En 10 años perderás"}
                 </p>
                 <p
-                  className={`text-4xl font-black ${tipoImpacto === "positivo" ? "text-emerald-600" : "text-rose-600"
+                  className={`text-4xl font-black ${values.tipoImpacto === "positivo" ? "text-emerald-600" : "text-rose-600"
                     }`}
                 >
-                  {tipoHabito === "dinero" && moneda.simbolo}
+                  {values.tipoHabito === "dinero" && moneda.simbolo}
                   {formatNumber(resultado.diezAños)}
-                  {tipoHabito === "tiempo" && " min"}
+                  {values.tipoHabito === "tiempo" && " min"}
                 </p>
-                {nombreHabito && (
+                {values.nombreHabito && (
                   <p className="text-slate-500 mt-2">
-                    con tu hábito de <strong>{nombreHabito}</strong>
+                    con tu hábito de <strong>{values.nombreHabito}</strong>
                   </p>
                 )}
               </div>
@@ -531,13 +551,13 @@ export default function CalculadoraHabitosPage() {
                     >
                       <span className="text-slate-600 dark:text-slate-400">{item.periodo}</span>
                       <span
-                        className={`font-bold text-lg ${tipoImpacto === "positivo" ? "text-emerald-600" : "text-rose-600"
+                        className={`font-bold text-lg ${values.tipoImpacto === "positivo" ? "text-emerald-600" : "text-rose-600"
                           }`}
                       >
-                        {tipoImpacto === "negativo" && "-"}
-                        {tipoHabito === "dinero" && moneda.simbolo}
+                        {values.tipoImpacto === "negativo" && "-"}
+                        {values.tipoHabito === "dinero" && moneda.simbolo}
                         {formatNumber(item.valor)}
-                        {tipoHabito === "tiempo" && " min"}
+                        {values.tipoHabito === "tiempo" && " min"}
                       </span>
                     </div>
                   ))}
@@ -568,18 +588,18 @@ export default function CalculadoraHabitosPage() {
 
               {/* Mensaje motivacional */}
               <div
-                className={`p-6 rounded-2xl border ${tipoImpacto === "positivo"
+                className={`p-6 rounded-2xl border ${values.tipoImpacto === "positivo"
                     ? "bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800"
                     : "bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800"
                   }`}
               >
                 <p
-                  className={`text-sm ${tipoImpacto === "positivo"
+                  className={`text-sm ${values.tipoImpacto === "positivo"
                       ? "text-emerald-800 dark:text-emerald-200"
                       : "text-amber-800 dark:text-amber-200"
                     }`}
                 >
-                  {tipoImpacto === "positivo" ? (
+                  {values.tipoImpacto === "positivo" ? (
                     <>
                       <strong>¡Sigue así!</strong> Los pequeños hábitos construyen grandes
                       resultados. La consistencia es más importante que la intensidad.
@@ -587,7 +607,7 @@ export default function CalculadoraHabitosPage() {
                   ) : (
                     <>
                       <strong>Imagina</strong> lo que podrías hacer con ese{" "}
-                      {tipoHabito === "dinero" ? "dinero" : "tiempo"} si eliminas este hábito. Cada
+                      {values.tipoHabito === "dinero" ? "dinero" : "tiempo"} si eliminas este hábito. Cada
                       día que no lo haces es una victoria.
                     </>
                   )}

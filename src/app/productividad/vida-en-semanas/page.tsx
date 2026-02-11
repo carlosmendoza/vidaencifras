@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { WeeksGrid } from "@/components/charts/WeeksGrid";
 import { Icon } from "@/lib/icons";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const faqs = [
   {
@@ -48,16 +49,26 @@ interface Hito {
 }
 
 export default function VidaEnSemanasPage() {
-  const [fechaNacimiento, setFechaNacimiento] = useState("");
-  const [expectativaVida, setExpectativaVida] = useState("80");
+  const { values, setField, hadInitialParams } = useUrlState(
+    {
+      fechaNacimiento: "",
+      expectativaVida: "80",
+    },
+    {
+      paramNames: {
+        fechaNacimiento: "fn",
+        expectativaVida: "ev",
+      },
+    }
+  );
   const [mostrarResultado, setMostrarResultado] = useState(false);
 
   const estadisticas = useMemo((): Estadisticas | null => {
-    if (!fechaNacimiento) return null;
+    if (!values.fechaNacimiento) return null;
 
-    const nacimiento = new Date(fechaNacimiento);
+    const nacimiento = new Date(values.fechaNacimiento);
     const hoy = new Date();
-    const expectativa = parseInt(expectativaVida) || 80;
+    const expectativa = parseInt(values.expectativaVida) || 80;
 
     const msVividos = hoy.getTime() - nacimiento.getTime();
     const semanasVividas = Math.floor(msVividos / (1000 * 60 * 60 * 24 * 7));
@@ -78,12 +89,12 @@ export default function VidaEnSemanasPage() {
       cumpleañosRestantes: Math.floor(añosRestantes),
       añosRestantes: Math.floor(añosRestantes),
     };
-  }, [fechaNacimiento, expectativaVida]);
+  }, [values.fechaNacimiento, values.expectativaVida]);
 
   const hitos = useMemo((): Hito[] => {
-    if (!fechaNacimiento) return [];
+    if (!values.fechaNacimiento) return [];
 
-    const nacimiento = new Date(fechaNacimiento);
+    const nacimiento = new Date(values.fechaNacimiento);
     const añoNacimiento = nacimiento.getFullYear();
     const lista: Hito[] = [];
 
@@ -102,7 +113,7 @@ export default function VidaEnSemanasPage() {
 
     hitosEdad.forEach((h) => {
       const semana = h.edad * 52;
-      if (semana < parseInt(expectativaVida) * 52) {
+      if (semana < parseInt(values.expectativaVida) * 52) {
         lista.push({
           semana,
           nombre: h.nombre,
@@ -112,12 +123,16 @@ export default function VidaEnSemanasPage() {
     });
 
     return lista;
-  }, [fechaNacimiento, expectativaVida]);
+  }, [values.fechaNacimiento, values.expectativaVida]);
 
   const calcular = () => {
-    if (!fechaNacimiento) return;
+    if (!values.fechaNacimiento) return;
     setMostrarResultado(true);
   };
+
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+  }, [hadInitialParams]);
 
   return (
     <div className="space-y-8">
@@ -149,9 +164,9 @@ export default function VidaEnSemanasPage() {
             </label>
             <input
               type="date"
-              value={fechaNacimiento}
+              value={values.fechaNacimiento}
               onChange={(e) => {
-                setFechaNacimiento(e.target.value);
+                setField("fechaNacimiento", e.target.value);
                 setMostrarResultado(false);
               }}
               className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
@@ -166,9 +181,9 @@ export default function VidaEnSemanasPage() {
             </label>
             <input
               type="number"
-              value={expectativaVida}
+              value={values.expectativaVida}
               onChange={(e) => {
-                setExpectativaVida(e.target.value);
+                setField("expectativaVida", e.target.value);
                 setMostrarResultado(false);
               }}
               placeholder="80"
@@ -181,10 +196,10 @@ export default function VidaEnSemanasPage() {
                 <button
                   key={e}
                   onClick={() => {
-                    setExpectativaVida(e.toString());
+                    setField("expectativaVida", e.toString());
                     setMostrarResultado(false);
                   }}
-                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${expectativaVida === e.toString()
+                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${values.expectativaVida === e.toString()
                       ? "bg-amber-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                     }`}
@@ -197,8 +212,8 @@ export default function VidaEnSemanasPage() {
 
           <button
             onClick={calcular}
-            disabled={!fechaNacimiento}
-            className={`w-full py-5 rounded-2xl font-black text-xl transition-all shadow-xl active:scale-[0.99] ${fechaNacimiento
+            disabled={!values.fechaNacimiento}
+            className={`w-full py-5 rounded-2xl font-black text-xl transition-all shadow-xl active:scale-[0.99] ${values.fechaNacimiento
                 ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:opacity-90 shadow-amber-500/20"
                 : "bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed"
               }`}
@@ -231,7 +246,7 @@ export default function VidaEnSemanasPage() {
               <div className="flex justify-between text-xs text-slate-400 mt-2">
                 <span>Nacimiento</span>
                 <span>Hoy</span>
-                <span>{expectativaVida} años</span>
+                <span>{values.expectativaVida} años</span>
               </div>
             </div>
 
@@ -243,7 +258,7 @@ export default function VidaEnSemanasPage() {
               <WeeksGrid
                 semanasVividas={estadisticas.semanasVividas}
                 semanasTotal={estadisticas.semanasTotal}
-                expectativaVida={parseInt(expectativaVida) || 80}
+                expectativaVida={parseInt(values.expectativaVida) || 80}
                 hitos={hitos}
               />
             </div>
@@ -314,7 +329,7 @@ export default function VidaEnSemanasPage() {
             </div>
 
             {/* Perspectiva si vives más */}
-            {parseInt(expectativaVida) < 90 && (
+            {parseInt(values.expectativaVida) < 90 && (
               <div className="p-4 bg-emerald-50 dark:bg-emerald-950/30 rounded-xl text-center">
                 <p className="text-sm text-emerald-700 dark:text-emerald-300">
                   <strong>Dato:</strong> Si vives hasta los 90 (posible con buen estilo de vida),

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
@@ -14,9 +15,14 @@ interface Resultado {
 }
 
 export default function Porcentajes() {
-  const [tipoCalculo, setTipoCalculo] = useState<TipoCalculo>("porcentaje_de");
-  const [valor1, setValor1] = useState<string>("");
-  const [valor2, setValor2] = useState<string>("");
+  const { values, setField, hadInitialParams } = useUrlState(
+    { tipoCalculo: "porcentaje_de", valor1: "", valor2: "" },
+    { paramNames: { tipoCalculo: "tipo", valor1: "v1", valor2: "v2" } }
+  );
+
+  const tipoCalculo = values.tipoCalculo as TipoCalculo;
+  const valor1 = values.valor1;
+  const valor2 = values.valor2;
   const [resultado, setResultado] = useState<Resultado | null>(null);
 
   const tiposCalculo = [
@@ -42,7 +48,7 @@ export default function Porcentajes() {
     }
   };
 
-  const calcular = () => {
+  const calcular = useCallback(() => {
     const v1 = parseFloat(valor1);
     const v2 = parseFloat(valor2);
 
@@ -77,7 +83,11 @@ export default function Porcentajes() {
     }
 
     setResultado({ valor, explicacion });
-  };
+  }, [tipoCalculo, valor1, valor2]);
+
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+  }, [hadInitialParams, calcular]);
 
   const labels = getLabels();
 
@@ -145,7 +155,7 @@ export default function Porcentajes() {
                 <button
                   key={tipo.valor}
                   onClick={() => {
-                    setTipoCalculo(tipo.valor);
+                    setField("tipoCalculo", tipo.valor);
                     setResultado(null);
                   }}
                   className={`px-4 py-3 rounded-xl font-semibold text-sm transition-all ${
@@ -172,7 +182,7 @@ export default function Porcentajes() {
               <input
                 type="number"
                 value={valor1}
-                onChange={(e) => setValor1(e.target.value)}
+                onChange={(e) => setField("valor1", e.target.value)}
                 placeholder={labels.placeholder1}
                 className="w-full px-6 py-4 rounded-2xl text-xl font-semibold"
               />
@@ -184,7 +194,7 @@ export default function Porcentajes() {
               <input
                 type="number"
                 value={valor2}
-                onChange={(e) => setValor2(e.target.value)}
+                onChange={(e) => setField("valor2", e.target.value)}
                 placeholder={labels.placeholder2}
                 className="w-full px-6 py-4 rounded-2xl text-xl font-semibold"
               />

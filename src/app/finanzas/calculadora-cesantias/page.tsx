@@ -6,6 +6,7 @@ import { FAQ } from "@/components/FAQ";
 import { Icon } from "@/lib/icons";
 import { calcularCesantias } from "@/lib/calculadoras";
 import { AUXILIO_TRANSPORTE, SMMLV, TOPE_AUXILIO } from "@/lib/calculadoras/constantes";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const faqs = [
   {
@@ -31,19 +32,19 @@ const faqs = [
 ];
 
 export default function CalculadoraCesantias() {
-  const [salario, setSalario] = useState<string>("");
-  const [incluyeTransporte, setIncluyeTransporte] = useState<boolean>(true);
-  const [fechaIngreso, setFechaIngreso] = useState<string>("");
-  const [fechaCorte, setFechaCorte] = useState<string>("");
+  const { values, setField } = useUrlState(
+    { salario: "", incluyeTransporte: "true", fechaIngreso: "", fechaCorte: "" },
+    { paramNames: { incluyeTransporte: "transporte", fechaIngreso: "ingreso", fechaCorte: "corte" } }
+  );
   const [mostrarIntereses, setMostrarIntereses] = useState<boolean>(true);
 
-  const salarioNum = parseFloat(salario) || 0;
+  const salarioNum = parseFloat(values.salario) || 0;
 
   const resultado = salarioNum > 0 ? calcularCesantias({
     salario: salarioNum,
-    incluyeTransporte,
-    fechaIngreso: fechaIngreso || undefined,
-    fechaCorte: fechaCorte || undefined,
+    incluyeTransporte: values.incluyeTransporte === "true",
+    fechaIngreso: values.fechaIngreso || undefined,
+    fechaCorte: values.fechaCorte || undefined,
   }) : null;
 
   const aplicaAuxilio = resultado?.aplicaAuxilio ?? false;
@@ -89,8 +90,8 @@ export default function CalculadoraCesantias() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
               <input
                 type="number"
-                value={salario}
-                onChange={(e) => setSalario(e.target.value)}
+                value={values.salario}
+                onChange={(e) => setField("salario", e.target.value)}
                 placeholder="1.300.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
@@ -99,9 +100,9 @@ export default function CalculadoraCesantias() {
               {[1300000, 2000000, 3000000, 5000000].map((s) => (
                 <button
                   key={s}
-                  onClick={() => setSalario(s.toString())}
+                  onClick={() => setField("salario", s.toString())}
                   className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                    salario === s.toString()
+                    values.salario === s.toString()
                       ? "bg-cyan-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                   }`}
@@ -117,8 +118,8 @@ export default function CalculadoraCesantias() {
             <label className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl cursor-pointer">
               <input
                 type="checkbox"
-                checked={incluyeTransporte}
-                onChange={(e) => setIncluyeTransporte(e.target.checked)}
+                checked={values.incluyeTransporte === "true"}
+                onChange={(e) => setField("incluyeTransporte", String(e.target.checked))}
                 className="w-5 h-5 rounded-lg border-2 border-slate-300 text-cyan-500 focus:ring-cyan-500"
               />
               <div>
@@ -139,8 +140,8 @@ export default function CalculadoraCesantias() {
             </label>
             <input
               type="date"
-              value={fechaIngreso}
-              onChange={(e) => setFechaIngreso(e.target.value)}
+              value={values.fechaIngreso}
+              onChange={(e) => setField("fechaIngreso", e.target.value)}
               className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
             />
             <p className="text-xs text-slate-400 ml-1">
@@ -155,8 +156,8 @@ export default function CalculadoraCesantias() {
             </label>
             <input
               type="date"
-              value={fechaCorte}
-              onChange={(e) => setFechaCorte(e.target.value)}
+              value={values.fechaCorte}
+              onChange={(e) => setField("fechaCorte", e.target.value)}
               className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
             />
             <p className="text-xs text-slate-400 ml-1">

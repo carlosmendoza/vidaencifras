@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
+import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -17,9 +18,14 @@ interface Resultado {
 }
 
 export default function CalculadoraIVA() {
-  const [modo, setModo] = useState<ModoCalculo>("agregar");
-  const [tasa, setTasa] = useState<TasaIVA>(19);
-  const [valor, setValor] = useState<string>("");
+  const { values, setField } = useUrlState(
+    { modo: "agregar", tasa: "19", valor: "" },
+    { paramNames: { modo: "m", tasa: "t", valor: "v" } }
+  );
+
+  const modo = values.modo as ModoCalculo;
+  const tasa = parseInt(values.tasa) as TasaIVA;
+  const valor = values.valor;
 
   const resultado = useMemo((): Resultado | null => {
     const valorNum = parseFloat(valor);
@@ -149,7 +155,7 @@ export default function CalculadoraIVA() {
               {modos.map((m) => (
                 <button
                   key={m.valor}
-                  onClick={() => setModo(m.valor)}
+                  onClick={() => setField("modo", m.valor)}
                   className={`px-4 py-3 rounded-xl font-semibold text-sm transition-all ${
                     modo === m.valor
                       ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg"
@@ -174,7 +180,7 @@ export default function CalculadoraIVA() {
               {tasas.map((t) => (
                 <button
                   key={t.valor}
-                  onClick={() => setTasa(t.valor)}
+                  onClick={() => setField("tasa", String(t.valor))}
                   className={`flex-1 px-4 py-3 rounded-xl transition-all ${
                     tasa === t.valor
                       ? "bg-indigo-500 text-white font-bold shadow-lg"
@@ -200,7 +206,7 @@ export default function CalculadoraIVA() {
               <input
                 type="number"
                 value={valor}
-                onChange={(e) => setValor(e.target.value)}
+                onChange={(e) => setField("valor", e.target.value)}
                 placeholder="100000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />

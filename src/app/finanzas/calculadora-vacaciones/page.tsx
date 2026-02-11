@@ -1,27 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { calcularVacaciones, type VacacionesOutput } from "@/lib/calculadoras";
 import { SMMLV } from "@/lib/calculadoras/constantes";
+import { useUrlState } from "@/hooks/useUrlState";
 
 export default function CalculadoraVacaciones() {
-  const [salario, setSalario] = useState<string>("");
-  const [fechaIngreso, setFechaIngreso] = useState<string>("");
-  const [diasTomados, setDiasTomados] = useState<string>("0");
+  const { values, setField, hadInitialParams } = useUrlState(
+    { salario: "", fechaIngreso: "", diasTomados: "0" },
+    { paramNames: { fechaIngreso: "ingreso", diasTomados: "tomados" } }
+  );
   const [resultado, setResultado] = useState<VacacionesOutput | null>(null);
 
   const calcular = () => {
     const res = calcularVacaciones({
-      salario: parseFloat(salario),
-      fechaIngreso,
-      diasTomados: parseFloat(diasTomados) || 0,
+      salario: parseFloat(values.salario),
+      fechaIngreso: values.fechaIngreso,
+      diasTomados: parseFloat(values.diasTomados) || 0,
     });
     if (res) setResultado(res);
   };
+
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+  }, [hadInitialParams]);
 
   const formatMoney = (num: number) => {
     return new Intl.NumberFormat("es-CO", {
@@ -105,17 +111,17 @@ export default function CalculadoraVacaciones() {
               </span>
               <input
                 type="number"
-                value={salario}
-                onChange={(e) => setSalario(e.target.value)}
+                value={values.salario}
+                onChange={(e) => setField("salario", e.target.value)}
                 placeholder="2.500.000"
                 className="w-full pl-10 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />
             </div>
             <div className="flex gap-2">
               <button
-                onClick={() => setSalario(SMMLV.toString())}
+                onClick={() => setField("salario", SMMLV.toString())}
                 className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
-                  salario === SMMLV.toString()
+                  values.salario === SMMLV.toString()
                     ? "bg-gradient-to-r from-cyan-500 to-teal-500 text-white"
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
                 }`}
@@ -123,9 +129,9 @@ export default function CalculadoraVacaciones() {
                 1 SMMLV
               </button>
               <button
-                onClick={() => setSalario((SMMLV * 2).toString())}
+                onClick={() => setField("salario", (SMMLV * 2).toString())}
                 className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
-                  salario === (SMMLV * 2).toString()
+                  values.salario === (SMMLV * 2).toString()
                     ? "bg-gradient-to-r from-cyan-500 to-teal-500 text-white"
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
                 }`}
@@ -133,9 +139,9 @@ export default function CalculadoraVacaciones() {
                 2 SMMLV
               </button>
               <button
-                onClick={() => setSalario((SMMLV * 3).toString())}
+                onClick={() => setField("salario", (SMMLV * 3).toString())}
                 className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
-                  salario === (SMMLV * 3).toString()
+                  values.salario === (SMMLV * 3).toString()
                     ? "bg-gradient-to-r from-cyan-500 to-teal-500 text-white"
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
                 }`}
@@ -152,8 +158,8 @@ export default function CalculadoraVacaciones() {
             </label>
             <input
               type="date"
-              value={fechaIngreso}
-              onChange={(e) => setFechaIngreso(e.target.value)}
+              value={values.fechaIngreso}
+              onChange={(e) => setField("fechaIngreso", e.target.value)}
               className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
             />
           </div>
@@ -166,8 +172,8 @@ export default function CalculadoraVacaciones() {
             <div className="relative">
               <input
                 type="number"
-                value={diasTomados}
-                onChange={(e) => setDiasTomados(e.target.value)}
+                value={values.diasTomados}
+                onChange={(e) => setField("diasTomados", e.target.value)}
                 placeholder="0"
                 min="0"
                 className="w-full px-6 py-4 rounded-2xl text-xl font-semibold pr-16"

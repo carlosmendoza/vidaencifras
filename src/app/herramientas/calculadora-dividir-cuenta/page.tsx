@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useUrlState } from "@/hooks/useUrlState";
 import Link from "next/link";
 import { Icon } from "@/lib/icons";
 
@@ -42,14 +43,19 @@ function detectarMoneda(): Moneda {
 }
 
 export default function DividirCuenta() {
-  const [total, setTotal] = useState<string>("");
-  const [propina, setPropina] = useState<string>("10");
-  const [propinaCustom, setPropinaCustom] = useState<string>("");
+  const { values, setField, hadInitialParams } = useUrlState(
+    { total: "", propina: "10", propinaCustom: "", modo: "igual" },
+    { paramNames: { total: "t", propina: "p", propinaCustom: "pc", modo: "m" } }
+  );
+
+  const total = values.total;
+  const propina = values.propina;
+  const propinaCustom = values.propinaCustom;
+  const modo = values.modo as "igual" | "diferente";
   const [personas, setPersonas] = useState<Persona[]>([
     { id: 1, nombre: "Persona 1", pagado: "" },
     { id: 2, nombre: "Persona 2", pagado: "" },
   ]);
-  const [modo, setModo] = useState<"igual" | "diferente">("igual");
   const [moneda, setMoneda] = useState<Moneda>(monedas[0]);
   const [resultado, setResultado] = useState<{
     totalConPropina: number;
@@ -90,11 +96,11 @@ export default function DividirCuenta() {
   };
 
   const seleccionarPropina = (valor: string) => {
-    setPropina(valor);
-    setPropinaCustom("");
+    setField("propina", valor);
+    setField("propinaCustom", "");
   };
 
-  const calcularIgual = () => {
+  const calcularIgual = useCallback(() => {
     const t = parseFloat(total);
     const p = parseFloat(propinaActual) / 100;
 
@@ -106,9 +112,9 @@ export default function DividirCuenta() {
 
     setResultado({ totalConPropina, porPersona, propinaTotal });
     setResultadoDiferente(null);
-  };
+  }, [total, propinaActual, personas.length]);
 
-  const calcularDiferente = () => {
+  const calcularDiferente = useCallback(() => {
     const totalGastado = personas.reduce(
       (acc, p) => acc + (parseFloat(p.pagado) || 0),
       0
@@ -132,7 +138,14 @@ export default function DividirCuenta() {
 
     setResultadoDiferente(resultados);
     setResultado({ totalConPropina, porPersona, propinaTotal });
-  };
+  }, [personas, propinaActual]);
+
+  useEffect(() => {
+    if (hadInitialParams) {
+      if (modo === "igual") calcularIgual();
+      else calcularDiferente();
+    }
+  }, [hadInitialParams, modo, calcularIgual, calcularDiferente]);
 
   const formatMoney = (num: number) => {
     return new Intl.NumberFormat(moneda.locale, {
@@ -167,7 +180,7 @@ export default function DividirCuenta() {
           {/* Selector de modo */}
           <div className="flex items-center justify-center gap-3">
             <button
-              onClick={() => setModo("igual")}
+              onClick={() => setField("modo", "igual")}
               className={`px-5 py-3 rounded-xl font-bold transition-all ${
                 modo === "igual"
                   ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-500/20"
@@ -177,7 +190,7 @@ export default function DividirCuenta() {
               Dividir igual
             </button>
             <button
-              onClick={() => setModo("diferente")}
+              onClick={() => setField("modo", "diferente")}
               className={`px-5 py-3 rounded-xl font-bold transition-all ${
                 modo === "diferente"
                   ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-500/20"
@@ -211,7 +224,7 @@ export default function DividirCuenta() {
                 <input
                   type="number"
                   value={total}
-                  onChange={(e) => setTotal(e.target.value)}
+                  onChange={(e) => setField("total", e.target.value)}
                   placeholder="50000"
                   className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
                 />
@@ -297,7 +310,7 @@ export default function DividirCuenta() {
                 <input
                   type="number"
                   value={propinaCustom}
-                  onChange={(e) => setPropinaCustom(e.target.value)}
+                  onChange={(e) => setField("propinaCustom", e.target.value)}
                   placeholder="Otro"
                   className={`w-full py-3 px-3 rounded-xl font-bold text-center transition-all ${
                     propinaCustom !== ""

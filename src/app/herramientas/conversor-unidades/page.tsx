@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useUrlState } from "@/hooks/useUrlState";
 import Link from "next/link";
 import { Icon } from "@/lib/icons";
 
@@ -104,10 +104,15 @@ const categorias: Record<Categoria, CategoriaData> = {
 };
 
 export default function ConversorUnidades() {
-  const [categoria, setCategoria] = useState<Categoria>("longitud");
-  const [valor, setValor] = useState<string>("");
-  const [unidadOrigen, setUnidadOrigen] = useState<string>("m");
-  const [unidadDestino, setUnidadDestino] = useState<string>("km");
+  const { values, setField } = useUrlState(
+    { categoria: "longitud", valor: "", unidadOrigen: "m", unidadDestino: "km" },
+    { paramNames: { categoria: "cat", valor: "v", unidadOrigen: "de", unidadDestino: "a" } }
+  );
+
+  const categoria = values.categoria as Categoria;
+  const valor = values.valor;
+  const unidadOrigen = values.unidadOrigen;
+  const unidadDestino = values.unidadDestino;
 
   const catData = categorias[categoria];
 
@@ -157,8 +162,8 @@ export default function ConversorUnidades() {
 
   const intercambiar = () => {
     const temp = unidadOrigen;
-    setUnidadOrigen(unidadDestino);
-    setUnidadDestino(temp);
+    setField("unidadOrigen", unidadDestino);
+    setField("unidadDestino", temp);
   };
 
   const formatNumber = (num: number): string => {
@@ -197,10 +202,10 @@ export default function ConversorUnidades() {
               <button
                 key={cat}
                 onClick={() => {
-                  setCategoria(cat);
-                  setUnidadOrigen(categorias[cat].unidades[0].id);
-                  setUnidadDestino(categorias[cat].unidades[1].id);
-                  setValor("");
+                  setField("categoria", cat);
+                  setField("unidadOrigen", categorias[cat].unidades[0].id);
+                  setField("unidadDestino", categorias[cat].unidades[1].id);
+                  setField("valor", "");
                 }}
                 className={`p-3 rounded-xl text-center transition-all ${
                   categoria === cat
@@ -221,13 +226,13 @@ export default function ConversorUnidades() {
               <input
                 type="number"
                 value={valor}
-                onChange={(e) => setValor(e.target.value)}
+                onChange={(e) => setField("valor", e.target.value)}
                 placeholder="0"
                 className="flex-1 px-6 py-4 rounded-2xl text-xl font-semibold"
               />
               <select
                 value={unidadOrigen}
-                onChange={(e) => setUnidadOrigen(e.target.value)}
+                onChange={(e) => setField("unidadOrigen", e.target.value)}
                 className="px-4 py-4 rounded-2xl font-semibold bg-slate-100 dark:bg-slate-800 min-w-[120px]"
               >
                 {catData.unidades.map((u) => (
@@ -255,7 +260,7 @@ export default function ConversorUnidades() {
               </div>
               <select
                 value={unidadDestino}
-                onChange={(e) => setUnidadDestino(e.target.value)}
+                onChange={(e) => setField("unidadDestino", e.target.value)}
                 className="px-4 py-4 rounded-2xl font-semibold bg-slate-100 dark:bg-slate-800 min-w-[120px]"
               >
                 {catData.unidades.map((u) => (

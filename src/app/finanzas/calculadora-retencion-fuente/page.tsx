@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -8,19 +8,25 @@ import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { calcularRetencionFuente, type RetencionFuenteOutput } from "@/lib/calculadoras";
 import { TASAS_RETENCION, UVT_2025, type TipoRetencion } from "@/lib/calculadoras/constantes";
+import { useUrlState } from "@/hooks/useUrlState";
 
 export default function CalculadoraRetencion() {
-  const [tipoRetencion, setTipoRetencion] = useState<TipoRetencion>("servicios");
-  const [esDeclarante, setEsDeclarante] = useState<boolean>(true);
-  const [valorBruto, setValorBruto] = useState<string>("");
+  const { values, setField } = useUrlState(
+    { tipoRetencion: "servicios", esDeclarante: "true", valorBruto: "" },
+    { paramNames: { tipoRetencion: "tipo", esDeclarante: "declarante", valorBruto: "valor" } }
+  );
 
-  const tasaActual = TASAS_RETENCION.find((t) => t.tipo === tipoRetencion)!;
+  const tasaActual = TASAS_RETENCION.find((t) => t.tipo === values.tipoRetencion)!;
 
   const resultado = useMemo((): RetencionFuenteOutput | null => {
-    const valor = parseFloat(valorBruto);
+    const valor = parseFloat(values.valorBruto);
     if (isNaN(valor) || valor <= 0) return null;
-    return calcularRetencionFuente({ tipoRetencion, esDeclarante, valorBruto: valor });
-  }, [valorBruto, tipoRetencion, esDeclarante]);
+    return calcularRetencionFuente({
+      tipoRetencion: values.tipoRetencion as TipoRetencion,
+      esDeclarante: values.esDeclarante === "true",
+      valorBruto: valor,
+    });
+  }, [values.valorBruto, values.tipoRetencion, values.esDeclarante]);
 
   const formatMoney = (num: number) => {
     return new Intl.NumberFormat("es-CO", {
@@ -94,9 +100,9 @@ export default function CalculadoraRetencion() {
               {TASAS_RETENCION.map((t) => (
                 <button
                   key={t.tipo}
-                  onClick={() => setTipoRetencion(t.tipo)}
+                  onClick={() => setField("tipoRetencion", t.tipo)}
                   className={`px-4 py-3 rounded-xl font-semibold text-sm transition-all text-left ${
-                    tipoRetencion === t.tipo
+                    values.tipoRetencion === t.tipo
                       ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
@@ -115,9 +121,9 @@ export default function CalculadoraRetencion() {
             </label>
             <div className="flex rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700">
               <button
-                onClick={() => setEsDeclarante(true)}
+                onClick={() => setField("esDeclarante", "true")}
                 className={`flex-1 px-5 py-4 font-semibold transition-colors ${
-                  esDeclarante
+                  values.esDeclarante === "true"
                     ? "bg-emerald-500 text-white"
                     : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
@@ -125,9 +131,9 @@ export default function CalculadoraRetencion() {
                 Sí ({tasaActual.tasaDeclarante}%)
               </button>
               <button
-                onClick={() => setEsDeclarante(false)}
+                onClick={() => setField("esDeclarante", "false")}
                 className={`flex-1 px-5 py-4 font-semibold transition-colors ${
-                  !esDeclarante
+                  values.esDeclarante !== "true"
                     ? "bg-emerald-500 text-white"
                     : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
@@ -148,8 +154,8 @@ export default function CalculadoraRetencion() {
               </span>
               <input
                 type="number"
-                value={valorBruto}
-                onChange={(e) => setValorBruto(e.target.value)}
+                value={values.valorBruto}
+                onChange={(e) => setField("valorBruto", e.target.value)}
                 placeholder="1000000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />

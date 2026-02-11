@@ -1,37 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { calcularSalarioNeto, type SalarioNetoOutput } from "@/lib/calculadoras";
 import { SMMLV, AUXILIO_TRANSPORTE, TOPE_AUXILIO, UVT_2026 } from "@/lib/calculadoras/constantes";
+import { useUrlState } from "@/hooks/useUrlState";
 
 export default function CalculadoraSalarioNeto() {
-  const [salario, setSalario] = useState<string>("");
-  const [incluyeTransporte, setIncluyeTransporte] = useState<boolean>(true);
-  const [mostrarRetencion, setMostrarRetencion] = useState<boolean>(false);
-  const [dependientes, setDependientes] = useState<number>(0);
-  const [medicinaPrepagada, setMedicinaPrepagada] = useState<string>("");
-  const [interesesVivienda, setInteresesVivienda] = useState<string>("");
-  const [aportesAfc, setAportesAfc] = useState<string>("");
+  const { values, setField, hadInitialParams } = useUrlState(
+    { salario: "", incluyeTransporte: "true", mostrarRetencion: "false", dependientes: "0", medicinaPrepagada: "", interesesVivienda: "", aportesAfc: "" },
+    { paramNames: { incluyeTransporte: "transporte", mostrarRetencion: "retencion", medicinaPrepagada: "medicina", interesesVivienda: "vivienda" } }
+  );
   const [resultado, setResultado] = useState<SalarioNetoOutput | null>(null);
 
   const UVT = UVT_2026;
 
   const calcular = () => {
     const res = calcularSalarioNeto({
-      salario: parseFloat(salario),
-      incluyeTransporte,
-      calcularRetencion: mostrarRetencion,
-      dependientes,
-      medicinaPrepagada: parseFloat(medicinaPrepagada) || 0,
-      interesesVivienda: parseFloat(interesesVivienda) || 0,
-      aportesAfc: parseFloat(aportesAfc) || 0,
+      salario: parseFloat(values.salario),
+      incluyeTransporte: values.incluyeTransporte === "true",
+      calcularRetencion: values.mostrarRetencion === "true",
+      dependientes: parseInt(values.dependientes) || 0,
+      medicinaPrepagada: parseFloat(values.medicinaPrepagada) || 0,
+      interesesVivienda: parseFloat(values.interesesVivienda) || 0,
+      aportesAfc: parseFloat(values.aportesAfc) || 0,
     });
     if (res) setResultado(res);
   };
+
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hadInitialParams]);
 
   const formatMoney = (num: number) => {
     return new Intl.NumberFormat("es-CO", {
@@ -122,8 +125,8 @@ export default function CalculadoraSalarioNeto() {
               </span>
               <input
                 type="number"
-                value={salario}
-                onChange={(e) => setSalario(e.target.value)}
+                value={values.salario}
+                onChange={(e) => setField("salario", e.target.value)}
                 placeholder="2.500.000"
                 className="w-full pl-10 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />
@@ -133,9 +136,9 @@ export default function CalculadoraSalarioNeto() {
               {salarioRapido.map((s) => (
                 <button
                   key={s}
-                  onClick={() => setSalario(s.toString())}
+                  onClick={() => setField("salario", s.toString())}
                   className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
-                    salario === s.toString()
+                    values.salario === s.toString()
                       ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
@@ -149,14 +152,14 @@ export default function CalculadoraSalarioNeto() {
           {/* Auxilio de transporte */}
           <div className="flex items-start gap-3 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
             <button
-              onClick={() => setIncluyeTransporte(!incluyeTransporte)}
+              onClick={() => setField("incluyeTransporte", values.incluyeTransporte === "true" ? "false" : "true")}
               className={`relative flex-shrink-0 w-12 h-7 rounded-full transition-colors ${
-                incluyeTransporte ? "bg-emerald-500" : "bg-slate-300 dark:bg-slate-600"
+                values.incluyeTransporte === "true" ? "bg-emerald-500" : "bg-slate-300 dark:bg-slate-600"
               }`}
             >
               <span
                 className={`absolute top-1 left-1 w-5 h-5 bg-white rounded-full shadow transition-transform ${
-                  incluyeTransporte ? "translate-x-5" : "translate-x-0"
+                  values.incluyeTransporte === "true" ? "translate-x-5" : "translate-x-0"
                 }`}
               />
             </button>
@@ -174,14 +177,14 @@ export default function CalculadoraSalarioNeto() {
           <div className="p-4 bg-amber-50 dark:bg-amber-950/30 rounded-2xl space-y-4">
             <div className="flex items-start gap-3">
               <button
-                onClick={() => setMostrarRetencion(!mostrarRetencion)}
+                onClick={() => setField("mostrarRetencion", values.mostrarRetencion === "true" ? "false" : "true")}
                 className={`relative flex-shrink-0 w-12 h-7 rounded-full transition-colors ${
-                  mostrarRetencion ? "bg-amber-500" : "bg-slate-300 dark:bg-slate-600"
+                  values.mostrarRetencion === "true" ? "bg-amber-500" : "bg-slate-300 dark:bg-slate-600"
                 }`}
               >
                 <span
                   className={`absolute top-1 left-1 w-5 h-5 bg-white rounded-full shadow transition-transform ${
-                    mostrarRetencion ? "translate-x-5" : "translate-x-0"
+                    values.mostrarRetencion === "true" ? "translate-x-5" : "translate-x-0"
                   }`}
                 />
               </button>
@@ -195,7 +198,7 @@ export default function CalculadoraSalarioNeto() {
               </div>
             </div>
 
-            {mostrarRetencion && (
+            {values.mostrarRetencion === "true" && (
               <div className="space-y-4 pt-2 border-t border-amber-200 dark:border-amber-800">
                 <p className="text-xs font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wide">
                   Deducciones para reducir retención
@@ -210,9 +213,9 @@ export default function CalculadoraSalarioNeto() {
                     {[0, 1, 2, 3, 4].map((n) => (
                       <button
                         key={n}
-                        onClick={() => setDependientes(n)}
+                        onClick={() => setField("dependientes", n.toString())}
                         className={`w-10 h-10 rounded-xl font-bold transition-all ${
-                          dependientes === n
+                          values.dependientes === n.toString()
                             ? "bg-amber-500 text-white shadow-lg"
                             : "bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-amber-100"
                         }`}
@@ -235,8 +238,8 @@ export default function CalculadoraSalarioNeto() {
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
                     <input
                       type="number"
-                      value={medicinaPrepagada}
-                      onChange={(e) => setMedicinaPrepagada(e.target.value)}
+                      value={values.medicinaPrepagada}
+                      onChange={(e) => setField("medicinaPrepagada", e.target.value)}
                       placeholder="0"
                       className="w-full pl-8 pr-4 py-3 rounded-xl text-sm"
                     />
@@ -252,8 +255,8 @@ export default function CalculadoraSalarioNeto() {
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
                     <input
                       type="number"
-                      value={interesesVivienda}
-                      onChange={(e) => setInteresesVivienda(e.target.value)}
+                      value={values.interesesVivienda}
+                      onChange={(e) => setField("interesesVivienda", e.target.value)}
                       placeholder="0"
                       className="w-full pl-8 pr-4 py-3 rounded-xl text-sm"
                     />
@@ -269,8 +272,8 @@ export default function CalculadoraSalarioNeto() {
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
                     <input
                       type="number"
-                      value={aportesAfc}
-                      onChange={(e) => setAportesAfc(e.target.value)}
+                      value={values.aportesAfc}
+                      onChange={(e) => setField("aportesAfc", e.target.value)}
                       placeholder="0"
                       className="w-full pl-8 pr-4 py-3 rounded-xl text-sm"
                     />
@@ -393,7 +396,7 @@ export default function CalculadoraSalarioNeto() {
               </div>
 
               {/* Detalle retención en la fuente */}
-              {mostrarRetencion && (
+              {values.mostrarRetencion === "true" && (
                 <div className="p-6 bg-amber-50 dark:bg-amber-950/30 rounded-2xl ring-1 ring-amber-200 dark:ring-amber-800">
                   <h3 className="text-sm font-bold text-amber-700 dark:text-amber-400 mb-4 flex items-center gap-2">
                     <Icon name="bar-chart" className="w-5 h-5" weight="fill" /> Cálculo de retención en la fuente

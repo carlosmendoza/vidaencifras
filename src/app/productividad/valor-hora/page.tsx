@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
 import { Icon } from "@/lib/icons";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const faqs = [
   {
@@ -41,29 +42,45 @@ interface Resultado {
 
 export default function ValorHoraPage() {
   const { moneda } = useCurrency();
-  const [tipoIngreso, setTipoIngreso] = useState<"mensual" | "anual">("mensual");
-  const [ingreso, setIngreso] = useState("");
-  const [horasSemana, setHorasSemana] = useState("40");
-  const [diasSemana, setDiasSemana] = useState("5");
-  const [tiempoTraslado, setTiempoTraslado] = useState("");
-  const [gastoTransporte, setGastoTransporte] = useState("");
-  const [gastoComida, setGastoComida] = useState("");
-  const [otrosGastos, setOtrosGastos] = useState("");
+  const { values, setField, hadInitialParams } = useUrlState(
+    {
+      tipoIngreso: "mensual",
+      ingreso: "",
+      horasSemana: "40",
+      diasSemana: "5",
+      tiempoTraslado: "",
+      gastoTransporte: "",
+      gastoComida: "",
+      otrosGastos: "",
+    },
+    {
+      paramNames: {
+        tipoIngreso: "tipo",
+        ingreso: "ing",
+        horasSemana: "hs",
+        diasSemana: "ds",
+        tiempoTraslado: "tt",
+        gastoTransporte: "gt",
+        gastoComida: "gc",
+        otrosGastos: "og",
+      },
+    }
+  );
   const [resultado, setResultado] = useState<Resultado | null>(null);
 
   const calcular = () => {
-    const ingresoNum = parseFloat(ingreso) || 0;
-    const horasSemanales = parseFloat(horasSemana) || 40;
-    const diasSemanales = parseFloat(diasSemana) || 5;
-    const trasladoMin = parseFloat(tiempoTraslado) || 0;
-    const transporteMes = parseFloat(gastoTransporte) || 0;
-    const comidaMes = parseFloat(gastoComida) || 0;
-    const otrosMes = parseFloat(otrosGastos) || 0;
+    const ingresoNum = parseFloat(values.ingreso) || 0;
+    const horasSemanales = parseFloat(values.horasSemana) || 40;
+    const diasSemanales = parseFloat(values.diasSemana) || 5;
+    const trasladoMin = parseFloat(values.tiempoTraslado) || 0;
+    const transporteMes = parseFloat(values.gastoTransporte) || 0;
+    const comidaMes = parseFloat(values.gastoComida) || 0;
+    const otrosMes = parseFloat(values.otrosGastos) || 0;
 
     if (ingresoNum <= 0) return;
 
     // Calcular ingreso mensual
-    const ingresoMensual = tipoIngreso === "anual" ? ingresoNum / 12 : ingresoNum;
+    const ingresoMensual = values.tipoIngreso === "anual" ? ingresoNum / 12 : ingresoNum;
 
     // Horas trabajadas al mes (aprox 4.33 semanas)
     const horasMes = horasSemanales * 4.33;
@@ -98,6 +115,10 @@ export default function ValorHoraPage() {
       equivalencias,
     });
   };
+
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+  }, [hadInitialParams]);
 
   const calcularEquivalencias = (valorHora: number, monedaCodigo: string) => {
     // Precios aproximados por país
@@ -160,8 +181,8 @@ export default function ValorHoraPage() {
           {/* Tipo de ingreso */}
           <div className="flex rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700">
             <button
-              onClick={() => setTipoIngreso("mensual")}
-              className={`flex-1 px-5 py-4 font-semibold transition-colors ${tipoIngreso === "mensual"
+              onClick={() => setField("tipoIngreso", "mensual")}
+              className={`flex-1 px-5 py-4 font-semibold transition-colors ${values.tipoIngreso === "mensual"
                 ? "bg-amber-500 text-white"
                 : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
@@ -169,8 +190,8 @@ export default function ValorHoraPage() {
               Ingreso mensual
             </button>
             <button
-              onClick={() => setTipoIngreso("anual")}
-              className={`flex-1 px-5 py-4 font-semibold transition-colors ${tipoIngreso === "anual"
+              onClick={() => setField("tipoIngreso", "anual")}
+              className={`flex-1 px-5 py-4 font-semibold transition-colors ${values.tipoIngreso === "anual"
                 ? "bg-amber-500 text-white"
                 : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
@@ -183,7 +204,7 @@ export default function ValorHoraPage() {
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
-                Tu ingreso {tipoIngreso}
+                Tu ingreso {values.tipoIngreso}
               </label>
               <CurrencySelector colorClass="amber" />
             </div>
@@ -193,9 +214,9 @@ export default function ValorHoraPage() {
               </span>
               <input
                 type="number"
-                value={ingreso}
-                onChange={(e) => setIngreso(e.target.value)}
-                placeholder={tipoIngreso === "mensual" ? "3.500.000" : "42.000.000"}
+                value={values.ingreso}
+                onChange={(e) => setField("ingreso", e.target.value)}
+                placeholder={values.tipoIngreso === "mensual" ? "3.500.000" : "42.000.000"}
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
             </div>
@@ -209,8 +230,8 @@ export default function ValorHoraPage() {
               </label>
               <input
                 type="number"
-                value={horasSemana}
-                onChange={(e) => setHorasSemana(e.target.value)}
+                value={values.horasSemana}
+                onChange={(e) => setField("horasSemana", e.target.value)}
                 placeholder="40"
                 className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
               />
@@ -221,8 +242,8 @@ export default function ValorHoraPage() {
               </label>
               <input
                 type="number"
-                value={diasSemana}
-                onChange={(e) => setDiasSemana(e.target.value)}
+                value={values.diasSemana}
+                onChange={(e) => setField("diasSemana", e.target.value)}
                 placeholder="5"
                 className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
               />
@@ -236,8 +257,8 @@ export default function ValorHoraPage() {
             </label>
             <input
               type="number"
-              value={tiempoTraslado}
-              onChange={(e) => setTiempoTraslado(e.target.value)}
+              value={values.tiempoTraslado}
+              onChange={(e) => setField("tiempoTraslado", e.target.value)}
               placeholder="30"
               className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
             />
@@ -245,8 +266,8 @@ export default function ValorHoraPage() {
               {[15, 30, 45, 60, 90].map((m) => (
                 <button
                   key={m}
-                  onClick={() => setTiempoTraslado(m.toString())}
-                  className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${tiempoTraslado === m.toString()
+                  onClick={() => setField("tiempoTraslado", m.toString())}
+                  className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${values.tiempoTraslado === m.toString()
                     ? "bg-amber-500 text-white"
                     : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                     }`}
@@ -273,8 +294,8 @@ export default function ValorHoraPage() {
                   </span>
                   <input
                     type="number"
-                    value={gastoTransporte}
-                    onChange={(e) => setGastoTransporte(e.target.value)}
+                    value={values.gastoTransporte}
+                    onChange={(e) => setField("gastoTransporte", e.target.value)}
                     placeholder="200.000"
                     className="w-full pl-10 pr-4 py-3 rounded-xl text-sm font-semibold"
                   />
@@ -290,8 +311,8 @@ export default function ValorHoraPage() {
                   </span>
                   <input
                     type="number"
-                    value={gastoComida}
-                    onChange={(e) => setGastoComida(e.target.value)}
+                    value={values.gastoComida}
+                    onChange={(e) => setField("gastoComida", e.target.value)}
                     placeholder="300.000"
                     className="w-full pl-10 pr-4 py-3 rounded-xl text-sm font-semibold"
                   />
@@ -307,8 +328,8 @@ export default function ValorHoraPage() {
                   </span>
                   <input
                     type="number"
-                    value={otrosGastos}
-                    onChange={(e) => setOtrosGastos(e.target.value)}
+                    value={values.otrosGastos}
+                    onChange={(e) => setField("otrosGastos", e.target.value)}
                     placeholder="0"
                     className="w-full pl-10 pr-4 py-3 rounded-xl text-sm font-semibold"
                   />

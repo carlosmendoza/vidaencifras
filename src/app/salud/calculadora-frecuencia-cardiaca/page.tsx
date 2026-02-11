@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
@@ -25,13 +26,15 @@ interface Resultado {
 }
 
 export default function CalculadoraFrecuenciaCardiaca() {
-  const [edad, setEdad] = useState<string>("");
-  const [fcReposo, setFcReposo] = useState<string>("");
+  const { values, setField, hadInitialParams } = useUrlState(
+    { edad: "", fcReposo: "" },
+    { paramNames: { fcReposo: "reposo" } }
+  );
   const [resultado, setResultado] = useState<Resultado | null>(null);
 
   const calcular = () => {
-    const edadNum = parseInt(edad);
-    const fcReposoNum = parseInt(fcReposo) || 70; // Default si no ingresa
+    const edadNum = parseInt(values.edad);
+    const fcReposoNum = parseInt(values.fcReposo) || 70; // Default si no ingresa
 
     if (isNaN(edadNum) || edadNum <= 0) return;
 
@@ -68,6 +71,10 @@ export default function CalculadoraFrecuenciaCardiaca() {
       zonas,
     });
   };
+
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+  }, [hadInitialParams]);
 
   const faqs = [
     {
@@ -143,8 +150,8 @@ export default function CalculadoraFrecuenciaCardiaca() {
               <div className="relative">
                 <input
                   type="number"
-                  value={edad}
-                  onChange={(e) => setEdad(e.target.value)}
+                  value={values.edad}
+                  onChange={(e) => setField("edad", e.target.value)}
                   placeholder="30"
                   className="w-full px-6 py-4 rounded-2xl text-xl font-semibold pr-16"
                 />
@@ -162,8 +169,8 @@ export default function CalculadoraFrecuenciaCardiaca() {
               <div className="relative">
                 <input
                   type="number"
-                  value={fcReposo}
-                  onChange={(e) => setFcReposo(e.target.value)}
+                  value={values.fcReposo}
+                  onChange={(e) => setField("fcReposo", e.target.value)}
                   placeholder="70"
                   className="w-full px-6 py-4 rounded-2xl text-xl font-semibold pr-16"
                 />

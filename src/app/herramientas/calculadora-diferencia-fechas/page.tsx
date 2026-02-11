@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useUrlState } from "@/hooks/useUrlState";
 import Link from "next/link";
 import { Icon } from "@/lib/icons";
 
@@ -70,11 +71,16 @@ function calcularDiferenciaExacta(inicio: Date, fin: Date): { anios: number; mes
 }
 
 export default function DiferenciaFechas() {
-  const [fechaInicio, setFechaInicio] = useState<string>("");
-  const [fechaFin, setFechaFin] = useState<string>("");
+  const { values, setField, hadInitialParams } = useUrlState(
+    { fechaInicio: "", fechaFin: "" },
+    { paramNames: { fechaInicio: "inicio", fechaFin: "fin" } }
+  );
+
+  const fechaInicio = values.fechaInicio;
+  const fechaFin = values.fechaFin;
   const [resultado, setResultado] = useState<Resultado | null>(null);
 
-  const calcular = () => {
+  const calcular = useCallback(() => {
     if (!fechaInicio || !fechaFin) return;
 
     let inicio = new Date(fechaInicio + "T00:00:00");
@@ -110,14 +116,18 @@ export default function DiferenciaFechas() {
       diasLaborables: laborables,
       finesDeSemana,
     });
-  };
+  }, [fechaInicio, fechaFin]);
+
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+  }, [hadInitialParams, calcular]);
 
   const setHoy = (campo: "inicio" | "fin") => {
     const hoy = new Date().toISOString().split("T")[0];
     if (campo === "inicio") {
-      setFechaInicio(hoy);
+      setField("fechaInicio", hoy);
     } else {
-      setFechaFin(hoy);
+      setField("fechaFin", hoy);
     }
   };
 
@@ -164,7 +174,7 @@ export default function DiferenciaFechas() {
             <input
               type="date"
               value={fechaInicio}
-              onChange={(e) => setFechaInicio(e.target.value)}
+              onChange={(e) => setField("fechaInicio", e.target.value)}
               className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
             />
           </div>
@@ -185,7 +195,7 @@ export default function DiferenciaFechas() {
             <input
               type="date"
               value={fechaFin}
-              onChange={(e) => setFechaFin(e.target.value)}
+              onChange={(e) => setField("fechaFin", e.target.value)}
               className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
             />
           </div>

@@ -1,28 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
 import { Icon } from "@/lib/icons";
 import { calcularPrestamo, type PrestamoOutput } from "@/lib/calculadoras";
+import { useUrlState } from "@/hooks/useUrlState";
 
 export default function Prestamos() {
   const { moneda } = useCurrency();
-  const [monto, setMonto] = useState<string>("");
-  const [tasaAnual, setTasaAnual] = useState<string>("");
-  const [plazoMeses, setPlazoMeses] = useState<string>("");
+  const { values, setField, hadInitialParams } = useUrlState(
+    { monto: "", tasaAnual: "", plazoMeses: "" },
+    { paramNames: { tasaAnual: "tasa", plazoMeses: "plazo" } }
+  );
   const [resultado, setResultado] = useState<PrestamoOutput | null>(null);
   const [mostrarTabla, setMostrarTabla] = useState<boolean>(false);
 
   const calcular = () => {
     const res = calcularPrestamo({
-      monto: parseFloat(monto),
-      tasaAnual: parseFloat(tasaAnual),
-      plazoMeses: parseInt(plazoMeses),
+      monto: parseFloat(values.monto),
+      tasaAnual: parseFloat(values.tasaAnual),
+      plazoMeses: parseInt(values.plazoMeses),
     });
     if (res) setResultado(res);
   };
+
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+  }, [hadInitialParams]);
 
   const formatMoney = (num: number) => {
     return new Intl.NumberFormat(moneda.locale, {
@@ -69,8 +75,8 @@ export default function Prestamos() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold">{moneda.simbolo}</span>
               <input
                 type="number"
-                value={monto}
-                onChange={(e) => setMonto(e.target.value)}
+                value={values.monto}
+                onChange={(e) => setField("monto", e.target.value)}
                 placeholder="100000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />
@@ -85,8 +91,8 @@ export default function Prestamos() {
             <div className="relative">
               <input
                 type="number"
-                value={tasaAnual}
-                onChange={(e) => setTasaAnual(e.target.value)}
+                value={values.tasaAnual}
+                onChange={(e) => setField("tasaAnual", e.target.value)}
                 placeholder="12"
                 step="0.1"
                 className="w-full px-6 py-4 rounded-2xl text-xl font-semibold pr-12"
@@ -103,8 +109,8 @@ export default function Prestamos() {
             <div className="relative">
               <input
                 type="number"
-                value={plazoMeses}
-                onChange={(e) => setPlazoMeses(e.target.value)}
+                value={values.plazoMeses}
+                onChange={(e) => setField("plazoMeses", e.target.value)}
                 placeholder="36"
                 className="w-full px-6 py-4 rounded-2xl text-xl font-semibold pr-16"
               />
@@ -114,9 +120,9 @@ export default function Prestamos() {
               {plazosRapidos.map((p) => (
                 <button
                   key={p}
-                  onClick={() => setPlazoMeses(p.toString())}
+                  onClick={() => setField("plazoMeses", p.toString())}
                   className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
-                    plazoMeses === p.toString()
+                    values.plazoMeses === p.toString()
                       ? "bg-rose-500 text-white"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
@@ -164,14 +170,14 @@ export default function Prestamos() {
               <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-2xl ring-1 ring-slate-100 dark:ring-slate-700">
                 <div className="flex items-center gap-2 text-sm mb-2">
                   <span className="w-3 h-3 bg-slate-400 rounded"></span>
-                  <span className="text-slate-600 dark:text-slate-300">Capital: {((parseFloat(monto) / resultado.totalPagar) * 100).toFixed(1)}%</span>
+                  <span className="text-slate-600 dark:text-slate-300">Capital: {((parseFloat(values.monto) / resultado.totalPagar) * 100).toFixed(1)}%</span>
                   <span className="w-3 h-3 bg-rose-400 rounded ml-4"></span>
                   <span className="text-slate-600 dark:text-slate-300">Intereses: {((resultado.totalIntereses / resultado.totalPagar) * 100).toFixed(1)}%</span>
                 </div>
                 <div className="h-4 rounded-full overflow-hidden flex">
                   <div
                     className="bg-slate-400 h-full"
-                    style={{ width: `${(parseFloat(monto) / resultado.totalPagar) * 100}%` }}
+                    style={{ width: `${(parseFloat(values.monto) / resultado.totalPagar) * 100}%` }}
                   ></div>
                   <div
                     className="bg-rose-400 h-full"

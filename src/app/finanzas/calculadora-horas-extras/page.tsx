@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { calcularHorasExtras, type HorasExtrasOutput } from "@/lib/calculadoras";
 import { SMMLV, TIPOS_HORA, type TipoHora } from "@/lib/calculadoras/constantes";
+import { useUrlState } from "@/hooks/useUrlState";
 
 interface TipoHoraUI {
   id: TipoHora;
@@ -17,9 +18,10 @@ interface TipoHoraUI {
 }
 
 export default function CalculadoraHorasExtras() {
-  const [salario, setSalario] = useState<string>("");
-  const [tipoHora, setTipoHora] = useState<TipoHora>("extra_diurna");
-  const [cantidad, setCantidad] = useState<string>("");
+  const { values, setField, hadInitialParams } = useUrlState(
+    { salario: "", tipoHora: "extra_diurna", cantidad: "" },
+    { paramNames: { tipoHora: "tipo" } }
+  );
   const [resultado, setResultado] = useState<HorasExtrasOutput | null>(null);
 
   const tiposHora: TipoHoraUI[] = TIPOS_HORA.map((t) => ({
@@ -37,12 +39,16 @@ export default function CalculadoraHorasExtras() {
 
   const calcular = () => {
     const res = calcularHorasExtras({
-      salario: parseFloat(salario),
-      tipoHora,
-      cantidad: parseFloat(cantidad),
+      salario: parseFloat(values.salario),
+      tipoHora: values.tipoHora as TipoHora,
+      cantidad: parseFloat(values.cantidad),
     });
     if (res) setResultado(res);
   };
+
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+  }, [hadInitialParams]);
 
   const formatMoney = (num: number) => {
     return new Intl.NumberFormat("es-CO", {
@@ -53,7 +59,7 @@ export default function CalculadoraHorasExtras() {
     }).format(num);
   };
 
-  const tipoSeleccionado = tiposHora.find((t) => t.id === tipoHora)!;
+  const tipoSeleccionado = tiposHora.find((t) => t.id === values.tipoHora)!;
 
   const faqs = [
     {
@@ -128,17 +134,17 @@ export default function CalculadoraHorasExtras() {
               </span>
               <input
                 type="number"
-                value={salario}
-                onChange={(e) => setSalario(e.target.value)}
+                value={values.salario}
+                onChange={(e) => setField("salario", e.target.value)}
                 placeholder="1.750.905"
                 className="w-full pl-10 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />
             </div>
             <div className="flex gap-2">
               <button
-                onClick={() => setSalario(SMMLV.toString())}
+                onClick={() => setField("salario", SMMLV.toString())}
                 className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
-                  salario === SMMLV.toString()
+                  values.salario === SMMLV.toString()
                     ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white"
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
                 }`}
@@ -146,9 +152,9 @@ export default function CalculadoraHorasExtras() {
                 1 SMMLV
               </button>
               <button
-                onClick={() => setSalario((SMMLV * 2).toString())}
+                onClick={() => setField("salario", (SMMLV * 2).toString())}
                 className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
-                  salario === (SMMLV * 2).toString()
+                  values.salario === (SMMLV * 2).toString()
                     ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white"
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
                 }`}
@@ -167,20 +173,20 @@ export default function CalculadoraHorasExtras() {
               {tiposHora.map((tipo) => (
                 <button
                   key={tipo.id}
-                  onClick={() => setTipoHora(tipo.id)}
+                  onClick={() => setField("tipoHora", tipo.id)}
                   className={`p-3 rounded-xl text-left transition-all ${
-                    tipoHora === tipo.id
+                    values.tipoHora === tipo.id
                       ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
                 >
                   <div className="flex justify-between items-center">
                     <span className="font-bold text-sm">{tipo.nombre}</span>
-                    <span className={`text-xs font-black ${tipoHora === tipo.id ? "text-white" : "text-amber-600 dark:text-amber-400"}`}>
+                    <span className={`text-xs font-black ${values.tipoHora === tipo.id ? "text-white" : "text-amber-600 dark:text-amber-400"}`}>
                       +{(tipo.recargo * 100).toFixed(0)}%
                     </span>
                   </div>
-                  <p className={`text-xs mt-1 ${tipoHora === tipo.id ? "text-amber-100" : "text-slate-400"}`}>
+                  <p className={`text-xs mt-1 ${values.tipoHora === tipo.id ? "text-amber-100" : "text-slate-400"}`}>
                     {tipo.descripcion}
                   </p>
                 </button>
@@ -196,8 +202,8 @@ export default function CalculadoraHorasExtras() {
             <div className="relative">
               <input
                 type="number"
-                value={cantidad}
-                onChange={(e) => setCantidad(e.target.value)}
+                value={values.cantidad}
+                onChange={(e) => setField("cantidad", e.target.value)}
                 placeholder="10"
                 step="0.5"
                 className="w-full px-6 py-4 rounded-2xl text-xl font-semibold pr-16"

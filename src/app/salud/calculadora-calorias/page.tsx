@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 
-type Sexo = "hombre" | "mujer";
 type NivelActividad = "sedentario" | "ligero" | "moderado" | "activo" | "muy_activo";
 type Objetivo = "perder" | "mantener" | "ganar";
 
@@ -34,43 +34,41 @@ const objetivos = [
 ];
 
 export default function Calorias() {
-  const [sexo, setSexo] = useState<Sexo>("hombre");
-  const [edad, setEdad] = useState<string>("");
-  const [peso, setPeso] = useState<string>("");
-  const [altura, setAltura] = useState<string>("");
-  const [actividad, setActividad] = useState<NivelActividad>("moderado");
-  const [objetivo, setObjetivo] = useState<Objetivo>("mantener");
+  const { values, setField, hadInitialParams } = useUrlState(
+    { sexo: "hombre", edad: "", peso: "", altura: "", actividad: "moderado", objetivo: "mantener" },
+    { paramNames: { actividad: "act", objetivo: "obj" } }
+  );
   const [resultado, setResultado] = useState<Resultado | null>(null);
 
   const calcular = () => {
-    const edadNum = parseFloat(edad);
-    const pesoNum = parseFloat(peso);
-    const alturaNum = parseFloat(altura);
+    const edadNum = parseFloat(values.edad);
+    const pesoNum = parseFloat(values.peso);
+    const alturaNum = parseFloat(values.altura);
 
     if (isNaN(edadNum) || isNaN(pesoNum) || isNaN(alturaNum)) return;
 
     // Fórmula Mifflin-St Jeor
     let tmb: number;
-    if (sexo === "hombre") {
+    if (values.sexo === "hombre") {
       tmb = 10 * pesoNum + 6.25 * alturaNum - 5 * edadNum + 5;
     } else {
       tmb = 10 * pesoNum + 6.25 * alturaNum - 5 * edadNum - 161;
     }
 
-    const factorActividad = nivelesActividad.find(n => n.valor === actividad)?.factor || 1.55;
+    const factorActividad = nivelesActividad.find(n => n.valor === values.actividad)?.factor || 1.55;
     const tdee = tmb * factorActividad;
 
-    const ajusteObjetivo = objetivos.find(o => o.valor === objetivo)?.ajuste || 0;
+    const ajusteObjetivo = objetivos.find(o => o.valor === values.objetivo)?.ajuste || 0;
     const caloriasObjetivo = tdee + ajusteObjetivo;
 
     // Macros (basado en objetivo)
     let proteinaPorKg: number;
     let grasaPorcentaje: number;
 
-    if (objetivo === "perder") {
+    if (values.objetivo === "perder") {
       proteinaPorKg = 2.2; // Más proteína para preservar músculo
       grasaPorcentaje = 0.25;
-    } else if (objetivo === "ganar") {
+    } else if (values.objetivo === "ganar") {
       proteinaPorKg = 2.0;
       grasaPorcentaje = 0.25;
     } else {
@@ -92,6 +90,10 @@ export default function Calorias() {
       grasas: Math.round(grasas),
     });
   };
+
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+  }, [hadInitialParams]);
 
   const faqs = [
     {
@@ -152,8 +154,8 @@ export default function Calorias() {
           {/* Sexo */}
           <div className="flex gap-3 justify-center">
             <button
-              onClick={() => setSexo("hombre")}
-              className={`flex-1 py-4 rounded-2xl font-bold text-lg transition-all ${sexo === "hombre"
+              onClick={() => setField("sexo", "hombre")}
+              className={`flex-1 py-4 rounded-2xl font-bold text-lg transition-all ${values.sexo === "hombre"
                   ? "bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
@@ -161,8 +163,8 @@ export default function Calorias() {
               <Icon name="male" className="w-5 h-5 inline mr-2" weight="fill" /> Hombre
             </button>
             <button
-              onClick={() => setSexo("mujer")}
-              className={`flex-1 py-4 rounded-2xl font-bold text-lg transition-all ${sexo === "mujer"
+              onClick={() => setField("sexo", "mujer")}
+              className={`flex-1 py-4 rounded-2xl font-bold text-lg transition-all ${values.sexo === "mujer"
                   ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
@@ -178,8 +180,8 @@ export default function Calorias() {
               <div className="relative">
                 <input
                   type="number"
-                  value={edad}
-                  onChange={(e) => setEdad(e.target.value)}
+                  value={values.edad}
+                  onChange={(e) => setField("edad", e.target.value)}
                   placeholder="25"
                   className="w-full px-4 py-4 rounded-2xl text-lg font-semibold pr-12"
                 />
@@ -191,8 +193,8 @@ export default function Calorias() {
               <div className="relative">
                 <input
                   type="number"
-                  value={peso}
-                  onChange={(e) => setPeso(e.target.value)}
+                  value={values.peso}
+                  onChange={(e) => setField("peso", e.target.value)}
                   placeholder="70"
                   className="w-full px-4 py-4 rounded-2xl text-lg font-semibold pr-10"
                 />
@@ -204,8 +206,8 @@ export default function Calorias() {
               <div className="relative">
                 <input
                   type="number"
-                  value={altura}
-                  onChange={(e) => setAltura(e.target.value)}
+                  value={values.altura}
+                  onChange={(e) => setField("altura", e.target.value)}
                   placeholder="175"
                   className="w-full px-4 py-4 rounded-2xl text-lg font-semibold pr-10"
                 />
@@ -221,14 +223,14 @@ export default function Calorias() {
               {nivelesActividad.map((nivel) => (
                 <button
                   key={nivel.valor}
-                  onClick={() => setActividad(nivel.valor)}
-                  className={`w-full p-4 rounded-xl text-left transition-all ${actividad === nivel.valor
+                  onClick={() => setField("actividad", nivel.valor)}
+                  className={`w-full p-4 rounded-xl text-left transition-all ${values.actividad === nivel.valor
                       ? "bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg"
                       : "bg-slate-50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
                     }`}
                 >
                   <p className="font-bold">{nivel.nombre}</p>
-                  <p className={`text-sm ${actividad === nivel.valor ? "text-white/80" : "text-slate-500 dark:text-slate-400"}`}>
+                  <p className={`text-sm ${values.actividad === nivel.valor ? "text-white/80" : "text-slate-500 dark:text-slate-400"}`}>
                     {nivel.descripcion}
                   </p>
                 </button>
@@ -243,8 +245,8 @@ export default function Calorias() {
               {objetivos.map((obj) => (
                 <button
                   key={obj.valor}
-                  onClick={() => setObjetivo(obj.valor)}
-                  className={`p-4 rounded-xl text-center transition-all ${objetivo === obj.valor
+                  onClick={() => setField("objetivo", obj.valor)}
+                  className={`p-4 rounded-xl text-center transition-all ${values.objetivo === obj.valor
                       ? "bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg"
                       : "bg-slate-50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
                     }`}
@@ -275,7 +277,7 @@ export default function Calorias() {
               {/* Calorías objetivo */}
               <div className="p-6 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 rounded-3xl text-center ring-1 ring-emerald-100 dark:ring-emerald-900">
                 <p className="text-slate-500 dark:text-slate-400 font-medium text-sm mb-2">
-                  Para {objetivo === "perder" ? "perder peso" : objetivo === "ganar" ? "ganar masa" : "mantener"}
+                  Para {values.objetivo === "perder" ? "perder peso" : values.objetivo === "ganar" ? "ganar masa" : "mantener"}
                 </p>
                 <p className="text-4xl font-black text-emerald-600">{resultado.objetivo.toLocaleString()}</p>
                 <p className="text-slate-500 dark:text-slate-400 font-bold">calorías/día</p>

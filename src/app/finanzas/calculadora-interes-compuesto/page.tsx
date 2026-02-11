@@ -1,22 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
 import { Icon } from "@/lib/icons";
 import { calcularInteresCompuesto, type InteresCompuestoOutput, type TipoTasa, type FrecuenciaAporte } from "@/lib/calculadoras";
+import { useUrlState } from "@/hooks/useUrlState";
 
 export default function InteresCompuesto() {
   const { moneda } = useCurrency();
-  const [capital, setCapital] = useState<string>("");
-  const [tasa, setTasa] = useState<string>("");
-  const [tipoTasa, setTipoTasa] = useState<TipoTasa>("anual");
-  const [tiempo, setTiempo] = useState<string>("");
-  const [frecuenciaCapitalizacion, setFrecuenciaCapitalizacion] = useState<number>(12);
-  const [aportePeriodico, setAportePeriodico] = useState<string>("");
-  const [frecuenciaAporte, setFrecuenciaAporte] = useState<FrecuenciaAporte>("mensual");
-  const [aporteAlInicio, setAporteAlInicio] = useState<boolean>(false);
+  const { values, setField, hadInitialParams } = useUrlState(
+    { capital: "", tasa: "", tipoTasa: "anual", tiempo: "", frecuenciaCapitalizacion: "12", aportePeriodico: "", frecuenciaAporte: "mensual", aporteAlInicio: "false" },
+    { paramNames: { tipoTasa: "tipo", frecuenciaCapitalizacion: "capitalizacion", aportePeriodico: "aporte", frecuenciaAporte: "frecuencia" } }
+  );
   const [resultado, setResultado] = useState<InteresCompuestoOutput | null>(null);
   const [mostrarAvanzado, setMostrarAvanzado] = useState<boolean>(false);
   const [mostrarTabla, setMostrarTabla] = useState<boolean>(false);
@@ -52,17 +49,22 @@ export default function InteresCompuesto() {
 
   const calcular = () => {
     const res = calcularInteresCompuesto({
-      capital: parseFloat(capital) || 0,
-      tasa: parseFloat(tasa),
-      tipoTasa,
-      tiempo: parseFloat(tiempo),
-      frecuenciaCapitalizacion,
-      aportePeriodico: parseFloat(aportePeriodico) || 0,
-      frecuenciaAporte,
-      aporteAlInicio,
+      capital: parseFloat(values.capital) || 0,
+      tasa: parseFloat(values.tasa),
+      tipoTasa: values.tipoTasa as TipoTasa,
+      tiempo: parseFloat(values.tiempo),
+      frecuenciaCapitalizacion: Number(values.frecuenciaCapitalizacion),
+      aportePeriodico: parseFloat(values.aportePeriodico) || 0,
+      frecuenciaAporte: values.frecuenciaAporte as FrecuenciaAporte,
+      aporteAlInicio: values.aporteAlInicio === "true",
     });
     if (res) setResultado(res);
   };
+
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hadInitialParams]);
 
   const formatMoney = (num: number) => {
     return new Intl.NumberFormat(moneda.locale, {
@@ -114,8 +116,8 @@ export default function InteresCompuesto() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">{moneda.simbolo}</span>
               <input
                 type="number"
-                value={capital}
-                onChange={(e) => setCapital(e.target.value)}
+                value={values.capital}
+                onChange={(e) => setField("capital", e.target.value)}
                 placeholder="10000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
@@ -131,9 +133,9 @@ export default function InteresCompuesto() {
               <div className="relative flex-1">
                 <input
                   type="number"
-                  value={tasa}
-                  onChange={(e) => setTasa(e.target.value)}
-                  placeholder={tipoTasa === "mensual" ? "1.5" : "12"}
+                  value={values.tasa}
+                  onChange={(e) => setField("tasa", e.target.value)}
+                  placeholder={values.tipoTasa === "mensual" ? "1.5" : "12"}
                   step="0.01"
                   className="w-full px-6 py-4 rounded-2xl text-lg font-semibold pr-12"
                 />
@@ -144,8 +146,8 @@ export default function InteresCompuesto() {
                   {tiposTasaSimple.map((tipo) => (
                     <button
                       key={tipo.valor}
-                      onClick={() => setTipoTasa(tipo.valor)}
-                      className={`px-5 py-4 font-semibold transition-colors ${tipoTasa === tipo.valor || (tipo.valor === "anual" && tipoTasa !== "mensual" && tipoTasa !== "anual")
+                      onClick={() => setField("tipoTasa", tipo.valor)}
+                      className={`px-5 py-4 font-semibold transition-colors ${values.tipoTasa === tipo.valor || (tipo.valor === "anual" && values.tipoTasa !== "mensual" && values.tipoTasa !== "anual")
                         ? "bg-emerald-500 text-white"
                         : "bg-white text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                         }`}
@@ -156,8 +158,8 @@ export default function InteresCompuesto() {
                 </div>
               ) : (
                 <select
-                  value={tipoTasa}
-                  onChange={(e) => setTipoTasa(e.target.value as TipoTasa)}
+                  value={values.tipoTasa}
+                  onChange={(e) => setField("tipoTasa", e.target.value)}
                   className="px-4 py-4 rounded-2xl text-base font-semibold bg-emerald-50 text-emerald-700 border-2 border-emerald-200 min-w-[180px]"
                 >
                   {tiposTasaAvanzado.map((tipo) => (
@@ -168,7 +170,7 @@ export default function InteresCompuesto() {
                 </select>
               )}
             </div>
-            {tipoTasa === "mensual" && (
+            {values.tipoTasa === "mensual" && (
               <p className="text-xs text-emerald-600 ml-1">
                 Ej: 1.5% mensual equivale a ~19.6% anual
               </p>
@@ -182,8 +184,8 @@ export default function InteresCompuesto() {
             </label>
             <input
               type="number"
-              value={tiempo}
-              onChange={(e) => setTiempo(e.target.value)}
+              value={values.tiempo}
+              onChange={(e) => setField("tiempo", e.target.value)}
               placeholder="5"
               min="1"
               step="1"
@@ -211,8 +213,8 @@ export default function InteresCompuesto() {
                   Capitalización de intereses
                 </label>
                 <select
-                  value={frecuenciaCapitalizacion}
-                  onChange={(e) => setFrecuenciaCapitalizacion(Number(e.target.value))}
+                  value={values.frecuenciaCapitalizacion}
+                  onChange={(e) => setField("frecuenciaCapitalizacion", e.target.value)}
                   className="w-full px-4 py-3 rounded-xl text-base font-semibold"
                 >
                   {frecuenciasCapitalizacion.map((freq) => (
@@ -241,8 +243,8 @@ export default function InteresCompuesto() {
                       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-semibold text-sm">{moneda.simbolo}</span>
                       <input
                         type="number"
-                        value={aportePeriodico}
-                        onChange={(e) => setAportePeriodico(e.target.value)}
+                        value={values.aportePeriodico}
+                        onChange={(e) => setField("aportePeriodico", e.target.value)}
                         placeholder="500"
                         className="w-full pl-10 pr-4 py-3 rounded-xl text-base font-semibold"
                       />
@@ -254,8 +256,8 @@ export default function InteresCompuesto() {
                       Frecuencia
                     </label>
                     <select
-                      value={frecuenciaAporte}
-                      onChange={(e) => setFrecuenciaAporte(e.target.value as FrecuenciaAporte)}
+                      value={values.frecuenciaAporte}
+                      onChange={(e) => setField("frecuenciaAporte", e.target.value)}
                       className="w-full px-4 py-3 rounded-xl text-base font-semibold"
                     >
                       {frecuenciasAporte.map((freq) => (
@@ -267,12 +269,12 @@ export default function InteresCompuesto() {
                   </div>
                 </div>
 
-                {frecuenciaAporte !== "ninguno" && parseFloat(aportePeriodico) > 0 && (
+                {values.frecuenciaAporte !== "ninguno" && parseFloat(values.aportePeriodico) > 0 && (
                   <label className="flex items-center gap-3 cursor-pointer pt-2">
                     <input
                       type="checkbox"
-                      checked={aporteAlInicio}
-                      onChange={(e) => setAporteAlInicio(e.target.checked)}
+                      checked={values.aporteAlInicio === "true"}
+                      onChange={(e) => setField("aporteAlInicio", String(e.target.checked))}
                       className="w-5 h-5 rounded-lg border-2 border-slate-300 text-emerald-500 focus:ring-emerald-500"
                     />
                     <span className="text-sm text-slate-600 dark:text-slate-300">
@@ -297,7 +299,7 @@ export default function InteresCompuesto() {
               {/* Resumen principal */}
               <div className="p-8 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 rounded-3xl ring-1 ring-emerald-100 dark:ring-emerald-900">
                 <div className="text-center mb-6">
-                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">En {tiempo} años tendrás</p>
+                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">En {values.tiempo} años tendrás</p>
                   <p className="text-4xl font-black text-emerald-600">
                     {moneda.simbolo}{formatMoney(resultado.montoFinal)}
                   </p>
@@ -307,7 +309,7 @@ export default function InteresCompuesto() {
                   <div className="flex justify-between items-center p-3 bg-white/60 dark:bg-slate-800/60 rounded-xl">
                     <span className="text-slate-600 dark:text-slate-300">Capital inicial</span>
                     <span className="font-bold text-slate-700 dark:text-slate-300">
-                      {moneda.simbolo}{formatMoney(parseFloat(capital) || 0)}
+                      {moneda.simbolo}{formatMoney(parseFloat(values.capital) || 0)}
                     </span>
                   </div>
 

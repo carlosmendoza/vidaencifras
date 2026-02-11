@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
-
-type Modo = "despertar" | "dormir";
 
 interface HoraSugerida {
   hora: string;
@@ -16,15 +15,16 @@ interface HoraSugerida {
 }
 
 export default function CalculadoraSueno() {
-  const [modo, setModo] = useState<Modo>("despertar");
-  const [hora, setHora] = useState<string>("07:00");
+  const { values, setField, hadInitialParams } = useUrlState(
+    { modo: "despertar", hora: "07:00" }
+  );
   const [resultado, setResultado] = useState<HoraSugerida[] | null>(null);
 
   const DURACION_CICLO = 90; // minutos
   const TIEMPO_DORMIRSE = 15; // minutos promedio para quedarse dormido
 
   const calcular = () => {
-    const [horaStr, minStr] = hora.split(":");
+    const [horaStr, minStr] = values.hora.split(":");
     const horaNum = parseInt(horaStr);
     const minNum = parseInt(minStr);
 
@@ -32,7 +32,7 @@ export default function CalculadoraSueno() {
 
     const sugerencias: HoraSugerida[] = [];
 
-    if (modo === "despertar") {
+    if (values.modo === "despertar") {
       // Calcular horas para irse a dormir dado que quiere despertar a X hora
       // Restamos ciclos completos desde la hora de despertar
       for (let ciclos = 6; ciclos >= 3; ciclos--) {
@@ -100,6 +100,10 @@ export default function CalculadoraSueno() {
 
     setResultado(sugerencias);
   };
+
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+  }, [hadInitialParams]);
 
   const getCalidadStyle = (calidad: string) => {
     switch (calidad) {
@@ -186,8 +190,8 @@ export default function CalculadoraSueno() {
           {/* Selector de modo */}
           <div className="flex items-center justify-center gap-3">
             <button
-              onClick={() => setModo("despertar")}
-              className={`px-5 py-3 rounded-xl font-bold transition-all ${modo === "despertar"
+              onClick={() => setField("modo", "despertar")}
+              className={`px-5 py-3 rounded-xl font-bold transition-all ${values.modo === "despertar"
                   ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/20"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
@@ -195,8 +199,8 @@ export default function CalculadoraSueno() {
               Quiero despertar a las...
             </button>
             <button
-              onClick={() => setModo("dormir")}
-              className={`px-5 py-3 rounded-xl font-bold transition-all ${modo === "dormir"
+              onClick={() => setField("modo", "dormir")}
+              className={`px-5 py-3 rounded-xl font-bold transition-all ${values.modo === "dormir"
                   ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/20"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
@@ -208,12 +212,12 @@ export default function CalculadoraSueno() {
           {/* Input de hora */}
           <div className="space-y-3">
             <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1 text-center">
-              {modo === "despertar" ? "¿A qué hora necesitas despertar?" : "¿A qué hora te vas a dormir?"}
+              {values.modo === "despertar" ? "¿A qué hora necesitas despertar?" : "¿A qué hora te vas a dormir?"}
             </label>
             <input
               type="time"
-              value={hora}
-              onChange={(e) => setHora(e.target.value)}
+              value={values.hora}
+              onChange={(e) => setField("hora", e.target.value)}
               className="w-full px-6 py-4 rounded-2xl text-3xl font-bold text-center"
             />
           </div>
@@ -228,7 +232,7 @@ export default function CalculadoraSueno() {
           {resultado && (
             <div className="mt-10 space-y-4">
               <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 text-center">
-                {modo === "despertar" ? "Deberías ir a dormir a las:" : "Deberías despertar a las:"}
+                {values.modo === "despertar" ? "Deberías ir a dormir a las:" : "Deberías despertar a las:"}
               </h3>
 
               {resultado.map((sugerencia, index) => {

@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { Icon } from "@/lib/icons";
 import { calcularPrima, type PeriodoPrima } from "@/lib/calculadoras";
 import { AUXILIO_TRANSPORTE, SMMLV, TOPE_AUXILIO } from "@/lib/calculadoras/constantes";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const faqs = [
   {
@@ -31,18 +31,18 @@ const faqs = [
 ];
 
 export default function CalculadoraPrima() {
-  const [salario, setSalario] = useState<string>("");
-  const [incluyeTransporte, setIncluyeTransporte] = useState<boolean>(true);
-  const [fechaIngreso, setFechaIngreso] = useState<string>("");
-  const [periodo, setPeriodo] = useState<PeriodoPrima>("junio");
+  const { values, setField } = useUrlState(
+    { salario: "", incluyeTransporte: "true", fechaIngreso: "", periodo: "junio" },
+    { paramNames: { incluyeTransporte: "transporte", fechaIngreso: "ingreso" } }
+  );
 
-  const salarioNum = parseFloat(salario) || 0;
+  const salarioNum = parseFloat(values.salario) || 0;
 
   const resultado = salarioNum > 0 ? calcularPrima({
     salario: salarioNum,
-    incluyeTransporte,
-    fechaIngreso: fechaIngreso || undefined,
-    periodo,
+    incluyeTransporte: values.incluyeTransporte === "true",
+    fechaIngreso: values.fechaIngreso || undefined,
+    periodo: values.periodo as PeriodoPrima,
   }) : null;
 
   const aplicaAuxilio = resultado?.aplicaAuxilio ?? false;
@@ -87,9 +87,9 @@ export default function CalculadoraPrima() {
             </label>
             <div className="grid grid-cols-2 gap-3">
               <button
-                onClick={() => setPeriodo("junio")}
+                onClick={() => setField("periodo", "junio")}
                 className={`px-4 py-4 rounded-2xl font-semibold transition-colors ${
-                  periodo === "junio"
+                  values.periodo === "junio"
                     ? "bg-green-500 text-white"
                     : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                 }`}
@@ -98,9 +98,9 @@ export default function CalculadoraPrima() {
                 <span className="text-xs opacity-80">Ene - Jun</span>
               </button>
               <button
-                onClick={() => setPeriodo("diciembre")}
+                onClick={() => setField("periodo", "diciembre")}
                 className={`px-4 py-4 rounded-2xl font-semibold transition-colors ${
-                  periodo === "diciembre"
+                  values.periodo === "diciembre"
                     ? "bg-green-500 text-white"
                     : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                 }`}
@@ -120,8 +120,8 @@ export default function CalculadoraPrima() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
               <input
                 type="number"
-                value={salario}
-                onChange={(e) => setSalario(e.target.value)}
+                value={values.salario}
+                onChange={(e) => setField("salario", e.target.value)}
                 placeholder="1.300.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
@@ -130,9 +130,9 @@ export default function CalculadoraPrima() {
               {[1300000, 1800000, 2500000, 3500000].map((s) => (
                 <button
                   key={s}
-                  onClick={() => setSalario(s.toString())}
+                  onClick={() => setField("salario", s.toString())}
                   className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                    salario === s.toString()
+                    values.salario === s.toString()
                       ? "bg-green-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                   }`}
@@ -148,8 +148,8 @@ export default function CalculadoraPrima() {
             <label className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl cursor-pointer">
               <input
                 type="checkbox"
-                checked={incluyeTransporte}
-                onChange={(e) => setIncluyeTransporte(e.target.checked)}
+                checked={values.incluyeTransporte === "true"}
+                onChange={(e) => setField("incluyeTransporte", String(e.target.checked))}
                 className="w-5 h-5 rounded-lg border-2 border-slate-300 text-green-500 focus:ring-green-500"
               />
               <div>
@@ -170,8 +170,8 @@ export default function CalculadoraPrima() {
             </label>
             <input
               type="date"
-              value={fechaIngreso}
-              onChange={(e) => setFechaIngreso(e.target.value)}
+              value={values.fechaIngreso}
+              onChange={(e) => setField("fechaIngreso", e.target.value)}
               className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
             />
             <p className="text-xs text-slate-400 ml-1">
@@ -185,7 +185,7 @@ export default function CalculadoraPrima() {
               <div className="p-8 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/50 dark:to-emerald-950/50 rounded-3xl ring-1 ring-green-100 dark:ring-green-900">
                 <div className="text-center">
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
-                    Tu prima de {periodo}
+                    Tu prima de {values.periodo}
                   </p>
                   <p className="text-4xl font-black text-green-600">
                     ${formatMoney(prima)}

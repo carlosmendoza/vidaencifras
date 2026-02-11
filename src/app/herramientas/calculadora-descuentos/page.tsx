@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
@@ -13,15 +14,20 @@ interface Resultado {
 }
 
 export default function CalculadoraDescuentos() {
-  const [precioOriginal, setPrecioOriginal] = useState<string>("");
-  const [descuento1, setDescuento1] = useState<string>("");
-  const [descuento2, setDescuento2] = useState<string>("");
-  const [usarDescuentoAdicional, setUsarDescuentoAdicional] = useState(false);
+  const { values, setField, hadInitialParams } = useUrlState(
+    { precioOriginal: "", descuento1: "", descuento2: "", usarDescuentoAdicional: "false" },
+    { paramNames: { precioOriginal: "precio", descuento1: "d1", descuento2: "d2", usarDescuentoAdicional: "extra" } }
+  );
+
+  const precioOriginal = values.precioOriginal;
+  const descuento1 = values.descuento1;
+  const descuento2 = values.descuento2;
+  const usarDescuentoAdicional = values.usarDescuentoAdicional === "true";
   const [resultado, setResultado] = useState<Resultado | null>(null);
 
   const descuentosRapidos = [10, 15, 20, 25, 30, 50];
 
-  const calcular = () => {
+  const calcular = useCallback(() => {
     const precio = parseFloat(precioOriginal);
     const desc1 = parseFloat(descuento1) || 0;
     const desc2 = usarDescuentoAdicional ? (parseFloat(descuento2) || 0) : 0;
@@ -43,7 +49,11 @@ export default function CalculadoraDescuentos() {
       ahorro,
       porcentajeTotal,
     });
-  };
+  }, [precioOriginal, descuento1, descuento2, usarDescuentoAdicional]);
+
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+  }, [hadInitialParams, calcular]);
 
   const formatearPrecio = (valor: number): string => {
     return valor.toLocaleString("es-CO", {
@@ -120,7 +130,7 @@ export default function CalculadoraDescuentos() {
               <input
                 type="number"
                 value={precioOriginal}
-                onChange={(e) => setPrecioOriginal(e.target.value)}
+                onChange={(e) => setField("precioOriginal", e.target.value)}
                 placeholder="150.000"
                 className="w-full pl-10 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />
@@ -136,7 +146,7 @@ export default function CalculadoraDescuentos() {
               <input
                 type="number"
                 value={descuento1}
-                onChange={(e) => setDescuento1(e.target.value)}
+                onChange={(e) => setField("descuento1", e.target.value)}
                 placeholder="30"
                 max={100}
                 className="w-full px-6 py-4 rounded-2xl text-xl font-semibold pr-12"
@@ -150,7 +160,7 @@ export default function CalculadoraDescuentos() {
               {descuentosRapidos.map((d) => (
                 <button
                   key={d}
-                  onClick={() => setDescuento1(d.toString())}
+                  onClick={() => setField("descuento1", d.toString())}
                   className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${
                     descuento1 === d.toString()
                       ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg"
@@ -166,7 +176,7 @@ export default function CalculadoraDescuentos() {
           {/* Toggle descuento adicional */}
           <div className="flex items-center gap-3">
             <button
-              onClick={() => setUsarDescuentoAdicional(!usarDescuentoAdicional)}
+              onClick={() => setField("usarDescuentoAdicional", String(!usarDescuentoAdicional))}
               className={`relative w-12 h-7 rounded-full transition-colors ${
                 usarDescuentoAdicional ? "bg-pink-500" : "bg-slate-300 dark:bg-slate-600"
               }`}
@@ -192,7 +202,7 @@ export default function CalculadoraDescuentos() {
                 <input
                   type="number"
                   value={descuento2}
-                  onChange={(e) => setDescuento2(e.target.value)}
+                  onChange={(e) => setField("descuento2", e.target.value)}
                   placeholder="10"
                   max={100}
                   className="w-full px-6 py-4 rounded-2xl text-xl font-semibold pr-12"

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
@@ -19,13 +20,14 @@ interface Resultado {
 }
 
 export default function CalculadoraHidratacion() {
-  const [peso, setPeso] = useState<string>("");
-  const [actividad, setActividad] = useState<NivelActividad>("ligero");
-  const [clima, setClima] = useState<Clima>("templado");
+  const { values, setField, hadInitialParams } = useUrlState(
+    { peso: "", actividad: "ligero", clima: "templado" },
+    { paramNames: { actividad: "act" } }
+  );
   const [resultado, setResultado] = useState<Resultado | null>(null);
 
   const calcular = () => {
-    const pesoNum = parseFloat(peso);
+    const pesoNum = parseFloat(values.peso);
     if (isNaN(pesoNum) || pesoNum <= 0) return;
 
     // Fórmula base: 35ml por kg de peso corporal
@@ -39,7 +41,7 @@ export default function CalculadoraHidratacion() {
       activo: 700,
       muy_activo: 1000,
     };
-    const aguaActividad = factoresActividad[actividad];
+    const aguaActividad = factoresActividad[values.actividad as NivelActividad];
 
     // Ajuste por clima
     const factoresClima: Record<Clima, number> = {
@@ -47,7 +49,7 @@ export default function CalculadoraHidratacion() {
       calido: 500,
       muy_calido: 750,
     };
-    const aguaClima = factoresClima[clima];
+    const aguaClima = factoresClima[values.clima as Clima];
 
     const aguaTotal = aguaBase + aguaActividad + aguaClima;
     const vasos = Math.ceil(aguaTotal / 250); // Vasos de 250ml
@@ -62,6 +64,10 @@ export default function CalculadoraHidratacion() {
       botellas,
     });
   };
+
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+  }, [hadInitialParams]);
 
   const faqs = [
     {
@@ -141,8 +147,8 @@ export default function CalculadoraHidratacion() {
             <div className="relative">
               <input
                 type="number"
-                value={peso}
-                onChange={(e) => setPeso(e.target.value)}
+                value={values.peso}
+                onChange={(e) => setField("peso", e.target.value)}
                 placeholder="70"
                 step="0.1"
                 className="w-full px-6 py-4 rounded-2xl text-xl font-semibold pr-14"
@@ -162,14 +168,14 @@ export default function CalculadoraHidratacion() {
               {nivelesActividad.map((nivel) => (
                 <button
                   key={nivel.value}
-                  onClick={() => setActividad(nivel.value as NivelActividad)}
-                  className={`p-3 rounded-xl text-center transition-all ${actividad === nivel.value
+                  onClick={() => setField("actividad", nivel.value)}
+                  className={`p-3 rounded-xl text-center transition-all ${values.actividad === nivel.value
                       ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/20"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                     }`}
                 >
                   <span className="font-bold text-sm block">{nivel.label}</span>
-                  <span className={`text-xs ${actividad === nivel.value ? "text-cyan-100" : "text-slate-400"}`}>
+                  <span className={`text-xs ${values.actividad === nivel.value ? "text-cyan-100" : "text-slate-400"}`}>
                     {nivel.desc}
                   </span>
                 </button>
@@ -186,14 +192,14 @@ export default function CalculadoraHidratacion() {
               {nivelesClima.map((nivel) => (
                 <button
                   key={nivel.value}
-                  onClick={() => setClima(nivel.value as Clima)}
-                  className={`p-3 rounded-xl text-center transition-all ${clima === nivel.value
+                  onClick={() => setField("clima", nivel.value)}
+                  className={`p-3 rounded-xl text-center transition-all ${values.clima === nivel.value
                       ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/20"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                     }`}
                 >
                   <span className="font-bold text-sm block">{nivel.label}</span>
-                  <span className={`text-xs ${clima === nivel.value ? "text-cyan-100" : "text-slate-400"}`}>
+                  <span className={`text-xs ${values.clima === nivel.value ? "text-cyan-100" : "text-slate-400"}`}>
                     {nivel.desc}
                   </span>
                 </button>

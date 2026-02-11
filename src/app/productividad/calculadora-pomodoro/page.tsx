@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { Icon } from "@/lib/icons";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const faqs = [
   {
@@ -54,15 +55,39 @@ const defaultConfig: TimerConfig = {
 };
 
 export default function CalculadoraPomodoro() {
-  // Configuración
-  const [config, setConfig] = useState<TimerConfig>(defaultConfig);
+  // Configuración + Planificación (URL-synced)
+  const { values, setField, hadInitialParams } = useUrlState(
+    {
+      horasDisponibles: "4",
+      horaInicio: "09:00",
+      trabajo: "25",
+      descansoCorto: "5",
+      descansoLargo: "15",
+      pomodorosPorCiclo: "4",
+    },
+    {
+      paramNames: {
+        horasDisponibles: "hd",
+        horaInicio: "hi",
+        trabajo: "t",
+        descansoCorto: "dc",
+        descansoLargo: "dl",
+        pomodorosPorCiclo: "pc",
+      },
+    }
+  );
+
+  const config = useMemo((): TimerConfig => ({
+    trabajo: parseInt(values.trabajo) || 25,
+    descansoCorto: parseInt(values.descansoCorto) || 5,
+    descansoLargo: parseInt(values.descansoLargo) || 15,
+    pomodorosPorCiclo: parseInt(values.pomodorosPorCiclo) || 4,
+  }), [values.trabajo, values.descansoCorto, values.descansoLargo, values.pomodorosPorCiclo]);
 
   // Vista activa
   const [viewMode, setViewMode] = useState<ViewMode>("planificar");
 
   // Planificación
-  const [horasDisponibles, setHorasDisponibles] = useState(4);
-  const [horaInicio, setHoraInicio] = useState("09:00");
   const [plan, setPlan] = useState<PlanItem[]>([]);
   const [showPlan, setShowPlan] = useState(false);
 
@@ -75,32 +100,17 @@ export default function CalculadoraPomodoro() {
   const [autoStart, setAutoStart] = useState(false);
   const [currentPlanIndex, setCurrentPlanIndex] = useState(0);
 
-  // Cargar configuración del localStorage
+  // Guardar configuración en localStorage cuando cambia
   useEffect(() => {
-    const saved = localStorage.getItem("pomodoro-config");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        setConfig(parsed);
-        setTimeLeft(parsed.trabajo * 60);
-      } catch {
-        // Ignorar errores de parsing
-      }
-    }
-  }, []);
-
-  // Guardar configuración en localStorage
-  const saveConfig = (newConfig: TimerConfig) => {
-    setConfig(newConfig);
-    localStorage.setItem("pomodoro-config", JSON.stringify(newConfig));
+    localStorage.setItem("pomodoro-config", JSON.stringify(config));
     if (!isRunning) {
-      setTimeLeft(newConfig.trabajo * 60);
+      setTimeLeft(config.trabajo * 60);
     }
-  };
+  }, [config]);
 
   // Calcular cuántos pomodoros caben en el tiempo disponible
   const calcularPlan = useCallback(() => {
-    const minutosDisponibles = horasDisponibles * 60;
+    const minutosDisponibles = (parseFloat(values.horasDisponibles) || 4) * 60;
     const duracionCiclo = (config.trabajo + config.descansoCorto) * config.pomodorosPorCiclo - config.descansoCorto + config.descansoLargo;
     const duracionPomodoro = config.trabajo + config.descansoCorto;
 
@@ -110,7 +120,7 @@ export default function CalculadoraPomodoro() {
     let pomodorosEnCicloActual = 0;
 
     // Parsear hora de inicio
-    const [horas, minutos] = horaInicio.split(":").map(Number);
+    const [horas, minutos] = (values.horaInicio || "09:00").split(":").map(Number);
     let tiempoActual = new Date();
     tiempoActual.setHours(horas, minutos, 0, 0);
 
@@ -179,7 +189,11 @@ export default function CalculadoraPomodoro() {
 
     setPlan(nuevoPlan);
     setShowPlan(true);
-  }, [horasDisponibles, horaInicio, config]);
+  }, [values.horasDisponibles, values.horaInicio, config]);
+
+  useEffect(() => {
+    if (hadInitialParams) calcularPlan();
+  }, [hadInitialParams]);
 
   // Iniciar sesión con el plan
   const iniciarSesion = () => {
@@ -423,8 +437,8 @@ export default function CalculadoraPomodoro() {
                 <div className="relative">
                   <input
                     type="number"
-                    value={horasDisponibles}
-                    onChange={(e) => setHorasDisponibles(parseFloat(e.target.value) || 1)}
+                    value={values.horasDisponibles}
+                    onChange={(e) => setField("horasDisponibles", e.target.value)}
                     min="0.5"
                     max="12"
                     step="0.5"
@@ -441,8 +455,8 @@ export default function CalculadoraPomodoro() {
                 </label>
                 <input
                   type="time"
-                  value={horaInicio}
-                  onChange={(e) => setHoraInicio(e.target.value)}
+                  value={values.horaInicio}
+                  onChange={(e) => setField("horaInicio", e.target.value)}
                   className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-amber-400 focus:ring-0 text-lg font-bold"
                 />
               </div>
@@ -457,8 +471,8 @@ export default function CalculadoraPomodoro() {
                   <div className="flex items-center gap-1">
                     <input
                       type="number"
-                      value={config.trabajo}
-                      onChange={(e) => saveConfig({ ...config, trabajo: parseInt(e.target.value) || 25 })}
+                      value={values.trabajo}
+                      onChange={(e) => setField("trabajo", e.target.value)}
                       min="1"
                       max="60"
                       className="w-full px-2 py-2 rounded-lg text-center font-bold text-sm"
@@ -471,8 +485,8 @@ export default function CalculadoraPomodoro() {
                   <div className="flex items-center gap-1">
                     <input
                       type="number"
-                      value={config.descansoCorto}
-                      onChange={(e) => saveConfig({ ...config, descansoCorto: parseInt(e.target.value) || 5 })}
+                      value={values.descansoCorto}
+                      onChange={(e) => setField("descansoCorto", e.target.value)}
                       min="1"
                       max="30"
                       className="w-full px-2 py-2 rounded-lg text-center font-bold text-sm"
@@ -485,8 +499,8 @@ export default function CalculadoraPomodoro() {
                   <div className="flex items-center gap-1">
                     <input
                       type="number"
-                      value={config.descansoLargo}
-                      onChange={(e) => saveConfig({ ...config, descansoLargo: parseInt(e.target.value) || 15 })}
+                      value={values.descansoLargo}
+                      onChange={(e) => setField("descansoLargo", e.target.value)}
                       min="1"
                       max="60"
                       className="w-full px-2 py-2 rounded-lg text-center font-bold text-sm"
@@ -499,8 +513,8 @@ export default function CalculadoraPomodoro() {
                   <div className="flex items-center gap-1">
                     <input
                       type="number"
-                      value={config.pomodorosPorCiclo}
-                      onChange={(e) => saveConfig({ ...config, pomodorosPorCiclo: parseInt(e.target.value) || 4 })}
+                      value={values.pomodorosPorCiclo}
+                      onChange={(e) => setField("pomodorosPorCiclo", e.target.value)}
                       min="2"
                       max="8"
                       className="w-full px-2 py-2 rounded-lg text-center font-bold text-sm"

@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
-
-type Sistema = "metrico" | "imperial";
 
 interface Resultado {
   imc: number;
@@ -19,25 +18,24 @@ interface Resultado {
 }
 
 export default function IMC() {
-  const [sistema, setSistema] = useState<Sistema>("metrico");
-  const [peso, setPeso] = useState<string>("");
-  const [altura, setAltura] = useState<string>("");
-  const [pies, setPies] = useState<string>("");
-  const [pulgadas, setPulgadas] = useState<string>("");
+  const { values, setField, hadInitialParams } = useUrlState(
+    { sistema: "metrico", peso: "", altura: "", pies: "", pulgadas: "" },
+    { paramNames: { sistema: "sys", pulgadas: "pulg" } }
+  );
   const [resultado, setResultado] = useState<Resultado | null>(null);
 
   const calcular = () => {
     let pesoKg: number;
     let alturaM: number;
 
-    if (sistema === "metrico") {
-      pesoKg = parseFloat(peso);
-      alturaM = parseFloat(altura) / 100;
+    if (values.sistema === "metrico") {
+      pesoKg = parseFloat(values.peso);
+      alturaM = parseFloat(values.altura) / 100;
     } else {
       // Convertir libras a kg
-      pesoKg = parseFloat(peso) * 0.453592;
+      pesoKg = parseFloat(values.peso) * 0.453592;
       // Convertir pies y pulgadas a metros
-      const totalPulgadas = (parseFloat(pies) || 0) * 12 + (parseFloat(pulgadas) || 0);
+      const totalPulgadas = (parseFloat(values.pies) || 0) * 12 + (parseFloat(values.pulgadas) || 0);
       alturaM = totalPulgadas * 0.0254;
     }
 
@@ -82,6 +80,10 @@ export default function IMC() {
     setResultado({ imc, categoria, colorClass, bgClass, pesoIdealMin, pesoIdealMax, diferenciaPeso });
   };
 
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+  }, [hadInitialParams]);
+
   // Calcular posición del indicador en la barra (0-100%)
   const calcularPosicionBarra = (imc: number): number => {
     // La barra va de IMC 15 a 40
@@ -92,7 +94,7 @@ export default function IMC() {
   };
 
   const formatPeso = (kg: number): string => {
-    if (sistema === "imperial") {
+    if (values.sistema === "imperial") {
       const libras = kg / 0.453592;
       return `${libras.toFixed(1)} lb`;
     }
@@ -158,8 +160,8 @@ export default function IMC() {
           {/* Selector de sistema */}
           <div className="flex items-center justify-center gap-3">
             <button
-              onClick={() => setSistema("metrico")}
-              className={`px-5 py-3 rounded-xl font-bold transition-all ${sistema === "metrico"
+              onClick={() => setField("sistema", "metrico")}
+              className={`px-5 py-3 rounded-xl font-bold transition-all ${values.sistema === "metrico"
                   ? "bg-gradient-to-r from-violet-500 to-purple-500 text-white shadow-lg shadow-violet-500/20"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
@@ -167,8 +169,8 @@ export default function IMC() {
               kg / cm
             </button>
             <button
-              onClick={() => setSistema("imperial")}
-              className={`px-5 py-3 rounded-xl font-bold transition-all ${sistema === "imperial"
+              onClick={() => setField("sistema", "imperial")}
+              className={`px-5 py-3 rounded-xl font-bold transition-all ${values.sistema === "imperial"
                   ? "bg-gradient-to-r from-violet-500 to-purple-500 text-white shadow-lg shadow-violet-500/20"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
@@ -181,19 +183,19 @@ export default function IMC() {
             {/* Peso */}
             <div className="space-y-3">
               <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
-                {sistema === "metrico" ? "Peso (kg)" : "Peso (libras)"}
+                {values.sistema === "metrico" ? "Peso (kg)" : "Peso (libras)"}
               </label>
               <div className="relative">
                 <input
                   type="number"
-                  value={peso}
-                  onChange={(e) => setPeso(e.target.value)}
-                  placeholder={sistema === "metrico" ? "70" : "154"}
+                  value={values.peso}
+                  onChange={(e) => setField("peso", e.target.value)}
+                  placeholder={values.sistema === "metrico" ? "70" : "154"}
                   step="0.1"
                   className="w-full px-6 py-4 rounded-2xl text-xl font-semibold pr-14"
                 />
                 <span className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold">
-                  {sistema === "metrico" ? "kg" : "lb"}
+                  {values.sistema === "metrico" ? "kg" : "lb"}
                 </span>
               </div>
             </div>
@@ -201,14 +203,14 @@ export default function IMC() {
             {/* Altura */}
             <div className="space-y-3">
               <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
-                {sistema === "metrico" ? "Altura (cm)" : "Altura"}
+                {values.sistema === "metrico" ? "Altura (cm)" : "Altura"}
               </label>
-              {sistema === "metrico" ? (
+              {values.sistema === "metrico" ? (
                 <div className="relative">
                   <input
                     type="number"
-                    value={altura}
-                    onChange={(e) => setAltura(e.target.value)}
+                    value={values.altura}
+                    onChange={(e) => setField("altura", e.target.value)}
                     placeholder="170"
                     className="w-full px-6 py-4 rounded-2xl text-xl font-semibold pr-14"
                   />
@@ -221,8 +223,8 @@ export default function IMC() {
                   <div className="relative flex-1">
                     <input
                       type="number"
-                      value={pies}
-                      onChange={(e) => setPies(e.target.value)}
+                      value={values.pies}
+                      onChange={(e) => setField("pies", e.target.value)}
                       placeholder="5"
                       className="w-full px-4 py-4 rounded-2xl text-xl font-semibold pr-10"
                     />
@@ -233,8 +235,8 @@ export default function IMC() {
                   <div className="relative flex-1">
                     <input
                       type="number"
-                      value={pulgadas}
-                      onChange={(e) => setPulgadas(e.target.value)}
+                      value={values.pulgadas}
+                      onChange={(e) => setField("pulgadas", e.target.value)}
                       placeholder="7"
                       className="w-full px-4 py-4 rounded-2xl text-xl font-semibold pr-10"
                     />

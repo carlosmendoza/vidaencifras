@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { CalculatorResult } from "@/components/CalculatorResult";
@@ -8,6 +8,7 @@ import { ShareButtons } from "@/components/ShareButtons";
 import { Icon } from "@/lib/icons";
 import { calcularImpuestoRenta, type ImpuestoRentaOutput, type TipoTrabajador } from "@/lib/calculadoras";
 import { UVT_2025, TABLA_TARIFAS_RENTA } from "@/lib/calculadoras/constantes";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const TABLA_TARIFAS = TABLA_TARIFAS_RENTA;
 
@@ -35,25 +36,28 @@ const faqs = [
 ];
 
 export default function CalculadoraImpuestoRenta() {
-  const [ingresos, setIngresos] = useState<string>("");
-  const [tipoTrabajador, setTipoTrabajador] = useState<TipoTrabajador>("empleado");
-  const [dependientes, setDependientes] = useState<string>("0");
-  const [interesesVivienda, setInteresesVivienda] = useState<string>("");
-  const [medicinaPrepagada, setMedicinaPrepagada] = useState<string>("");
-  const [aportesVoluntarios, setAportesVoluntarios] = useState<string>("");
+  const { values, setField, hadInitialParams } = useUrlState(
+    { ingresos: "", tipoTrabajador: "empleado", dependientes: "0", interesesVivienda: "", medicinaPrepagada: "", aportesVoluntarios: "" },
+    { paramNames: { tipoTrabajador: "trabajador", interesesVivienda: "vivienda", medicinaPrepagada: "medicina", aportesVoluntarios: "voluntarios" } }
+  );
   const [resultado, setResultado] = useState<ImpuestoRentaOutput | null>(null);
 
   const calcular = () => {
     const res = calcularImpuestoRenta({
-      ingresos: parseFloat(ingresos) || 0,
-      tipoTrabajador,
-      dependientes: parseInt(dependientes) || 0,
-      interesesVivienda: parseFloat(interesesVivienda) || 0,
-      medicinaPrepagada: parseFloat(medicinaPrepagada) || 0,
-      aportesVoluntarios: parseFloat(aportesVoluntarios) || 0,
+      ingresos: parseFloat(values.ingresos) || 0,
+      tipoTrabajador: values.tipoTrabajador as TipoTrabajador,
+      dependientes: parseInt(values.dependientes) || 0,
+      interesesVivienda: parseFloat(values.interesesVivienda) || 0,
+      medicinaPrepagada: parseFloat(values.medicinaPrepagada) || 0,
+      aportesVoluntarios: parseFloat(values.aportesVoluntarios) || 0,
     });
     if (res) setResultado(res);
   };
+
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hadInitialParams]);
 
   const formatMoney = (num: number) => {
     return new Intl.NumberFormat("es-CO", {
@@ -95,9 +99,9 @@ export default function CalculadoraImpuestoRenta() {
             </label>
             <div className="flex rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700">
               <button
-                onClick={() => setTipoTrabajador("empleado")}
+                onClick={() => setField("tipoTrabajador", "empleado")}
                 className={`flex-1 px-5 py-4 font-semibold transition-colors ${
-                  tipoTrabajador === "empleado"
+                  values.tipoTrabajador === "empleado"
                     ? "bg-emerald-500 text-white"
                     : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
@@ -105,9 +109,9 @@ export default function CalculadoraImpuestoRenta() {
                 Empleado
               </button>
               <button
-                onClick={() => setTipoTrabajador("independiente")}
+                onClick={() => setField("tipoTrabajador", "independiente")}
                 className={`flex-1 px-5 py-4 font-semibold transition-colors ${
-                  tipoTrabajador === "independiente"
+                  values.tipoTrabajador === "independiente"
                     ? "bg-emerald-500 text-white"
                     : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
@@ -126,8 +130,8 @@ export default function CalculadoraImpuestoRenta() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
               <input
                 type="number"
-                value={ingresos}
-                onChange={(e) => setIngresos(e.target.value)}
+                value={values.ingresos}
+                onChange={(e) => setField("ingresos", e.target.value)}
                 placeholder="60.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
@@ -143,8 +147,8 @@ export default function CalculadoraImpuestoRenta() {
               Número de dependientes económicos
             </label>
             <select
-              value={dependientes}
-              onChange={(e) => setDependientes(e.target.value)}
+              value={values.dependientes}
+              onChange={(e) => setField("dependientes", e.target.value)}
               className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
             >
               <option value="0">Sin dependientes</option>
@@ -173,8 +177,8 @@ export default function CalculadoraImpuestoRenta() {
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">$</span>
                   <input
                     type="number"
-                    value={interesesVivienda}
-                    onChange={(e) => setInteresesVivienda(e.target.value)}
+                    value={values.interesesVivienda}
+                    onChange={(e) => setField("interesesVivienda", e.target.value)}
                     placeholder="0"
                     className="w-full pl-10 pr-4 py-3 rounded-xl text-sm"
                   />
@@ -189,8 +193,8 @@ export default function CalculadoraImpuestoRenta() {
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">$</span>
                   <input
                     type="number"
-                    value={medicinaPrepagada}
-                    onChange={(e) => setMedicinaPrepagada(e.target.value)}
+                    value={values.medicinaPrepagada}
+                    onChange={(e) => setField("medicinaPrepagada", e.target.value)}
                     placeholder="0"
                     className="w-full pl-10 pr-4 py-3 rounded-xl text-sm"
                   />
@@ -205,8 +209,8 @@ export default function CalculadoraImpuestoRenta() {
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">$</span>
                   <input
                     type="number"
-                    value={aportesVoluntarios}
-                    onChange={(e) => setAportesVoluntarios(e.target.value)}
+                    value={values.aportesVoluntarios}
+                    onChange={(e) => setField("aportesVoluntarios", e.target.value)}
                     placeholder="0"
                     className="w-full pl-10 pr-4 py-3 rounded-xl text-sm"
                   />

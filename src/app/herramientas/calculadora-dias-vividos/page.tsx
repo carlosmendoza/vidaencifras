@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useUrlState } from "@/hooks/useUrlState";
 import Link from "next/link";
 import { Icon } from "@/lib/icons";
 
@@ -81,10 +82,15 @@ function calcularEdadExacta(nacimiento: Date, hoy: Date): { anios: number; meses
 }
 
 export default function DiasVividos() {
-  const [fechaNacimiento, setFechaNacimiento] = useState<string>("");
+  const { values, setField, hadInitialParams } = useUrlState(
+    { fechaNacimiento: "" },
+    { paramNames: { fechaNacimiento: "fecha" } }
+  );
+
+  const fechaNacimiento = values.fechaNacimiento;
   const [resultado, setResultado] = useState<Resultado | null>(null);
 
-  const calcular = () => {
+  const calcular = useCallback(() => {
     if (!fechaNacimiento) return;
 
     const nacimiento = new Date(fechaNacimiento + "T00:00:00");
@@ -130,7 +136,11 @@ export default function DiasVividos() {
       generacion,
       diaSemana,
     });
-  };
+  }, [fechaNacimiento]);
+
+  useEffect(() => {
+    if (hadInitialParams) calcular();
+  }, [hadInitialParams, calcular]);
 
   const formatNumber = (num: number) => {
     return new Intl.NumberFormat("es-ES").format(num);
@@ -166,7 +176,7 @@ export default function DiasVividos() {
             <input
               type="date"
               value={fechaNacimiento}
-              onChange={(e) => setFechaNacimiento(e.target.value)}
+              onChange={(e) => setField("fechaNacimiento", e.target.value)}
               max={new Date().toISOString().split("T")[0]}
               className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
             />
