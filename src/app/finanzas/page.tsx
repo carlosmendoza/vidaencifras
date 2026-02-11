@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getAllPosts, categoryColors } from "@/lib/blog";
+import { Icon } from "@/lib/icons";
 
 export const metadata: Metadata = {
   title: "Calculadoras de Finanzas Personales Colombia",
@@ -28,7 +29,7 @@ const calculadoras = [
     nombre: "Calculadora de Liquidación",
     descripcion: "Calcula tu liquidación laboral completa: prima, cesantías, vacaciones e indemnización",
     href: "/finanzas/calculadora-liquidacion",
-    emoji: "📋",
+    icon: "clipboard",
     gradient: "from-purple-400 to-pink-500",
     bgHover: "group-hover:bg-purple-50 dark:group-hover:bg-purple-950/50",
   },
@@ -36,7 +37,7 @@ const calculadoras = [
     nombre: "Calculadora de Prima",
     descripcion: "Calcula tu prima de servicios de junio y diciembre",
     href: "/finanzas/calculadora-prima",
-    emoji: "🎁",
+    icon: "gift",
     gradient: "from-green-400 to-emerald-500",
     bgHover: "group-hover:bg-green-50 dark:group-hover:bg-green-950/50",
   },
@@ -44,7 +45,7 @@ const calculadoras = [
     nombre: "Calculadora de Cesantías",
     descripcion: "Calcula tus cesantías e intereses sobre cesantías",
     href: "/finanzas/calculadora-cesantias",
-    emoji: "💼",
+    icon: "briefcase",
     gradient: "from-cyan-400 to-teal-500",
     bgHover: "group-hover:bg-cyan-50 dark:group-hover:bg-cyan-950/50",
   },
@@ -52,7 +53,7 @@ const calculadoras = [
     nombre: "Calculadora de Salario Neto",
     descripcion: "Descubre cuánto recibes después de los descuentos de nómina",
     href: "/finanzas/calculadora-salario-neto",
-    emoji: "💵",
+    icon: "banknote",
     gradient: "from-emerald-400 to-teal-500",
     bgHover: "group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50",
   },
@@ -60,7 +61,7 @@ const calculadoras = [
     nombre: "Calculadora de Horas Extras",
     descripcion: "Calcula el valor de tus horas extras y recargos laborales",
     href: "/finanzas/calculadora-horas-extras",
-    emoji: "⏰",
+    icon: "clock",
     gradient: "from-amber-400 to-orange-500",
     bgHover: "group-hover:bg-amber-50 dark:group-hover:bg-amber-950/50",
   },
@@ -68,7 +69,7 @@ const calculadoras = [
     nombre: "Calculadora de Vacaciones",
     descripcion: "Calcula los días y el dinero de tus vacaciones acumuladas",
     href: "/finanzas/calculadora-vacaciones",
-    emoji: "🏖️",
+    icon: "palmtree",
     gradient: "from-sky-400 to-cyan-500",
     bgHover: "group-hover:bg-sky-50 dark:group-hover:bg-sky-950/50",
   },
@@ -76,7 +77,7 @@ const calculadoras = [
     nombre: "Calculadora de Interés Compuesto",
     descripcion: "Calcula cuánto crecerá tu dinero con el tiempo gracias al poder del interés compuesto",
     href: "/finanzas/calculadora-interes-compuesto",
-    emoji: "💰",
+    icon: "trending-up",
     gradient: "from-emerald-400 to-teal-500",
     bgHover: "group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50",
   },
@@ -84,7 +85,7 @@ const calculadoras = [
     nombre: "Calculadora de Préstamos",
     descripcion: "Calcula cuotas mensuales y tabla de amortización para cualquier préstamo",
     href: "/finanzas/calculadora-prestamos",
-    emoji: "🏦",
+    icon: "landmark",
     gradient: "from-rose-400 to-pink-500",
     bgHover: "group-hover:bg-rose-50 dark:group-hover:bg-rose-950/50",
   },
@@ -92,7 +93,7 @@ const calculadoras = [
     nombre: "Calculadora 4x1000",
     descripcion: "Calcula el impuesto a movimientos financieros de cualquier transacción",
     href: "/finanzas/calculadora-4x1000",
-    emoji: "🏛️",
+    icon: "landmark",
     gradient: "from-indigo-400 to-blue-500",
     bgHover: "group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950/50",
   },
@@ -100,31 +101,23 @@ const calculadoras = [
     nombre: "Presupuesto 50/30/20",
     descripcion: "Organiza tu plata de forma simple: necesidades, deseos y ahorro",
     href: "/finanzas/calculadora-presupuesto",
-    emoji: "📊",
+    icon: "bar-chart",
     gradient: "from-violet-400 to-purple-500",
     bgHover: "group-hover:bg-violet-50 dark:group-hover:bg-violet-950/50",
-  },
-  {
-    nombre: "Calculadora de Ahorro",
-    descripcion: "Planifica cuánto ahorrar para alcanzar tus metas financieras",
-    href: "/finanzas/calculadora-ahorro",
-    emoji: "🎯",
-    gradient: "from-blue-400 to-cyan-500",
-    bgHover: "group-hover:bg-blue-50 dark:group-hover:bg-blue-950/50",
   },
   {
     nombre: "Comparador Cuentas de Ahorro",
     descripcion: "Compara rendimientos de Ualá, Nu, Pibank, Lulo y más cuentas remuneradas",
     href: "/finanzas/simulador-cuenta-ahorro",
-    emoji: "🏦",
+    icon: "piggy-bank",
     gradient: "from-emerald-400 to-teal-500",
     bgHover: "group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50",
   },
   {
-    nombre: "Calculadora de Meta de Ahorro",
-    descripcion: "Descubre cuánto debes ahorrar mensualmente para alcanzar tu objetivo financiero",
+    nombre: "Calculadora de Ahorro",
+    descripcion: "Calcula cuánto ahorrar o cuánto tiempo necesitas para tu meta. Con tasa personalizada.",
     href: "/finanzas/calculadora-meta-ahorro",
-    emoji: "🎯",
+    icon: "target",
     gradient: "from-amber-400 to-orange-500",
     bgHover: "group-hover:bg-amber-50 dark:group-hover:bg-amber-950/50",
   },
@@ -132,7 +125,7 @@ const calculadoras = [
     nombre: "Calculadora de Jubilación",
     descripcion: "Planifica tu retiro y calcula cuánto necesitas para vivir tranquilo",
     href: "/finanzas/calculadora-jubilacion",
-    emoji: "🏖️",
+    icon: "umbrella",
     gradient: "from-orange-400 to-amber-500",
     bgHover: "group-hover:bg-orange-50 dark:group-hover:bg-orange-950/50",
   },
@@ -140,7 +133,7 @@ const calculadoras = [
     nombre: "Calculadora de Inflación",
     descripcion: "Entiende cómo la inflación afecta tu dinero con datos del IPC",
     href: "/finanzas/calculadora-inflacion",
-    emoji: "📉",
+    icon: "trending-down",
     gradient: "from-red-400 to-rose-500",
     bgHover: "group-hover:bg-red-50 dark:group-hover:bg-red-950/50",
   },
@@ -148,7 +141,7 @@ const calculadoras = [
     nombre: "Prestación de Servicios",
     descripcion: "Calcula tus ingresos netos como independiente: retención, salud y pensión",
     href: "/finanzas/calculadora-prestacion-servicios",
-    emoji: "📄",
+    icon: "file-text",
     gradient: "from-amber-400 to-orange-500",
     bgHover: "group-hover:bg-amber-50 dark:group-hover:bg-amber-950/50",
   },
@@ -187,8 +180,8 @@ export default function FinanzasPage() {
               <div className={`w-full h-full bg-gradient-to-br ${calc.gradient} rounded-full blur-3xl`} />
             </div>
             <div className="relative">
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center text-3xl mb-6 shadow-lg`}>
-                {calc.emoji}
+              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center text-white mb-6 shadow-lg`}>
+                <Icon name={calc.icon} className="w-8 h-8" />
               </div>
               <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">
                 {calc.nombre}

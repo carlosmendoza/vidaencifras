@@ -108,6 +108,12 @@ const nextConfig: NextConfig = {
         destination: "/herramientas",
         permanent: true,
       },
+      // Calculadora de ahorro unificada con meta de ahorro
+      {
+        source: "/finanzas/calculadora-ahorro",
+        destination: "/finanzas/calculadora-meta-ahorro",
+        permanent: true,
+      },
     ];
   },
 };
