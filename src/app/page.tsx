@@ -8,7 +8,7 @@ export default function Home() {
   const posts = getAllPosts().slice(0, 3);
 
   return (
-    <div className="space-y-40 mb-20">
+    <div className="space-y-20 md:space-y-40 mb-10 md:mb-20">
       <section className="text-center space-y-8 py-12 md:py-20 animate-fade-in-up">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 text-sm font-semibold mb-4">
           <span className="w-2 h-2 bg-indigo-500 rounded-full"></span>
@@ -68,7 +68,7 @@ export default function Home() {
       </Reveal>
 
       {/* Utilidades */}
-      <Reveal className="mt-20">
+      <Reveal className="mt-8 md:mt-20">
         <section id="utilidades">
           <div className="text-center mb-12">
             <span className="badge badge-indigo mb-4">Eficiencia</span>
@@ -152,8 +152,8 @@ export default function Home() {
 
       {/* Beneficios */}
       <Reveal>
-        <section id="beneficios" className="pt-10">
-          <div className="text-center mb-16">
+        <section id="beneficios" className="pt-4 md:pt-10">
+          <div className="text-center mb-10 md:mb-16">
             <span className="badge badge-indigo mb-4">Filosofía</span>
             <h2 className="text-4xl font-black text-slate-800 dark:text-slate-100 tracking-tight">¿Por qué VidaEnCifras?</h2>
           </div>
