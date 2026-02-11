@@ -3,6 +3,16 @@
 import { useState, useMemo, useEffect, useCallback, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  ReferenceLine,
+} from "recharts";
 import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
 
@@ -220,6 +230,50 @@ function CalculadoraMetaAhorroContent() {
       };
     }).sort((a, b) => a.aporteMensual - b.aporteMensual);
 
+    // Generar evolución mes a mes para la gráfica
+    const evolucion: Array<{
+      mes: number;
+      label: string;
+      saldo: number;
+      aportes: number;
+      intereses: number;
+    }> = [];
+
+    let saldoActual = capitalNum;
+    let aportesAcumulados = capitalNum;
+
+    // Mes 0 (inicial)
+    evolucion.push({
+      mes: 0,
+      label: "Inicio",
+      saldo: capitalNum,
+      aportes: capitalNum,
+      intereses: 0,
+    });
+
+    for (let i = 1; i <= mesesNum; i++) {
+      // Aplicar interés al saldo actual
+      saldoActual = saldoActual * (1 + tasaMensual) + aporteMensual;
+      aportesAcumulados += aporteMensual;
+      const interesesAcumulados = saldoActual - aportesAcumulados;
+
+      // Determinar label
+      let label = "";
+      if (mesesNum <= 12) {
+        label = `M${i}`;
+      } else if (i % 6 === 0 || i === mesesNum) {
+        label = i < 12 ? `M${i}` : i === 12 ? "1a" : `${(i / 12).toFixed(1)}a`;
+      }
+
+      evolucion.push({
+        mes: i,
+        label,
+        saldo: saldoActual,
+        aportes: aportesAcumulados,
+        intereses: interesesAcumulados,
+      });
+    }
+
     return {
       aporteMensual,
       totalAportado,
@@ -231,6 +285,7 @@ function CalculadoraMetaAhorroContent() {
       porcentajeAporte,
       porcentajeIntereses,
       comparacionCuentas,
+      evolucion,
       mensaje: null,
     };
   }, [meta, meses, capitalInicial, cuentaSeleccionada]);
@@ -247,6 +302,49 @@ function CalculadoraMetaAhorroContent() {
     if (m === 12) return "1 año";
     if (m % 12 === 0) return `${m / 12} años`;
     return `${Math.floor(m / 12)} años y ${m % 12} meses`;
+  };
+
+  const formatMoneyShort = (num: number) => {
+    if (num >= 1000000) {
+      return `$${(num / 1000000).toFixed(1)}M`;
+    }
+    if (num >= 1000) {
+      return `$${(num / 1000).toFixed(0)}k`;
+    }
+    return `$${num.toFixed(0)}`;
+  };
+
+  const CustomTooltip = ({
+    active,
+    payload,
+  }: {
+    active?: boolean;
+    payload?: Array<{
+      value: number;
+      name: string;
+      payload: { mes: number; saldo: number; aportes: number; intereses: number };
+    }>;
+  }) => {
+    if (active && payload && payload.length) {
+      const data = payload[0]?.payload;
+      return (
+        <div className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700">
+          <p className="font-bold text-slate-700 dark:text-slate-200 mb-2">
+            {data?.mes === 0 ? "Inicio" : `Mes ${data?.mes}`}
+          </p>
+          <p className="text-sm text-slate-600 dark:text-slate-300">
+            Saldo: <strong className="text-amber-600">${formatMoney(data?.saldo || 0)}</strong>
+          </p>
+          <p className="text-sm text-slate-500">
+            Aportes: ${formatMoney(data?.aportes || 0)}
+          </p>
+          <p className="text-sm text-emerald-600">
+            Intereses: +${formatMoney(data?.intereses || 0)}
+          </p>
+        </div>
+      );
+    }
+    return null;
   };
 
   return (
@@ -455,6 +553,82 @@ function CalculadoraMetaAhorroContent() {
                       url={buildShareUrl()}
                     />
                   </div>
+
+                  {/* Gráfica de evolución */}
+                  {resultado.evolucion && resultado.evolucion.length > 1 && (
+                    <div className="p-6 bg-white dark:bg-slate-800 rounded-3xl ring-1 ring-slate-200 dark:ring-slate-700">
+                      <h3 className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
+                        <span>📈</span> Así crecerá tu ahorro
+                      </h3>
+                      <ResponsiveContainer width="100%" height={300}>
+                        <AreaChart
+                          data={resultado.evolucion}
+                          margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+                        >
+                          <defs>
+                            <linearGradient id="colorAportes" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.8} />
+                              <stop offset="95%" stopColor="#f59e0b" stopOpacity={0.1} />
+                            </linearGradient>
+                            <linearGradient id="colorIntereses" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
+                              <stop offset="95%" stopColor="#10b981" stopOpacity={0.1} />
+                            </linearGradient>
+                          </defs>
+                          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                          <XAxis
+                            dataKey="label"
+                            tick={{ fontSize: 11, fill: "#64748b" }}
+                            interval="preserveStartEnd"
+                          />
+                          <YAxis
+                            tickFormatter={formatMoneyShort}
+                            tick={{ fontSize: 11, fill: "#64748b" }}
+                            width={60}
+                          />
+                          <Tooltip content={<CustomTooltip />} />
+                          <ReferenceLine
+                            y={resultado.meta}
+                            stroke="#f59e0b"
+                            strokeDasharray="5 5"
+                            label={{
+                              value: "Meta",
+                              position: "insideTopRight",
+                              fill: "#f59e0b",
+                              fontSize: 11,
+                              fontWeight: 600,
+                            }}
+                          />
+                          <Area
+                            type="monotone"
+                            dataKey="aportes"
+                            stackId="1"
+                            stroke="#f59e0b"
+                            fill="url(#colorAportes)"
+                            name="Aportes"
+                          />
+                          <Area
+                            type="monotone"
+                            dataKey="intereses"
+                            stackId="1"
+                            stroke="#10b981"
+                            fill="url(#colorIntereses)"
+                            name="Intereses"
+                          />
+                        </AreaChart>
+                      </ResponsiveContainer>
+                      <div className="flex justify-center gap-6 mt-4">
+                        <div className="flex items-center gap-2">
+                          <div className="w-3 h-3 rounded-full bg-amber-500" />
+                          <span className="text-xs text-slate-500 dark:text-slate-400">Tus aportes</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-3 h-3 rounded-full bg-emerald-500" />
+                          <span className="text-xs text-slate-500 dark:text-slate-400">Intereses ganados</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Comparación con otras cuentas */}
                   <div className="p-6 bg-white dark:bg-slate-800 rounded-3xl ring-1 ring-slate-200 dark:ring-slate-700">
