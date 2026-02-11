@@ -10,13 +10,13 @@ export default function Home() {
   return (
     <div className="space-y-40 mb-20">
       <section className="text-center space-y-8 py-12 md:py-20 animate-fade-in-up">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 text-sm font-semibold mb-4 animate-pulse-subtle">
-          <span className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse"></span>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 text-sm font-semibold mb-4">
+          <span className="w-2 h-2 bg-indigo-500 rounded-full"></span>
           Herramientas gratuitas
         </div>
-        <h1 className="text-5xl md:text-8xl font-black tracking-tight text-slate-800 dark:text-slate-100 leading-[1.1]">
-          Tu vida{" "}
-          <span className="gradient-text">en cifras</span>
+        <h1 className="text-5xl md:text-8xl font-black tracking-tight leading-[1.1]">
+          <span className="text-slate-400 dark:text-slate-500">Tu vida</span>{" "}
+          <span className="text-indigo-600 dark:text-indigo-400">en cifras</span>
         </h1>
         <p className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
           Todo lo que necesitas para mejorar tu <strong>salud</strong>, <strong>finanzas</strong> y <strong>productividad</strong>.
@@ -31,13 +31,10 @@ export default function Home() {
               <Link
                 key={pilar.href}
                 href={pilar.href}
-                className={`card-glass card-hover ${pilar.cardHover} rounded-[2.5rem] p-8 md:p-10 group relative overflow-hidden transition-all duration-500 flex flex-col h-full`}
+                className={`card-glass card-hover ${pilar.cardHover} rounded-2xl p-8 md:p-10 group relative overflow-hidden transition-all duration-300 flex flex-col h-full`}
               >
-                <div className="absolute -top-10 -right-10 w-48 h-48 opacity-20 -z-10 group-hover:scale-125 transition-transform duration-700">
-                  <div className={`w-full h-full bg-gradient-to-br ${pilar.gradient} rounded-full blur-3xl`} />
-                </div>
 
-                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${pilar.gradient} flex items-center justify-center text-white mb-8 shadow-xl group-hover:scale-110 transition-transform relative z-10 flex-shrink-0`}>
+                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${pilar.gradient} flex items-center justify-center text-white mb-8 shadow-lg relative z-10 flex-shrink-0`}>
                   <Icon name={pilar.icon} className="w-10 h-10" />
                 </div>
 
@@ -113,7 +110,7 @@ export default function Home() {
         <Reveal>
           <section id="blog">
             <div className="text-center mb-12">
-              <span className="badge badge-pink mb-4">Conocimiento</span>
+              <span className="badge badge-slate mb-4">Conocimiento</span>
               <h2 className="text-4xl font-black text-slate-800 dark:text-slate-100 tracking-tight">Guías y artículos</h2>
             </div>
             <div className="grid gap-8 md:grid-cols-3">
@@ -121,7 +118,7 @@ export default function Home() {
                 <Link
                   key={post.slug}
                   href={`/blog/${post.slug}`}
-                  className="card-glass card-hover card-hover-pink rounded-[2rem] p-8 group"
+                  className="card-glass card-hover card-hover-indigo rounded-2xl p-8 group"
                 >
                   <span
                     className={`inline-block px-4 py-1.5 text-xs font-bold rounded-full bg-gradient-to-r ${categoryColors[post.category] || "from-slate-500 to-slate-600"
@@ -144,7 +141,7 @@ export default function Home() {
             <div className="text-center mt-10">
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all hover:bg-pink-50 dark:hover:bg-pink-950/30 font-bold"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all hover:bg-indigo-50 dark:hover:bg-indigo-950/30 font-bold"
               >
                 Ver todos los artículos <span>→</span>
               </Link>
@@ -161,8 +158,8 @@ export default function Home() {
             <h2 className="text-4xl font-black text-slate-800 dark:text-slate-100 tracking-tight">¿Por qué VidaEnCifras?</h2>
           </div>
           <div className="grid gap-10 md:grid-cols-3">
-            <div className="card-glass card-hover card-hover-amber rounded-[2.5rem] p-10 text-center space-y-6">
-              <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-2 shadow-2xl group-hover:scale-110 transition-transform">
+            <div className="card-glass card-hover card-hover-amber rounded-2xl p-10 text-center space-y-6">
+              <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center text-white mx-auto mb-2 shadow-lg">
                 <Icon name="lightning" className="w-10 h-10" weight="fill" />
               </div>
               <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100">Velocidad pura</h3>
@@ -170,8 +167,8 @@ export default function Home() {
                 Resultados instantáneos. Sin esperas, sin publicidad intrusiva, solo datos.
               </p>
             </div>
-            <div className="card-glass card-hover card-hover-emerald rounded-[2.5rem] p-10 text-center space-y-6">
-              <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-2 shadow-2xl group-hover:scale-110 transition-transform">
+            <div className="card-glass card-hover card-hover-emerald rounded-2xl p-10 text-center space-y-6">
+              <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center text-white mx-auto mb-2 shadow-lg">
                 <Icon name="lock" className="w-10 h-10" weight="fill" />
               </div>
               <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100">Privacidad total</h3>
@@ -179,8 +176,8 @@ export default function Home() {
                 Tus datos no viajan a ningún servidor. Todo el cálculo ocurre en tu navegador.
               </p>
             </div>
-            <div className="card-glass card-hover card-hover-indigo rounded-[2.5rem] p-10 text-center space-y-6">
-              <div className="w-20 h-20 bg-gradient-to-br from-violet-400 to-purple-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-2 shadow-2xl group-hover:scale-110 transition-transform">
+            <div className="card-glass card-hover card-hover-indigo rounded-2xl p-10 text-center space-y-6">
+              <div className="w-20 h-20 bg-gradient-to-br from-violet-400 to-purple-500 rounded-2xl flex items-center justify-center text-white mx-auto mb-2 shadow-lg">
                 <Icon name="seal-check" className="w-10 h-10" weight="fill" />
               </div>
               <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100">Acceso libre</h3>

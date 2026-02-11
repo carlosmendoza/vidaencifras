@@ -382,7 +382,7 @@ function SimuladorCuentaAhorroContent() {
         <span>←</span> Volver a Finanzas
       </Link>
 
-      <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-5xl mx-auto shadow-2xl shadow-emerald-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-5xl mx-auto shadow-xl shadow-emerald-500/5">
         <div className="text-center mb-10">
           <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
             <Icon name="piggy-bank" className="w-10 h-10" />
@@ -669,7 +669,7 @@ function SimuladorCuentaAhorroContent() {
 
       {/* Información educativa */}
       <div className="max-w-5xl mx-auto">
-        <div className="p-8 card-glass rounded-[2rem]">
+        <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
             <span className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center text-emerald-600">
               <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
@@ -744,7 +744,7 @@ function SimuladorCuentaAhorroContent() {
 
       {/* FAQs */}
       <div className="max-w-5xl mx-auto">
-        <div className="p-8 card-glass rounded-[2rem]">
+        <div className="p-8 card-glass rounded-xl">
           <FAQ items={faqs} colorClass="emerald" />
         </div>
       </div>
@@ -755,7 +755,7 @@ function SimuladorCuentaAhorroContent() {
 function SimuladorLoading() {
   return (
     <div className="space-y-8">
-      <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-5xl mx-auto shadow-2xl shadow-emerald-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-5xl mx-auto shadow-xl shadow-emerald-500/5">
         <div className="text-center mb-10">
           <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg animate-pulse">
             <Icon name="piggy-bank" className="w-10 h-10" />

@@ -262,8 +262,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 </div>
                 <div className="flex gap-4 text-xs font-semibold">
                   <span className="badge badge-indigo">100% Gratis</span>
-                  <span className="badge badge-pink">Sin Registro</span>
-                  <span className="badge badge-cyan">Privado</span>
+                  <span className="badge badge-slate">Sin Registro</span>
+                  <span className="badge badge-slate">Privado</span>
                 </div>
               </div>
             </div>

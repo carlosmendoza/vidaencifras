@@ -169,7 +169,7 @@ export default function CalculadoraLiquidacion() {
         <span>←</span> Volver a Finanzas
       </Link>
 
-      <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-purple-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-purple-500/5">
         <div className="text-center mb-10">
           <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="clipboard" className="w-10 h-10" /></div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -404,7 +404,7 @@ export default function CalculadoraLiquidacion() {
 
       {/* Información educativa */}
       <div className="max-w-2xl mx-auto">
-        <div className="p-8 card-glass rounded-[2rem]">
+        <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
             <span className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center text-purple-600"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /></span>
             Sobre la liquidación
@@ -436,7 +436,7 @@ export default function CalculadoraLiquidacion() {
 
       {/* FAQs */}
       <div className="max-w-2xl mx-auto">
-        <div className="p-8 card-glass rounded-[2rem]">
+        <div className="p-8 card-glass rounded-xl">
           <FAQ items={faqs} colorClass="violet" />
         </div>
       </div>

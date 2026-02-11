@@ -198,7 +198,7 @@ export default function ArriendoVsCompra() {
         <span>←</span> Volver a Finanzas
       </Link>
 
-      <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-4xl mx-auto shadow-2xl shadow-emerald-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-emerald-500/5">
         <div className="text-center mb-10">
           <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg text-white">
             <Icon name="home" className="w-10 h-10" />
@@ -527,7 +527,7 @@ export default function ArriendoVsCompra() {
 
       {/* Información importante */}
       <div className="max-w-4xl mx-auto">
-        <div className="p-8 card-glass rounded-[2rem]">
+        <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
             <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-base text-amber-600 dark:text-amber-400"><Icon name="warning" className="w-5 h-5" /></span>
             Consideraciones importantes
@@ -551,7 +551,7 @@ export default function ArriendoVsCompra() {
 
       {/* FAQs */}
       <div className="max-w-4xl mx-auto">
-        <div className="p-8 card-glass rounded-[2rem]">
+        <div className="p-8 card-glass rounded-xl">
           <FAQ items={faqs} colorClass="emerald" />
         </div>
       </div>

@@ -150,7 +150,7 @@ export default function DividirCuenta() {
         <span>←</span> Volver a Herramientas
       </Link>
 
-      <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-pink-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-pink-500/5">
         <div className="text-center mb-10">
           <div className="w-20 h-20 bg-gradient-to-br from-pink-400 to-rose-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
             <Icon name="receipt" className="w-10 h-10" />
@@ -411,7 +411,7 @@ export default function DividirCuenta() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
+      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
           <span className="w-8 h-8 bg-pink-100 dark:bg-pink-900 rounded-lg flex items-center justify-center text-pink-600 dark:text-pink-400">
             <Icon name="lightbulb" className="w-5 h-5" weight="fill" />

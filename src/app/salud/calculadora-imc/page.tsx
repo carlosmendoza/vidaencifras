@@ -141,7 +141,7 @@ export default function IMC() {
     <div className="space-y-8">
       <Breadcrumbs />
 
-      <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-violet-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-violet-500/5">
         <div className="text-center mb-10">
           <div className="w-20 h-20 bg-gradient-to-br from-violet-400 to-purple-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
             <Icon name="scale" className="w-10 h-10" />
@@ -343,7 +343,7 @@ export default function IMC() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
+      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
           <Icon name="info" className="w-8 h-8 text-violet-500" weight="fill" />
           ¿Qué es el IMC?
@@ -356,11 +356,11 @@ export default function IMC() {
         </p>
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
+      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <FAQ items={faqs} colorClass="violet" />
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
+      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <RelatedCalculators calculators={relatedCalculators} />
       </div>
     </div>

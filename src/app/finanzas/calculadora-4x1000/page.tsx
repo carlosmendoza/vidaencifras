@@ -69,7 +69,7 @@ export default function Calculadora4x1000() {
         <span>←</span> Volver a Finanzas
       </Link>
 
-      <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-indigo-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-indigo-500/5">
         <div className="text-center mb-10">
           <div className="w-20 h-20 bg-gradient-to-br from-indigo-400 to-blue-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
             <Icon name="landmark" className="w-10 h-10" />
@@ -220,7 +220,7 @@ export default function Calculadora4x1000() {
 
       {/* Información educativa */}
       <div className="max-w-2xl mx-auto">
-        <div className="p-8 card-glass rounded-[2rem]">
+        <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
             <span className="w-8 h-8 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center text-indigo-600 dark:text-indigo-400">
               <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
@@ -249,7 +249,7 @@ export default function Calculadora4x1000() {
 
       {/* FAQs */}
       <div className="max-w-2xl mx-auto">
-        <div className="p-8 card-glass rounded-[2rem]">
+        <div className="p-8 card-glass rounded-xl">
           <FAQ items={faqs} colorClass="indigo" />
         </div>
       </div>

@@ -82,7 +82,7 @@ export default function CalculadoraSubsidioVivienda() {
     <div className="space-y-8">
       <Breadcrumbs />
 
-      <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-teal-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
           <div className="w-20 h-20 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
             <Icon name="home" className="w-10 h-10" />
@@ -312,7 +312,7 @@ export default function CalculadoraSubsidioVivienda() {
       </div>
 
       {/* Requisitos */}
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
+      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
           <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600 dark:text-teal-400">
             <Icon name="clipboard" className="w-5 h-5" />
@@ -330,7 +330,7 @@ export default function CalculadoraSubsidioVivienda() {
       </div>
 
       {/* Documentos */}
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
+      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
           <span className="w-8 h-8 bg-cyan-100 dark:bg-cyan-900 rounded-lg flex items-center justify-center text-cyan-600 dark:text-cyan-400">
             <Icon name="file-text" className="w-5 h-5" />
@@ -347,11 +347,11 @@ export default function CalculadoraSubsidioVivienda() {
         </ul>
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
+      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <FAQ items={faqs} colorClass="teal" />
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
+      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <RelatedCalculators calculators={relatedCalculators} />
       </div>
     </div>

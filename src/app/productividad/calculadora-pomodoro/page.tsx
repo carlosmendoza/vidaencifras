@@ -376,7 +376,7 @@ export default function CalculadoraPomodoro() {
         <span>←</span> Volver a Productividad
       </Link>
 
-      <div className="card-glass rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-amber-500/5">
+      <div className="card-glass rounded-xl sm:rounded-2xl p-5 sm:p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-amber-500/5">
         <div className="text-center mb-6 sm:mb-8">
           <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-red-400 to-rose-500 rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg text-white">
             <Icon name="timer" className="w-8 h-8 sm:w-10 sm:h-10" />
@@ -757,7 +757,7 @@ export default function CalculadoraPomodoro() {
 
       {/* Información educativa */}
       <div className="max-w-2xl mx-auto">
-        <div className="p-8 card-glass rounded-[2rem]">
+        <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
             <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-amber-600 dark:text-amber-400">
               <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
@@ -796,7 +796,7 @@ export default function CalculadoraPomodoro() {
 
       {/* FAQs */}
       <div className="max-w-2xl mx-auto">
-        <div className="p-8 card-glass rounded-[2rem]">
+        <div className="p-8 card-glass rounded-xl">
           <FAQ items={faqs} colorClass="amber" />
         </div>
       </div>
