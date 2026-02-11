@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
+import { Icon } from "@/lib/icons";
 
 const faqs = [
   {
@@ -170,7 +171,7 @@ export default function CalculadoraLiquidacion() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-purple-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">📋</div>
+          <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="clipboard" className="w-10 h-10" /></div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora de Liquidación
           </h1>
@@ -394,7 +395,7 @@ export default function CalculadoraLiquidacion() {
 
               {/* Nota */}
               <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-2xl text-sm text-amber-700 dark:text-amber-300">
-                <strong>⚠️ Nota:</strong> Este cálculo es una estimación. No incluye salarios pendientes, bonificaciones, ni descuentos. Consulta con un abogado laboral para casos específicos.
+                <span className="inline-flex items-center gap-1 text-amber-600"><Icon name="warning" className="w-5 h-5" weight="fill" /> <strong>Nota:</strong></span> Este cálculo es una estimación. No incluye salarios pendientes, bonificaciones, ni descuentos. Consulta con un abogado laboral para casos específicos.
               </div>
             </div>
           )}
@@ -405,7 +406,7 @@ export default function CalculadoraLiquidacion() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-[2rem]">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center text-base">💡</span>
+            <span className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center text-purple-600"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /></span>
             Sobre la liquidación
           </h2>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">

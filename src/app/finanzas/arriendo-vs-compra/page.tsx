@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { CalculatorResult } from "@/components/CalculatorResult";
 import { ShareButtons } from "@/components/ShareButtons";
+import { Icon } from "@/lib/icons";
 
 const faqs = [
   {
@@ -199,8 +200,8 @@ export default function ArriendoVsCompra() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-4xl mx-auto shadow-2xl shadow-emerald-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">
-            🏠
+          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg text-white">
+            <Icon name="home" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             ¿Arrendar o Comprar?
@@ -214,7 +215,7 @@ export default function ArriendoVsCompra() {
           {/* Columna Compra */}
           <div className="space-y-4 p-6 bg-emerald-50/50 dark:bg-emerald-950/20 rounded-2xl">
             <h2 className="text-lg font-bold text-emerald-700 dark:text-emerald-300 flex items-center gap-2">
-              <span>🏡</span> Escenario Compra
+              <Icon name="home" className="w-5 h-5" /> Escenario Compra
             </h2>
 
             <div className="space-y-3">
@@ -318,7 +319,7 @@ export default function ArriendoVsCompra() {
           {/* Columna Arriendo */}
           <div className="space-y-4 p-6 bg-emerald-50/50 dark:bg-emerald-950/20 rounded-2xl">
             <h2 className="text-lg font-bold text-emerald-700 dark:text-emerald-300 flex items-center gap-2">
-              <span>🔑</span> Escenario Arriendo
+              <Icon name="lock" className="w-5 h-5" /> Escenario Arriendo
             </h2>
 
             <div className="space-y-3">
@@ -414,7 +415,7 @@ export default function ArriendoVsCompra() {
             >
               <div className="text-center mb-6">
                 <span className="text-4xl mb-2 block">
-                  {resultado.recomendacion === "comprar" ? "🏡" : resultado.recomendacion === "arrendar" ? "🔑" : "⚖️"}
+                  <Icon name={resultado.recomendacion === "comprar" ? "home" : resultado.recomendacion === "arrendar" ? "lock" : "scale"} className="w-10 h-10 mx-auto" />
                 </span>
                 <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100">
                   {resultado.recomendacion === "comprar"
@@ -437,7 +438,7 @@ export default function ArriendoVsCompra() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Resumen Compra */}
                 <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-2xl">
-                  <h4 className="font-bold text-emerald-700 dark:text-emerald-300 mb-3">🏡 Compra</h4>
+                  <h4 className="font-bold text-emerald-700 dark:text-emerald-300 mb-3 flex items-center gap-2"><Icon name="home" className="w-5 h-5" /> Compra</h4>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span className="text-slate-600 dark:text-slate-400">Cuota mensual</span>
@@ -460,7 +461,7 @@ export default function ArriendoVsCompra() {
 
                 {/* Resumen Arriendo */}
                 <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-2xl">
-                  <h4 className="font-bold text-emerald-700 dark:text-emerald-300 mb-3">🔑 Arriendo</h4>
+                  <h4 className="font-bold text-emerald-700 dark:text-emerald-300 mb-3 flex items-center gap-2"><Icon name="lock" className="w-5 h-5" /> Arriendo</h4>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span className="text-slate-600 dark:text-slate-400">Arriendo inicial</span>
@@ -528,7 +529,7 @@ export default function ArriendoVsCompra() {
       <div className="max-w-4xl mx-auto">
         <div className="p-8 card-glass rounded-[2rem]">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-base">⚠️</span>
+            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-base text-amber-600 dark:text-amber-400"><Icon name="warning" className="w-5 h-5" /></span>
             Consideraciones importantes
           </h2>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">

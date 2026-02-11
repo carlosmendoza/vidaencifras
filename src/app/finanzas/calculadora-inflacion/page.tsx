@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
+import { Icon } from "@/lib/icons";
 
 const faqs = [
   {
@@ -183,7 +184,7 @@ export default function CalculadoraInflacion() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-red-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-red-400 to-rose-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">📉</div>
+          <div className="w-20 h-20 bg-gradient-to-br from-red-400 to-rose-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="trending-down" className="w-10 h-10" /></div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora de Inflación
           </h1>
@@ -444,7 +445,7 @@ export default function CalculadoraInflacion() {
 
               {/* Consejo */}
               <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl text-sm text-amber-700 dark:text-amber-300">
-                <strong>💡 Tip:</strong> Para proteger tu dinero de la inflación, busca inversiones que rindan por encima del IPC: CDTs, fondos de inversión, acciones o finca raíz.
+                <span className="inline-flex items-center gap-1 text-amber-600"><Icon name="lightbulb" className="w-4 h-4" weight="fill" /> <strong>Tip:</strong></span> Para proteger tu dinero de la inflación, busca inversiones que rindan por encima del IPC: CDTs, fondos de inversión, acciones o finca raíz.
               </div>
             </div>
           )}
@@ -455,7 +456,7 @@ export default function CalculadoraInflacion() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-[2rem]">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center text-base">💡</span>
+            <span className="w-8 h-8 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center text-red-500"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /></span>
             ¿Qué es la inflación?
           </h2>
           <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed mb-4">

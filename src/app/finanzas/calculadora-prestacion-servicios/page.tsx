@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
+import { Icon } from "@/lib/icons";
 
 const faqs = [
   {
@@ -94,7 +95,7 @@ export default function CalculadoraPrestacionServicios() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-amber-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">📄</div>
+          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="file-text" className="w-10 h-10" /></div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora Prestación de Servicios
           </h1>
@@ -279,7 +280,7 @@ export default function CalculadoraPrestacionServicios() {
 
               {/* Notas */}
               <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-2xl text-sm text-amber-700 dark:text-amber-300">
-                <strong>💡 Recuerda:</strong> La retención en la fuente es un anticipo de impuestos que puedes descontar en tu declaración de renta. Los aportes a seguridad social son deducibles al 100%.
+                <span className="inline-flex items-center gap-1 text-amber-600"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /> <strong>Recuerda:</strong></span> La retención en la fuente es un anticipo de impuestos que puedes descontar en tu declaración de renta. Los aportes a seguridad social son deducibles al 100%.
               </div>
             </div>
           )}
@@ -290,7 +291,7 @@ export default function CalculadoraPrestacionServicios() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-[2rem]">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-base">💡</span>
+            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-amber-600"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /></span>
             Sobre prestación de servicios
           </h2>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
@@ -322,7 +323,7 @@ export default function CalculadoraPrestacionServicios() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-[2rem]">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-base">📊</span>
+            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-amber-600"><Icon name="bar-chart" className="w-5 h-5" weight="fill" /></span>
             Valores de referencia 2026
           </h2>
           <div className="grid grid-cols-2 gap-4 text-sm">

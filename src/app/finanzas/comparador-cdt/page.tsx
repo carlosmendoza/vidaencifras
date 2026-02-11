@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
+import { Icon } from "@/lib/icons";
 
 // Tasas de referencia de bancos colombianos (actualizar periódicamente)
 const BANCOS_PRESETS = [
@@ -173,8 +174,8 @@ export default function ComparadorCDT() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-4xl mx-auto shadow-2xl shadow-emerald-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">
-            📊
+          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg text-white">
+            <Icon name="bar-chart" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Comparador de CDTs
@@ -341,7 +342,7 @@ export default function ComparadorCDT() {
               {/* Mejor opción destacada */}
               <div className="p-8 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 rounded-3xl ring-1 ring-emerald-100 dark:ring-emerald-900 animate-result-appear">
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="text-2xl">🏆</span>
+                  <Icon name="seal-check" className="w-6 h-6 text-emerald-600" />
                   <h3 className="text-lg font-bold text-emerald-700 dark:text-emerald-300">
                     Mejor opción: {mejorOpcion.banco}
                   </h3>
@@ -407,7 +408,7 @@ export default function ComparadorCDT() {
                         }`}
                       >
                         <td className="px-4 py-3 font-semibold text-slate-800 dark:text-slate-100">
-                          {index === 0 && <span className="mr-2">🏆</span>}
+                          {index === 0 && <Icon name="seal-check" className="w-5 h-5 inline-block mr-2 text-emerald-600" />}
                           {r.banco}
                         </td>
                         <td className="px-4 py-3 text-right text-slate-600 dark:text-slate-300">
@@ -447,7 +448,7 @@ export default function ComparadorCDT() {
       <div className="max-w-4xl mx-auto">
         <div className="p-8 card-glass rounded-[2rem]">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center text-base">💡</span>
+            <span className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center text-base text-emerald-600 dark:text-emerald-400"><Icon name="lightbulb" className="w-5 h-5" /></span>
             Consejos para invertir en CDT
           </h2>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
+import { Icon } from "@/lib/icons";
 
 type TipoTasa = "anual" | "mensual" | "nominal" | "efectiva_trimestral" | "efectiva_semestral";
 type FrecuenciaAporte = "mensual" | "trimestral" | "semestral" | "anual" | "ninguno";
@@ -224,7 +225,9 @@ export default function InteresCompuesto() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-emerald-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">💰</div>
+          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+            <Icon name="trending-up" className="w-10 h-10" />
+          </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Interés Compuesto
           </h1>
@@ -278,11 +281,10 @@ export default function InteresCompuesto() {
                     <button
                       key={tipo.valor}
                       onClick={() => setTipoTasa(tipo.valor)}
-                      className={`px-5 py-4 font-semibold transition-colors ${
-                        tipoTasa === tipo.valor || (tipo.valor === "anual" && tipoTasa !== "mensual" && tipoTasa !== "anual")
-                          ? "bg-emerald-500 text-white"
-                          : "bg-white text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
-                      }`}
+                      className={`px-5 py-4 font-semibold transition-colors ${tipoTasa === tipo.valor || (tipo.valor === "anual" && tipoTasa !== "mensual" && tipoTasa !== "anual")
+                        ? "bg-emerald-500 text-white"
+                        : "bg-white text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
+                        }`}
                     >
                       {tipo.nombre}
                     </button>
@@ -529,10 +531,12 @@ export default function InteresCompuesto() {
       </div>
 
       {/* Información educativa */}
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto space-y-8">
         <div className="p-8 card-glass rounded-[2rem]">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center text-base">💡</span>
+            <span className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+              <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
+            </span>
             ¿Cómo funciona?
           </h2>
           <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed mb-4">
@@ -541,6 +545,36 @@ export default function InteresCompuesto() {
           </p>
           <div className="p-4 bg-emerald-50 dark:bg-emerald-900/50 rounded-xl text-sm text-emerald-700 dark:text-emerald-300">
             <strong>Ejemplo:</strong> $10,000 al 10% anual durante 20 años = $67,275 (¡$57,275 solo en intereses!)
+          </div>
+        </div>
+
+        <div className="pt-8">
+          <h3 className="text-lg font-bold text-slate-700 dark:text-slate-300 mb-6 px-2">También te puede interesar</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Link
+              href="/finanzas/calculadora-prestamos"
+              className="p-6 card-glass card-hover card-hover-emerald rounded-3xl flex items-center gap-4 group"
+            >
+              <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center text-emerald-600 dark:text-emerald-400 transition-transform group-hover:scale-110">
+                <Icon name="landmark" className="w-6 h-6" />
+              </div>
+              <div className="flex-1">
+                <p className="font-bold text-slate-800 dark:text-slate-100">Préstamos</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Cuotas y amortización</p>
+              </div>
+            </Link>
+            <Link
+              href="/finanzas/calculadora-salario-neto"
+              className="p-6 card-glass card-hover card-hover-emerald rounded-3xl flex items-center gap-4 group"
+            >
+              <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center text-emerald-600 dark:text-emerald-400 transition-transform group-hover:scale-110">
+                <Icon name="banknote" className="w-6 h-6" />
+              </div>
+              <div className="flex-1">
+                <p className="font-bold text-slate-800 dark:text-slate-100">Salario Neto</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Deducciones legales</p>
+              </div>
+            </Link>
           </div>
         </div>
       </div>

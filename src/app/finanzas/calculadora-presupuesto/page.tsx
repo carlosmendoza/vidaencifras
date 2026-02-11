@@ -321,7 +321,9 @@ export default function CalculadoraPresupuesto() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-[2rem]">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-violet-100 dark:bg-violet-900 rounded-lg flex items-center justify-center text-base">💡</span>
+            <span className="w-8 h-8 bg-violet-100 dark:bg-violet-900 rounded-lg flex items-center justify-center text-violet-600 dark:text-violet-400">
+              <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
+            </span>
             ¿Qué es la regla 50/30/20?
           </h2>
           <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed mb-4">

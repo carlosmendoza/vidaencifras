@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
+import { Icon } from "@/lib/icons";
 
 interface Resultado {
   cuotaMensual: number;
@@ -91,7 +92,9 @@ export default function Prestamos() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-rose-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-rose-400 to-pink-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">🏦</div>
+          <div className="w-20 h-20 bg-gradient-to-br from-rose-400 to-pink-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+            <Icon name="landmark" className="w-10 h-10" />
+          </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora de Préstamos
           </h1>
@@ -267,7 +270,9 @@ export default function Prestamos() {
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-rose-100 dark:bg-rose-900 rounded-lg flex items-center justify-center text-base">💡</span>
+          <span className="w-8 h-8 bg-rose-100 dark:bg-rose-900 rounded-lg flex items-center justify-center text-rose-600 dark:text-rose-400">
+              <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
+            </span>
           Sistema de amortización francés
         </h2>
         <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">

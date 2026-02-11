@@ -15,6 +15,7 @@ import {
 } from "recharts";
 import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
+import { Icon } from "@/lib/icons";
 
 const CUENTAS_AHORRO = [
   {
@@ -492,8 +493,8 @@ function CalculadoraMetaAhorroContent() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-4xl mx-auto shadow-2xl shadow-amber-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">
-            🎯
+          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+            <Icon name="target" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora de Meta de Ahorro
@@ -711,7 +712,9 @@ function CalculadoraMetaAhorroContent() {
             <div className="mt-10 space-y-6 animate-result-appear">
               {resultado.mensaje ? (
                 <div className="p-8 bg-emerald-100 dark:bg-emerald-900/50 rounded-3xl text-center">
-                  <div className="text-4xl mb-4">🎉</div>
+                  <div className="text-emerald-600 mb-4 flex justify-center">
+                    <Icon name="confetti" className="w-10 h-10" weight="fill" />
+                  </div>
                   <p className="text-xl font-bold text-emerald-700 dark:text-emerald-300">
                     {resultado.mensaje}
                   </p>
@@ -818,7 +821,7 @@ function CalculadoraMetaAhorroContent() {
                   {resultado.evolucion && resultado.evolucion.length > 1 && (
                     <div className="p-6 bg-white dark:bg-slate-800 rounded-3xl ring-1 ring-slate-200 dark:ring-slate-700">
                       <h3 className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
-                        <span>📈</span> Así crecerá tu ahorro
+                        <Icon name="trending-up" className="w-5 h-5 text-amber-500" /> Así crecerá tu ahorro
                       </h3>
                       <ResponsiveContainer width="100%" height={300}>
                         <AreaChart
@@ -894,7 +897,7 @@ function CalculadoraMetaAhorroContent() {
                   {resultado.comparacionCuentas.length > 0 && (
                     <div className="p-6 bg-white dark:bg-slate-800 rounded-3xl ring-1 ring-slate-200 dark:ring-slate-700">
                       <h3 className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
-                        <span>📊</span> Compara: {resultado.tipoCalculo === "meta" ? "¿cuánto ahorrarías en cada cuenta?" : "¿cuánto tardarías con cada cuenta?"}
+                        <Icon name="bar-chart" className="w-5 h-5 text-amber-500" /> Compara: {resultado.tipoCalculo === "meta" ? "¿cuánto ahorrarías en cada cuenta?" : "¿cuánto tardarías con cada cuenta?"}
                       </h3>
                       <div className="space-y-2">
                         {resultado.comparacionCuentas.map((cuenta, index) => (
@@ -960,23 +963,24 @@ function CalculadoraMetaAhorroContent() {
                   {/* Tip - solo si hay comparación y la cuenta seleccionada no es especial */}
                   {resultado.comparacionCuentas.length > 0 && cuentaSeleccionada !== "sin-rendimiento" && cuentaSeleccionada !== "otro" && (
                     <div className="p-4 bg-emerald-50 dark:bg-emerald-900/30 rounded-2xl border border-emerald-200 dark:border-emerald-800">
-                      <p className="text-sm text-emerald-700 dark:text-emerald-300">
+                      <p className="text-sm text-emerald-700 dark:text-emerald-300 flex items-start gap-2">
+                        <Icon name="lightbulb" className="w-5 h-5 flex-shrink-0 text-emerald-600" weight="fill" />
                         {resultado.tipoCalculo === "meta" ? (
-                          <>
-                            <strong>💡 Tip:</strong> Con {resultado.comparacionCuentas[0]?.nombre} ahorras{" "}
+                          <span>
+                            <strong>Tip:</strong> Con {resultado.comparacionCuentas[0]?.nombre} ahorras{" "}
                             <strong>
                               ${formatMoney(Math.ceil(resultado.aporteMensual) - Math.ceil(resultado.comparacionCuentas[0]?.aporteMensual || 0))}
                             </strong>{" "}
                             menos cada mes que con {resultado.comparacionCuentas[resultado.comparacionCuentas.length - 1]?.nombre}.
-                          </>
+                          </span>
                         ) : (
-                          <>
-                            <strong>💡 Tip:</strong> Con {resultado.comparacionCuentas[0]?.nombre} llegas{" "}
+                          <span>
+                            <strong>Tip:</strong> Con {resultado.comparacionCuentas[0]?.nombre} llegas{" "}
                             <strong>
                               {formatPlazo((resultado.comparacionCuentas[resultado.comparacionCuentas.length - 1]?.mesesRequeridos || 0) - (resultado.comparacionCuentas[0]?.mesesRequeridos || 0))}
                             </strong>{" "}
                             antes que con {resultado.comparacionCuentas[resultado.comparacionCuentas.length - 1]?.nombre}.
-                          </>
+                          </span>
                         )}
                       </p>
                     </div>
@@ -995,8 +999,8 @@ function CalculadoraMetaAhorroContent() {
           className="block p-6 card-glass rounded-2xl hover:ring-2 hover:ring-emerald-500 transition-all group"
         >
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl flex items-center justify-center text-2xl">
-              🏦
+            <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl flex items-center justify-center text-white">
+              <Icon name="landmark" className="w-6 h-6" />
             </div>
             <div className="flex-1">
               <h3 className="font-bold text-slate-700 dark:text-slate-200 group-hover:text-emerald-600 transition-colors">
@@ -1026,8 +1030,8 @@ function CalculadoraLoading() {
     <div className="space-y-8">
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-4xl mx-auto shadow-2xl shadow-amber-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg animate-pulse">
-            🎯
+          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg animate-pulse">
+            <Icon name="target" className="w-10 h-10" />
           </div>
           <div className="h-10 bg-slate-200 dark:bg-slate-700 rounded-xl w-3/4 mx-auto mb-3 animate-pulse" />
           <div className="h-5 bg-slate-100 dark:bg-slate-800 rounded-lg w-1/2 mx-auto animate-pulse" />

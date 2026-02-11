@@ -16,6 +16,7 @@ import {
 } from "recharts";
 import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
+import { Icon } from "@/lib/icons";
 
 // Cuentas de ahorro disponibles en Colombia (tasas actualizadas febrero 2025)
 const CUENTAS_AHORRO = [
@@ -383,8 +384,8 @@ function SimuladorCuentaAhorroContent() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-5xl mx-auto shadow-2xl shadow-emerald-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">
-            🏦
+          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+            <Icon name="landmark" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Comparador de Cuentas de Ahorro
@@ -537,7 +538,7 @@ function SimuladorCuentaAhorroContent() {
               {/* Gráfica comparativa */}
               <div className="p-6 bg-white dark:bg-slate-800 rounded-3xl ring-1 ring-slate-200 dark:ring-slate-700">
                 <h3 className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
-                  <span>📈</span> Comparación de rendimientos
+                  <Icon name="trending-up" className="w-5 h-5 text-emerald-500" /> Comparación de rendimientos
                 </h3>
                 <ResponsiveContainer width="100%" height={350}>
                   <LineChart data={resultado.evolucion} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -576,7 +577,7 @@ function SimuladorCuentaAhorroContent() {
               {/* Ranking de cuentas */}
               <div className="p-6 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 rounded-3xl ring-1 ring-emerald-100 dark:ring-emerald-900">
                 <h3 className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
-                  <span>🏆</span> Ranking de rendimientos
+                  <Icon name="seal-check" className="w-5 h-5 text-emerald-500" weight="fill" /> Ranking de rendimientos
                 </h3>
                 <div className="space-y-3">
                   {resultado.resumenCuentas.map((cuenta, index) => (
@@ -670,8 +671,8 @@ function SimuladorCuentaAhorroContent() {
       <div className="max-w-5xl mx-auto">
         <div className="p-8 card-glass rounded-[2rem]">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center text-base">
-              💡
+            <span className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center text-emerald-600">
+              <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
             </span>
             Consejos para maximizar tus rendimientos
           </h2>
@@ -715,8 +716,8 @@ function SimuladorCuentaAhorroContent() {
           className="block p-6 card-glass rounded-2xl hover:ring-2 hover:ring-amber-500 transition-all group"
         >
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center text-2xl shadow-lg">
-              🎯
+            <div className="w-14 h-14 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center text-white shadow-lg">
+              <Icon name="target" className="w-7 h-7" />
             </div>
             <div className="flex-1">
               <h3 className="font-bold text-lg text-slate-700 dark:text-slate-200 group-hover:text-amber-600 transition-colors">
@@ -756,8 +757,8 @@ function SimuladorLoading() {
     <div className="space-y-8">
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-5xl mx-auto shadow-2xl shadow-emerald-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg animate-pulse">
-            🏦
+          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg animate-pulse">
+            <Icon name="landmark" className="w-10 h-10" />
           </div>
           <div className="h-10 bg-slate-200 dark:bg-slate-700 rounded-xl w-3/4 mx-auto mb-3 animate-pulse" />
           <div className="h-5 bg-slate-100 dark:bg-slate-800 rounded-lg w-1/2 mx-auto animate-pulse" />

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
+import { Icon } from "@/lib/icons";
 
 const faqs = [
   {
@@ -176,7 +177,7 @@ export default function CalculadoraJubilacion() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-orange-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-amber-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">🏖️</div>
+          <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-amber-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="palmtree" className="w-10 h-10" /></div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora de Jubilación
           </h1>
@@ -480,7 +481,7 @@ export default function CalculadoraJubilacion() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-[2rem]">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center text-base">💡</span>
+            <span className="w-8 h-8 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center text-orange-500"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /></span>
             Sobre la jubilación en Colombia
           </h2>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
+import { Icon } from "@/lib/icons";
 
 const faqs = [
   {
@@ -84,7 +85,7 @@ export default function CalculadoraCesantias() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-cyan-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-cyan-400 to-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">💼</div>
+          <div className="w-20 h-20 bg-gradient-to-br from-cyan-400 to-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="briefcase" className="w-10 h-10" /></div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora de Cesantías
           </h1>
@@ -262,7 +263,7 @@ export default function CalculadoraCesantias() {
 
               {/* Fechas importantes */}
               <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-2xl">
-                <p className="text-sm font-bold text-amber-700 dark:text-amber-300 mb-2">📅 Fechas importantes</p>
+                <p className="text-sm font-bold text-amber-700 dark:text-amber-300 mb-2 flex items-center gap-2"><Icon name="calendar" className="w-4 h-4" weight="fill" /> Fechas importantes</p>
                 <ul className="text-xs text-amber-600 dark:text-amber-400 space-y-1">
                   <li>• <strong>14 de febrero:</strong> Límite para que el empleador consigne cesantías al fondo</li>
                   <li>• <strong>31 de enero:</strong> Límite para pagar intereses sobre cesantías al trabajador</li>
@@ -277,7 +278,7 @@ export default function CalculadoraCesantias() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-[2rem]">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-cyan-100 dark:bg-cyan-900 rounded-lg flex items-center justify-center text-base">💡</span>
+            <span className="w-8 h-8 bg-cyan-100 dark:bg-cyan-900 rounded-lg flex items-center justify-center text-cyan-500"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /></span>
             Sobre las cesantías
           </h2>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">

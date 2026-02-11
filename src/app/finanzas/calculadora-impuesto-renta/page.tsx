@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { CalculatorResult } from "@/components/CalculatorResult";
 import { ShareButtons } from "@/components/ShareButtons";
+import { Icon } from "@/lib/icons";
 
 // Valor UVT 2025 (ajustar cada año)
 const UVT_2025 = 49799;
@@ -194,8 +195,8 @@ export default function CalculadoraImpuestoRenta() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-emerald-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">
-            🏛️
+          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+            <Icon name="landmark" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora de Impuesto de Renta
@@ -382,7 +383,9 @@ export default function CalculadoraImpuestoRenta() {
               {/* Desglose de deducciones */}
               <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl space-y-4">
                 <h3 className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                  <span className="w-6 h-6 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center text-sm">📋</span>
+                  <span className="w-6 h-6 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center text-emerald-600">
+                    <Icon name="clipboard" className="w-4 h-4" />
+                  </span>
                   Desglose de deducciones
                 </h3>
                 <div className="space-y-2 text-sm">
@@ -450,7 +453,9 @@ export default function CalculadoraImpuestoRenta() {
               {/* Tabla de tarifas */}
               <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl space-y-4">
                 <h3 className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                  <span className="w-6 h-6 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center text-sm">📊</span>
+                  <span className="w-6 h-6 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center text-blue-600">
+                    <Icon name="bar-chart" className="w-4 h-4" />
+                  </span>
                   Tabla de tarifas 2025
                 </h3>
                 <div className="overflow-x-auto">
@@ -491,7 +496,9 @@ export default function CalculadoraImpuestoRenta() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-[2rem]">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-base">⚠️</span>
+            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-amber-600">
+              <Icon name="warning" className="w-5 h-5" weight="fill" />
+            </span>
             Información importante
           </h2>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
