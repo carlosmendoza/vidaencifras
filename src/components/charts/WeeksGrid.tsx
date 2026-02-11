@@ -1,12 +1,13 @@
 "use client";
 
 import { useMemo } from "react";
+import { Icon } from "@/lib/icons";
 
 interface WeeksGridProps {
   semanasVividas: number;
   semanasTotal: number;
   expectativaVida: number;
-  hitos?: { semana: number; nombre: string; emoji: string }[];
+  hitos?: { semana: number; nombre: string; icon: string }[];
 }
 
 export function WeeksGrid({
@@ -19,8 +20,8 @@ export function WeeksGrid({
   const semanasPorAño = 52;
 
   const hitosMap = useMemo(() => {
-    const map = new Map<number, { nombre: string; emoji: string }>();
-    hitos.forEach((h) => map.set(h.semana, { nombre: h.nombre, emoji: h.emoji }));
+    const map = new Map<number, { nombre: string; icon: string }>();
+    hitos.forEach((h) => map.set(h.semana, { nombre: h.nombre, icon: h.icon }));
     return map;
   }, [hitos]);
 
@@ -119,13 +120,13 @@ export function WeeksGrid({
                           `}
                           title={
                             hito
-                              ? `${hito.emoji} ${hito.nombre} (Año ${año}, Semana ${semana + 1})`
+                              ? `${hito.nombre} (Año ${año}, Semana ${semana + 1})`
                               : `Año ${año}, Semana ${semana + 1}`
                           }
                         >
                           {hito && (
-                            <span className="text-[6px] flex items-center justify-center h-full">
-                              {hito.emoji}
+                            <span className="flex items-center justify-center h-full text-white">
+                              <Icon name={hito.icon} className="w-2 h-2" weight="fill" />
                             </span>
                           )}
                         </div>

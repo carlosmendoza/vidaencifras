@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
-import { Icon, getIconName } from "@/lib/icons";
+import { Icon } from "@/lib/icons";
 
 const faqs = [
   {

@@ -368,7 +368,7 @@ export default function CalculadoraPomodoro() {
   const modeInfo = getModeInfo();
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8 overflow-x-hidden">
       <Link
         href="/productividad"
         className="text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 inline-flex items-center gap-2 font-medium transition-colors"
@@ -376,38 +376,38 @@ export default function CalculadoraPomodoro() {
         <span>←</span> Volver a Productividad
       </Link>
 
-      <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-amber-500/5">
-        <div className="text-center mb-8">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="tomato" className="w-10 h-10" />
+      <div className="card-glass rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-amber-500/5">
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-red-400 to-rose-500 rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg text-white">
+            <Icon name="timer" className="w-8 h-8 sm:w-10 sm:h-10" />
           </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
+          <h1 className="text-2xl sm:text-4xl font-black text-slate-800 dark:text-slate-100 mb-2 sm:mb-3 tracking-tight">
             Calculadora Pomodoro
           </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
+          <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 font-medium">
             Planifica tu sesión y trabaja enfocado
           </p>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-8 p-1 bg-slate-100 dark:bg-slate-800 rounded-2xl">
+        <div className="flex gap-2 mb-6 sm:mb-8 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl sm:rounded-2xl">
           <button
             onClick={() => setViewMode("planificar")}
-            className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all ${viewMode === "planificar"
+            className={`flex-1 py-2 sm:py-3 px-2 sm:px-4 rounded-lg sm:rounded-xl font-semibold transition-all flex items-center justify-center gap-1 sm:gap-2 text-sm sm:text-base ${viewMode === "planificar"
                 ? "bg-white dark:bg-slate-700 text-amber-600 dark:text-amber-400 shadow"
                 : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
               }`}
           >
-            <Icon name="clipboard" className="w-5 h-5" /> Planificar
+            <Icon name="clipboard" className="w-4 h-4 sm:w-5 sm:h-5" /> Planificar
           </button>
           <button
             onClick={() => setViewMode("temporizador")}
-            className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all ${viewMode === "temporizador"
+            className={`flex-1 py-2 sm:py-3 px-2 sm:px-4 rounded-lg sm:rounded-xl font-semibold transition-all flex items-center justify-center gap-1 sm:gap-2 text-sm sm:text-base ${viewMode === "temporizador"
                 ? "bg-white dark:bg-slate-700 text-amber-600 dark:text-amber-400 shadow"
                 : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
               }`}
           >
-            <Icon name="timer" className="w-5 h-5" /> Temporizador
+            <Icon name="timer" className="w-4 h-4 sm:w-5 sm:h-5" /> Timer
           </button>
         </div>
 
@@ -505,7 +505,7 @@ export default function CalculadoraPomodoro() {
                       max="8"
                       className="w-full px-2 py-2 rounded-lg text-center font-bold text-sm"
                     />
-                    <span className="text-xs text-slate-400">🍅</span>
+                    <Icon name="timer" className="w-4 h-4 text-slate-400" />
                   </div>
                 </div>
               </div>
@@ -523,22 +523,23 @@ export default function CalculadoraPomodoro() {
             {showPlan && plan.length > 0 && (
               <div className="space-y-6 animate-fade-in-up">
                 {/* Resumen */}
-                <div className="grid grid-cols-3 gap-3">
-                  <div className="text-center p-4 bg-red-50 dark:bg-red-900/20 rounded-2xl">
-                    <p className="text-3xl font-black text-red-500">{totalPomodoros}</p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Pomodoros</p>
+                <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                  <div className="text-center p-2 sm:p-4 bg-red-50 dark:bg-red-900/20 rounded-xl sm:rounded-2xl">
+                    <p className="text-xl sm:text-3xl font-black text-red-500">{totalPomodoros}</p>
+                    <p className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 mt-1">Pomodoros</p>
                   </div>
-                  <div className="text-center p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl">
-                    <p className="text-3xl font-black text-emerald-500">
-                      {Math.floor(tiempoTrabajo / 60)}h {tiempoTrabajo % 60}m
+                  <div className="text-center p-2 sm:p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl sm:rounded-2xl">
+                    <p className="text-lg sm:text-3xl font-black text-emerald-500">
+                      <span className="block sm:inline">{Math.floor(tiempoTrabajo / 60)}h</span>
+                      <span className="block sm:inline sm:ml-1">{tiempoTrabajo % 60}m</span>
                     </p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Trabajo</p>
+                    <p className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 mt-1">Trabajo</p>
                   </div>
-                  <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-2xl">
-                    <p className="text-3xl font-black text-blue-500">
+                  <div className="text-center p-2 sm:p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl sm:rounded-2xl">
+                    <p className="text-xl sm:text-3xl font-black text-blue-500">
                       {tiempoDescanso}m
                     </p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Descanso</p>
+                    <p className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 mt-1">Descanso</p>
                   </div>
                 </div>
 
@@ -585,9 +586,9 @@ export default function CalculadoraPomodoro() {
                 {/* Botón iniciar sesión */}
                 <button
                   onClick={iniciarSesion}
-                  className="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-2xl hover:from-emerald-600 hover:to-teal-600 transition-all shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2"
+                  className="w-full py-3 sm:py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-xl sm:rounded-2xl hover:from-emerald-600 hover:to-teal-600 transition-all shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
-                  <Icon name="play" weight="fill" className="w-5 h-5" /> Iniciar sesión
+                  <Icon name="play" weight="fill" className="w-4 h-4 sm:w-5 sm:h-5" /> Iniciar sesión
                 </button>
               </div>
             )}
@@ -598,10 +599,10 @@ export default function CalculadoraPomodoro() {
         {viewMode === "temporizador" && (
           <div className="space-y-6">
             {/* Timer principal */}
-            <div className={`relative p-8 rounded-3xl bg-gradient-to-br ${modeInfo.bgGradient} ring-1 ${modeInfo.ringColor}`}>
+            <div className={`relative p-4 sm:p-8 rounded-3xl bg-gradient-to-br ${modeInfo.bgGradient} ring-1 ${modeInfo.ringColor}`}>
               {/* Progress ring */}
-              <div className="relative w-64 h-64 mx-auto mb-6">
-                <svg className="w-full h-full transform -rotate-90">
+              <div className="relative w-48 h-48 sm:w-64 sm:h-64 mx-auto mb-6">
+                <svg className="w-full h-full transform -rotate-90" viewBox="0 0 256 256">
                   <circle
                     cx="128"
                     cy="128"
@@ -633,72 +634,65 @@ export default function CalculadoraPomodoro() {
 
                 {/* Timer display */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <Icon name={modeInfo.icon} className="w-10 h-10 mb-2" />
-                  <span className={`text-6xl font-black ${modeInfo.color} tabular-nums`}>
+                  <Icon name={modeInfo.icon} className="w-8 h-8 sm:w-10 sm:h-10 mb-2" />
+                  <span className={`text-4xl sm:text-6xl font-black ${modeInfo.color} tabular-nums`}>
                     {formatTime(timeLeft)}
                   </span>
-                  <span className="text-sm text-slate-500 dark:text-slate-400 mt-2">
+                  <span className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2">
                     {modeInfo.label}
                   </span>
                 </div>
               </div>
 
               {/* Controles */}
-              <div className="flex justify-center gap-4">
+              <div className="flex justify-center gap-3 sm:gap-4">
                 <button
                   onClick={toggleTimer}
-                  className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${modeInfo.bgColor} text-white flex items-center justify-center shadow-lg hover:scale-105 transition-transform`}
+                  className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br ${modeInfo.bgColor} text-white flex items-center justify-center shadow-lg hover:scale-105 transition-transform`}
                 >
                   {isRunning ? (
-                    <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                    </svg>
+                    <Icon name="pause" weight="fill" className="w-6 h-6 sm:w-8 sm:h-8" />
                   ) : (
-                    <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
+                    <Icon name="play" weight="fill" className="w-6 h-6 sm:w-8 sm:h-8" />
                   )}
                 </button>
 
                 <button
                   onClick={resetTimer}
-                  className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
                   title="Reiniciar"
                 >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
+                  <Icon name="refresh" className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
 
                 <button
                   onClick={skipToNext}
-                  className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
                   title="Saltar"
                 >
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M5 4l10 8-10 8V4zm9 0h4v16h-4V4z" />
-                  </svg>
+                  <Icon name="lightning" weight="fill" className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
               </div>
             </div>
 
             {/* Estadísticas de la sesión */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="text-center p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
-                <p className="text-3xl font-black text-red-500">{pomodorosCompletados}</p>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Completados</p>
+            <div className="grid grid-cols-3 gap-2 sm:gap-4">
+              <div className="text-center p-2 sm:p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl sm:rounded-2xl">
+                <p className="text-xl sm:text-3xl font-black text-red-500">{pomodorosCompletados}</p>
+                <p className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 mt-1">Completados</p>
               </div>
-              <div className="text-center p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
-                <p className="text-3xl font-black text-slate-700 dark:text-slate-200">
+              <div className="text-center p-2 sm:p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl sm:rounded-2xl">
+                <p className="text-xl sm:text-3xl font-black text-slate-700 dark:text-slate-200">
                   {pomodorosEnCiclo}/{config.pomodorosPorCiclo}
                 </p>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Ciclo actual</p>
+                <p className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 mt-1">Ciclo</p>
               </div>
-              <div className="text-center p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
-                <p className="text-3xl font-black text-emerald-500">
-                  {Math.floor(pomodorosCompletados * config.trabajo / 60)}h {(pomodorosCompletados * config.trabajo) % 60}m
+              <div className="text-center p-2 sm:p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl sm:rounded-2xl">
+                <p className="text-lg sm:text-3xl font-black text-emerald-500">
+                  <span className="block sm:inline">{Math.floor(pomodorosCompletados * config.trabajo / 60)}h</span>
+                  <span className="block sm:inline sm:ml-1">{(pomodorosCompletados * config.trabajo) % 60}m</span>
                 </p>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Trabajo</p>
+                <p className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 mt-1">Trabajo</p>
               </div>
             </div>
 
@@ -717,12 +711,12 @@ export default function CalculadoraPomodoro() {
 
             {/* Progreso del plan */}
             {plan.length > 0 && (
-              <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
+              <div className="p-3 sm:p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl sm:rounded-2xl">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                  <p className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400">
                     Progreso del plan
                   </p>
-                  <p className="text-sm text-slate-500">
+                  <p className="text-xs sm:text-sm text-slate-500">
                     {Math.min(currentPlanIndex, plan.length)} / {plan.length}
                   </p>
                 </div>
@@ -736,15 +730,15 @@ export default function CalculadoraPomodoro() {
             )}
 
             {/* Opciones */}
-            <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
-              <label className="flex items-center gap-3 cursor-pointer">
+            <div className="flex items-center justify-between p-3 sm:p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl sm:rounded-2xl">
+              <label className="flex items-center gap-2 sm:gap-3 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={autoStart}
                   onChange={(e) => setAutoStart(e.target.checked)}
-                  className="w-5 h-5 rounded border-2 border-slate-300 text-red-500 focus:ring-red-500"
+                  className="w-4 h-4 sm:w-5 sm:h-5 rounded border-2 border-slate-300 text-red-500 focus:ring-red-500"
                 />
-                <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                <span className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">
                   Iniciar automáticamente
                 </span>
               </label>
@@ -765,7 +759,9 @@ export default function CalculadoraPomodoro() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-[2rem]">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-base">💡</span>
+            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-amber-600 dark:text-amber-400">
+              <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
+            </span>
             Cómo usar la técnica Pomodoro
           </h2>
           <ol className="space-y-3 text-sm text-slate-600 dark:text-slate-300 list-decimal list-inside">

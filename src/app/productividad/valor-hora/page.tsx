@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
-import { Icon, getIconName } from "@/lib/icons";
+import { Icon } from "@/lib/icons";
 
 const faqs = [
   {
@@ -36,7 +36,7 @@ interface Resultado {
   horasTotales: number;
   gastosTotal: number;
   ingresoNeto: number;
-  equivalencias: { nombre: string; cantidad: number; emoji: string }[];
+  equivalencias: { nombre: string; cantidad: number; icon: string }[];
 }
 
 export default function ValorHoraPage() {
@@ -112,11 +112,11 @@ export default function ValorHoraPage() {
     const p = precios[monedaCodigo] || precios.COP;
 
     return [
-      { nombre: "cafés", cantidad: valorHora / p.cafe, emoji: "☕" },
-      { nombre: "meses de Netflix", cantidad: valorHora / p.netflix, emoji: "📺" },
-      { nombre: "entradas de cine", cantidad: valorHora / p.cine, emoji: "🎬" },
-      { nombre: "almuerzos", cantidad: valorHora / p.almuerzo, emoji: "🍽️" },
-      { nombre: "viajes en Uber (5km)", cantidad: valorHora / p.uber5km, emoji: "🚗" },
+      { nombre: "cafes", cantidad: valorHora / p.cafe, icon: "coffee" },
+      { nombre: "meses de Netflix", cantidad: valorHora / p.netflix, icon: "tv" },
+      { nombre: "entradas de cine", cantidad: valorHora / p.cine, icon: "monitor" },
+      { nombre: "almuerzos", cantidad: valorHora / p.almuerzo, icon: "utensils" },
+      { nombre: "viajes en Uber (5km)", cantidad: valorHora / p.uber5km, icon: "car" },
     ];
   };
 
@@ -384,7 +384,7 @@ export default function ValorHoraPage() {
                       key={eq.nombre}
                       className="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-center"
                     >
-                      <Icon name={getIconName(eq.emoji)} className="w-8 h-8 mx-auto mb-2 text-amber-500" />
+                      <Icon name={eq.icon} className="w-8 h-8 mx-auto mb-2 text-amber-500" />
                       <p className="text-xl font-black text-slate-800 dark:text-slate-100 mt-1">
                         {formatDecimal(eq.cantidad)}
                       </p>

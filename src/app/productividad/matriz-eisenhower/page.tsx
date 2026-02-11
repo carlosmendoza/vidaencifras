@@ -229,9 +229,9 @@ export default function MatrizEisenhower() {
               </button>
               <button
                 onClick={exportarLista}
-                className="px-4 py-2 text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                className="px-4 py-2 text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors inline-flex items-center gap-2"
               >
-                📋 Copiar lista
+                <Icon name="clipboard" className="w-4 h-4" /> Copiar lista
               </button>
             </div>
           </div>
@@ -242,7 +242,7 @@ export default function MatrizEisenhower() {
           {/* Encabezados de columnas */}
           <div className="md:col-span-2 grid grid-cols-2 gap-4 mb-2">
             <div className="text-center">
-              <span className="text-sm font-bold text-red-500">⚡ URGENTE</span>
+              <span className="text-sm font-bold text-red-500 inline-flex items-center gap-1 justify-center"><Icon name="lightning" className="w-4 h-4" /> URGENTE</span>
             </div>
             <div className="text-center">
               <span className="text-sm font-bold text-slate-400">NO URGENTE</span>
@@ -251,7 +251,7 @@ export default function MatrizEisenhower() {
 
           {/* Fila 1: Importante */}
           <div className="md:col-span-2 flex items-center mb-1">
-            <span className="text-sm font-bold text-blue-500 -rotate-90 md:rotate-0 md:mr-2">⭐ IMPORTANTE</span>
+            <span className="text-sm font-bold text-blue-500 -rotate-90 md:rotate-0 md:mr-2 inline-flex items-center gap-1"><Icon name="target" className="w-4 h-4" /> IMPORTANTE</span>
           </div>
 
           {/* Q1: Hacer */}

@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { WeeksGrid } from "@/components/charts/WeeksGrid";
-import { Icon, getIconName } from "@/lib/icons";
+import { Icon } from "@/lib/icons";
 
 const faqs = [
   {
@@ -44,7 +44,7 @@ interface Estadisticas {
 interface Hito {
   semana: number;
   nombre: string;
-  emoji: string;
+  icon: string;
 }
 
 export default function VidaEnSemanasPage() {
@@ -89,15 +89,15 @@ export default function VidaEnSemanasPage() {
 
     // Hitos fijos por edad
     const hitosEdad = [
-      { edad: 6, nombre: "Inicio primaria", emoji: "🎒" },
-      { edad: 15, nombre: "Quinceañero", emoji: "🎂" },
-      { edad: 18, nombre: "Mayoría de edad", emoji: "🎓" },
-      { edad: 22, nombre: "Graduación universidad", emoji: "👨‍🎓" },
-      { edad: 30, nombre: "30 años", emoji: "3️⃣0️⃣" },
-      { edad: 40, nombre: "40 años", emoji: "4️⃣0️⃣" },
-      { edad: 50, nombre: "50 años", emoji: "5️⃣0️⃣" },
-      { edad: 62, nombre: "Jubilación", emoji: "🏖️" },
-      { edad: 65, nombre: "65 años", emoji: "👴" },
+      { edad: 6, nombre: "Inicio primaria", icon: "books" },
+      { edad: 15, nombre: "Quinceañero", icon: "cake" },
+      { edad: 18, nombre: "Mayoría de edad", icon: "seal-check" },
+      { edad: 22, nombre: "Graduación universidad", icon: "seal-check" },
+      { edad: 30, nombre: "30 años", icon: "target" },
+      { edad: 40, nombre: "40 años", icon: "target" },
+      { edad: 50, nombre: "50 años", icon: "target" },
+      { edad: 62, nombre: "Jubilación", icon: "palmtree" },
+      { edad: 65, nombre: "65 años", icon: "user" },
     ];
 
     hitosEdad.forEach((h) => {
@@ -106,7 +106,7 @@ export default function VidaEnSemanasPage() {
         lista.push({
           semana,
           nombre: h.nombre,
-          emoji: h.emoji,
+          icon: h.icon,
         });
       }
     });

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
-import { Icon, getIconName } from "@/lib/icons";
+import { Icon } from "@/lib/icons";
 
 const faqs = [
   {
@@ -35,7 +35,7 @@ type TipoImpacto = "positivo" | "negativo";
 
 interface PlantillaHabito {
   nombre: string;
-  emoji: string;
+  icon: string;
   tipo: TipoHabito;
   impacto: TipoImpacto;
   valorDiario: number;
@@ -46,7 +46,7 @@ interface PlantillaHabito {
 const plantillas: PlantillaHabito[] = [
   {
     nombre: "Leer",
-    emoji: "📚",
+    icon: "books",
     tipo: "tiempo",
     impacto: "positivo",
     valorDiario: 30,
@@ -55,7 +55,7 @@ const plantillas: PlantillaHabito[] = [
   },
   {
     nombre: "Ejercicio",
-    emoji: "🏃",
+    icon: "run",
     tipo: "salud",
     impacto: "positivo",
     valorDiario: 30,
@@ -64,7 +64,7 @@ const plantillas: PlantillaHabito[] = [
   },
   {
     nombre: "Meditar",
-    emoji: "🧘",
+    icon: "meditation",
     tipo: "tiempo",
     impacto: "positivo",
     valorDiario: 10,
@@ -73,7 +73,7 @@ const plantillas: PlantillaHabito[] = [
   },
   {
     nombre: "Ahorro diario",
-    emoji: "💰",
+    icon: "wallet",
     tipo: "dinero",
     impacto: "positivo",
     valorDiario: 10000,
@@ -82,7 +82,7 @@ const plantillas: PlantillaHabito[] = [
   },
   {
     nombre: "Café comprado",
-    emoji: "☕",
+    icon: "coffee",
     tipo: "dinero",
     impacto: "negativo",
     valorDiario: 8000,
@@ -91,7 +91,7 @@ const plantillas: PlantillaHabito[] = [
   },
   {
     nombre: "Cigarrillos",
-    emoji: "🚬",
+    icon: "cigarette",
     tipo: "dinero",
     impacto: "negativo",
     valorDiario: 15000,
@@ -100,7 +100,7 @@ const plantillas: PlantillaHabito[] = [
   },
   {
     nombre: "Redes sociales",
-    emoji: "📱",
+    icon: "mobile",
     tipo: "tiempo",
     impacto: "negativo",
     valorDiario: 120,
@@ -109,7 +109,7 @@ const plantillas: PlantillaHabito[] = [
   },
   {
     nombre: "Aprender idioma",
-    emoji: "🌍",
+    icon: "globe",
     tipo: "tiempo",
     impacto: "positivo",
     valorDiario: 15,
@@ -118,7 +118,7 @@ const plantillas: PlantillaHabito[] = [
   },
   {
     nombre: "Domicilios",
-    emoji: "🛵",
+    icon: "moped",
     tipo: "dinero",
     impacto: "negativo",
     valorDiario: 25000,
@@ -127,7 +127,7 @@ const plantillas: PlantillaHabito[] = [
   },
   {
     nombre: "Caminar",
-    emoji: "🚶",
+    icon: "run",
     tipo: "salud",
     impacto: "positivo",
     valorDiario: 8000,
@@ -342,7 +342,7 @@ export default function CalculadoraHabitosPage() {
                     : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                   }`}
               >
-                <Icon name={getIconName(p.emoji)} className="w-4 h-4" />
+                <Icon name={p.icon} className="w-4 h-4" />
                 {p.nombre}
               </button>
             ))}
@@ -361,7 +361,7 @@ export default function CalculadoraHabitosPage() {
                     : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                   }`}
               >
-                {tipo === "dinero" ? "💰 Dinero" : tipo === "tiempo" ? "⏰ Tiempo" : "❤️ Salud"}
+                <span className="inline-flex items-center gap-1"><Icon name={tipo === "dinero" ? "wallet" : tipo === "tiempo" ? "clock" : "heart"} className="w-4 h-4" /> {tipo === "dinero" ? "Dinero" : tipo === "tiempo" ? "Tiempo" : "Salud"}</span>
               </button>
             ))}
           </div>
@@ -375,7 +375,7 @@ export default function CalculadoraHabitosPage() {
                   : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
             >
-              ✅ Hábito positivo
+              <span className="inline-flex items-center gap-1"><Icon name="seal-check" className="w-4 h-4" /> Habito positivo</span>
             </button>
             <button
               onClick={() => setTipoImpacto("negativo")}
@@ -384,7 +384,7 @@ export default function CalculadoraHabitosPage() {
                   : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
             >
-              ❌ Hábito a eliminar
+              <span className="inline-flex items-center gap-1"><Icon name="warning" className="w-4 h-4" /> Habito a eliminar</span>
             </button>
           </div>
 
