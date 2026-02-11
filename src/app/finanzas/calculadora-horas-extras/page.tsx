@@ -5,10 +5,10 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
+import { calcularHorasExtras, type HorasExtrasOutput } from "@/lib/calculadoras";
+import { SMMLV, TIPOS_HORA, type TipoHora } from "@/lib/calculadoras/constantes";
 
-type TipoHora = "extra_diurna" | "extra_nocturna" | "extra_dom_diurna" | "extra_dom_nocturna" | "recargo_nocturno" | "recargo_dominical" | "recargo_dom_nocturno";
-
-interface TipoHoraInfo {
+interface TipoHoraUI {
   id: TipoHora;
   nombre: string;
   descripcion: string;
@@ -16,95 +16,32 @@ interface TipoHoraInfo {
   color: string;
 }
 
-interface Resultado {
-  valorHoraBase: number;
-  recargo: number;
-  valorHoraTotal: number;
-  totalHoras: number;
-  totalPagar: number;
-}
-
 export default function CalculadoraHorasExtras() {
   const [salario, setSalario] = useState<string>("");
   const [tipoHora, setTipoHora] = useState<TipoHora>("extra_diurna");
   const [cantidad, setCantidad] = useState<string>("");
-  const [resultado, setResultado] = useState<Resultado | null>(null);
+  const [resultado, setResultado] = useState<HorasExtrasOutput | null>(null);
 
-  const SMMLV = 1750905;
-  // Jornada laboral 2026: 42 horas semanales
-  const HORAS_MES = 182; // 42 * 4.33
-
-  const tiposHora: TipoHoraInfo[] = [
-    {
-      id: "extra_diurna",
-      nombre: "Extra diurna",
-      descripcion: "Lun-Sáb, 6am-9pm, después de jornada",
-      recargo: 0.25,
-      color: "amber",
-    },
-    {
-      id: "extra_nocturna",
-      nombre: "Extra nocturna",
-      descripcion: "Lun-Sáb, 9pm-6am",
-      recargo: 0.75,
-      color: "indigo",
-    },
-    {
-      id: "extra_dom_diurna",
-      nombre: "Extra dominical diurna",
-      descripcion: "Dom/festivo, 6am-9pm",
-      recargo: 1.00,
-      color: "orange",
-    },
-    {
-      id: "extra_dom_nocturna",
-      nombre: "Extra dominical nocturna",
-      descripcion: "Dom/festivo, 9pm-6am",
-      recargo: 1.50,
-      color: "rose",
-    },
-    {
-      id: "recargo_nocturno",
-      nombre: "Recargo nocturno",
-      descripcion: "Trabajo normal 9pm-6am",
-      recargo: 0.35,
-      color: "violet",
-    },
-    {
-      id: "recargo_dominical",
-      nombre: "Recargo dominical",
-      descripcion: "Trabajo normal dom/festivo",
-      recargo: 0.75,
-      color: "cyan",
-    },
-    {
-      id: "recargo_dom_nocturno",
-      nombre: "Recargo dom. nocturno",
-      descripcion: "Dom/festivo, 9pm-6am (normal)",
-      recargo: 1.10,
-      color: "pink",
-    },
-  ];
+  const tiposHora: TipoHoraUI[] = TIPOS_HORA.map((t) => ({
+    ...t,
+    color: {
+      extra_diurna: "amber",
+      extra_nocturna: "indigo",
+      extra_dom_diurna: "orange",
+      extra_dom_nocturna: "rose",
+      recargo_nocturno: "violet",
+      recargo_dominical: "cyan",
+      recargo_dom_nocturno: "pink",
+    }[t.id],
+  }));
 
   const calcular = () => {
-    const salarioNum = parseFloat(salario);
-    const cantidadNum = parseFloat(cantidad);
-
-    if (isNaN(salarioNum) || isNaN(cantidadNum) || salarioNum <= 0 || cantidadNum <= 0) return;
-
-    const valorHoraBase = salarioNum / HORAS_MES;
-    const tipoSeleccionado = tiposHora.find((t) => t.id === tipoHora)!;
-    const recargo = valorHoraBase * tipoSeleccionado.recargo;
-    const valorHoraTotal = valorHoraBase + recargo;
-    const totalPagar = valorHoraTotal * cantidadNum;
-
-    setResultado({
-      valorHoraBase,
-      recargo,
-      valorHoraTotal,
-      totalHoras: cantidadNum,
-      totalPagar,
+    const res = calcularHorasExtras({
+      salario: parseFloat(salario),
+      tipoHora,
+      cantidad: parseFloat(cantidad),
     });
+    if (res) setResultado(res);
   };
 
   const formatMoney = (num: number) => {

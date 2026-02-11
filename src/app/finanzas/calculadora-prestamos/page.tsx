@@ -5,71 +5,23 @@ import Link from "next/link";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
 import { Icon } from "@/lib/icons";
-
-interface Resultado {
-  cuotaMensual: number;
-  totalPagar: number;
-  totalIntereses: number;
-  amortizacion: {
-    mes: number;
-    cuota: number;
-    capital: number;
-    interes: number;
-    saldo: number;
-  }[];
-}
+import { calcularPrestamo, type PrestamoOutput } from "@/lib/calculadoras";
 
 export default function Prestamos() {
   const { moneda } = useCurrency();
   const [monto, setMonto] = useState<string>("");
   const [tasaAnual, setTasaAnual] = useState<string>("");
   const [plazoMeses, setPlazoMeses] = useState<string>("");
-  const [resultado, setResultado] = useState<Resultado | null>(null);
+  const [resultado, setResultado] = useState<PrestamoOutput | null>(null);
   const [mostrarTabla, setMostrarTabla] = useState<boolean>(false);
 
   const calcular = () => {
-    const P = parseFloat(monto);
-    const tasaAnualNum = parseFloat(tasaAnual);
-    const n = parseInt(plazoMeses);
-
-    if (isNaN(P) || isNaN(tasaAnualNum) || isNaN(n) || P <= 0 || n <= 0) return;
-
-    const r = tasaAnualNum / 100 / 12; // Tasa mensual
-
-    let cuotaMensual: number;
-    if (r === 0) {
-      cuotaMensual = P / n;
-    } else {
-      cuotaMensual = P * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-    }
-
-    const totalPagar = cuotaMensual * n;
-    const totalIntereses = totalPagar - P;
-
-    // Tabla de amortización
-    const amortizacion: Resultado["amortizacion"] = [];
-    let saldo = P;
-
-    for (let mes = 1; mes <= n; mes++) {
-      const interesMes = saldo * r;
-      const capitalMes = cuotaMensual - interesMes;
-      saldo -= capitalMes;
-
-      amortizacion.push({
-        mes,
-        cuota: cuotaMensual,
-        capital: capitalMes,
-        interes: interesMes,
-        saldo: Math.max(0, saldo),
-      });
-    }
-
-    setResultado({
-      cuotaMensual,
-      totalPagar,
-      totalIntereses,
-      amortizacion,
+    const res = calcularPrestamo({
+      monto: parseFloat(monto),
+      tasaAnual: parseFloat(tasaAnual),
+      plazoMeses: parseInt(plazoMeses),
     });
+    if (res) setResultado(res);
   };
 
   const formatMoney = (num: number) => {

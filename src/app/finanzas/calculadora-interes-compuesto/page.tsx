@@ -5,24 +5,7 @@ import Link from "next/link";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
 import { Icon } from "@/lib/icons";
-
-type TipoTasa = "anual" | "mensual" | "nominal" | "efectiva_trimestral" | "efectiva_semestral";
-type FrecuenciaAporte = "mensual" | "trimestral" | "semestral" | "anual" | "ninguno";
-
-interface ResultadoCalculo {
-  montoFinal: number;
-  interesGanado: number;
-  totalAportes: number;
-  tasaEfectivaAnual: number;
-  tasaEfectivaMensual: number;
-  rendimientoTotal: number;
-  evolucion: {
-    periodo: number;
-    capital: number;
-    aporteAcumulado: number;
-    interesAcumulado: number;
-  }[];
-}
+import { calcularInteresCompuesto, type InteresCompuestoOutput, type TipoTasa, type FrecuenciaAporte } from "@/lib/calculadoras";
 
 export default function InteresCompuesto() {
   const { moneda } = useCurrency();
@@ -34,7 +17,7 @@ export default function InteresCompuesto() {
   const [aportePeriodico, setAportePeriodico] = useState<string>("");
   const [frecuenciaAporte, setFrecuenciaAporte] = useState<FrecuenciaAporte>("mensual");
   const [aporteAlInicio, setAporteAlInicio] = useState<boolean>(false);
-  const [resultado, setResultado] = useState<ResultadoCalculo | null>(null);
+  const [resultado, setResultado] = useState<InteresCompuestoOutput | null>(null);
   const [mostrarAvanzado, setMostrarAvanzado] = useState<boolean>(false);
   const [mostrarTabla, setMostrarTabla] = useState<boolean>(false);
 
@@ -67,137 +50,18 @@ export default function InteresCompuesto() {
     { valor: "anual" as FrecuenciaAporte, nombre: "Cada año", periodosAnuales: 1 },
   ];
 
-  const getPeriodosPorAnio = (tipo: TipoTasa): number => {
-    const found = tiposTasaAvanzado.find(t => t.valor === tipo);
-    return found?.periodosPorAnio || 1;
-  };
-
   const calcular = () => {
-    const p = parseFloat(capital) || 0;
-    const tasaInput = parseFloat(tasa);
-    const t = parseFloat(tiempo);
-    const n = frecuenciaCapitalizacion;
-    const aporte = parseFloat(aportePeriodico) || 0;
-    const freqAporte = frecuenciasAporte.find(f => f.valor === frecuenciaAporte);
-    const aportesAnuales = freqAporte?.periodosAnuales || 0;
-
-    if (isNaN(tasaInput) || isNaN(t) || t <= 0) return;
-
-    let tasaNominal: number;
-    let tasaEfectivaAnual: number;
-
-    if (tipoTasa === "nominal") {
-      // La tasa ingresada es nominal anual
-      tasaNominal = tasaInput / 100;
-      tasaEfectivaAnual = Math.pow(1 + tasaNominal / n, n) - 1;
-    } else {
-      // La tasa ingresada es efectiva (mensual, trimestral, anual, etc.)
-      const periodosDelTipo = getPeriodosPorAnio(tipoTasa);
-      const tasaEfectivaPeriodo = tasaInput / 100;
-
-      // Convertir tasa efectiva del período a TEA
-      tasaEfectivaAnual = Math.pow(1 + tasaEfectivaPeriodo, periodosDelTipo) - 1;
-
-      // Convertir TEA a tasa nominal para la capitalización elegida
-      tasaNominal = n * (Math.pow(1 + tasaEfectivaAnual, 1 / n) - 1);
-    }
-
-    const tasaPeriodo = tasaNominal / n;
-    const totalPeriodos = n * t;
-
-    // Calcular evolución año por año
-    const evolucion: ResultadoCalculo["evolucion"] = [];
-    let capitalActual = p;
-    let totalAportesAcumulado = 0;
-    let interesAcumulado = 0;
-
-    const periodosCapitalizacionPorAporte = aportesAnuales > 0 ? n / aportesAnuales : 0;
-
-    for (let anio = 1; anio <= t; anio++) {
-      const periodosEnAnio = n;
-      let aporteEnAnio = 0;
-
-      for (let periodo = 1; periodo <= periodosEnAnio; periodo++) {
-        if (aportesAnuales > 0 && periodosCapitalizacionPorAporte > 0) {
-          const esPeridodoAporte = periodo % periodosCapitalizacionPorAporte === 0 ||
-            (periodosCapitalizacionPorAporte < 1 && true);
-
-          if (esPeridodoAporte || (aportesAnuales >= n)) {
-            const aportePorPeriodo = aportesAnuales >= n ? aporte : aporte;
-            if (aporteAlInicio) {
-              capitalActual += aportePorPeriodo / (aportesAnuales >= n ? n / aportesAnuales : 1);
-              aporteEnAnio += aportePorPeriodo / (aportesAnuales >= n ? n / aportesAnuales : 1);
-            }
-          }
-        }
-
-        const interesDelPeriodo = capitalActual * tasaPeriodo;
-        capitalActual += interesDelPeriodo;
-        interesAcumulado += interesDelPeriodo;
-
-        if (aportesAnuales > 0 && !aporteAlInicio) {
-          if (periodosCapitalizacionPorAporte >= 1 && periodo % periodosCapitalizacionPorAporte === 0) {
-            capitalActual += aporte;
-            aporteEnAnio += aporte;
-          } else if (periodosCapitalizacionPorAporte < 1) {
-            const aportesPorPeriodo = Math.round(1 / periodosCapitalizacionPorAporte);
-            capitalActual += aporte * aportesPorPeriodo;
-            aporteEnAnio += aporte * aportesPorPeriodo;
-          }
-        }
-      }
-
-      totalAportesAcumulado += aporteEnAnio;
-
-      evolucion.push({
-        periodo: anio,
-        capital: capitalActual,
-        aporteAcumulado: totalAportesAcumulado,
-        interesAcumulado: interesAcumulado,
-      });
-    }
-
-    let montoFinal: number;
-    let totalAportes: number;
-
-    if (aportesAnuales === 0 || aporte === 0) {
-      montoFinal = p * Math.pow(1 + tasaPeriodo, totalPeriodos);
-      totalAportes = 0;
-    } else {
-      montoFinal = capitalActual;
-      totalAportes = totalAportesAcumulado;
-    }
-
-    const interesGanado = montoFinal - p - totalAportes;
-    const inversionTotal = p + totalAportes;
-    const rendimientoTotal = inversionTotal > 0 ? ((montoFinal - inversionTotal) / inversionTotal) * 100 : 0;
-
-    const evolucionFinal: ResultadoCalculo["evolucion"] = [];
-    if (aportesAnuales === 0 || aporte === 0) {
-      for (let anio = 1; anio <= t; anio++) {
-        const capitalEnAnio = p * Math.pow(1 + tasaPeriodo, n * anio);
-        evolucionFinal.push({
-          periodo: anio,
-          capital: capitalEnAnio,
-          aporteAcumulado: 0,
-          interesAcumulado: capitalEnAnio - p,
-        });
-      }
-    } else {
-      evolucionFinal.push(...evolucion);
-    }
-
-    const tasaEfectivaMensual = (Math.pow(1 + tasaEfectivaAnual, 1 / 12) - 1) * 100;
-
-    setResultado({
-      montoFinal,
-      interesGanado,
-      totalAportes,
-      tasaEfectivaAnual: tasaEfectivaAnual * 100,
-      tasaEfectivaMensual,
-      rendimientoTotal,
-      evolucion: evolucionFinal,
+    const res = calcularInteresCompuesto({
+      capital: parseFloat(capital) || 0,
+      tasa: parseFloat(tasa),
+      tipoTasa,
+      tiempo: parseFloat(tiempo),
+      frecuenciaCapitalizacion,
+      aportePeriodico: parseFloat(aportePeriodico) || 0,
+      frecuenciaAporte,
+      aporteAlInicio,
     });
+    if (res) setResultado(res);
   };
 
   const formatMoney = (num: number) => {

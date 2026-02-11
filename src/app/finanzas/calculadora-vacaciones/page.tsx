@@ -5,63 +5,22 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
-
-interface Resultado {
-  diasHabiles: number;
-  diasCalendario: number;
-  valorVacaciones: number;
-  valorPorDia: number;
-  diasPendientes: number;
-  valorPendiente: number;
-}
+import { calcularVacaciones, type VacacionesOutput } from "@/lib/calculadoras";
+import { SMMLV } from "@/lib/calculadoras/constantes";
 
 export default function CalculadoraVacaciones() {
   const [salario, setSalario] = useState<string>("");
   const [fechaIngreso, setFechaIngreso] = useState<string>("");
   const [diasTomados, setDiasTomados] = useState<string>("0");
-  const [resultado, setResultado] = useState<Resultado | null>(null);
-
-  const SMMLV = 1750905;
-  const DIAS_VACACIONES_ANO = 15; // días hábiles por año trabajado
+  const [resultado, setResultado] = useState<VacacionesOutput | null>(null);
 
   const calcular = () => {
-    const salarioNum = parseFloat(salario);
-    const diasTomadosNum = parseFloat(diasTomados) || 0;
-
-    if (isNaN(salarioNum) || salarioNum <= 0 || !fechaIngreso) return;
-
-    const inicio = new Date(fechaIngreso);
-    const hoy = new Date();
-
-    // Calcular días trabajados
-    const diffTime = hoy.getTime() - inicio.getTime();
-    const diasTrabajados = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-    if (diasTrabajados < 0) return;
-
-    // Días de vacaciones proporcionales (15 días hábiles por año = 360 días trabajados)
-    const diasHabilesGanados = (diasTrabajados * DIAS_VACACIONES_ANO) / 360;
-    const diasHabiles = Math.max(0, diasHabilesGanados - diasTomadosNum);
-
-    // Convertir a días calendario (aproximadamente 15 hábiles = 21 calendario)
-    const diasCalendario = Math.round(diasHabiles * 1.4);
-
-    // Valor de vacaciones (salario / 30 * días hábiles)
-    const valorPorDia = salarioNum / 30;
-    const valorVacaciones = valorPorDia * diasHabiles;
-
-    // Días pendientes por disfrutar
-    const diasPendientes = diasHabiles;
-    const valorPendiente = valorVacaciones;
-
-    setResultado({
-      diasHabiles: Math.round(diasHabiles * 10) / 10,
-      diasCalendario,
-      valorVacaciones,
-      valorPorDia,
-      diasPendientes: Math.round(diasPendientes * 10) / 10,
-      valorPendiente,
+    const res = calcularVacaciones({
+      salario: parseFloat(salario),
+      fechaIngreso,
+      diasTomados: parseFloat(diasTomados) || 0,
     });
+    if (res) setResultado(res);
   };
 
   const formatMoney = (num: number) => {

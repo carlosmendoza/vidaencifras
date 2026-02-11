@@ -6,65 +6,8 @@ import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
-
-type TipoRetencion = "servicios" | "honorarios" | "compras" | "arrendamiento";
-
-interface TasaRetencion {
-  tipo: TipoRetencion;
-  nombre: string;
-  descripcion: string;
-  tasaDeclarante: number;
-  tasaNoDeclarante: number;
-  baseMinima: number; // En UVT
-}
-
-const TASAS_RETENCION: TasaRetencion[] = [
-  {
-    tipo: "servicios",
-    nombre: "Servicios profesionales",
-    descripcion: "Contratos de prestación de servicios",
-    tasaDeclarante: 10,
-    tasaNoDeclarante: 11,
-    baseMinima: 4,
-  },
-  {
-    tipo: "honorarios",
-    nombre: "Honorarios",
-    descripcion: "Servicios técnicos, de consultoría",
-    tasaDeclarante: 10,
-    tasaNoDeclarante: 11,
-    baseMinima: 4,
-  },
-  {
-    tipo: "compras",
-    nombre: "Compras",
-    descripcion: "Compra de bienes y productos",
-    tasaDeclarante: 2.5,
-    tasaNoDeclarante: 3.5,
-    baseMinima: 27,
-  },
-  {
-    tipo: "arrendamiento",
-    nombre: "Arrendamiento",
-    descripcion: "Alquiler de bienes muebles e inmuebles",
-    tasaDeclarante: 3.5,
-    tasaNoDeclarante: 4,
-    baseMinima: 27,
-  },
-];
-
-// UVT 2025 (valor estimado, actualizar según DIAN)
-const UVT_2025 = 49799;
-
-interface Resultado {
-  valorBruto: number;
-  baseGravable: number;
-  retencion: number;
-  netoRecibir: number;
-  tasaAplicada: number;
-  superaBaseMinima: boolean;
-  baseMinimaPesos: number;
-}
+import { calcularRetencionFuente, type RetencionFuenteOutput } from "@/lib/calculadoras";
+import { TASAS_RETENCION, UVT_2025, type TipoRetencion } from "@/lib/calculadoras/constantes";
 
 export default function CalculadoraRetencion() {
   const [tipoRetencion, setTipoRetencion] = useState<TipoRetencion>("servicios");
@@ -73,27 +16,11 @@ export default function CalculadoraRetencion() {
 
   const tasaActual = TASAS_RETENCION.find((t) => t.tipo === tipoRetencion)!;
 
-  const resultado = useMemo((): Resultado | null => {
+  const resultado = useMemo((): RetencionFuenteOutput | null => {
     const valor = parseFloat(valorBruto);
     if (isNaN(valor) || valor <= 0) return null;
-
-    const baseMinimaPesos = tasaActual.baseMinima * UVT_2025;
-    const superaBaseMinima = valor >= baseMinimaPesos;
-
-    const tasaAplicada = esDeclarante ? tasaActual.tasaDeclarante : tasaActual.tasaNoDeclarante;
-    const retencion = superaBaseMinima ? valor * (tasaAplicada / 100) : 0;
-    const netoRecibir = valor - retencion;
-
-    return {
-      valorBruto: valor,
-      baseGravable: valor,
-      retencion,
-      netoRecibir,
-      tasaAplicada,
-      superaBaseMinima,
-      baseMinimaPesos,
-    };
-  }, [valorBruto, tipoRetencion, esDeclarante, tasaActual]);
+    return calcularRetencionFuente({ tipoRetencion, esDeclarante, valorBruto: valor });
+  }, [valorBruto, tipoRetencion, esDeclarante]);
 
   const formatMoney = (num: number) => {
     return new Intl.NumberFormat("es-CO", {

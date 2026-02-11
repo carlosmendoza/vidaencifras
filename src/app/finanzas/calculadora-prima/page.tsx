@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { Icon } from "@/lib/icons";
+import { calcularPrima, type PeriodoPrima } from "@/lib/calculadoras";
+import { AUXILIO_TRANSPORTE, SMMLV, TOPE_AUXILIO } from "@/lib/calculadoras/constantes";
 
 const faqs = [
   {
@@ -32,49 +34,21 @@ export default function CalculadoraPrima() {
   const [salario, setSalario] = useState<string>("");
   const [incluyeTransporte, setIncluyeTransporte] = useState<boolean>(true);
   const [fechaIngreso, setFechaIngreso] = useState<string>("");
-  const [periodo, setPeriodo] = useState<"junio" | "diciembre">("junio");
-
-  const AUXILIO_TRANSPORTE = 249095;
-  const SMMLV = 1750905;
-  const TOPE_AUXILIO = SMMLV * 2;
+  const [periodo, setPeriodo] = useState<PeriodoPrima>("junio");
 
   const salarioNum = parseFloat(salario) || 0;
-  const aplicaAuxilio = incluyeTransporte && salarioNum <= TOPE_AUXILIO && salarioNum > 0;
-  const salarioBase = salarioNum + (aplicaAuxilio ? AUXILIO_TRANSPORTE : 0);
 
-  // Calcular días trabajados en el semestre
-  const calcularDiasTrabajados = (): number => {
-    if (!fechaIngreso) return 180; // Semestre completo
+  const resultado = salarioNum > 0 ? calcularPrima({
+    salario: salarioNum,
+    incluyeTransporte,
+    fechaIngreso: fechaIngreso || undefined,
+    periodo,
+  }) : null;
 
-    const inicio = new Date(fechaIngreso);
-    const año = new Date().getFullYear();
-
-    let inicioSemestre: Date;
-    let finSemestre: Date;
-
-    if (periodo === "junio") {
-      inicioSemestre = new Date(año, 0, 1); // 1 enero
-      finSemestre = new Date(año, 5, 30); // 30 junio
-    } else {
-      inicioSemestre = new Date(año, 6, 1); // 1 julio
-      finSemestre = new Date(año, 11, 31); // 31 diciembre
-    }
-
-    // Si ingresó antes del semestre, trabajó todo el semestre
-    if (inicio <= inicioSemestre) return 180;
-
-    // Si ingresó después del fin del semestre, no tiene días
-    if (inicio > finSemestre) return 0;
-
-    // Calcular días desde ingreso hasta fin de semestre
-    const diffTime = finSemestre.getTime() - inicio.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-
-    return Math.min(diffDays, 180);
-  };
-
-  const diasTrabajados = calcularDiasTrabajados();
-  const prima = (salarioBase * diasTrabajados) / 360;
+  const aplicaAuxilio = resultado?.aplicaAuxilio ?? false;
+  const salarioBase = resultado?.salarioBase ?? salarioNum;
+  const diasTrabajados = resultado?.diasTrabajados ?? 180;
+  const prima = resultado?.prima ?? 0;
 
   const formatMoney = (num: number) => {
     return new Intl.NumberFormat("es-CO", {

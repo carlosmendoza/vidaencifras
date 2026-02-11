@@ -6,25 +6,10 @@ import { FAQ } from "@/components/FAQ";
 import { CalculatorResult } from "@/components/CalculatorResult";
 import { ShareButtons } from "@/components/ShareButtons";
 import { Icon } from "@/lib/icons";
+import { calcularImpuestoRenta, type ImpuestoRentaOutput, type TipoTrabajador } from "@/lib/calculadoras";
+import { UVT_2025, TABLA_TARIFAS_RENTA } from "@/lib/calculadoras/constantes";
 
-// Valor UVT 2025 (ajustar cada año)
-const UVT_2025 = 49799;
-
-// Tabla de tarifas marginales de impuesto de renta Colombia
-const TABLA_TARIFAS = [
-  { desde: 0, hasta: 1090, tarifa: 0, impuestoBase: 0 },
-  { desde: 1090, hasta: 1700, tarifa: 0.19, impuestoBase: 0 },
-  { desde: 1700, hasta: 4100, tarifa: 0.28, impuestoBase: 116 },
-  { desde: 4100, hasta: 8670, tarifa: 0.33, impuestoBase: 788 },
-  { desde: 8670, hasta: 18970, tarifa: 0.35, impuestoBase: 2296 },
-  { desde: 18970, hasta: 31000, tarifa: 0.37, impuestoBase: 5901 },
-  { desde: 31000, hasta: Infinity, tarifa: 0.39, impuestoBase: 10352 },
-];
-
-// Límites de deducciones
-const LIMITE_RENTA_EXENTA_25 = 240; // UVT mensuales (2880 anuales)
-const LIMITE_DEDUCCIONES_40 = 0.40; // 40% de ingresos
-const LIMITE_TOTAL_DEDUCCIONES = 5040; // UVT anuales
+const TABLA_TARIFAS = TABLA_TARIFAS_RENTA;
 
 const faqs = [
   {
@@ -49,132 +34,25 @@ const faqs = [
   },
 ];
 
-interface Resultado {
-  ingresosBrutos: number;
-  totalDeducciones: number;
-  rentaExenta25: number;
-  rentaLiquidaGravable: number;
-  rentaLiquidaUVT: number;
-  impuestoRenta: number;
-  tarifaEfectiva: number;
-  tarifaMarginal: number;
-  rangoAplicable: string;
-  desglose: {
-    aporteSalud: number;
-    aportePension: number;
-    fondoSolidaridad: number;
-    dependientes: number;
-    interesesVivienda: number;
-    medicinaPrepagada: number;
-  };
-}
-
 export default function CalculadoraImpuestoRenta() {
   const [ingresos, setIngresos] = useState<string>("");
-  const [tipoTrabajador, setTipoTrabajador] = useState<"empleado" | "independiente">("empleado");
+  const [tipoTrabajador, setTipoTrabajador] = useState<TipoTrabajador>("empleado");
   const [dependientes, setDependientes] = useState<string>("0");
   const [interesesVivienda, setInteresesVivienda] = useState<string>("");
   const [medicinaPrepagada, setMedicinaPrepagada] = useState<string>("");
   const [aportesVoluntarios, setAportesVoluntarios] = useState<string>("");
-  const [resultado, setResultado] = useState<Resultado | null>(null);
+  const [resultado, setResultado] = useState<ImpuestoRentaOutput | null>(null);
 
   const calcular = () => {
-    const ingresosAnuales = parseFloat(ingresos) || 0;
-    if (ingresosAnuales <= 0) return;
-
-    const numDependientes = parseInt(dependientes) || 0;
-    const intereses = parseFloat(interesesVivienda) || 0;
-    const medicina = parseFloat(medicinaPrepagada) || 0;
-    const aportesVol = parseFloat(aportesVoluntarios) || 0;
-
-    // Calcular aportes obligatorios
-    const baseAportes = tipoTrabajador === "empleado" ? ingresosAnuales : ingresosAnuales * 0.4;
-    const aporteSalud = baseAportes * 0.04; // 4% empleado
-    const aportePension = baseAportes * 0.04; // 4% empleado
-    const fondoSolidaridad = ingresosAnuales > UVT_2025 * 4 * 12 ? baseAportes * 0.01 : 0;
-
-    // Dependientes: 10% de ingresos, máx 32 UVT mensuales
-    const limiteDependientes = 32 * UVT_2025 * 12;
-    const deduccionDependientes = Math.min(ingresosAnuales * 0.10 * numDependientes, limiteDependientes);
-
-    // Intereses de vivienda: máx 100 UVT mensuales
-    const limiteIntereses = 100 * UVT_2025 * 12;
-    const deduccionIntereses = Math.min(intereses, limiteIntereses);
-
-    // Medicina prepagada: máx 16 UVT mensuales
-    const limiteMedicina = 16 * UVT_2025 * 12;
-    const deduccionMedicina = Math.min(medicina, limiteMedicina);
-
-    // Aportes voluntarios AFC/FPV
-    const limiteAportes = ingresosAnuales * 0.30;
-    const deduccionAportes = Math.min(aportesVol, limiteAportes);
-
-    // Total deducciones (sin el 25% de renta exenta)
-    const totalDeduccionesSinExenta = aporteSalud + aportePension + fondoSolidaridad +
-      deduccionDependientes + deduccionIntereses + deduccionMedicina + deduccionAportes;
-
-    // Renta líquida antes del 25%
-    const rentaAntesExenta = Math.max(0, ingresosAnuales - totalDeduccionesSinExenta);
-
-    // 25% renta exenta laboral (máx 240 UVT mensuales = 2880 UVT anuales)
-    const limiteExenta25 = LIMITE_RENTA_EXENTA_25 * 12 * UVT_2025;
-    const rentaExenta25 = Math.min(rentaAntesExenta * 0.25, limiteExenta25);
-
-    // Verificar límite del 40%
-    const limiteDeducciones40 = ingresosAnuales * LIMITE_DEDUCCIONES_40;
-    const totalConExenta = totalDeduccionesSinExenta + rentaExenta25;
-
-    // Aplicar límite de 5040 UVT o 40%
-    const limiteFinal = Math.min(limiteDeducciones40, LIMITE_TOTAL_DEDUCCIONES * UVT_2025);
-    const totalDeduccionesAplicadas = Math.min(totalConExenta, limiteFinal);
-
-    // Renta líquida gravable
-    const rentaLiquidaGravable = Math.max(0, ingresosAnuales - totalDeduccionesAplicadas);
-    const rentaLiquidaUVT = rentaLiquidaGravable / UVT_2025;
-
-    // Calcular impuesto según tabla
-    let impuesto = 0;
-    let tarifaMarginal = 0;
-    let rangoAplicable = "";
-
-    for (const rango of TABLA_TARIFAS) {
-      if (rentaLiquidaUVT > rango.desde && rentaLiquidaUVT <= rango.hasta) {
-        impuesto = (rango.impuestoBase + (rentaLiquidaUVT - rango.desde) * rango.tarifa) * UVT_2025;
-        tarifaMarginal = rango.tarifa;
-        rangoAplicable = `${rango.desde.toLocaleString()} - ${rango.hasta === Infinity ? "∞" : rango.hasta.toLocaleString()} UVT`;
-        break;
-      }
-    }
-
-    // Si excede el último rango
-    if (rentaLiquidaUVT > 31000) {
-      const ultimoRango = TABLA_TARIFAS[TABLA_TARIFAS.length - 1];
-      impuesto = (ultimoRango.impuestoBase + (rentaLiquidaUVT - ultimoRango.desde) * ultimoRango.tarifa) * UVT_2025;
-      tarifaMarginal = ultimoRango.tarifa;
-      rangoAplicable = `Más de 31.000 UVT`;
-    }
-
-    const tarifaEfectiva = ingresosAnuales > 0 ? (impuesto / ingresosAnuales) * 100 : 0;
-
-    setResultado({
-      ingresosBrutos: ingresosAnuales,
-      totalDeducciones: totalDeduccionesAplicadas,
-      rentaExenta25,
-      rentaLiquidaGravable,
-      rentaLiquidaUVT,
-      impuestoRenta: impuesto,
-      tarifaEfectiva,
-      tarifaMarginal: tarifaMarginal * 100,
-      rangoAplicable,
-      desglose: {
-        aporteSalud,
-        aportePension,
-        fondoSolidaridad,
-        dependientes: deduccionDependientes,
-        interesesVivienda: deduccionIntereses,
-        medicinaPrepagada: deduccionMedicina,
-      },
+    const res = calcularImpuestoRenta({
+      ingresos: parseFloat(ingresos) || 0,
+      tipoTrabajador,
+      dependientes: parseInt(dependientes) || 0,
+      interesesVivienda: parseFloat(interesesVivienda) || 0,
+      medicinaPrepagada: parseFloat(medicinaPrepagada) || 0,
+      aportesVoluntarios: parseFloat(aportesVoluntarios) || 0,
     });
+    if (res) setResultado(res);
   };
 
   const formatMoney = (num: number) => {

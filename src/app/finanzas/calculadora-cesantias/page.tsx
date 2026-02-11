@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { Icon } from "@/lib/icons";
+import { calcularCesantias } from "@/lib/calculadoras";
+import { AUXILIO_TRANSPORTE, SMMLV, TOPE_AUXILIO } from "@/lib/calculadoras/constantes";
 
 const faqs = [
   {
@@ -35,37 +37,20 @@ export default function CalculadoraCesantias() {
   const [fechaCorte, setFechaCorte] = useState<string>("");
   const [mostrarIntereses, setMostrarIntereses] = useState<boolean>(true);
 
-  const AUXILIO_TRANSPORTE = 249095;
-  const SMMLV = 1750905;
-  const TOPE_AUXILIO = SMMLV * 2;
-  const TASA_INTERESES = 0.12;
-
   const salarioNum = parseFloat(salario) || 0;
-  const aplicaAuxilio = incluyeTransporte && salarioNum <= TOPE_AUXILIO && salarioNum > 0;
-  const salarioBase = salarioNum + (aplicaAuxilio ? AUXILIO_TRANSPORTE : 0);
 
-  // Calcular días trabajados
-  const calcularDiasTrabajados = (): number => {
-    if (!fechaIngreso) return 360;
+  const resultado = salarioNum > 0 ? calcularCesantias({
+    salario: salarioNum,
+    incluyeTransporte,
+    fechaIngreso: fechaIngreso || undefined,
+    fechaCorte: fechaCorte || undefined,
+  }) : null;
 
-    const inicio = new Date(fechaIngreso);
-    const fin = fechaCorte ? new Date(fechaCorte) : new Date(new Date().getFullYear(), 11, 31);
-
-    // Si el inicio es de años anteriores, solo contamos desde el 1 de enero del año de corte
-    const añoCorte = fin.getFullYear();
-    const inicioAño = new Date(añoCorte, 0, 1);
-
-    const fechaInicial = inicio > inicioAño ? inicio : inicioAño;
-
-    const diffTime = fin.getTime() - fechaInicial.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-
-    return Math.min(Math.max(diffDays, 0), 360);
-  };
-
-  const diasTrabajados = calcularDiasTrabajados();
-  const cesantias = (salarioBase * diasTrabajados) / 360;
-  const interesesCesantias = (cesantias * TASA_INTERESES * diasTrabajados) / 360;
+  const aplicaAuxilio = resultado?.aplicaAuxilio ?? false;
+  const salarioBase = resultado?.salarioBase ?? salarioNum;
+  const diasTrabajados = resultado?.diasTrabajados ?? 360;
+  const cesantias = resultado?.cesantias ?? 0;
+  const interesesCesantias = resultado?.interesesCesantias ?? 0;
 
   const formatMoney = (num: number) => {
     return new Intl.NumberFormat("es-CO", {

@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { Icon } from "@/lib/icons";
+import { calcularLiquidacion, type TipoTerminacion, type TipoContrato } from "@/lib/calculadoras";
+import { AUXILIO_TRANSPORTE, SMMLV, TOPE_AUXILIO } from "@/lib/calculadoras/constantes";
 
 const faqs = [
   {
@@ -28,9 +30,6 @@ const faqs = [
   },
 ];
 
-type TipoTerminacion = "renuncia" | "despido_justa_causa" | "despido_sin_justa_causa" | "fin_contrato";
-type TipoContrato = "indefinido" | "fijo";
-
 export default function CalculadoraLiquidacion() {
   const [salario, setSalario] = useState<string>("");
   const [incluyeTransporte, setIncluyeTransporte] = useState<boolean>(true);
@@ -40,116 +39,29 @@ export default function CalculadoraLiquidacion() {
   const [tipoContrato, setTipoContrato] = useState<TipoContrato>("indefinido");
   const [diasVacacionesPendientes, setDiasVacacionesPendientes] = useState<string>("");
 
-  const AUXILIO_TRANSPORTE = 249095;
-  const SMMLV = 1750905;
-  const TOPE_AUXILIO = SMMLV * 2;
-
   const salarioNum = parseFloat(salario) || 0;
-  const aplicaAuxilio = incluyeTransporte && salarioNum <= TOPE_AUXILIO && salarioNum > 0;
-  const salarioBase = salarioNum + (aplicaAuxilio ? AUXILIO_TRANSPORTE : 0);
-  const salarioDia = salarioNum / 30;
 
-  // Calcular días y años trabajados
-  const calcularTiempoTrabajado = () => {
-    if (!fechaIngreso || !fechaSalida) return { dias: 0, años: 0, meses: 0 };
+  const resultado = calcularLiquidacion({
+    salario: salarioNum,
+    incluyeTransporte,
+    fechaIngreso,
+    fechaSalida,
+    tipoTerminacion,
+    tipoContrato,
+    diasVacacionesPendientes: diasVacacionesPendientes ? parseFloat(diasVacacionesPendientes) : undefined,
+  });
 
-    const inicio = new Date(fechaIngreso);
-    const fin = new Date(fechaSalida);
-
-    const diffTime = fin.getTime() - inicio.getTime();
-    const dias = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-    const años = dias / 360;
-    const meses = dias / 30;
-
-    return { dias: Math.max(dias, 0), años, meses };
-  };
-
-  const { dias: diasTrabajados, años: añosTrabajados } = calcularTiempoTrabajado();
-
-  // Días del año actual para cesantías y prima
-  const calcularDiasAñoActual = (): number => {
-    if (!fechaIngreso || !fechaSalida) return 0;
-
-    const fin = new Date(fechaSalida);
-    const inicioAño = new Date(fin.getFullYear(), 0, 1);
-    const inicio = new Date(fechaIngreso);
-
-    const fechaInicial = inicio > inicioAño ? inicio : inicioAño;
-    const diffTime = fin.getTime() - fechaInicial.getTime();
-
-    return Math.min(Math.max(Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1, 0), 360);
-  };
-
-  // Días del semestre actual para prima
-  const calcularDiasSemestreActual = (): number => {
-    if (!fechaIngreso || !fechaSalida) return 0;
-
-    const fin = new Date(fechaSalida);
-    const mes = fin.getMonth();
-    const año = fin.getFullYear();
-
-    // Determinar inicio del semestre
-    const inicioSemestre = mes < 6
-      ? new Date(año, 0, 1)
-      : new Date(año, 6, 1);
-
-    const inicio = new Date(fechaIngreso);
-    const fechaInicial = inicio > inicioSemestre ? inicio : inicioSemestre;
-
-    const diffTime = fin.getTime() - fechaInicial.getTime();
-    return Math.min(Math.max(Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1, 0), 180);
-  };
-
-  const diasAñoActual = calcularDiasAñoActual();
-  const diasSemestreActual = calcularDiasSemestreActual();
-
-  // Cálculos
-  const prima = (salarioBase * diasSemestreActual) / 360;
-  const cesantias = (salarioBase * diasAñoActual) / 360;
-  const interesesCesantias = (cesantias * 0.12 * diasAñoActual) / 360;
-
-  // Vacaciones
-  const diasVacaciones = diasVacacionesPendientes
-    ? parseFloat(diasVacacionesPendientes)
-    : (diasTrabajados * 15) / 360;
-  const vacaciones = salarioDia * diasVacaciones;
-
-  // Indemnización
-  const calcularIndemnizacion = (): number => {
-    if (tipoTerminacion !== "despido_sin_justa_causa") return 0;
-
-    if (tipoContrato === "fijo") {
-      // Para contrato fijo: salarios por el tiempo que faltaba
-      // Simplificamos asumiendo que faltaban días del contrato
-      return 0; // El usuario debería ingresar los días que faltan
-    }
-
-    // Contrato indefinido
-    const añosCompletos = Math.floor(añosTrabajados);
-    const salarioAlto = salarioNum >= SMMLV * 10;
-
-    if (añosTrabajados < 1) {
-      return salarioDia * 30; // 30 días
-    }
-
-    // Primer año: 30 días
-    let indemnizacion = salarioDia * 30;
-
-    // Años adicionales
-    const añosAdicionales = añosCompletos - 1;
-    const diasPorAñoAdicional = salarioAlto ? 15 : 20;
-    indemnizacion += salarioDia * diasPorAñoAdicional * añosAdicionales;
-
-    // Fracción del año actual
-    const fraccionAño = añosTrabajados - añosCompletos;
-    indemnizacion += salarioDia * diasPorAñoAdicional * fraccionAño;
-
-    return indemnizacion;
-  };
-
-  const indemnizacion = calcularIndemnizacion();
-
-  const totalLiquidacion = prima + cesantias + interesesCesantias + vacaciones + indemnizacion;
+  const diasTrabajados = resultado?.diasTrabajados ?? 0;
+  const añosTrabajados = resultado?.añosTrabajados ?? 0;
+  const diasSemestreActual = resultado?.diasSemestreActual ?? 0;
+  const diasAñoActual = resultado?.diasAñoActual ?? 0;
+  const prima = resultado?.prima ?? 0;
+  const cesantias = resultado?.cesantias ?? 0;
+  const interesesCesantias = resultado?.interesesCesantias ?? 0;
+  const diasVacaciones = resultado?.diasVacaciones ?? 0;
+  const vacaciones = resultado?.vacaciones ?? 0;
+  const indemnizacion = resultado?.indemnizacion ?? 0;
+  const totalLiquidacion = resultado?.totalLiquidacion ?? 0;
 
   const formatMoney = (num: number) => {
     return new Intl.NumberFormat("es-CO", {
@@ -158,7 +70,7 @@ export default function CalculadoraLiquidacion() {
     }).format(num);
   };
 
-  const tieneResultados = salarioNum > 0 && fechaIngreso && fechaSalida;
+  const tieneResultados = resultado !== null;
 
   return (
     <div className="space-y-8">
