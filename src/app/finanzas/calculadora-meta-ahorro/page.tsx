@@ -577,20 +577,34 @@ function CalculadoraMetaAhorroContent() {
               <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
                 ¿En cuánto tiempo quieres lograrlo?
               </label>
-              <div className="flex rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700">
+              <div className="flex gap-2 flex-wrap">
                 {[6, 12, 24, 36, 60].map((m) => (
                   <button
                     key={m}
                     onClick={() => setMeses(m.toString())}
-                    className={`flex-1 px-3 py-4 font-semibold transition-colors ${
+                    className={`px-4 py-2 rounded-xl font-semibold transition-colors ${
                       meses === m.toString()
                         ? "bg-amber-500 text-white"
-                        : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
+                        : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                     }`}
                   >
                     {m < 12 ? `${m}m` : m === 12 ? "1 año" : `${m / 12}a`}
                   </button>
                 ))}
+              </div>
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-sm text-slate-500 dark:text-slate-400">o personaliza:</span>
+                <div className="relative max-w-[140px]">
+                  <input
+                    type="number"
+                    value={meses}
+                    onChange={(e) => setMeses(e.target.value)}
+                    min="1"
+                    max="600"
+                    className="w-full px-4 py-2 pr-16 rounded-xl text-lg font-semibold"
+                  />
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">meses</span>
+                </div>
               </div>
             </div>
           ) : (
