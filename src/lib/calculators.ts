@@ -102,6 +102,19 @@ export const utilidadesDestacadas: Calculadora[] = [
   },
 ];
 
+// Calculadoras de herramientas (todas)
+export const calculadorasHerramientas: Calculadora[] = [
+  ...utilidadesDestacadas,
+  {
+    nombre: "Calculadora de IVA",
+    descripcion: "Agrega, quita o calcula el IVA",
+    href: "/herramientas/calculadora-iva",
+    icon: "receipt",
+    gradient: gradients.herramientas,
+    categoria: "herramientas",
+  },
+];
+
 // Todas las calculadoras por categoría
 export const calculadorasFinanzas: Calculadora[] = [
   {
@@ -188,6 +201,46 @@ export const calculadorasFinanzas: Calculadora[] = [
     nombre: "Arriendo vs Compra",
     descripcion: "¿Te conviene arrendar o comprar?",
     href: "/finanzas/arriendo-vs-compra",
+    icon: "home",
+    gradient: gradients.finanzas,
+    categoria: "finanzas",
+  },
+  {
+    nombre: "Retención en la Fuente",
+    descripcion: "Calcula la retención para servicios y honorarios",
+    href: "/finanzas/calculadora-retencion-fuente",
+    icon: "file-text",
+    gradient: gradients.finanzas,
+    categoria: "finanzas",
+  },
+  {
+    nombre: "Simulador Tarjeta de Crédito",
+    descripcion: "Compara pago mínimo vs cuota fija",
+    href: "/finanzas/simulador-tarjeta-credito",
+    icon: "credit-card",
+    gradient: gradients.finanzas,
+    categoria: "finanzas",
+  },
+  {
+    nombre: "Comparador de Préstamos",
+    descripcion: "Encuentra la mejor tasa entre bancos",
+    href: "/finanzas/comparador-prestamos",
+    icon: "landmark",
+    gradient: gradients.finanzas,
+    categoria: "finanzas",
+  },
+  {
+    nombre: "Impuesto Vehicular",
+    descripcion: "Calcula el impuesto de tu carro o moto",
+    href: "/finanzas/calculadora-impuesto-vehicular",
+    icon: "car",
+    gradient: gradients.finanzas,
+    categoria: "finanzas",
+  },
+  {
+    nombre: "Subsidio Mi Casa Ya",
+    descripcion: "Verifica elegibilidad para subsidio de vivienda",
+    href: "/finanzas/calculadora-subsidio-vivienda",
     icon: "home",
     gradient: gradients.finanzas,
     categoria: "finanzas",

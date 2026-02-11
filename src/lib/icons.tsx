@@ -102,6 +102,8 @@ import {
   GenderFemale as PhFemale,
   Monitor as PhMonitor,
   Heartbeat as PhActivity,
+  CreditCard as PhCreditCard,
+  FileArrowDown as PhFileArrowDown,
   type Icon as PhIcon
 } from "@phosphor-icons/react";
 import { ReactNode } from "react";
@@ -221,6 +223,8 @@ export const phosphorMap: Record<string, PhIcon> = {
   female: PhFemale,
   activity: PhActivity,
   monitor: PhMonitor,
+  "credit-card": PhCreditCard,
+  "file-arrow-down": PhFileArrowDown,
 };
 
 // Mapeo de emojis legacy a nombres de iconos (para migración gradual)
