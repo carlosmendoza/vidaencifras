@@ -53,6 +53,22 @@ const herramientas = [
     gradient: "from-purple-400 to-pink-500",
     bgHover: "group-hover:bg-purple-50 dark:group-hover:bg-purple-950/50",
   },
+  {
+    nombre: "Matriz Eisenhower",
+    descripcion: "Prioriza tus tareas por urgencia e importancia. Organiza tu día y enfócate en lo que realmente importa.",
+    href: "/productividad/matriz-eisenhower",
+    emoji: "📋",
+    gradient: "from-indigo-400 to-violet-500",
+    bgHover: "group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950/50",
+  },
+  {
+    nombre: "Calculadora Pomodoro",
+    descripcion: "Planifica tus sesiones de trabajo con la técnica Pomodoro. Calcula cuántos pomodoros necesitas para completar tus tareas.",
+    href: "/productividad/calculadora-pomodoro",
+    emoji: "🍅",
+    gradient: "from-red-400 to-rose-500",
+    bgHover: "group-hover:bg-red-50 dark:group-hover:bg-red-950/50",
+  },
 ];
 
 export default function ProductividadPage() {
@@ -81,23 +97,23 @@ export default function ProductividadPage() {
           <Link
             key={herr.href}
             href={herr.href}
-            className="card-glass card-hover rounded-3xl p-8 group relative overflow-hidden"
+            className="card-glass card-hover card-hover-amber rounded-3xl p-8 group relative overflow-hidden"
           >
             <div className={`absolute inset-0 opacity-0 ${herr.bgHover} transition-opacity duration-300`} />
             <div className="absolute top-0 right-0 w-40 h-40 opacity-20 -z-10">
               <div className={`w-full h-full bg-gradient-to-br ${herr.gradient} rounded-full blur-3xl`} />
             </div>
             <div className="relative">
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${herr.gradient} flex items-center justify-center text-3xl mb-6 shadow-lg transform group-hover:scale-110 transition-transform`}>
+              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${herr.gradient} flex items-center justify-center text-3xl mb-6 shadow-lg`}>
                 {herr.emoji}
               </div>
-              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">
                 {herr.nombre}
               </h2>
               <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-sm">{herr.descripcion}</p>
               <div className="mt-6 flex items-center text-amber-600 dark:text-amber-400 font-bold text-sm">
                 Usar calculadora
-                <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                <span className="ml-2">→</span>
               </div>
             </div>
           </Link>
@@ -122,14 +138,14 @@ export default function ProductividadPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="card-glass card-hover rounded-2xl p-6 group"
+                className="card-glass card-hover card-hover-amber rounded-2xl p-6 group"
               >
                 <span
                   className={`inline-block px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${categoryColors[post.category]} text-white mb-3`}
                 >
                   Productividad
                 </span>
-                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors mb-2">
+                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2">
                   {post.title}
                 </h3>
                 <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">

@@ -29,14 +29,14 @@ export default function Home() {
             <Link
               key={pilar.href}
               href={pilar.href}
-              className="card-glass card-hover rounded-3xl p-8 group relative overflow-hidden"
+              className={`card-glass card-hover ${pilar.cardHover} rounded-3xl p-8 group relative overflow-hidden`}
             >
               <div className={`absolute inset-0 opacity-0 ${pilar.bgHover} transition-opacity duration-300`} />
               <div className="absolute top-0 right-0 w-48 h-48 opacity-20 -z-10">
                 <div className={`w-full h-full bg-gradient-to-br ${pilar.gradient} rounded-full blur-3xl`} />
               </div>
               <div className="relative">
-                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${pilar.gradient} flex items-center justify-center text-4xl mb-6 shadow-lg transform group-hover:scale-110 transition-transform`}>
+                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${pilar.gradient} flex items-center justify-center text-4xl mb-6 shadow-lg`}>
                   {pilar.emoji}
                 </div>
                 <h2 className={`text-3xl font-black mb-3 ${pilar.color} transition-colors`}>
@@ -57,7 +57,7 @@ export default function Home() {
                 </div>
                 <div className={`flex items-center ${pilar.color} font-bold text-sm`}>
                   Ver calculadoras
-                  <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                  <span className="ml-2">→</span>
                 </div>
               </div>
             </Link>
@@ -76,18 +76,18 @@ export default function Home() {
             <Link
               key={util.href}
               href={util.href}
-              className="card-glass card-hover rounded-2xl p-6 group flex items-center gap-4"
+              className="card-glass card-hover card-hover-indigo rounded-2xl p-6 group flex items-center gap-4"
             >
-              <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${util.gradient} flex items-center justify-center text-2xl shadow-lg transform group-hover:scale-110 transition-transform flex-shrink-0`}>
+              <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${util.gradient} flex items-center justify-center text-2xl shadow-lg flex-shrink-0`}>
                 {util.emoji}
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">
                   {util.nombre}
                 </h3>
                 <p className="text-sm text-slate-500 dark:text-slate-400">{util.descripcion}</p>
               </div>
-              <span className="text-indigo-600 dark:text-indigo-400 group-hover:translate-x-1 transition-transform">→</span>
+              <span className="text-indigo-600 dark:text-indigo-400">→</span>
             </Link>
           ))}
         </div>
@@ -113,7 +113,7 @@ export default function Home() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="card-glass card-hover rounded-2xl p-6 group"
+                className="card-glass card-hover card-hover-pink rounded-2xl p-6 group"
               >
                 <span
                   className={`inline-block px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${
@@ -122,13 +122,13 @@ export default function Home() {
                 >
                   {categoryLabels[post.category] || post.category}
                 </span>
-                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mb-2 line-clamp-2">
+                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2 line-clamp-2">
                   {post.title}
                 </h3>
                 <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 mb-3">
                   {post.description}
                 </p>
-                <span className="text-indigo-600 dark:text-indigo-400 font-medium text-sm group-hover:translate-x-1 transition-transform inline-block">
+                <span className="text-indigo-600 dark:text-indigo-400 font-medium text-sm inline-block">
                   Leer más →
                 </span>
               </Link>
@@ -152,21 +152,21 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100">¿Por qué usar VidaEnCifras?</h2>
         </div>
         <div className="grid gap-8 md:grid-cols-3">
-          <div className="card-glass card-hover rounded-3xl p-8 text-center space-y-4">
+          <div className="card-glass card-hover card-hover-amber rounded-3xl p-8 text-center space-y-4">
             <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-2 shadow-lg">⚡</div>
             <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100">Rápido e Instantáneo</h3>
             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
               Consigue tus resultados al momento sin esperas ni pantallas de carga lentas.
             </p>
           </div>
-          <div className="card-glass card-hover rounded-3xl p-8 text-center space-y-4">
+          <div className="card-glass card-hover card-hover-emerald rounded-3xl p-8 text-center space-y-4">
             <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-2 shadow-lg">🔒</div>
             <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100">100% Privado</h3>
             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
               Tus datos son solo tuyos. No guardamos nada en servidores externos.
             </p>
           </div>
-          <div className="card-glass card-hover rounded-3xl p-8 text-center space-y-4">
+          <div className="card-glass card-hover card-hover-indigo rounded-3xl p-8 text-center space-y-4">
             <div className="w-16 h-16 bg-gradient-to-br from-violet-400 to-purple-500 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-2 shadow-lg">🆓</div>
             <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100">Siempre Gratis</h3>
             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">

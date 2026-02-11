@@ -17,8 +17,17 @@ export interface Pilar {
   gradient: string;
   bgHover: string;
   color: string;
+  cardHover: string;
   calculadoras: string[];
 }
+
+// Clases de hover para cards
+export const cardHoverClasses = {
+  salud: "card-hover-red",
+  finanzas: "card-hover-emerald",
+  productividad: "card-hover-amber",
+  herramientas: "card-hover-indigo",
+} as const;
 
 // Pilares principales para la página de inicio
 export const pilares: Pilar[] = [
@@ -30,6 +39,7 @@ export const pilares: Pilar[] = [
     gradient: gradients.salud,
     bgHover: bgHoverColors.salud,
     color: textColors.salud,
+    cardHover: cardHoverClasses.salud,
     calculadoras: ["Calorías (TDEE)", "IMC", "Hidratación"],
   },
   {
@@ -40,7 +50,8 @@ export const pilares: Pilar[] = [
     gradient: gradients.finanzas,
     bgHover: bgHoverColors.finanzas,
     color: textColors.finanzas,
-    calculadoras: ["Liquidación", "Prima", "Cesantías"],
+    cardHover: cardHoverClasses.finanzas,
+    calculadoras: ["Impuesto Renta", "CDTs", "Arriendo vs Compra"],
   },
   {
     nombre: "Productividad",
@@ -50,7 +61,8 @@ export const pilares: Pilar[] = [
     gradient: gradients.productividad,
     bgHover: bgHoverColors.productividad,
     color: textColors.productividad,
-    calculadoras: ["Valor Hora", "Vida en Semanas", "Hábitos"],
+    cardHover: cardHoverClasses.productividad,
+    calculadoras: ["Matriz Eisenhower", "Pomodoro", "Valor Hora"],
   },
 ];
 
@@ -156,6 +168,30 @@ export const calculadorasFinanzas: Calculadora[] = [
     gradient: gradients.finanzas,
     categoria: "finanzas",
   },
+  {
+    nombre: "Impuesto de Renta",
+    descripcion: "Estima tu impuesto de renta anual",
+    href: "/finanzas/calculadora-impuesto-renta",
+    emoji: "🏛️",
+    gradient: gradients.finanzas,
+    categoria: "finanzas",
+  },
+  {
+    nombre: "Comparador de CDTs",
+    descripcion: "Compara tasas de CDT entre bancos",
+    href: "/finanzas/comparador-cdt",
+    emoji: "📊",
+    gradient: gradients.finanzas,
+    categoria: "finanzas",
+  },
+  {
+    nombre: "Arriendo vs Compra",
+    descripcion: "¿Te conviene arrendar o comprar?",
+    href: "/finanzas/arriendo-vs-compra",
+    emoji: "🏠",
+    gradient: gradients.finanzas,
+    categoria: "finanzas",
+  },
 ];
 
 export const calculadorasSalud: Calculadora[] = [
@@ -198,6 +234,57 @@ export const calculadorasSalud: Calculadora[] = [
     emoji: "😴",
     gradient: gradients.salud,
     categoria: "salud",
+  },
+];
+
+export const calculadorasProductividad: Calculadora[] = [
+  {
+    nombre: "Valor Hora",
+    descripcion: "Calcula cuánto vale tu hora de trabajo",
+    href: "/productividad/valor-hora",
+    emoji: "💎",
+    gradient: gradients.productividad,
+    categoria: "productividad",
+  },
+  {
+    nombre: "Vida en Semanas",
+    descripcion: "Visualiza tu vida en semanas",
+    href: "/productividad/vida-en-semanas",
+    emoji: "📅",
+    gradient: gradients.productividad,
+    categoria: "productividad",
+  },
+  {
+    nombre: "Auditoría de Tiempo",
+    descripcion: "Analiza en qué gastas tu tiempo",
+    href: "/productividad/auditoria-tiempo",
+    emoji: "🔍",
+    gradient: gradients.productividad,
+    categoria: "productividad",
+  },
+  {
+    nombre: "Hábitos",
+    descripcion: "Calcula el impacto de tus hábitos",
+    href: "/productividad/calculadora-habitos",
+    emoji: "🎯",
+    gradient: gradients.productividad,
+    categoria: "productividad",
+  },
+  {
+    nombre: "Matriz Eisenhower",
+    descripcion: "Prioriza tareas por urgencia e importancia",
+    href: "/productividad/matriz-eisenhower",
+    emoji: "📊",
+    gradient: gradients.productividad,
+    categoria: "productividad",
+  },
+  {
+    nombre: "Calculadora Pomodoro",
+    descripcion: "Planifica tu sesión de trabajo",
+    href: "/productividad/calculadora-pomodoro",
+    emoji: "🍅",
+    gradient: gradients.productividad,
+    categoria: "productividad",
   },
 ];
 

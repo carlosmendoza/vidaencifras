@@ -93,23 +93,23 @@ export default function HerramientasPage() {
           <Link
             key={calc.href}
             href={calc.href}
-            className="card-glass card-hover rounded-3xl p-8 group relative overflow-hidden"
+            className="card-glass card-hover card-hover-indigo rounded-3xl p-8 group relative overflow-hidden"
           >
             <div className={`absolute inset-0 opacity-0 ${calc.bgHover} transition-opacity duration-300`} />
             <div className="absolute top-0 right-0 w-40 h-40 opacity-20 -z-10">
               <div className={`w-full h-full bg-gradient-to-br ${calc.gradient} rounded-full blur-3xl`} />
             </div>
             <div className="relative">
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center text-3xl mb-6 shadow-lg transform group-hover:scale-110 transition-transform`}>
+              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center text-3xl mb-6 shadow-lg`}>
                 {calc.emoji}
               </div>
-              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-3">
                 {calc.nombre}
               </h2>
               <p className="text-slate-500 dark:text-slate-400 leading-relaxed">{calc.descripcion}</p>
               <div className="mt-6 flex items-center text-indigo-600 dark:text-indigo-400 font-bold text-sm">
                 Usar calculadora
-                <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                <span className="ml-2">→</span>
               </div>
             </div>
           </Link>

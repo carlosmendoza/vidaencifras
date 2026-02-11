@@ -113,6 +113,14 @@ const calculadoras = [
     bgHover: "group-hover:bg-blue-50 dark:group-hover:bg-blue-950/50",
   },
   {
+    nombre: "Comparador Cuentas de Ahorro",
+    descripcion: "Compara rendimientos de Ualá, Nu, Pibank, Lulo y más cuentas remuneradas",
+    href: "/finanzas/simulador-cuenta-ahorro",
+    emoji: "🏦",
+    gradient: "from-emerald-400 to-teal-500",
+    bgHover: "group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50",
+  },
+  {
     nombre: "Calculadora de Jubilación",
     descripcion: "Planifica tu retiro y calcula cuánto necesitas para vivir tranquilo",
     href: "/finanzas/calculadora-jubilacion",
@@ -164,23 +172,23 @@ export default function FinanzasPage() {
           <Link
             key={calc.href}
             href={calc.href}
-            className="card-glass card-hover rounded-3xl p-8 group relative overflow-hidden"
+            className="card-glass card-hover card-hover-emerald rounded-3xl p-8 group relative overflow-hidden"
           >
             <div className={`absolute inset-0 opacity-0 ${calc.bgHover} transition-opacity duration-300`} />
             <div className="absolute top-0 right-0 w-40 h-40 opacity-20 -z-10">
               <div className={`w-full h-full bg-gradient-to-br ${calc.gradient} rounded-full blur-3xl`} />
             </div>
             <div className="relative">
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center text-3xl mb-6 shadow-lg transform group-hover:scale-110 transition-transform`}>
+              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center text-3xl mb-6 shadow-lg`}>
                 {calc.emoji}
               </div>
-              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">
                 {calc.nombre}
               </h2>
               <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-sm">{calc.descripcion}</p>
               <div className="mt-6 flex items-center text-emerald-600 dark:text-emerald-400 font-bold text-sm">
                 Usar calculadora
-                <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                <span className="ml-2">→</span>
               </div>
             </div>
           </Link>
@@ -205,14 +213,14 @@ export default function FinanzasPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="card-glass card-hover rounded-2xl p-6 group"
+                className="card-glass card-hover card-hover-emerald rounded-2xl p-6 group"
               >
                 <span
                   className={`inline-block px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${categoryColors[post.category]} text-white mb-3`}
                 >
                   Finanzas
                 </span>
-                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors mb-2">
+                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2">
                   {post.title}
                 </h3>
                 <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">

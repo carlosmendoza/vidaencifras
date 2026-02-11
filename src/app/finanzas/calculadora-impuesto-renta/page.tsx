@@ -1,0 +1,522 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { FAQ } from "@/components/FAQ";
+import { CalculatorResult } from "@/components/CalculatorResult";
+import { ShareButtons } from "@/components/ShareButtons";
+
+// Valor UVT 2025 (ajustar cada año)
+const UVT_2025 = 49799;
+
+// Tabla de tarifas marginales de impuesto de renta Colombia
+const TABLA_TARIFAS = [
+  { desde: 0, hasta: 1090, tarifa: 0, impuestoBase: 0 },
+  { desde: 1090, hasta: 1700, tarifa: 0.19, impuestoBase: 0 },
+  { desde: 1700, hasta: 4100, tarifa: 0.28, impuestoBase: 116 },
+  { desde: 4100, hasta: 8670, tarifa: 0.33, impuestoBase: 788 },
+  { desde: 8670, hasta: 18970, tarifa: 0.35, impuestoBase: 2296 },
+  { desde: 18970, hasta: 31000, tarifa: 0.37, impuestoBase: 5901 },
+  { desde: 31000, hasta: Infinity, tarifa: 0.39, impuestoBase: 10352 },
+];
+
+// Límites de deducciones
+const LIMITE_RENTA_EXENTA_25 = 240; // UVT mensuales (2880 anuales)
+const LIMITE_DEDUCCIONES_40 = 0.40; // 40% de ingresos
+const LIMITE_TOTAL_DEDUCCIONES = 5040; // UVT anuales
+
+const faqs = [
+  {
+    question: "¿Quiénes deben declarar renta en Colombia?",
+    answer:
+      "Deben declarar renta las personas naturales cuyos ingresos brutos en el año gravable hayan sido iguales o superiores a 1.400 UVT (aproximadamente $69,7 millones en 2025), o que tengan un patrimonio bruto superior a 4.500 UVT al 31 de diciembre.",
+  },
+  {
+    question: "¿Qué es el UVT y para qué sirve?",
+    answer:
+      "La Unidad de Valor Tributario (UVT) es una medida de valor que permite ajustar automáticamente los valores en las normas tributarias. Para 2025, el UVT es de $49.799. Se actualiza cada año según la inflación.",
+  },
+  {
+    question: "¿Qué deducciones puedo aplicar?",
+    answer:
+      "Puedes deducir aportes a salud y pensión, intereses de vivienda, dependientes (hasta 10% de ingresos), medicina prepagada, y el 25% de renta exenta laboral. El total de deducciones no puede superar el 40% de tus ingresos ni 5.040 UVT.",
+  },
+  {
+    question: "¿Cuándo debo pagar el impuesto de renta?",
+    answer:
+      "Las personas naturales declaran y pagan entre agosto y octubre del año siguiente, según los dos últimos dígitos del NIT. Por ejemplo, para ingresos de 2024, se declara en 2025.",
+  },
+];
+
+interface Resultado {
+  ingresosBrutos: number;
+  totalDeducciones: number;
+  rentaExenta25: number;
+  rentaLiquidaGravable: number;
+  rentaLiquidaUVT: number;
+  impuestoRenta: number;
+  tarifaEfectiva: number;
+  tarifaMarginal: number;
+  rangoAplicable: string;
+  desglose: {
+    aporteSalud: number;
+    aportePension: number;
+    fondoSolidaridad: number;
+    dependientes: number;
+    interesesVivienda: number;
+    medicinaPrepagada: number;
+  };
+}
+
+export default function CalculadoraImpuestoRenta() {
+  const [ingresos, setIngresos] = useState<string>("");
+  const [tipoTrabajador, setTipoTrabajador] = useState<"empleado" | "independiente">("empleado");
+  const [dependientes, setDependientes] = useState<string>("0");
+  const [interesesVivienda, setInteresesVivienda] = useState<string>("");
+  const [medicinaPrepagada, setMedicinaPrepagada] = useState<string>("");
+  const [aportesVoluntarios, setAportesVoluntarios] = useState<string>("");
+  const [resultado, setResultado] = useState<Resultado | null>(null);
+
+  const calcular = () => {
+    const ingresosAnuales = parseFloat(ingresos) || 0;
+    if (ingresosAnuales <= 0) return;
+
+    const numDependientes = parseInt(dependientes) || 0;
+    const intereses = parseFloat(interesesVivienda) || 0;
+    const medicina = parseFloat(medicinaPrepagada) || 0;
+    const aportesVol = parseFloat(aportesVoluntarios) || 0;
+
+    // Calcular aportes obligatorios
+    const baseAportes = tipoTrabajador === "empleado" ? ingresosAnuales : ingresosAnuales * 0.4;
+    const aporteSalud = baseAportes * 0.04; // 4% empleado
+    const aportePension = baseAportes * 0.04; // 4% empleado
+    const fondoSolidaridad = ingresosAnuales > UVT_2025 * 4 * 12 ? baseAportes * 0.01 : 0;
+
+    // Dependientes: 10% de ingresos, máx 32 UVT mensuales
+    const limiteDependientes = 32 * UVT_2025 * 12;
+    const deduccionDependientes = Math.min(ingresosAnuales * 0.10 * numDependientes, limiteDependientes);
+
+    // Intereses de vivienda: máx 100 UVT mensuales
+    const limiteIntereses = 100 * UVT_2025 * 12;
+    const deduccionIntereses = Math.min(intereses, limiteIntereses);
+
+    // Medicina prepagada: máx 16 UVT mensuales
+    const limiteMedicina = 16 * UVT_2025 * 12;
+    const deduccionMedicina = Math.min(medicina, limiteMedicina);
+
+    // Aportes voluntarios AFC/FPV
+    const limiteAportes = ingresosAnuales * 0.30;
+    const deduccionAportes = Math.min(aportesVol, limiteAportes);
+
+    // Total deducciones (sin el 25% de renta exenta)
+    const totalDeduccionesSinExenta = aporteSalud + aportePension + fondoSolidaridad +
+      deduccionDependientes + deduccionIntereses + deduccionMedicina + deduccionAportes;
+
+    // Renta líquida antes del 25%
+    const rentaAntesExenta = Math.max(0, ingresosAnuales - totalDeduccionesSinExenta);
+
+    // 25% renta exenta laboral (máx 240 UVT mensuales = 2880 UVT anuales)
+    const limiteExenta25 = LIMITE_RENTA_EXENTA_25 * 12 * UVT_2025;
+    const rentaExenta25 = Math.min(rentaAntesExenta * 0.25, limiteExenta25);
+
+    // Verificar límite del 40%
+    const limiteDeducciones40 = ingresosAnuales * LIMITE_DEDUCCIONES_40;
+    const totalConExenta = totalDeduccionesSinExenta + rentaExenta25;
+
+    // Aplicar límite de 5040 UVT o 40%
+    const limiteFinal = Math.min(limiteDeducciones40, LIMITE_TOTAL_DEDUCCIONES * UVT_2025);
+    const totalDeduccionesAplicadas = Math.min(totalConExenta, limiteFinal);
+
+    // Renta líquida gravable
+    const rentaLiquidaGravable = Math.max(0, ingresosAnuales - totalDeduccionesAplicadas);
+    const rentaLiquidaUVT = rentaLiquidaGravable / UVT_2025;
+
+    // Calcular impuesto según tabla
+    let impuesto = 0;
+    let tarifaMarginal = 0;
+    let rangoAplicable = "";
+
+    for (const rango of TABLA_TARIFAS) {
+      if (rentaLiquidaUVT > rango.desde && rentaLiquidaUVT <= rango.hasta) {
+        impuesto = (rango.impuestoBase + (rentaLiquidaUVT - rango.desde) * rango.tarifa) * UVT_2025;
+        tarifaMarginal = rango.tarifa;
+        rangoAplicable = `${rango.desde.toLocaleString()} - ${rango.hasta === Infinity ? "∞" : rango.hasta.toLocaleString()} UVT`;
+        break;
+      }
+    }
+
+    // Si excede el último rango
+    if (rentaLiquidaUVT > 31000) {
+      const ultimoRango = TABLA_TARIFAS[TABLA_TARIFAS.length - 1];
+      impuesto = (ultimoRango.impuestoBase + (rentaLiquidaUVT - ultimoRango.desde) * ultimoRango.tarifa) * UVT_2025;
+      tarifaMarginal = ultimoRango.tarifa;
+      rangoAplicable = `Más de 31.000 UVT`;
+    }
+
+    const tarifaEfectiva = ingresosAnuales > 0 ? (impuesto / ingresosAnuales) * 100 : 0;
+
+    setResultado({
+      ingresosBrutos: ingresosAnuales,
+      totalDeducciones: totalDeduccionesAplicadas,
+      rentaExenta25,
+      rentaLiquidaGravable,
+      rentaLiquidaUVT,
+      impuestoRenta: impuesto,
+      tarifaEfectiva,
+      tarifaMarginal: tarifaMarginal * 100,
+      rangoAplicable,
+      desglose: {
+        aporteSalud,
+        aportePension,
+        fondoSolidaridad,
+        dependientes: deduccionDependientes,
+        interesesVivienda: deduccionIntereses,
+        medicinaPrepagada: deduccionMedicina,
+      },
+    });
+  };
+
+  const formatMoney = (num: number) => {
+    return new Intl.NumberFormat("es-CO", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(num);
+  };
+
+  return (
+    <div className="space-y-8">
+      <Link
+        href="/finanzas"
+        className="text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 inline-flex items-center gap-2 font-medium transition-colors"
+      >
+        <span>←</span> Volver a Finanzas
+      </Link>
+
+      <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-emerald-500/5">
+        <div className="text-center mb-10">
+          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">
+            🏛️
+          </div>
+          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
+            Calculadora de Impuesto de Renta
+          </h1>
+          <p className="text-slate-500 dark:text-slate-400 font-medium">
+            Estima tu impuesto de renta en Colombia para el año 2025
+          </p>
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
+            UVT 2025: ${formatMoney(UVT_2025)}
+          </p>
+        </div>
+
+        <div className="space-y-6">
+          {/* Tipo de trabajador */}
+          <div className="space-y-3">
+            <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
+              Tipo de trabajador
+            </label>
+            <div className="flex rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700">
+              <button
+                onClick={() => setTipoTrabajador("empleado")}
+                className={`flex-1 px-5 py-4 font-semibold transition-colors ${
+                  tipoTrabajador === "empleado"
+                    ? "bg-emerald-500 text-white"
+                    : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
+                }`}
+              >
+                Empleado
+              </button>
+              <button
+                onClick={() => setTipoTrabajador("independiente")}
+                className={`flex-1 px-5 py-4 font-semibold transition-colors ${
+                  tipoTrabajador === "independiente"
+                    ? "bg-emerald-500 text-white"
+                    : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
+                }`}
+              >
+                Independiente
+              </button>
+            </div>
+          </div>
+
+          {/* Ingresos anuales */}
+          <div className="space-y-3">
+            <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
+              Ingresos brutos anuales
+            </label>
+            <div className="relative">
+              <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
+              <input
+                type="number"
+                value={ingresos}
+                onChange={(e) => setIngresos(e.target.value)}
+                placeholder="60.000.000"
+                className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
+              />
+            </div>
+            <p className="text-xs text-slate-400 ml-1">
+              Suma de todos tus ingresos del año (salarios, honorarios, etc.)
+            </p>
+          </div>
+
+          {/* Dependientes */}
+          <div className="space-y-3">
+            <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
+              Número de dependientes económicos
+            </label>
+            <select
+              value={dependientes}
+              onChange={(e) => setDependientes(e.target.value)}
+              className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
+            >
+              <option value="0">Sin dependientes</option>
+              <option value="1">1 dependiente</option>
+              <option value="2">2 dependientes</option>
+              <option value="3">3 dependientes</option>
+              <option value="4">4 o más dependientes</option>
+            </select>
+            <p className="text-xs text-slate-400 ml-1">
+              Hijos menores, personas con discapacidad o mayores de 62 años a cargo
+            </p>
+          </div>
+
+          {/* Deducciones opcionales */}
+          <div className="space-y-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
+            <p className="text-sm font-bold text-slate-700 dark:text-slate-300">
+              Deducciones adicionales (opcional)
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400">
+                  Intereses de vivienda (anual)
+                </label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">$</span>
+                  <input
+                    type="number"
+                    value={interesesVivienda}
+                    onChange={(e) => setInteresesVivienda(e.target.value)}
+                    placeholder="0"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400">
+                  Medicina prepagada (anual)
+                </label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">$</span>
+                  <input
+                    type="number"
+                    value={medicinaPrepagada}
+                    onChange={(e) => setMedicinaPrepagada(e.target.value)}
+                    placeholder="0"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2 md:col-span-2">
+                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400">
+                  Aportes voluntarios AFC/FPV (anual)
+                </label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">$</span>
+                  <input
+                    type="number"
+                    value={aportesVoluntarios}
+                    onChange={(e) => setAportesVoluntarios(e.target.value)}
+                    placeholder="0"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl text-sm"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button
+            onClick={calcular}
+            className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-emerald-500/20 active:scale-[0.99]"
+          >
+            Calcular impuesto
+          </button>
+
+          {resultado && (
+            <div className="mt-10 space-y-6">
+              <CalculatorResult
+                mainValue={`$${formatMoney(resultado.impuestoRenta)}`}
+                mainLabel="Impuesto de Renta Estimado"
+                gradient="finanzas"
+                items={[
+                  {
+                    label: "Renta líquida gravable",
+                    value: `$${formatMoney(resultado.rentaLiquidaGravable)}`,
+                  },
+                  {
+                    label: "Renta en UVT",
+                    value: `${formatMoney(Math.round(resultado.rentaLiquidaUVT))} UVT`,
+                  },
+                  {
+                    label: "Tarifa efectiva",
+                    value: `${resultado.tarifaEfectiva.toFixed(1)}%`,
+                    color: "emerald",
+                  },
+                  {
+                    label: "Tarifa marginal",
+                    value: `${resultado.tarifaMarginal.toFixed(0)}%`,
+                  },
+                ]}
+              >
+                <ShareButtons
+                  title="Calculadora Impuesto de Renta Colombia"
+                  text={`Mi impuesto de renta estimado es $${formatMoney(resultado.impuestoRenta)} (tarifa efectiva: ${resultado.tarifaEfectiva.toFixed(1)}%)`}
+                  result={{
+                    label: "Impuesto de Renta",
+                    value: `$${formatMoney(resultado.impuestoRenta)}`,
+                  }}
+                />
+              </CalculatorResult>
+
+              {/* Desglose de deducciones */}
+              <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl space-y-4">
+                <h3 className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                  <span className="w-6 h-6 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center text-sm">📋</span>
+                  Desglose de deducciones
+                </h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-slate-600 dark:text-slate-400">Aporte salud</span>
+                    <span className="font-semibold text-slate-700 dark:text-slate-300">
+                      ${formatMoney(resultado.desglose.aporteSalud)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-600 dark:text-slate-400">Aporte pensión</span>
+                    <span className="font-semibold text-slate-700 dark:text-slate-300">
+                      ${formatMoney(resultado.desglose.aportePension)}
+                    </span>
+                  </div>
+                  {resultado.desglose.fondoSolidaridad > 0 && (
+                    <div className="flex justify-between">
+                      <span className="text-slate-600 dark:text-slate-400">Fondo de solidaridad</span>
+                      <span className="font-semibold text-slate-700 dark:text-slate-300">
+                        ${formatMoney(resultado.desglose.fondoSolidaridad)}
+                      </span>
+                    </div>
+                  )}
+                  {resultado.desglose.dependientes > 0 && (
+                    <div className="flex justify-between">
+                      <span className="text-slate-600 dark:text-slate-400">Dependientes</span>
+                      <span className="font-semibold text-slate-700 dark:text-slate-300">
+                        ${formatMoney(resultado.desglose.dependientes)}
+                      </span>
+                    </div>
+                  )}
+                  {resultado.desglose.interesesVivienda > 0 && (
+                    <div className="flex justify-between">
+                      <span className="text-slate-600 dark:text-slate-400">Intereses vivienda</span>
+                      <span className="font-semibold text-slate-700 dark:text-slate-300">
+                        ${formatMoney(resultado.desglose.interesesVivienda)}
+                      </span>
+                    </div>
+                  )}
+                  {resultado.desglose.medicinaPrepagada > 0 && (
+                    <div className="flex justify-between">
+                      <span className="text-slate-600 dark:text-slate-400">Medicina prepagada</span>
+                      <span className="font-semibold text-slate-700 dark:text-slate-300">
+                        ${formatMoney(resultado.desglose.medicinaPrepagada)}
+                      </span>
+                    </div>
+                  )}
+                  <div className="flex justify-between">
+                    <span className="text-slate-600 dark:text-slate-400">25% renta exenta</span>
+                    <span className="font-semibold text-emerald-600">
+                      ${formatMoney(resultado.rentaExenta25)}
+                    </span>
+                  </div>
+                  <div className="border-t border-slate-200 dark:border-slate-700 pt-2 mt-2">
+                    <div className="flex justify-between font-bold">
+                      <span className="text-slate-700 dark:text-slate-300">Total deducciones</span>
+                      <span className="text-emerald-600">
+                        ${formatMoney(resultado.totalDeducciones)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tabla de tarifas */}
+              <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl space-y-4">
+                <h3 className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                  <span className="w-6 h-6 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center text-sm">📊</span>
+                  Tabla de tarifas 2025
+                </h3>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="text-left text-slate-500 dark:text-slate-400">
+                        <th className="pb-2">Rango (UVT)</th>
+                        <th className="pb-2 text-right">Tarifa</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                      {TABLA_TARIFAS.map((rango, i) => (
+                        <tr
+                          key={i}
+                          className={resultado.rangoAplicable.includes(rango.desde.toString()) ? "bg-emerald-50 dark:bg-emerald-900/30" : ""}
+                        >
+                          <td className="py-2 text-slate-700 dark:text-slate-300">
+                            {rango.desde.toLocaleString()} - {rango.hasta === Infinity ? "∞" : rango.hasta.toLocaleString()}
+                          </td>
+                          <td className="py-2 text-right font-semibold text-slate-700 dark:text-slate-300">
+                            {(rango.tarifa * 100).toFixed(0)}%
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="text-xs text-slate-400">
+                  Tu renta líquida ({formatMoney(Math.round(resultado.rentaLiquidaUVT))} UVT) está en el rango: {resultado.rangoAplicable}
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Información importante */}
+      <div className="max-w-2xl mx-auto">
+        <div className="p-8 card-glass rounded-[2rem]">
+          <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
+            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-base">⚠️</span>
+            Información importante
+          </h2>
+          <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
+            <li className="flex gap-3">
+              <span className="text-amber-500">•</span>
+              <span>Esta es una <strong>estimación</strong>. Tu impuesto real puede variar según otros factores como rentas de capital, dividendos, o beneficios tributarios específicos.</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-amber-500">•</span>
+              <span>Consulta con un contador público para tu declaración oficial y para optimizar legalmente tus deducciones.</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-amber-500">•</span>
+              <span>Los aportes a AFC y pensiones voluntarias son excelentes estrategias para reducir tu carga tributaria de forma legal.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* FAQs */}
+      <div className="max-w-2xl mx-auto">
+        <div className="p-8 card-glass rounded-[2rem]">
+          <FAQ items={faqs} colorClass="emerald" />
+        </div>
+      </div>
+    </div>
+  );
+}

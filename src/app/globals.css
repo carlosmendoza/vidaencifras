@@ -252,11 +252,80 @@ html {
 
 /* Card hover effects */
 .card-hover {
+  position: relative;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left: 3px solid transparent;
+}
+
+.card-hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
 .card-hover:hover {
-  transform: translateY(-4px);
+  border-left-color: var(--card-accent, #6366f1);
+  box-shadow: 0 8px 30px -8px var(--card-shadow, rgba(99, 102, 241, 0.3));
+  background: var(--card-hover-bg, rgba(99, 102, 241, 0.03));
+}
+
+/* Card accent colors */
+.card-hover-indigo {
+  --card-accent: #6366f1;
+  --card-shadow: rgba(99, 102, 241, 0.25);
+  --card-hover-bg: rgba(99, 102, 241, 0.03);
+}
+
+.card-hover-emerald {
+  --card-accent: #10b981;
+  --card-shadow: rgba(16, 185, 129, 0.25);
+  --card-hover-bg: rgba(16, 185, 129, 0.03);
+}
+
+.card-hover-red {
+  --card-accent: #ef4444;
+  --card-shadow: rgba(239, 68, 68, 0.25);
+  --card-hover-bg: rgba(239, 68, 68, 0.03);
+}
+
+.card-hover-amber {
+  --card-accent: #f59e0b;
+  --card-shadow: rgba(245, 158, 11, 0.25);
+  --card-hover-bg: rgba(245, 158, 11, 0.03);
+}
+
+.card-hover-pink {
+  --card-accent: #ec4899;
+  --card-shadow: rgba(236, 72, 153, 0.25);
+  --card-hover-bg: rgba(236, 72, 153, 0.03);
+}
+
+:is(.dark) .card-hover:hover {
+  background: var(--card-hover-bg-dark, rgba(99, 102, 241, 0.08));
+}
+
+:is(.dark) .card-hover-indigo {
+  --card-hover-bg-dark: rgba(99, 102, 241, 0.08);
+}
+
+:is(.dark) .card-hover-emerald {
+  --card-hover-bg-dark: rgba(16, 185, 129, 0.08);
+}
+
+:is(.dark) .card-hover-red {
+  --card-hover-bg-dark: rgba(239, 68, 68, 0.08);
+}
+
+:is(.dark) .card-hover-amber {
+  --card-hover-bg-dark: rgba(245, 158, 11, 0.08);
+}
+
+:is(.dark) .card-hover-pink {
+  --card-hover-bg-dark: rgba(236, 72, 153, 0.08);
 }
 
 /* Badge styles */
