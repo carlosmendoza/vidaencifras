@@ -524,3 +524,8 @@ html {
 .dark .visual-bar-container {
   background-color: rgba(255, 255, 255, 0.1);
 }
+
+/* Vertical text for Eisenhower Matrix */
+.writing-vertical-lr {
+  writing-mode: vertical-lr;
+}

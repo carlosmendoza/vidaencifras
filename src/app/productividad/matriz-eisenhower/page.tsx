@@ -173,17 +173,17 @@ export default function MatrizEisenhower() {
         </div>
 
         {/* Agregar nueva tarea */}
-        <div className="mb-8 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
+        <div className="mb-8 p-4 md:p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
           <div className="flex flex-col md:flex-row gap-4">
             <input
               type="text"
               value={nuevaTarea}
               onChange={(e) => setNuevaTarea(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && agregarTarea()}
-              placeholder="¿Qué tarea necesitas priorizar?"
-              className="flex-1 px-5 py-4 rounded-xl text-lg"
+              placeholder="Nueva tarea..."
+              className="flex-1 px-5 py-3 rounded-xl text-lg"
             />
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
@@ -204,7 +204,7 @@ export default function MatrizEisenhower() {
               </label>
               <button
                 onClick={agregarTarea}
-                className="px-6 py-4 bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-bold rounded-xl hover:opacity-90 transition-all shadow-lg shadow-amber-500/20"
+                className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-bold rounded-xl hover:opacity-90 transition-all shadow-lg shadow-amber-500/20"
               >
                 Agregar
               </button>
@@ -238,9 +238,9 @@ export default function MatrizEisenhower() {
         )}
 
         {/* Matriz 2x2 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-4">
           {/* Encabezados de columnas */}
-          <div className="md:col-span-2 grid grid-cols-2 gap-4 mb-2">
+          <div className="hidden md:grid md:grid-cols-2 gap-4">
             <div className="text-center">
               <span className="text-sm font-bold text-red-500 inline-flex items-center gap-1 justify-center"><Icon name="lightning" className="w-4 h-4" /> URGENTE</span>
             </div>
@@ -250,50 +250,50 @@ export default function MatrizEisenhower() {
           </div>
 
           {/* Fila 1: Importante */}
-          <div className="md:col-span-2 flex items-center mb-1">
-            <span className="text-sm font-bold text-blue-500 -rotate-90 md:rotate-0 md:mr-2 inline-flex items-center gap-1"><Icon name="target" className="w-4 h-4" /> IMPORTANTE</span>
+          <div>
+            <div className="hidden md:block mb-2">
+              <span className="text-sm font-bold text-blue-500 inline-flex items-center gap-1"><Icon name="target" className="w-4 h-4" /> IMPORTANTE</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <CuadranteCard
+                cuadrante="hacer"
+                tareas={tareasPorCuadrante.hacer}
+                onToggle={toggleCompletada}
+                onDelete={eliminarTarea}
+                onMove={moverTarea}
+              />
+              <CuadranteCard
+                cuadrante="programar"
+                tareas={tareasPorCuadrante.programar}
+                onToggle={toggleCompletada}
+                onDelete={eliminarTarea}
+                onMove={moverTarea}
+              />
+            </div>
           </div>
-
-          {/* Q1: Hacer */}
-          <CuadranteCard
-            cuadrante="hacer"
-            tareas={tareasPorCuadrante.hacer}
-            onToggle={toggleCompletada}
-            onDelete={eliminarTarea}
-            onMove={moverTarea}
-          />
-
-          {/* Q2: Programar */}
-          <CuadranteCard
-            cuadrante="programar"
-            tareas={tareasPorCuadrante.programar}
-            onToggle={toggleCompletada}
-            onDelete={eliminarTarea}
-            onMove={moverTarea}
-          />
 
           {/* Fila 2: No importante */}
-          <div className="md:col-span-2 flex items-center mb-1 mt-2">
-            <span className="text-sm font-bold text-slate-400 -rotate-90 md:rotate-0 md:mr-2">NO IMPORTANTE</span>
+          <div>
+            <div className="hidden md:block mb-2">
+              <span className="text-sm font-bold text-slate-400">NO IMPORTANTE</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <CuadranteCard
+                cuadrante="delegar"
+                tareas={tareasPorCuadrante.delegar}
+                onToggle={toggleCompletada}
+                onDelete={eliminarTarea}
+                onMove={moverTarea}
+              />
+              <CuadranteCard
+                cuadrante="eliminar"
+                tareas={tareasPorCuadrante.eliminar}
+                onToggle={toggleCompletada}
+                onDelete={eliminarTarea}
+                onMove={moverTarea}
+              />
+            </div>
           </div>
-
-          {/* Q3: Delegar */}
-          <CuadranteCard
-            cuadrante="delegar"
-            tareas={tareasPorCuadrante.delegar}
-            onToggle={toggleCompletada}
-            onDelete={eliminarTarea}
-            onMove={moverTarea}
-          />
-
-          {/* Q4: Eliminar */}
-          <CuadranteCard
-            cuadrante="eliminar"
-            tareas={tareasPorCuadrante.eliminar}
-            onToggle={toggleCompletada}
-            onDelete={eliminarTarea}
-            onMove={moverTarea}
-          />
         </div>
 
         {tareas.length === 0 && (
