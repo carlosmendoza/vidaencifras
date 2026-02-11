@@ -121,6 +121,14 @@ const calculadoras = [
     bgHover: "group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50",
   },
   {
+    nombre: "Calculadora de Meta de Ahorro",
+    descripcion: "Descubre cuánto debes ahorrar mensualmente para alcanzar tu objetivo financiero",
+    href: "/finanzas/calculadora-meta-ahorro",
+    emoji: "🎯",
+    gradient: "from-amber-400 to-orange-500",
+    bgHover: "group-hover:bg-amber-50 dark:group-hover:bg-amber-950/50",
+  },
+  {
     nombre: "Calculadora de Jubilación",
     descripcion: "Planifica tu retiro y calcula cuánto necesitas para vivir tranquilo",
     href: "/finanzas/calculadora-jubilacion",
