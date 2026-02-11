@@ -385,7 +385,7 @@ function SimuladorCuentaAhorroContent() {
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-5xl mx-auto shadow-2xl shadow-emerald-500/5">
         <div className="text-center mb-10">
           <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
-            <Icon name="landmark" className="w-10 h-10" />
+            <Icon name="piggy-bank" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Comparador de Cuentas de Ahorro
@@ -758,7 +758,7 @@ function SimuladorLoading() {
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-5xl mx-auto shadow-2xl shadow-emerald-500/5">
         <div className="text-center mb-10">
           <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg animate-pulse">
-            <Icon name="landmark" className="w-10 h-10" />
+            <Icon name="piggy-bank" className="w-10 h-10" />
           </div>
           <div className="h-10 bg-slate-200 dark:bg-slate-700 rounded-xl w-3/4 mx-auto mb-3 animate-pulse" />
           <div className="h-5 bg-slate-100 dark:bg-slate-800 rounded-lg w-1/2 mx-auto animate-pulse" />

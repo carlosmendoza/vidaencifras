@@ -131,7 +131,7 @@ export default function VidaEnSemanasPage() {
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-4xl mx-auto shadow-2xl shadow-amber-500/5">
         <div className="text-center mb-10">
           <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="bar-chart" className="w-10 h-10" />
+            <Icon name="calendar" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Tu Vida en Semanas
