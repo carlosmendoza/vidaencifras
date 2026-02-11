@@ -79,13 +79,13 @@ export default function CalculadoraDescuentos() {
       name: "Calculadora de Porcentajes",
       href: "/herramientas/calculadora-porcentajes",
       description: "Calcula cualquier porcentaje",
-      emoji: "%",
+      icon: "percent",
     },
     {
       name: "Dividir Cuenta",
       href: "/herramientas/calculadora-dividir-cuenta",
       description: "Divide gastos entre amigos",
-      emoji: "🧾",
+      icon: "receipt",
     },
   ];
 

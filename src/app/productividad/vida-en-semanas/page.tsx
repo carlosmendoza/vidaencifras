@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { WeeksGrid } from "@/components/charts/WeeksGrid";
+import { Icon, getIconName } from "@/lib/icons";
 
 const faqs = [
   {
@@ -129,8 +130,8 @@ export default function VidaEnSemanasPage() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-4xl mx-auto shadow-2xl shadow-amber-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">
-            📊
+          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+            <Icon name="bar-chart" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Tu Vida en Semanas
@@ -183,11 +184,10 @@ export default function VidaEnSemanasPage() {
                     setExpectativaVida(e.toString());
                     setMostrarResultado(false);
                   }}
-                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
-                    expectativaVida === e.toString()
+                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${expectativaVida === e.toString()
                       ? "bg-amber-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
-                  }`}
+                    }`}
                 >
                   {e} años
                 </button>
@@ -198,11 +198,10 @@ export default function VidaEnSemanasPage() {
           <button
             onClick={calcular}
             disabled={!fechaNacimiento}
-            className={`w-full py-5 rounded-2xl font-black text-xl transition-all shadow-xl active:scale-[0.99] ${
-              fechaNacimiento
+            className={`w-full py-5 rounded-2xl font-black text-xl transition-all shadow-xl active:scale-[0.99] ${fechaNacimiento
                 ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:opacity-90 shadow-amber-500/20"
                 : "bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed"
-            }`}
+              }`}
           >
             Visualizar mi vida
           </button>
@@ -252,28 +251,28 @@ export default function VidaEnSemanasPage() {
             {/* Estadísticas de momentos restantes */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="p-5 bg-slate-50 dark:bg-slate-800 rounded-2xl text-center">
-                <p className="text-3xl mb-1">☀️</p>
+                <Icon name="sun" className="w-8 h-8 mx-auto mb-1 text-amber-500" weight="duotone" />
                 <p className="text-2xl font-black text-slate-800 dark:text-slate-100">
                   {estadisticas.veranosRestantes}
                 </p>
                 <p className="text-xs text-slate-500">veranos más</p>
               </div>
               <div className="p-5 bg-slate-50 dark:bg-slate-800 rounded-2xl text-center">
-                <p className="text-3xl mb-1">🎄</p>
+                <Icon name="gift" className="w-8 h-8 mx-auto mb-1 text-rose-500" weight="duotone" />
                 <p className="text-2xl font-black text-slate-800 dark:text-slate-100">
                   {estadisticas.navidadesRestantes}
                 </p>
                 <p className="text-xs text-slate-500">navidades más</p>
               </div>
               <div className="p-5 bg-slate-50 dark:bg-slate-800 rounded-2xl text-center">
-                <p className="text-3xl mb-1">🎂</p>
+                <Icon name="cake" className="w-8 h-8 mx-auto mb-1 text-pink-500" weight="duotone" />
                 <p className="text-2xl font-black text-slate-800 dark:text-slate-100">
                   {estadisticas.cumpleañosRestantes}
                 </p>
                 <p className="text-xs text-slate-500">cumpleaños más</p>
               </div>
               <div className="p-5 bg-slate-50 dark:bg-slate-800 rounded-2xl text-center">
-                <p className="text-3xl mb-1">🌅</p>
+                <Icon name="calendar-days" library="lucide" className="w-8 h-8 mx-auto mb-1 text-blue-500" />
                 <p className="text-2xl font-black text-slate-800 dark:text-slate-100">
                   {estadisticas.finesDeSemanaPorVivir.toLocaleString()}
                 </p>
@@ -336,9 +335,7 @@ export default function VidaEnSemanasPage() {
       <div className="max-w-4xl mx-auto">
         <div className="p-8 card-glass rounded-[2rem]">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-base">
-              💡
-            </span>
+            <Icon name="lightbulb" className="w-8 h-8 text-amber-500" weight="fill" />
             La perspectiva del tiempo
           </h2>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">

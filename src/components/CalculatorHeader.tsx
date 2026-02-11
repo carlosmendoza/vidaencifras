@@ -2,13 +2,17 @@
 
 import Link from "next/link";
 import { gradients } from "@/lib/colors";
+import { ReactNode } from "react";
+import { Icon } from "@/lib/icons";
 
 type GradientKey = keyof typeof gradients;
 
 interface CalculatorHeaderProps {
   title: string;
   description: string;
-  emoji: string;
+  emoji?: string; // Mantener por compatibilidad temporal
+  icon?: string; // Cambiamos a string para usar el Icon manager o ReactNode
+  iconElement?: ReactNode;
   gradient?: GradientKey | string;
   backHref?: string;
   backLabel?: string;
@@ -22,6 +26,8 @@ export function CalculatorHeader({
   title,
   description,
   emoji,
+  icon,
+  iconElement,
   gradient = "finanzas",
   backHref = "/",
   backLabel = "Volver al inicio",
@@ -42,9 +48,9 @@ export function CalculatorHeader({
 
       <div className="text-center mb-10">
         <div
-          className={`w-20 h-20 bg-gradient-to-br ${gradientClass} rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg`}
+          className={`w-20 h-20 bg-gradient-to-br ${gradientClass} rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white`}
         >
-          {emoji}
+          {iconElement || <Icon name={icon || emoji || "calculator"} className="w-10 h-10" />}
         </div>
         <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
           {title}

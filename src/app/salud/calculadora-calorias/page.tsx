@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
+import { Icon } from "@/lib/icons";
 
 type Sexo = "hombre" | "mujer";
 type NivelActividad = "sedentario" | "ligero" | "moderado" | "activo" | "muy_activo";
@@ -27,9 +28,9 @@ const nivelesActividad = [
 ];
 
 const objetivos = [
-  { valor: "perder" as Objetivo, nombre: "Perder peso", emoji: "📉", ajuste: -500 },
-  { valor: "mantener" as Objetivo, nombre: "Mantener", emoji: "⚖️", ajuste: 0 },
-  { valor: "ganar" as Objetivo, nombre: "Ganar masa", emoji: "📈", ajuste: 500 },
+  { valor: "perder" as Objetivo, nombre: "Perder peso", icon: "trending-down", ajuste: -500 },
+  { valor: "mantener" as Objetivo, nombre: "Mantener", icon: "scale", ajuste: 0 },
+  { valor: "ganar" as Objetivo, nombre: "Ganar masa", icon: "trending-up", ajuste: 500 },
 ];
 
 export default function Calorias() {
@@ -120,13 +121,13 @@ export default function Calorias() {
       name: "Calculadora de IMC",
       href: "/salud/calculadora-imc",
       description: "Calcula tu Índice de Masa Corporal",
-      emoji: "⚖️",
+      icon: "scale",
     },
     {
       name: "Calculadora de Porcentajes",
       href: "/herramientas/calculadora-porcentajes",
       description: "Para calcular % de macros",
-      emoji: "%",
+      icon: "percent",
     },
   ];
 
@@ -136,7 +137,9 @@ export default function Calorias() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-orange-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-red-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">🔥</div>
+          <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-red-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+            <Icon name="flame" className="w-10 h-10" />
+          </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora de Calorías
           </h1>
@@ -150,23 +153,21 @@ export default function Calorias() {
           <div className="flex gap-3 justify-center">
             <button
               onClick={() => setSexo("hombre")}
-              className={`flex-1 py-4 rounded-2xl font-bold text-lg transition-all ${
-                sexo === "hombre"
+              className={`flex-1 py-4 rounded-2xl font-bold text-lg transition-all ${sexo === "hombre"
                   ? "bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
-              }`}
+                }`}
             >
-              👨 Hombre
+              <Icon name="male" className="w-5 h-5 inline mr-2" weight="fill" /> Hombre
             </button>
             <button
               onClick={() => setSexo("mujer")}
-              className={`flex-1 py-4 rounded-2xl font-bold text-lg transition-all ${
-                sexo === "mujer"
+              className={`flex-1 py-4 rounded-2xl font-bold text-lg transition-all ${sexo === "mujer"
                   ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
-              }`}
+                }`}
             >
-              👩 Mujer
+              <Icon name="female" className="w-5 h-5 inline mr-2" weight="fill" /> Mujer
             </button>
           </div>
 
@@ -221,11 +222,10 @@ export default function Calorias() {
                 <button
                   key={nivel.valor}
                   onClick={() => setActividad(nivel.valor)}
-                  className={`w-full p-4 rounded-xl text-left transition-all ${
-                    actividad === nivel.valor
+                  className={`w-full p-4 rounded-xl text-left transition-all ${actividad === nivel.valor
                       ? "bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg"
                       : "bg-slate-50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
-                  }`}
+                    }`}
                 >
                   <p className="font-bold">{nivel.nombre}</p>
                   <p className={`text-sm ${actividad === nivel.valor ? "text-white/80" : "text-slate-500 dark:text-slate-400"}`}>
@@ -244,13 +244,12 @@ export default function Calorias() {
                 <button
                   key={obj.valor}
                   onClick={() => setObjetivo(obj.valor)}
-                  className={`p-4 rounded-xl text-center transition-all ${
-                    objetivo === obj.valor
+                  className={`p-4 rounded-xl text-center transition-all ${objetivo === obj.valor
                       ? "bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg"
                       : "bg-slate-50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
-                  }`}
+                    }`}
                 >
-                  <p className="text-2xl mb-1">{obj.emoji}</p>
+                  <Icon name={obj.icon} className="w-8 h-8 mx-auto mb-1" weight="duotone" />
                   <p className="font-bold text-sm">{obj.nombre}</p>
                 </button>
               ))}
@@ -311,7 +310,7 @@ export default function Calorias() {
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center text-base">ℹ️</span>
+          <Icon name="info" className="w-8 h-8 text-orange-500" weight="fill" />
           ¿Qué significan estos números?
         </h2>
         <ul className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed space-y-3">

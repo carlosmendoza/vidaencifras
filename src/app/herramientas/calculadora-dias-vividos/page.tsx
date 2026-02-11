@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Icon } from "@/lib/icons";
 
 interface Resultado {
   dias: number;
@@ -146,7 +147,9 @@ export default function DiasVividos() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-amber-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">📅</div>
+          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+            <Icon name="calendar" className="w-10 h-10" />
+          </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Días Vividos
           </h1>
@@ -222,7 +225,7 @@ export default function DiasVividos() {
                   <p className="font-bold text-purple-700 dark:text-purple-300">{resultado.signoZodiacal.nombre}</p>
                 </div>
                 <div className="p-4 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-950/50 dark:to-cyan-950/50 rounded-2xl text-center ring-1 ring-blue-100 dark:ring-blue-900">
-                  <p className="text-2xl mb-1">👤</p>
+                  <Icon name="user" className="w-8 h-8 mx-auto mb-1 text-blue-600 dark:text-blue-400" weight="fill" />
                   <p className="font-bold text-blue-700 dark:text-blue-300 text-sm">{resultado.generacion}</p>
                 </div>
               </div>
@@ -238,11 +241,13 @@ export default function DiasVividos() {
               <div className="p-5 bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-950/50 dark:to-rose-950/50 rounded-2xl text-center ring-1 ring-pink-100 dark:ring-pink-900">
                 <p className="text-slate-600 dark:text-slate-300 font-medium">
                   {resultado.proximoCumple === 0 ? (
-                    <span className="font-black text-pink-600 text-xl">¡Hoy es tu cumpleaños! 🎂</span>
+                    <span className="font-black text-pink-600 text-xl flex items-center justify-center gap-2">
+                      ¡Hoy es tu cumpleaños! <Icon name="cake" className="w-6 h-6" />
+                    </span>
                   ) : (
-                    <>
-                      Faltan <span className="font-black text-pink-600 text-xl">{resultado.proximoCumple}</span> días para tu cumple 🎂
-                    </>
+                    <span className="flex items-center justify-center gap-2">
+                      Faltan <span className="font-black text-pink-600 text-xl">{resultado.proximoCumple}</span> días para tu cumple <Icon name="cake" className="w-6 h-6" />
+                    </span>
                   )}
                 </p>
               </div>
@@ -253,7 +258,9 @@ export default function DiasVividos() {
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-base">💡</span>
+          <span className="w-10 h-10 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-amber-600 dark:text-amber-400">
+            <Icon name="lightbulb" className="w-6 h-6" weight="fill" />
+          </span>
           Datos curiosos
         </h2>
         <ul className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed space-y-3">

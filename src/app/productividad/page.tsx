@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getAllPosts, categoryColors } from "@/lib/blog";
+import { Icon } from "@/lib/icons";
 
 export const metadata: Metadata = {
   title: "Calculadoras de Productividad - Optimiza tu Tiempo y Hábitos",
@@ -25,7 +26,7 @@ const herramientas = [
     nombre: "Valor de tu Hora",
     descripcion: "Descubre cuánto vale realmente tu tiempo. Ingresa tu salario y gastos laborales (transporte, comida) para conocer tu tarifa real por hora.",
     href: "/productividad/valor-hora",
-    emoji: "💎",
+    icon: "gem",
     gradient: "from-amber-400 to-orange-500",
     bgHover: "group-hover:bg-amber-50 dark:group-hover:bg-amber-950/50",
   },
@@ -33,7 +34,7 @@ const herramientas = [
     nombre: "Calculadora de Hábitos",
     descripcion: "¿Cuánto suman tus pequeños hábitos? Calcula el impacto a 1, 5 y 10 años de acciones diarias como ahorrar, leer, hacer ejercicio o dejar de fumar.",
     href: "/productividad/calculadora-habitos",
-    emoji: "🎯",
+    icon: "target",
     gradient: "from-emerald-400 to-teal-500",
     bgHover: "group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50",
   },
@@ -41,7 +42,7 @@ const herramientas = [
     nombre: "Auditoría de Tiempo",
     descripcion: "Todos tenemos 168 horas a la semana. Registra cómo distribuyes tu tiempo entre trabajo, sueño, familia y ocio, y recibe sugerencias de mejora.",
     href: "/productividad/auditoria-tiempo",
-    emoji: "⏱️",
+    icon: "clock",
     gradient: "from-blue-400 to-indigo-500",
     bgHover: "group-hover:bg-blue-50 dark:group-hover:bg-blue-950/50",
   },
@@ -49,7 +50,7 @@ const herramientas = [
     nombre: "Tu Vida en Semanas",
     descripcion: "Visualiza tu vida como una cuadrícula donde cada cuadrito es una semana. Descubre cuántas semanas has vivido y cuántas te quedan.",
     href: "/productividad/vida-en-semanas",
-    emoji: "📊",
+    icon: "calendar",
     gradient: "from-purple-400 to-pink-500",
     bgHover: "group-hover:bg-purple-50 dark:group-hover:bg-purple-950/50",
   },
@@ -57,7 +58,7 @@ const herramientas = [
     nombre: "Matriz Eisenhower",
     descripcion: "Prioriza tus tareas por urgencia e importancia. Organiza tu día y enfócate en lo que realmente importa.",
     href: "/productividad/matriz-eisenhower",
-    emoji: "📋",
+    icon: "grid",
     gradient: "from-indigo-400 to-violet-500",
     bgHover: "group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950/50",
   },
@@ -65,7 +66,7 @@ const herramientas = [
     nombre: "Calculadora Pomodoro",
     descripcion: "Planifica tus sesiones de trabajo con la técnica Pomodoro. Calcula cuántos pomodoros necesitas para completar tus tareas.",
     href: "/productividad/calculadora-pomodoro",
-    emoji: "🍅",
+    icon: "timer",
     gradient: "from-red-400 to-rose-500",
     bgHover: "group-hover:bg-red-50 dark:group-hover:bg-red-950/50",
   },
@@ -104,8 +105,8 @@ export default function ProductividadPage() {
               <div className={`w-full h-full bg-gradient-to-br ${herr.gradient} rounded-full blur-3xl`} />
             </div>
             <div className="relative">
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${herr.gradient} flex items-center justify-center text-3xl mb-6 shadow-lg`}>
-                {herr.emoji}
+              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${herr.gradient} flex items-center justify-center text-white mb-6 shadow-lg`}>
+                <Icon name={herr.icon} className="w-8 h-8" />
               </div>
               <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">
                 {herr.nombre}

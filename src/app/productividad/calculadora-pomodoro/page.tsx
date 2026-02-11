@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
+import { Icon } from "@/lib/icons";
 
 const faqs = [
   {
@@ -224,7 +225,7 @@ export default function CalculadoraPomodoro() {
     if ("Notification" in window && Notification.permission === "granted") {
       new Notification(mode === "trabajo" ? "¡Pomodoro completado!" : "¡Descanso terminado!", {
         body: mode === "trabajo" ? "Toma un descanso" : "Vuelve al trabajo",
-        icon: "🍅",
+        icon: "/apple-icon.png", // Usar una url real si existe, o dejarlo así
       });
     }
   }, [mode]);
@@ -333,7 +334,7 @@ export default function CalculadoraPomodoro() {
       case "trabajo":
         return {
           label: "Tiempo de trabajo",
-          emoji: "🍅",
+          icon: "tomato",
           color: "text-red-500",
           bgColor: "from-red-500 to-rose-500",
           ringColor: "ring-red-200 dark:ring-red-800",
@@ -342,7 +343,7 @@ export default function CalculadoraPomodoro() {
       case "descanso-corto":
         return {
           label: "Descanso corto",
-          emoji: "💧",
+          icon: "drop",
           color: "text-emerald-500",
           bgColor: "from-emerald-500 to-teal-500",
           ringColor: "ring-emerald-200 dark:ring-emerald-800",
@@ -351,7 +352,7 @@ export default function CalculadoraPomodoro() {
       case "descanso-largo":
         return {
           label: "Descanso largo",
-          emoji: "☕",
+          icon: "coffee",
           color: "text-blue-500",
           bgColor: "from-blue-500 to-teal-500",
           ringColor: "ring-blue-200 dark:ring-blue-800",
@@ -377,8 +378,8 @@ export default function CalculadoraPomodoro() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-amber-500/5">
         <div className="text-center mb-8">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">
-            🍅
+          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+            <Icon name="tomato" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora Pomodoro
@@ -392,23 +393,21 @@ export default function CalculadoraPomodoro() {
         <div className="flex gap-2 mb-8 p-1 bg-slate-100 dark:bg-slate-800 rounded-2xl">
           <button
             onClick={() => setViewMode("planificar")}
-            className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all ${
-              viewMode === "planificar"
+            className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all ${viewMode === "planificar"
                 ? "bg-white dark:bg-slate-700 text-amber-600 dark:text-amber-400 shadow"
                 : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
-            }`}
+              }`}
           >
-            📋 Planificar
+            <Icon name="clipboard" className="w-5 h-5" /> Planificar
           </button>
           <button
             onClick={() => setViewMode("temporizador")}
-            className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all ${
-              viewMode === "temporizador"
+            className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all ${viewMode === "temporizador"
                 ? "bg-white dark:bg-slate-700 text-amber-600 dark:text-amber-400 shadow"
                 : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
-            }`}
+              }`}
           >
-            ⏱️ Temporizador
+            <Icon name="timer" className="w-5 h-5" /> Temporizador
           </button>
         </div>
 
@@ -550,25 +549,22 @@ export default function CalculadoraPomodoro() {
                     {plan.map((item, index) => (
                       <div
                         key={index}
-                        className={`flex items-center justify-between p-3 rounded-xl ${
-                          item.tipo === "trabajo"
+                        className={`flex items-center justify-between p-3 rounded-xl ${item.tipo === "trabajo"
                             ? "bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500"
                             : item.tipo === "descanso-corto"
-                            ? "bg-emerald-50 dark:bg-emerald-900/20 border-l-4 border-emerald-500"
-                            : "bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500"
-                        }`}
+                              ? "bg-emerald-50 dark:bg-emerald-900/20 border-l-4 border-emerald-500"
+                              : "bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500"
+                          }`}
                       >
                         <div className="flex items-center gap-3">
-                          <span className="text-xl">
-                            {item.tipo === "trabajo" ? "🍅" : item.tipo === "descanso-corto" ? "💧" : "☕"}
-                          </span>
+                          <Icon name={item.tipo === "trabajo" ? "tomato" : item.tipo === "descanso-corto" ? "drop" : "coffee"} className="w-6 h-6" />
                           <div>
                             <p className="font-semibold text-slate-700 dark:text-slate-200 text-sm">
                               {item.tipo === "trabajo"
                                 ? `Pomodoro #${item.numero}`
                                 : item.tipo === "descanso-corto"
-                                ? "Descanso corto"
-                                : "Descanso largo"}
+                                  ? "Descanso corto"
+                                  : "Descanso largo"}
                             </p>
                             <p className="text-xs text-slate-500">{item.duracion} min</p>
                           </div>
@@ -591,7 +587,7 @@ export default function CalculadoraPomodoro() {
                   onClick={iniciarSesion}
                   className="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-2xl hover:from-emerald-600 hover:to-teal-600 transition-all shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2"
                 >
-                  <span>▶️</span> Iniciar sesión
+                  <Icon name="play" weight="fill" className="w-5 h-5" /> Iniciar sesión
                 </button>
               </div>
             )}
@@ -637,7 +633,7 @@ export default function CalculadoraPomodoro() {
 
                 {/* Timer display */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-4xl mb-2">{modeInfo.emoji}</span>
+                  <Icon name={modeInfo.icon} className="w-10 h-10 mb-2" />
                   <span className={`text-6xl font-black ${modeInfo.color} tabular-nums`}>
                     {formatTime(timeLeft)}
                   </span>
@@ -711,11 +707,10 @@ export default function CalculadoraPomodoro() {
               {Array.from({ length: config.pomodorosPorCiclo }).map((_, i) => (
                 <div
                   key={i}
-                  className={`w-4 h-4 rounded-full transition-all ${
-                    i < pomodorosEnCiclo
+                  className={`w-4 h-4 rounded-full transition-all ${i < pomodorosEnCiclo
                       ? "bg-red-500 scale-110"
                       : "bg-slate-200 dark:bg-slate-700"
-                  }`}
+                    }`}
                 />
               ))}
             </div>
@@ -797,7 +792,7 @@ export default function CalculadoraPomodoro() {
       <div className="max-w-2xl mx-auto">
         <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-2xl border border-amber-200 dark:border-amber-800">
           <p className="text-sm text-amber-700 dark:text-amber-300">
-            <strong>Tip:</strong> Durante el pomodoro, silencia notificaciones y evita distracciones.
+            <strong><Icon name="lightbulb" className="w-4 h-4 inline-block mr-1" weight="fill" /> Tip:</strong> Durante el pomodoro, silencia notificaciones y evita distracciones.
             Si surge algo urgente, anótalo y continúa. Trátalo en el descanso o después.
           </p>
         </div>

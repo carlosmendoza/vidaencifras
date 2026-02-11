@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
+import { Icon } from "@/lib/icons";
 
 const faqs = [
   {
@@ -84,7 +85,7 @@ export default function CalculadoraPresupuesto() {
       monto: resultado.necesidades,
       porcentaje: personalizarPorcentajes ? porcentajeNecesidades : 50,
       color: "from-red-400 to-rose-500",
-      icono: "🏠",
+      icono: "home",
       ejemplos: ["Arriendo o cuota vivienda", "Servicios públicos", "Mercado", "Transporte", "Salud", "Seguros"],
     },
     {
@@ -92,7 +93,7 @@ export default function CalculadoraPresupuesto() {
       monto: resultado.deseos,
       porcentaje: personalizarPorcentajes ? porcentajeDeseos : 30,
       color: "from-amber-400 to-orange-500",
-      icono: "🎉",
+      icono: "confetti",
       ejemplos: ["Restaurantes y domicilios", "Entretenimiento", "Ropa no esencial", "Suscripciones", "Hobbies"],
     },
     {
@@ -100,7 +101,7 @@ export default function CalculadoraPresupuesto() {
       monto: resultado.ahorro,
       porcentaje: personalizarPorcentajes ? porcentajeAhorro : 20,
       color: "from-emerald-400 to-teal-500",
-      icono: "💰",
+      icono: "piggy-bank",
       ejemplos: ["Fondo de emergencia", "Ahorro para metas", "Inversiones", "Pago extra de deudas", "Pensión voluntaria"],
     },
   ] : [];
@@ -116,7 +117,9 @@ export default function CalculadoraPresupuesto() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-violet-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-violet-400 to-purple-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">📊</div>
+          <div className="w-20 h-20 bg-gradient-to-br from-violet-400 to-purple-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+            <Icon name="bar-chart" className="w-10 h-10" />
+          </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Presupuesto 50/30/20
           </h1>
@@ -170,7 +173,9 @@ export default function CalculadoraPresupuesto() {
               <div className="space-y-4">
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="font-medium text-slate-600 dark:text-slate-300">🏠 Necesidades</span>
+                    <span className="font-medium text-slate-600 dark:text-slate-300 flex items-center gap-2">
+                      <Icon name="home" className="w-4 h-4" weight="fill" /> Necesidades
+                    </span>
                     <span className="font-bold text-rose-600">{porcentajeNecesidades}%</span>
                   </div>
                   <input
@@ -185,7 +190,9 @@ export default function CalculadoraPresupuesto() {
 
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="font-medium text-slate-600 dark:text-slate-300">🎉 Deseos</span>
+                    <span className="font-medium text-slate-600 dark:text-slate-300 flex items-center gap-2">
+                      <Icon name="confetti" className="w-4 h-4" weight="fill" /> Deseos
+                    </span>
                     <span className="font-bold text-amber-600">{porcentajeDeseos}%</span>
                   </div>
                   <input
@@ -200,7 +207,9 @@ export default function CalculadoraPresupuesto() {
 
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="font-medium text-slate-600 dark:text-slate-300">💰 Ahorro</span>
+                    <span className="font-medium text-slate-600 dark:text-slate-300 flex items-center gap-2">
+                      <Icon name="piggy-bank" className="w-4 h-4" weight="fill" /> Ahorro
+                    </span>
                     <span className="font-bold text-emerald-600">{porcentajeAhorro}%</span>
                   </div>
                   <input
@@ -272,8 +281,8 @@ export default function CalculadoraPresupuesto() {
                   >
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-3">
-                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${cat.color} flex items-center justify-center text-2xl shadow-lg`}>
-                          {cat.icono}
+                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${cat.color} flex items-center justify-center text-white shadow-lg`}>
+                          <Icon name={cat.icono} className="w-7 h-7" />
                         </div>
                         <div>
                           <h3 className="font-bold text-slate-800 dark:text-slate-100">{cat.nombre}</h3>
@@ -301,7 +310,7 @@ export default function CalculadoraPresupuesto() {
 
               {/* Consejos */}
               <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl text-sm text-amber-700 dark:text-amber-300">
-                <strong>💡 Consejo:</strong> Si tus necesidades superan el 50%, revisa si puedes reducir gastos fijos como servicios o buscar opciones más económicas de transporte.
+                <strong><Icon name="lightbulb" className="w-4 h-4 inline-block mr-1" weight="fill" /> Consejo:</strong> Si tus necesidades superan el 50%, revisa si puedes reducir gastos fijos como servicios o buscar opciones más económicas de transporte.
               </div>
             </div>
           )}

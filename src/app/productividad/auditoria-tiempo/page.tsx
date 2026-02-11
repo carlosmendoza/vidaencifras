@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import { Icon, getIconName } from "@/lib/icons";
 
 const faqs = [
   {
@@ -31,7 +32,7 @@ const faqs = [
 interface Categoria {
   id: string;
   nombre: string;
-  emoji: string;
+  icon: string;
   color: string;
   minRecomendado: number;
   maxRecomendado: number;
@@ -42,7 +43,7 @@ const categorias: Categoria[] = [
   {
     id: "sueño",
     nombre: "Sueño",
-    emoji: "😴",
+    icon: "moon",
     color: "#6366f1",
     minRecomendado: 49,
     maxRecomendado: 63,
@@ -51,7 +52,7 @@ const categorias: Categoria[] = [
   {
     id: "trabajo",
     nombre: "Trabajo",
-    emoji: "💼",
+    icon: "briefcase",
     color: "#f59e0b",
     minRecomendado: 35,
     maxRecomendado: 50,
@@ -60,7 +61,7 @@ const categorias: Categoria[] = [
   {
     id: "traslado",
     nombre: "Traslado",
-    emoji: "🚗",
+    icon: "car",
     color: "#64748b",
     minRecomendado: 0,
     maxRecomendado: 10,
@@ -69,7 +70,7 @@ const categorias: Categoria[] = [
   {
     id: "familia",
     nombre: "Familia",
-    emoji: "👨‍👩‍👧",
+    icon: "family",
     color: "#ec4899",
     minRecomendado: 10,
     maxRecomendado: 30,
@@ -78,7 +79,7 @@ const categorias: Categoria[] = [
   {
     id: "ejercicio",
     nombre: "Ejercicio",
-    emoji: "🏃",
+    icon: "run",
     color: "#10b981",
     minRecomendado: 3,
     maxRecomendado: 10,
@@ -87,7 +88,7 @@ const categorias: Categoria[] = [
   {
     id: "comidas",
     nombre: "Comidas",
-    emoji: "🍽️",
+    icon: "utensils",
     color: "#f97316",
     minRecomendado: 7,
     maxRecomendado: 14,
@@ -96,7 +97,7 @@ const categorias: Categoria[] = [
   {
     id: "higiene",
     nombre: "Higiene",
-    emoji: "🚿",
+    icon: "shower",
     color: "#06b6d4",
     minRecomendado: 5,
     maxRecomendado: 10,
@@ -105,7 +106,7 @@ const categorias: Categoria[] = [
   {
     id: "ocio",
     nombre: "Ocio",
-    emoji: "📺",
+    icon: "tv",
     color: "#8b5cf6",
     minRecomendado: 10,
     maxRecomendado: 25,
@@ -114,7 +115,7 @@ const categorias: Categoria[] = [
   {
     id: "desarrollo",
     nombre: "Desarrollo",
-    emoji: "📚",
+    icon: "books",
     color: "#3b82f6",
     minRecomendado: 5,
     maxRecomendado: 20,
@@ -123,7 +124,7 @@ const categorias: Categoria[] = [
   {
     id: "otros",
     nombre: "Otros",
-    emoji: "📋",
+    icon: "clipboard",
     color: "#78716c",
     minRecomendado: 0,
     maxRecomendado: 20,
@@ -167,7 +168,6 @@ export default function AuditoriaTiempoPage() {
         name: c.nombre,
         value: parseFloat(horas[c.id]) || 0,
         color: c.color,
-        emoji: c.emoji,
       }))
       .filter((d) => d.value > 0);
   }, [horas]);
@@ -324,8 +324,8 @@ export default function AuditoriaTiempoPage() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-3xl mx-auto shadow-2xl shadow-amber-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">
-            ⏱️
+          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+            <Icon name="clock" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Auditoría de Tiempo
@@ -337,31 +337,29 @@ export default function AuditoriaTiempoPage() {
 
         {/* Contador de horas */}
         <div
-          className={`mb-8 p-4 rounded-2xl text-center ${
-            Math.abs(horasRestantes) <= 0.5
-              ? "bg-emerald-50 dark:bg-emerald-950/30"
-              : horasRestantes > 0
+          className={`mb-8 p-4 rounded-2xl text-center ${Math.abs(horasRestantes) <= 0.5
+            ? "bg-emerald-50 dark:bg-emerald-950/30"
+            : horasRestantes > 0
               ? "bg-amber-50 dark:bg-amber-950/30"
               : "bg-rose-50 dark:bg-rose-950/30"
-          }`}
+            }`}
         >
           <p className="text-sm text-slate-600 dark:text-slate-400">
             Horas asignadas: <strong>{totalHoras.toFixed(1)}</strong> / 168
           </p>
           <p
-            className={`text-lg font-bold ${
-              Math.abs(horasRestantes) <= 0.5
-                ? "text-emerald-600"
-                : horasRestantes > 0
+            className={`text-lg font-bold ${Math.abs(horasRestantes) <= 0.5
+              ? "text-emerald-600"
+              : horasRestantes > 0
                 ? "text-amber-600"
                 : "text-rose-600"
-            }`}
+              }`}
           >
             {Math.abs(horasRestantes) <= 0.5
               ? "¡Perfecto! Todas las horas asignadas"
               : horasRestantes > 0
-              ? `Faltan ${horasRestantes.toFixed(1)} horas por asignar`
-              : `Te pasaste por ${Math.abs(horasRestantes).toFixed(1)} horas`}
+                ? `Faltan ${horasRestantes.toFixed(1)} horas por asignar`
+                : `Te pasaste por ${Math.abs(horasRestantes).toFixed(1)} horas`}
           </p>
         </div>
 
@@ -370,7 +368,7 @@ export default function AuditoriaTiempoPage() {
           {categorias.map((c) => (
             <div key={c.id} className="space-y-2">
               <label className="flex items-center gap-1 text-xs font-bold text-slate-700 dark:text-slate-300">
-                <span>{c.emoji}</span>
+                <Icon name={c.icon} className="w-4 h-4" />
                 {c.nombre}
               </label>
               <input
@@ -391,11 +389,10 @@ export default function AuditoriaTiempoPage() {
         <button
           onClick={calcularResultado}
           disabled={Math.abs(horasRestantes) > 0.5}
-          className={`w-full py-5 rounded-2xl font-black text-xl transition-all shadow-xl active:scale-[0.99] ${
-            Math.abs(horasRestantes) <= 0.5
-              ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:opacity-90 shadow-amber-500/20"
-              : "bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed"
-          }`}
+          className={`w-full py-5 rounded-2xl font-black text-xl transition-all shadow-xl active:scale-[0.99] ${Math.abs(horasRestantes) <= 0.5
+            ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:opacity-90 shadow-amber-500/20"
+            : "bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed"
+            }`}
         >
           Analizar mi tiempo
         </button>
@@ -445,7 +442,7 @@ export default function AuditoriaTiempoPage() {
                       style={{ backgroundColor: d.color }}
                     />
                     <span className="text-slate-600 dark:text-slate-400">
-                      {d.emoji} {d.name}
+                      <Icon name={categorias.find(cat => cat.nombre === d.name)?.icon || ""} className="w-3 h-3 inline mr-1" /> {d.name}
                     </span>
                   </div>
                 ))}
@@ -465,8 +462,8 @@ export default function AuditoriaTiempoPage() {
                 {puntuacionBalance >= 80
                   ? "¡Excelente! Tienes una distribución muy equilibrada"
                   : puntuacionBalance >= 60
-                  ? "Bien, pero hay áreas que podrías mejorar"
-                  : "Tu distribución tiene varios desequilibrios importantes"}
+                    ? "Bien, pero hay áreas que podrías mejorar"
+                    : "Tu distribución tiene varios desequilibrios importantes"}
               </p>
             </div>
 
@@ -479,30 +476,23 @@ export default function AuditoriaTiempoPage() {
                 {alertas.map((alerta, i) => (
                   <div
                     key={i}
-                    className={`p-3 rounded-xl flex items-center gap-3 ${
-                      alerta.tipo === "success"
-                        ? "bg-emerald-50 dark:bg-emerald-950/30"
-                        : alerta.tipo === "warning"
+                    className={`p-3 rounded-xl flex items-center gap-3 ${alerta.tipo === "success"
+                      ? "bg-emerald-50 dark:bg-emerald-950/30"
+                      : alerta.tipo === "warning"
                         ? "bg-amber-50 dark:bg-amber-950/30"
                         : "bg-rose-50 dark:bg-rose-950/30"
-                    }`}
+                      }`}
                   >
-                    <span className="text-lg">
-                      {alerta.tipo === "success"
-                        ? "✅"
-                        : alerta.tipo === "warning"
-                        ? "⚠️"
-                        : "🚨"}
-                    </span>
+                    <Icon name={alerta.tipo === "success" ? "check-circle" : alerta.tipo === "warning" ? "warning" : "warning-octagon"} className={`w-6 h-6 ${alerta.tipo === "success" ? "text-emerald-500" : alerta.tipo === "warning" ? "text-amber-500" : "text-rose-500"
+                      }`} weight="fill" />
                     <div>
                       <p
-                        className={`font-semibold text-sm ${
-                          alerta.tipo === "success"
-                            ? "text-emerald-700 dark:text-emerald-300"
-                            : alerta.tipo === "warning"
+                        className={`font-semibold text-sm ${alerta.tipo === "success"
+                          ? "text-emerald-700 dark:text-emerald-300"
+                          : alerta.tipo === "warning"
                             ? "text-amber-700 dark:text-amber-300"
                             : "text-rose-700 dark:text-rose-300"
-                        }`}
+                          }`}
                       >
                         {alerta.categoria}
                       </p>
@@ -518,7 +508,7 @@ export default function AuditoriaTiempoPage() {
             {/* Sugerencias */}
             <div className="p-6 bg-amber-50 dark:bg-amber-950/30 rounded-2xl border border-amber-200 dark:border-amber-800">
               <h3 className="font-bold text-amber-800 dark:text-amber-200 mb-3 flex items-center gap-2">
-                <span>💡</span> Sugerencias personalizadas
+                <Icon name="lightbulb" className="w-5 h-5" weight="fill" /> Sugerencias personalizadas
               </h3>
               <ul className="space-y-2">
                 {sugerencias.map((s, i) => (
@@ -540,15 +530,13 @@ export default function AuditoriaTiempoPage() {
       <div className="max-w-3xl mx-auto">
         <div className="p-8 card-glass rounded-[2rem]">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-base">
-              💡
-            </span>
+            <Icon name="lightbulb" className="w-8 h-8 text-amber-500" weight="fill" />
             Distribución recomendada
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 text-center">
             {categorias.map((c) => (
-              <div key={c.id} className="p-3 bg-slate-50 dark:bg-slate-800 rounded-xl">
-                <p className="text-2xl mb-1">{c.emoji}</p>
+              <div key={c.id} className="p-3 bg-slate-50 dark:bg-slate-800 rounded-xl flex flex-col items-center">
+                <Icon name={c.icon} className="w-6 h-6 mb-1 text-slate-600 dark:text-slate-300" />
                 <p className="font-bold text-slate-800 dark:text-slate-100 text-sm">
                   {c.nombre}
                 </p>

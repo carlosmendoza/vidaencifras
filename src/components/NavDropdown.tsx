@@ -3,34 +3,35 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Icon } from "@/lib/icons";
 
 const categorias = [
   {
     nombre: "Salud",
     descripcion: "Calorías, IMC y bienestar",
     href: "/salud",
-    emoji: "❤️",
+    icon: "heart",
     color: "text-red-500",
   },
   {
     nombre: "Finanzas",
     descripcion: "Inversiones, préstamos y gastos",
     href: "/finanzas",
-    emoji: "💰",
+    icon: "wallet",
     color: "text-emerald-500",
   },
   {
     nombre: "Productividad",
     descripcion: "Tiempo, hábitos y metas",
     href: "/productividad",
-    emoji: "⏱️",
+    icon: "clock",
     color: "text-amber-500",
   },
   {
     nombre: "Utilidades",
     descripcion: "Porcentajes, conversiones y más",
     href: "/herramientas",
-    emoji: "🔧",
+    icon: "wrench",
     color: "text-indigo-500",
   },
 ];
@@ -60,11 +61,10 @@ export function NavDropdown() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         onMouseEnter={() => setIsOpen(true)}
-        className={`flex items-center gap-1 transition-colors ${
-          isActive
+        className={`flex items-center gap-1 transition-colors ${isActive
             ? "text-indigo-600 dark:text-indigo-400"
             : "text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400"
-        }`}
+          }`}
       >
         Herramientas
         <svg
@@ -87,13 +87,12 @@ export function NavDropdown() {
               key={cat.href}
               href={cat.href}
               onClick={() => setIsOpen(false)}
-              className={`flex items-center gap-3 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors ${
-                pathname.startsWith(cat.href)
+              className={`flex items-center gap-3 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors ${pathname.startsWith(cat.href)
                   ? "bg-slate-50 dark:bg-slate-800"
                   : ""
-              }`}
+                }`}
             >
-              <span className={`text-xl ${cat.color}`}>{cat.emoji}</span>
+              <Icon name={cat.icon} className={`w-5 h-5 ${cat.color}`} weight="duotone" />
               <div>
                 <div className="font-semibold text-slate-800 dark:text-slate-100 text-sm">
                   {cat.nombre}

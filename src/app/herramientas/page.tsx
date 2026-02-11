@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Icon } from "@/lib/icons";
 
 export const metadata: Metadata = {
   title: "Herramientas y Calculadoras de Uso General",
@@ -23,7 +24,7 @@ const calculadoras = [
     nombre: "Calculadora de Porcentajes",
     descripcion: "Calcula cualquier porcentaje: aumentos, descuentos, diferencias y más",
     href: "/herramientas/calculadora-porcentajes",
-    emoji: "%",
+    icon: "percent",
     gradient: "from-cyan-400 to-blue-500",
     bgHover: "group-hover:bg-cyan-50 dark:group-hover:bg-cyan-950/50",
   },
@@ -31,7 +32,7 @@ const calculadoras = [
     nombre: "Calculadora de Descuentos",
     descripcion: "Calcula el precio final y cuánto ahorras con descuentos y ofertas",
     href: "/herramientas/calculadora-descuentos",
-    emoji: "🏷️",
+    icon: "tag",
     gradient: "from-pink-400 to-rose-500",
     bgHover: "group-hover:bg-pink-50 dark:group-hover:bg-pink-950/50",
   },
@@ -39,7 +40,7 @@ const calculadoras = [
     nombre: "Conversor de Unidades",
     descripcion: "Convierte entre unidades de longitud, peso, temperatura y más",
     href: "/herramientas/conversor-unidades",
-    emoji: "🔄",
+    icon: "refresh",
     gradient: "from-indigo-400 to-purple-500",
     bgHover: "group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950/50",
   },
@@ -47,7 +48,7 @@ const calculadoras = [
     nombre: "Días Vividos",
     descripcion: "Descubre cuántos días, horas y minutos has vivido desde tu nacimiento",
     href: "/herramientas/calculadora-dias-vividos",
-    emoji: "📅",
+    icon: "calendar",
     gradient: "from-amber-400 to-orange-500",
     bgHover: "group-hover:bg-amber-50 dark:group-hover:bg-amber-950/50",
   },
@@ -55,7 +56,7 @@ const calculadoras = [
     nombre: "Diferencia entre Fechas",
     descripcion: "Calcula el tiempo exacto entre dos fechas en años, meses y días",
     href: "/herramientas/calculadora-diferencia-fechas",
-    emoji: "📆",
+    icon: "calendar-days",
     gradient: "from-teal-400 to-cyan-500",
     bgHover: "group-hover:bg-teal-50 dark:group-hover:bg-teal-950/50",
   },
@@ -63,7 +64,7 @@ const calculadoras = [
     nombre: "Dividir Cuenta",
     descripcion: "Divide gastos entre amigos de forma justa y sin complicaciones",
     href: "/herramientas/calculadora-dividir-cuenta",
-    emoji: "🧾",
+    icon: "receipt",
     gradient: "from-emerald-400 to-teal-500",
     bgHover: "group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50",
   },
@@ -100,8 +101,8 @@ export default function HerramientasPage() {
               <div className={`w-full h-full bg-gradient-to-br ${calc.gradient} rounded-full blur-3xl`} />
             </div>
             <div className="relative">
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center text-3xl mb-6 shadow-lg`}>
-                {calc.emoji}
+              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center text-white mb-6 shadow-lg`}>
+                <Icon name={calc.icon} className="w-8 h-8" />
               </div>
               <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-3">
                 {calc.nombre}

@@ -108,13 +108,13 @@ export default function Porcentajes() {
       name: "Calculadora de Préstamos",
       href: "/finanzas/calculadora-prestamos",
       description: "Calcula cuotas e intereses",
-      emoji: "🏦",
+      icon: "landmark",
     },
     {
       name: "Calculadora de Interés Compuesto",
       href: "/finanzas/calculadora-interes-compuesto",
       description: "Simula el crecimiento de tu dinero",
-      emoji: "📈",
+      icon: "trending-up",
     },
   ];
 

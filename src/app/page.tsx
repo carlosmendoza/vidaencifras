@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAllPosts, categoryLabels, categoryColors } from "@/lib/blog";
 import { pilares, utilidadesDestacadas } from "@/lib/calculators";
+import { Icon } from "@/lib/icons";
 
 export default function Home() {
   const posts = getAllPosts().slice(0, 3);
@@ -36,8 +37,8 @@ export default function Home() {
                 <div className={`w-full h-full bg-gradient-to-br ${pilar.gradient} rounded-full blur-3xl`} />
               </div>
               <div className="relative">
-                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${pilar.gradient} flex items-center justify-center text-4xl mb-6 shadow-lg`}>
-                  {pilar.emoji}
+                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${pilar.gradient} flex items-center justify-center text-white mb-6 shadow-lg`}>
+                  <Icon name={pilar.icon} className="w-10 h-10" />
                 </div>
                 <h2 className={`text-3xl font-black mb-3 ${pilar.color} transition-colors`}>
                   {pilar.nombre}
@@ -78,8 +79,8 @@ export default function Home() {
               href={util.href}
               className="card-glass card-hover card-hover-indigo rounded-2xl p-6 group flex items-center gap-4"
             >
-              <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${util.gradient} flex items-center justify-center text-2xl shadow-lg flex-shrink-0`}>
-                {util.emoji}
+              <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${util.gradient} flex items-center justify-center text-white shadow-lg flex-shrink-0`}>
+                <Icon name={util.icon} className="w-7 h-7" />
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">
@@ -116,9 +117,8 @@ export default function Home() {
                 className="card-glass card-hover card-hover-pink rounded-2xl p-6 group"
               >
                 <span
-                  className={`inline-block px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${
-                    categoryColors[post.category] || "from-slate-500 to-slate-600"
-                  } text-white mb-3`}
+                  className={`inline-block px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${categoryColors[post.category] || "from-slate-500 to-slate-600"
+                    } text-white mb-3`}
                 >
                   {categoryLabels[post.category] || post.category}
                 </span>
@@ -153,21 +153,27 @@ export default function Home() {
         </div>
         <div className="grid gap-8 md:grid-cols-3">
           <div className="card-glass card-hover card-hover-amber rounded-3xl p-8 text-center space-y-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-2 shadow-lg">⚡</div>
+            <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center text-white mx-auto mb-2 shadow-lg">
+              <Icon name="lightning" className="w-8 h-8" weight="fill" />
+            </div>
             <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100">Rápido e Instantáneo</h3>
             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
               Consigue tus resultados al momento sin esperas ni pantallas de carga lentas.
             </p>
           </div>
           <div className="card-glass card-hover card-hover-emerald rounded-3xl p-8 text-center space-y-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-2 shadow-lg">🔒</div>
+            <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center text-white mx-auto mb-2 shadow-lg">
+              <Icon name="lock" className="w-8 h-8" weight="fill" />
+            </div>
             <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100">100% Privado</h3>
             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
               Tus datos son solo tuyos. No guardamos nada en servidores externos.
             </p>
           </div>
           <div className="card-glass card-hover card-hover-indigo rounded-3xl p-8 text-center space-y-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-violet-400 to-purple-500 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-2 shadow-lg">🆓</div>
+            <div className="w-16 h-16 bg-gradient-to-br from-violet-400 to-purple-500 rounded-2xl flex items-center justify-center text-white mx-auto mb-2 shadow-lg">
+              <Icon name="seal-check" className="w-8 h-8" weight="fill" />
+            </div>
             <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100">Siempre Gratis</h3>
             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
               Accede a todas nuestras herramientas sin pagar un solo peso.

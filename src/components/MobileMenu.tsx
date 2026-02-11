@@ -3,12 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Icon } from "@/lib/icons";
 
 const categorias = [
-  { nombre: "Salud", href: "/salud", emoji: "❤️" },
-  { nombre: "Finanzas", href: "/finanzas", emoji: "💰" },
-  { nombre: "Productividad", href: "/productividad", emoji: "⏱️" },
-  { nombre: "Utilidades", href: "/herramientas", emoji: "🔧" },
+  { nombre: "Salud", href: "/salud", icon: "heart" },
+  { nombre: "Finanzas", href: "/finanzas", icon: "wallet" },
+  { nombre: "Productividad", href: "/productividad", icon: "clock" },
+  { nombre: "Utilidades", href: "/herramientas", icon: "wrench" },
 ];
 
 export function MobileMenu() {
@@ -69,13 +70,12 @@ export function MobileMenu() {
                 key={cat.href}
                 href={cat.href}
                 onClick={closeMenu}
-                className={`flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition-colors ${
-                  pathname.startsWith(cat.href)
+                className={`flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition-colors ${pathname.startsWith(cat.href)
                     ? "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400"
                     : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-                }`}
+                  }`}
               >
-                <span>{cat.emoji}</span>
+                <Icon name={cat.icon} className="w-5 h-5" weight="duotone" />
                 {cat.nombre}
               </Link>
             ))}
@@ -83,11 +83,10 @@ export function MobileMenu() {
             <Link
               href="/blog"
               onClick={closeMenu}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                pathname.startsWith("/blog")
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${pathname.startsWith("/blog")
                   ? "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400"
                   : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-              }`}
+                }`}
             >
               Blog
             </Link>

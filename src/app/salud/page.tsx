@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Icon } from "@/lib/icons";
 
 export const metadata: Metadata = {
   title: "Calculadoras de Salud y Bienestar",
@@ -24,7 +25,7 @@ const calculadoras = [
     nombre: "Calculadora de Calorías (TDEE)",
     descripcion: "Calcula tu gasto calórico diario y macronutrientes según tu actividad física",
     href: "/salud/calculadora-calorias",
-    emoji: "🔥",
+    icon: "flame",
     gradient: "from-orange-400 to-red-500",
     bgHover: "group-hover:bg-orange-50 dark:group-hover:bg-orange-950/50",
   },
@@ -32,7 +33,7 @@ const calculadoras = [
     nombre: "Calculadora de IMC",
     descripcion: "Calcula tu índice de masa corporal y conoce tu peso ideal",
     href: "/salud/calculadora-imc",
-    emoji: "⚖️",
+    icon: "scale",
     gradient: "from-violet-400 to-purple-500",
     bgHover: "group-hover:bg-violet-50 dark:group-hover:bg-violet-950/50",
   },
@@ -40,7 +41,7 @@ const calculadoras = [
     nombre: "Calculadora de Hidratación",
     descripcion: "Descubre cuántos litros de agua necesitas beber según tu peso y actividad",
     href: "/salud/calculadora-hidratacion",
-    emoji: "💧",
+    icon: "droplets",
     gradient: "from-cyan-400 to-blue-500",
     bgHover: "group-hover:bg-cyan-50 dark:group-hover:bg-cyan-950/50",
   },
@@ -48,7 +49,7 @@ const calculadoras = [
     nombre: "Calculadora de Frecuencia Cardíaca",
     descripcion: "Calcula tu FC máxima y zonas de entrenamiento personalizadas",
     href: "/salud/calculadora-frecuencia-cardiaca",
-    emoji: "❤️",
+    icon: "heart",
     gradient: "from-rose-400 to-red-500",
     bgHover: "group-hover:bg-rose-50 dark:group-hover:bg-rose-950/50",
   },
@@ -56,7 +57,7 @@ const calculadoras = [
     nombre: "Calculadora de Sueño",
     descripcion: "Optimiza tus ciclos de sueño para despertar descansado",
     href: "/salud/calculadora-sueno",
-    emoji: "😴",
+    icon: "moon",
     gradient: "from-indigo-400 to-purple-500",
     bgHover: "group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950/50",
   },
@@ -93,8 +94,8 @@ export default function SaludPage() {
               <div className={`w-full h-full bg-gradient-to-br ${calc.gradient} rounded-full blur-3xl`} />
             </div>
             <div className="relative">
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center text-3xl mb-6 shadow-lg`}>
-                {calc.emoji}
+              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center text-white mb-6 shadow-lg`}>
+                <Icon name={calc.icon} className="w-8 h-8" />
               </div>
               <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-3">
                 {calc.nombre}

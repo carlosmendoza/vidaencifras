@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
+import { Icon } from "@/lib/icons";
 
 const faqs = [
   {
@@ -37,31 +38,31 @@ interface Tarea {
 
 type Cuadrante = "hacer" | "programar" | "delegar" | "eliminar";
 
-const cuadranteInfo: Record<Cuadrante, { titulo: string; emoji: string; color: string; bgColor: string; accion: string }> = {
+const cuadranteInfo: Record<Cuadrante, { titulo: string; icon: string; color: string; bgColor: string; accion: string }> = {
   hacer: {
     titulo: "HACER",
-    emoji: "🔥",
+    icon: "lightning",
     color: "text-red-600 dark:text-red-400",
     bgColor: "bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-800",
     accion: "Hazlo ahora, no lo pospongas",
   },
   programar: {
     titulo: "PROGRAMAR",
-    emoji: "📅",
+    icon: "bell",
     color: "text-blue-600 dark:text-blue-400",
     bgColor: "bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800",
     accion: "Agenda un momento específico",
   },
   delegar: {
     titulo: "DELEGAR",
-    emoji: "👥",
+    icon: "users",
     color: "text-amber-600 dark:text-amber-400",
     bgColor: "bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800",
     accion: "¿Quién puede hacerlo por ti?",
   },
   eliminar: {
     titulo: "ELIMINAR",
-    emoji: "🗑️",
+    icon: "trash",
     color: "text-slate-500 dark:text-slate-400",
     bgColor: "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700",
     accion: "Deja de hacerlo",
@@ -128,7 +129,7 @@ export default function MatrizEisenhower() {
       if (items.length === 0) return [];
       const info = cuadranteInfo[cuadrante as Cuadrante];
       return [
-        `\n${info.emoji} ${info.titulo}`,
+        `\n${info.icon.toUpperCase()} ${info.titulo}`,
         ...items.map((t) => `  ${t.completada ? "✓" : "○"} ${t.texto}`),
       ];
     });
@@ -160,8 +161,8 @@ export default function MatrizEisenhower() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-6xl mx-auto shadow-2xl shadow-amber-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">
-            📊
+          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+            <Icon name="grid" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Matriz de Eisenhower
@@ -307,14 +308,14 @@ export default function MatrizEisenhower() {
       <div className="max-w-6xl mx-auto">
         <div className="p-8 card-glass rounded-[2rem]">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-base">💡</span>
+            <Icon name="lightbulb" className="w-8 h-8 text-amber-500" weight="fill" />
             Guía de los 4 Cuadrantes
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {(Object.entries(cuadranteInfo) as [Cuadrante, typeof cuadranteInfo[Cuadrante]][]).map(([key, info]) => (
               <div key={key} className={`p-4 rounded-xl border ${info.bgColor}`}>
                 <h3 className={`font-bold ${info.color} flex items-center gap-2`}>
-                  {info.emoji} {info.titulo}
+                  <Icon name={info.icon} className="w-5 h-5" weight="fill" /> {info.titulo}
                 </h3>
                 <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">{info.accion}</p>
               </div>
@@ -352,7 +353,7 @@ function CuadranteCard({
     <div className={`p-4 rounded-2xl border-2 min-h-[200px] ${info.bgColor}`}>
       <div className="flex items-center justify-between mb-3">
         <h3 className={`font-bold ${info.color} flex items-center gap-2`}>
-          {info.emoji} {info.titulo}
+          <Icon name={info.icon} className="w-5 h-5" weight="bold" /> {info.titulo}
         </h3>
         <span className="text-xs text-slate-400 bg-white/50 dark:bg-slate-900/50 px-2 py-1 rounded-full">
           {tareas.length}
@@ -364,9 +365,8 @@ function CuadranteCard({
         {tareas.map((tarea) => (
           <div
             key={tarea.id}
-            className={`flex items-start gap-2 p-2 rounded-lg bg-white/60 dark:bg-slate-800/60 group ${
-              tarea.completada ? "opacity-50" : ""
-            }`}
+            className={`flex items-start gap-2 p-2 rounded-lg bg-white/60 dark:bg-slate-800/60 group ${tarea.completada ? "opacity-50" : ""
+              }`}
           >
             <input
               type="checkbox"
@@ -375,9 +375,8 @@ function CuadranteCard({
               className="mt-1 w-4 h-4 rounded border-2 border-slate-300 text-emerald-500 focus:ring-emerald-500"
             />
             <span
-              className={`flex-1 text-sm text-slate-700 dark:text-slate-300 ${
-                tarea.completada ? "line-through" : ""
-              }`}
+              className={`flex-1 text-sm text-slate-700 dark:text-slate-300 ${tarea.completada ? "line-through" : ""
+                }`}
             >
               {tarea.texto}
             </span>
@@ -388,7 +387,7 @@ function CuadranteCard({
                   className="p-1 text-red-400 hover:text-red-600"
                   title="Mover a Hacer"
                 >
-                  🔥
+                  <Icon name="lightning" weight="fill" className="w-4 h-4 text-red-400 hover:text-red-500" />
                 </button>
               )}
               {cuadrante !== "programar" && (
@@ -397,7 +396,7 @@ function CuadranteCard({
                   className="p-1 text-blue-400 hover:text-blue-600"
                   title="Mover a Programar"
                 >
-                  📅
+                  <Icon name="bell" weight="fill" className="w-4 h-4 text-blue-400 hover:text-blue-500" />
                 </button>
               )}
               <button

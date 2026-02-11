@@ -193,19 +193,19 @@ export default function CalculadoraSalarioNeto() {
       name: "Calculadora de Prima",
       href: "/finanzas/calculadora-prima",
       description: "Calcula tu prima de servicios",
-      emoji: "🎁",
+      icon: "gift",
     },
     {
       name: "Calculadora de Liquidación",
       href: "/finanzas/calculadora-liquidacion",
       description: "Calcula tu liquidación laboral",
-      emoji: "📋",
+      icon: "clipboard",
     },
     {
       name: "Calculadora de Horas Extras",
       href: "/finanzas/calculadora-horas-extras",
       description: "Calcula el valor de tus extras",
-      emoji: "⏰",
+      icon: "clock",
     },
   ];
 

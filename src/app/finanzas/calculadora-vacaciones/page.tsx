@@ -100,19 +100,19 @@ export default function CalculadoraVacaciones() {
       name: "Calculadora de Salario Neto",
       href: "/finanzas/calculadora-salario-neto",
       description: "Calcula tu sueldo después de descuentos",
-      emoji: "💵",
+      icon: "banknote",
     },
     {
       name: "Calculadora de Prima",
       href: "/finanzas/calculadora-prima",
       description: "Calcula tu prima de servicios",
-      emoji: "🎁",
+      icon: "gift",
     },
     {
       name: "Calculadora de Liquidación",
       href: "/finanzas/calculadora-liquidacion",
       description: "Calcula tu liquidación laboral",
-      emoji: "📋",
+      icon: "clipboard",
     },
   ];
 

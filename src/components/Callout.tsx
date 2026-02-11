@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Icon } from "@/lib/icons";
 
 type CalloutType = "tip" | "warning" | "info" | "example";
 
@@ -15,25 +16,25 @@ const styles: Record<
   tip: {
     bg: "bg-emerald-50 dark:bg-emerald-900/20",
     border: "border-emerald-500",
-    icon: "💡",
+    icon: "lightbulb",
     titleColor: "text-emerald-700 dark:text-emerald-400",
   },
   warning: {
     bg: "bg-amber-50 dark:bg-amber-900/20",
     border: "border-amber-500",
-    icon: "⚠️",
+    icon: "warning",
     titleColor: "text-amber-700 dark:text-amber-400",
   },
   info: {
     bg: "bg-blue-50 dark:bg-blue-900/20",
     border: "border-blue-500",
-    icon: "ℹ️",
+    icon: "info",
     titleColor: "text-blue-700 dark:text-blue-400",
   },
   example: {
     bg: "bg-purple-50 dark:bg-purple-900/20",
     border: "border-purple-500",
-    icon: "📝",
+    icon: "clipboard",
     titleColor: "text-purple-700 dark:text-purple-400",
   },
 };
@@ -54,7 +55,7 @@ export function Callout({ type = "info", title, children }: CalloutProps) {
       className={`my-6 p-4 rounded-xl border-l-4 ${style.bg} ${style.border}`}
     >
       <div className={`font-semibold mb-2 flex items-center gap-2 ${style.titleColor}`}>
-        <span>{style.icon}</span>
+        <Icon name={style.icon} className="w-5 h-5" weight="bold" />
         <span>{displayTitle}</span>
       </div>
       <div className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed [&>p]:mb-0">

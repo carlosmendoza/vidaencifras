@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
+import { Icon, getIconName } from "@/lib/icons";
 
 const faqs = [
   {
@@ -313,8 +314,8 @@ export default function CalculadoraHabitosPage() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-amber-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">
-            🎯
+          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+            <Icon name="target" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora de Hábitos
@@ -334,15 +335,14 @@ export default function CalculadoraHabitosPage() {
               <button
                 key={p.nombre}
                 onClick={() => seleccionarPlantilla(p)}
-                className={`px-3 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${
-                  nombreHabito === p.nombre
+                className={`px-3 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${nombreHabito === p.nombre
                     ? p.impacto === "positivo"
                       ? "bg-emerald-500 text-white"
                       : "bg-rose-500 text-white"
                     : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
-                }`}
+                  }`}
               >
-                <span>{p.emoji}</span>
+                <Icon name={getIconName(p.emoji)} className="w-4 h-4" />
                 {p.nombre}
               </button>
             ))}
@@ -356,11 +356,10 @@ export default function CalculadoraHabitosPage() {
               <button
                 key={tipo}
                 onClick={() => setTipoHabito(tipo)}
-                className={`flex-1 px-4 py-3 font-semibold transition-colors text-sm ${
-                  tipoHabito === tipo
+                className={`flex-1 px-4 py-3 font-semibold transition-colors text-sm ${tipoHabito === tipo
                     ? "bg-amber-500 text-white"
                     : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
-                }`}
+                  }`}
               >
                 {tipo === "dinero" ? "💰 Dinero" : tipo === "tiempo" ? "⏰ Tiempo" : "❤️ Salud"}
               </button>
@@ -371,21 +370,19 @@ export default function CalculadoraHabitosPage() {
           <div className="flex rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700">
             <button
               onClick={() => setTipoImpacto("positivo")}
-              className={`flex-1 px-5 py-4 font-semibold transition-colors ${
-                tipoImpacto === "positivo"
+              className={`flex-1 px-5 py-4 font-semibold transition-colors ${tipoImpacto === "positivo"
                   ? "bg-emerald-500 text-white"
                   : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
-              }`}
+                }`}
             >
               ✅ Hábito positivo
             </button>
             <button
               onClick={() => setTipoImpacto("negativo")}
-              className={`flex-1 px-5 py-4 font-semibold transition-colors ${
-                tipoImpacto === "negativo"
+              className={`flex-1 px-5 py-4 font-semibold transition-colors ${tipoImpacto === "negativo"
                   ? "bg-rose-500 text-white"
                   : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
-              }`}
+                }`}
             >
               ❌ Hábito a eliminar
             </button>
@@ -412,8 +409,8 @@ export default function CalculadoraHabitosPage() {
                 {tipoHabito === "dinero"
                   ? "Monto diario"
                   : tipoHabito === "tiempo"
-                  ? "Minutos por día"
-                  : "Cantidad diaria"}
+                    ? "Minutos por día"
+                    : "Cantidad diaria"}
               </label>
               {tipoHabito === "dinero" && <CurrencySelector colorClass="amber" />}
             </div>
@@ -441,11 +438,10 @@ export default function CalculadoraHabitosPage() {
                 <button
                   key={d}
                   onClick={() => setFrecuencia(d.toString())}
-                  className={`w-12 h-12 rounded-xl font-bold transition-colors ${
-                    frecuencia === d.toString()
+                  className={`w-12 h-12 rounded-xl font-bold transition-colors ${frecuencia === d.toString()
                       ? "bg-amber-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
-                  }`}
+                    }`}
                 >
                   {d}
                 </button>
@@ -493,19 +489,17 @@ export default function CalculadoraHabitosPage() {
             <div className="mt-10 space-y-6">
               {/* Encabezado del resultado */}
               <div
-                className={`p-6 rounded-3xl text-center ${
-                  tipoImpacto === "positivo"
+                className={`p-6 rounded-3xl text-center ${tipoImpacto === "positivo"
                     ? "bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 ring-1 ring-emerald-100 dark:ring-emerald-900"
                     : "bg-gradient-to-br from-rose-50 to-orange-50 dark:from-rose-950/50 dark:to-orange-950/50 ring-1 ring-rose-100 dark:ring-rose-900"
-                }`}
+                  }`}
               >
                 <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">
                   {tipoImpacto === "positivo" ? "En 10 años ganarás" : "En 10 años perderás"}
                 </p>
                 <p
-                  className={`text-4xl font-black ${
-                    tipoImpacto === "positivo" ? "text-emerald-600" : "text-rose-600"
-                  }`}
+                  className={`text-4xl font-black ${tipoImpacto === "positivo" ? "text-emerald-600" : "text-rose-600"
+                    }`}
                 >
                   {tipoHabito === "dinero" && moneda.simbolo}
                   {formatNumber(resultado.diezAños)}
@@ -537,9 +531,8 @@ export default function CalculadoraHabitosPage() {
                     >
                       <span className="text-slate-600 dark:text-slate-400">{item.periodo}</span>
                       <span
-                        className={`font-bold text-lg ${
-                          tipoImpacto === "positivo" ? "text-emerald-600" : "text-rose-600"
-                        }`}
+                        className={`font-bold text-lg ${tipoImpacto === "positivo" ? "text-emerald-600" : "text-rose-600"
+                          }`}
                       >
                         {tipoImpacto === "negativo" && "-"}
                         {tipoHabito === "dinero" && moneda.simbolo}
@@ -575,18 +568,16 @@ export default function CalculadoraHabitosPage() {
 
               {/* Mensaje motivacional */}
               <div
-                className={`p-6 rounded-2xl border ${
-                  tipoImpacto === "positivo"
+                className={`p-6 rounded-2xl border ${tipoImpacto === "positivo"
                     ? "bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800"
                     : "bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800"
-                }`}
+                  }`}
               >
                 <p
-                  className={`text-sm ${
-                    tipoImpacto === "positivo"
+                  className={`text-sm ${tipoImpacto === "positivo"
                       ? "text-emerald-800 dark:text-emerald-200"
                       : "text-amber-800 dark:text-amber-200"
-                  }`}
+                    }`}
                 >
                   {tipoImpacto === "positivo" ? (
                     <>
@@ -611,9 +602,7 @@ export default function CalculadoraHabitosPage() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-[2rem]">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-base">
-              💡
-            </span>
+            <Icon name="lightbulb" className="w-8 h-8 text-amber-500" weight="fill" />
             El poder de los hábitos pequeños
           </h2>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">

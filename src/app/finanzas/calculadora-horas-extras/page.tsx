@@ -145,19 +145,19 @@ export default function CalculadoraHorasExtras() {
       name: "Calculadora de Salario Neto",
       href: "/finanzas/calculadora-salario-neto",
       description: "Calcula tu sueldo después de descuentos",
-      emoji: "💵",
+      icon: "banknote",
     },
     {
       name: "Calculadora de Liquidación",
       href: "/finanzas/calculadora-liquidacion",
       description: "Calcula tu liquidación laboral",
-      emoji: "📋",
+      icon: "clipboard",
     },
     {
       name: "Calculadora de Vacaciones",
       href: "/finanzas/calculadora-vacaciones",
       description: "Calcula tus días y dinero",
-      emoji: "🏖️",
+      icon: "palmtree",
     },
   ];
 

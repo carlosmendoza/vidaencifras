@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
+import { Icon } from "@/lib/icons";
 
 type NivelActividad = "sedentario" | "ligero" | "moderado" | "activo" | "muy_activo";
 type Clima = "templado" | "calido" | "muy_calido";
@@ -90,13 +91,13 @@ export default function CalculadoraHidratacion() {
       name: "Calculadora de Calorías",
       href: "/salud/calculadora-calorias",
       description: "Calcula tu gasto calórico diario",
-      emoji: "🔥",
+      icon: "flame",
     },
     {
       name: "Calculadora de IMC",
       href: "/salud/calculadora-imc",
       description: "Conoce tu peso ideal",
-      emoji: "⚖️",
+      icon: "scale",
     },
   ];
 
@@ -120,8 +121,8 @@ export default function CalculadoraHidratacion() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-cyan-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">
-            💧
+          <div className="w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+            <Icon name="droplets" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora de Hidratación
@@ -162,11 +163,10 @@ export default function CalculadoraHidratacion() {
                 <button
                   key={nivel.value}
                   onClick={() => setActividad(nivel.value as NivelActividad)}
-                  className={`p-3 rounded-xl text-center transition-all ${
-                    actividad === nivel.value
+                  className={`p-3 rounded-xl text-center transition-all ${actividad === nivel.value
                       ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/20"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
-                  }`}
+                    }`}
                 >
                   <span className="font-bold text-sm block">{nivel.label}</span>
                   <span className={`text-xs ${actividad === nivel.value ? "text-cyan-100" : "text-slate-400"}`}>
@@ -187,11 +187,10 @@ export default function CalculadoraHidratacion() {
                 <button
                   key={nivel.value}
                   onClick={() => setClima(nivel.value as Clima)}
-                  className={`p-3 rounded-xl text-center transition-all ${
-                    clima === nivel.value
+                  className={`p-3 rounded-xl text-center transition-all ${clima === nivel.value
                       ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/20"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
-                  }`}
+                    }`}
                 >
                   <span className="font-bold text-sm block">{nivel.label}</span>
                   <span className={`text-xs ${clima === nivel.value ? "text-cyan-100" : "text-slate-400"}`}>
@@ -300,9 +299,7 @@ export default function CalculadoraHidratacion() {
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-cyan-100 dark:bg-cyan-900 rounded-lg flex items-center justify-center text-base">
-            ℹ️
-          </span>
+          <Icon name="info" className="w-8 h-8 text-cyan-500" weight="fill" />
           ¿Por qué es importante hidratarse?
         </h2>
         <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">

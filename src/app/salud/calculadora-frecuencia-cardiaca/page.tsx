@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
+import { Icon } from "@/lib/icons";
 
 interface Zona {
   nombre: string;
@@ -96,13 +97,13 @@ export default function CalculadoraFrecuenciaCardiaca() {
       name: "Calculadora de Calorías",
       href: "/salud/calculadora-calorias",
       description: "Calcula tu gasto calórico",
-      emoji: "🔥",
+      icon: "flame",
     },
     {
       name: "Calculadora de IMC",
       href: "/salud/calculadora-imc",
       description: "Conoce tu peso ideal",
-      emoji: "⚖️",
+      icon: "scale",
     },
   ];
 
@@ -121,8 +122,8 @@ export default function CalculadoraFrecuenciaCardiaca() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-rose-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-rose-400 to-red-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">
-            ❤️
+          <div className="w-20 h-20 bg-gradient-to-br from-rose-400 to-red-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+            <Icon name="heart" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora de Frecuencia Cardíaca
@@ -252,9 +253,7 @@ export default function CalculadoraFrecuenciaCardiaca() {
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-rose-100 dark:bg-rose-900 rounded-lg flex items-center justify-center text-base">
-            ℹ️
-          </span>
+          <Icon name="info" className="w-8 h-8 text-rose-500" weight="fill" />
           ¿Por qué entrenar por zonas?
         </h2>
         <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
