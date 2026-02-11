@@ -1,25 +1,32 @@
 import { Metadata } from "next";
 
+const CANONICAL_URL = "https://vidaencifras.com/finanzas/simulador-cuenta-ahorro";
+
 export const metadata: Metadata = {
-  title: "Simulador Cajita Nu vs Colchón | Calculadora de Ahorro Colombia",
+  title: "Comparador de Cuentas de Ahorro Colombia | Mejores Tasas 2025",
   description:
-    "Compara cuánto crece tu dinero en la Cajita de Nu vs guardarlo bajo el colchón. Visualiza el efecto de la inflación y el interés compuesto con gráficas interactivas.",
+    "Compara las mejores cuentas de ahorro en Colombia: Ualá, Nu, Pibank, Global66 y más. Simula rendimientos con interés compuesto y visualiza cuánto ganas vs guardar bajo el colchón.",
   keywords: [
-    "cajita nu",
-    "nubank colombia",
-    "ahorro nu",
+    "cuentas de ahorro colombia",
+    "mejor cuenta de ahorro",
+    "comparador cuentas ahorro",
+    "ualá colombia",
+    "nu colombia cajitas",
+    "pibank ahorro",
+    "global66",
+    "tasas de interés ahorro",
     "simulador ahorro",
-    "inflación colombia",
     "interés compuesto",
-    "dinero bajo el colchón",
-    "cuenta de ahorros",
-    "rendimiento ahorro",
   ],
   openGraph: {
-    title: "Simulador Cajita Nu vs Colchón",
+    title: "Comparador de Cuentas de Ahorro Colombia 2025",
     description:
-      "¿Cuánto pierdes guardando dinero bajo el colchón? Compara con la Cajita de Nu y visualiza la diferencia.",
+      "Encuentra la mejor cuenta de ahorro en Colombia. Compara tasas de Ualá, Nu, Pibank y más.",
     type: "website",
+    url: CANONICAL_URL,
+  },
+  alternates: {
+    canonical: CANONICAL_URL,
   },
 };
 

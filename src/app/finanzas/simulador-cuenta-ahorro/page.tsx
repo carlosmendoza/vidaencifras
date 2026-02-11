@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback, Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import {
   LineChart,
   Line,
@@ -135,15 +136,88 @@ interface DatoEvolucion {
   [key: string]: number | string;
 }
 
-export default function SimuladorCuentaAhorro() {
-  const [montoInicial, setMontoInicial] = useState<string>("1000000");
-  const [inflacion, setInflacion] = useState<string>(INFLACION_DEFECTO.toString());
-  const [meses, setMeses] = useState<string>("12");
-  const [aporteMensual, setAporteMensual] = useState<string>("0");
-  const [mostrarAvanzado, setMostrarAvanzado] = useState<boolean>(false);
-  const [cuentasSeleccionadas, setCuentasSeleccionadas] = useState<Set<CuentaId>>(
-    new Set(["uala", "pibank", "nu", "colchon"])
+const CUENTAS_DEFECTO: CuentaId[] = ["uala", "pibank", "nu", "colchon"];
+
+function parseCuentasFromParam(param: string | null): Set<CuentaId> {
+  if (!param) return new Set(CUENTAS_DEFECTO);
+  const ids = param.split(",").filter((id) =>
+    CUENTAS_AHORRO.some((c) => c.id === id)
+  ) as CuentaId[];
+  return ids.length > 0 ? new Set(ids) : new Set(CUENTAS_DEFECTO);
+}
+
+function SimuladorCuentaAhorroContent() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const [montoInicial, setMontoInicial] = useState<string>(
+    searchParams.get("monto") || "1000000"
   );
+  const [inflacion, setInflacion] = useState<string>(
+    searchParams.get("inflacion") || INFLACION_DEFECTO.toString()
+  );
+  const [meses, setMeses] = useState<string>(
+    searchParams.get("meses") || "12"
+  );
+  const [aporteMensual, setAporteMensual] = useState<string>(
+    searchParams.get("aporte") || "0"
+  );
+  const [mostrarAvanzado, setMostrarAvanzado] = useState<boolean>(
+    !!searchParams.get("aporte") && searchParams.get("aporte") !== "0"
+  );
+  const [cuentasSeleccionadas, setCuentasSeleccionadas] = useState<Set<CuentaId>>(
+    parseCuentasFromParam(searchParams.get("cuentas"))
+  );
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const buildShareUrl = useCallback(() => {
+    if (typeof window === "undefined") return "";
+    const params = new URLSearchParams();
+    params.set("monto", montoInicial);
+    params.set("meses", meses);
+    if (inflacion !== INFLACION_DEFECTO.toString()) {
+      params.set("inflacion", inflacion);
+    }
+    if (aporteMensual && aporteMensual !== "0") {
+      params.set("aporte", aporteMensual);
+    }
+    const cuentasArray = [...cuentasSeleccionadas].sort();
+    const cuentasDefectoOrdenadas = [...CUENTAS_DEFECTO].sort();
+    if (JSON.stringify(cuentasArray) !== JSON.stringify(cuentasDefectoOrdenadas)) {
+      params.set("cuentas", cuentasArray.join(","));
+    }
+    return `${window.location.origin}${pathname}?${params.toString()}`;
+  }, [montoInicial, meses, inflacion, aporteMensual, cuentasSeleccionadas, pathname]);
+
+  useEffect(() => {
+    if (!isClient) return;
+    const params = new URLSearchParams();
+    if (montoInicial && montoInicial !== "1000000") {
+      params.set("monto", montoInicial);
+    }
+    if (meses && meses !== "12") {
+      params.set("meses", meses);
+    }
+    if (inflacion && inflacion !== INFLACION_DEFECTO.toString()) {
+      params.set("inflacion", inflacion);
+    }
+    if (aporteMensual && aporteMensual !== "0") {
+      params.set("aporte", aporteMensual);
+    }
+    const cuentasArray = [...cuentasSeleccionadas].sort();
+    const cuentasDefectoOrdenadas = [...CUENTAS_DEFECTO].sort();
+    if (JSON.stringify(cuentasArray) !== JSON.stringify(cuentasDefectoOrdenadas)) {
+      params.set("cuentas", cuentasArray.join(","));
+    }
+    const queryString = params.toString();
+    const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
+    router.replace(newUrl, { scroll: false });
+  }, [montoInicial, meses, inflacion, aporteMensual, cuentasSeleccionadas, isClient, pathname, router]);
 
   const toggleCuenta = (id: CuentaId) => {
     const nuevas = new Set(cuentasSeleccionadas);
@@ -583,6 +657,7 @@ export default function SimuladorCuentaAhorro() {
                       label: "Mejor opción",
                       value: `${mejorCuenta.nombre} - ${mejorCuenta.tasa}% EA`,
                     }}
+                    url={buildShareUrl()}
                   />
                 </div>
               )}
@@ -650,5 +725,29 @@ export default function SimuladorCuentaAhorro() {
         </div>
       </div>
     </div>
+  );
+}
+
+function SimuladorLoading() {
+  return (
+    <div className="space-y-8">
+      <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-5xl mx-auto shadow-2xl shadow-emerald-500/5">
+        <div className="text-center mb-10">
+          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg animate-pulse">
+            🏦
+          </div>
+          <div className="h-10 bg-slate-200 dark:bg-slate-700 rounded-xl w-3/4 mx-auto mb-3 animate-pulse" />
+          <div className="h-5 bg-slate-100 dark:bg-slate-800 rounded-lg w-1/2 mx-auto animate-pulse" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function SimuladorCuentaAhorro() {
+  return (
+    <Suspense fallback={<SimuladorLoading />}>
+      <SimuladorCuentaAhorroContent />
+    </Suspense>
   );
 }
