@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Icon } from "@/lib/icons";
 
 type Categoria = "longitud" | "peso" | "temperatura" | "volumen" | "area" | "velocidad";
 
@@ -14,7 +15,7 @@ interface Unidad {
 
 interface CategoriaData {
   nombre: string;
-  emoji: string;
+  icon: string;
   unidadBase: string;
   unidades: Unidad[];
 }
@@ -22,7 +23,7 @@ interface CategoriaData {
 const categorias: Record<Categoria, CategoriaData> = {
   longitud: {
     nombre: "Longitud",
-    emoji: "📏",
+    icon: "scale",
     unidadBase: "metros",
     unidades: [
       { id: "km", nombre: "Kilómetros", simbolo: "km", factorBase: 1000 },
@@ -37,7 +38,7 @@ const categorias: Record<Categoria, CategoriaData> = {
   },
   peso: {
     nombre: "Peso / Masa",
-    emoji: "⚖️",
+    icon: "scale",
     unidadBase: "kilogramos",
     unidades: [
       { id: "t", nombre: "Toneladas", simbolo: "t", factorBase: 1000 },
@@ -51,7 +52,7 @@ const categorias: Record<Categoria, CategoriaData> = {
   },
   temperatura: {
     nombre: "Temperatura",
-    emoji: "🌡️",
+    icon: "flame",
     unidadBase: "celsius",
     unidades: [
       { id: "c", nombre: "Celsius", simbolo: "°C", factorBase: 1 },
@@ -61,7 +62,7 @@ const categorias: Record<Categoria, CategoriaData> = {
   },
   volumen: {
     nombre: "Volumen",
-    emoji: "🧊",
+    icon: "drop",
     unidadBase: "litros",
     unidades: [
       { id: "m3", nombre: "Metros cúbicos", simbolo: "m³", factorBase: 1000 },
@@ -76,7 +77,7 @@ const categorias: Record<Categoria, CategoriaData> = {
   },
   area: {
     nombre: "Área",
-    emoji: "📐",
+    icon: "scale",
     unidadBase: "metros cuadrados",
     unidades: [
       { id: "km2", nombre: "Kilómetros²", simbolo: "km²", factorBase: 1000000 },
@@ -90,7 +91,7 @@ const categorias: Record<Categoria, CategoriaData> = {
   },
   velocidad: {
     nombre: "Velocidad",
-    emoji: "🚀",
+    icon: "lightning",
     unidadBase: "m/s",
     unidades: [
       { id: "kmh", nombre: "Kilómetros/hora", simbolo: "km/h", factorBase: 0.277778 },
@@ -178,7 +179,9 @@ export default function ConversorUnidades() {
 
       <div className="card-glass rounded-[2.5rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-indigo-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">🔄</div>
+          <div className="w-20 h-20 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+            <Icon name="refresh" className="w-10 h-10" />
+          </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Conversor de Unidades
           </h1>
@@ -205,7 +208,7 @@ export default function ConversorUnidades() {
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
               >
-                <p className="text-xl mb-1">{categorias[cat].emoji}</p>
+                <p className="text-xl mb-1"><Icon name={categorias[cat].icon} className="w-5 h-5 mx-auto" /></p>
                 <p className="text-xs font-bold">{categorias[cat].nombre}</p>
               </button>
             ))}

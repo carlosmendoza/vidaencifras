@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
+import { Icon } from "@/lib/icons";
 
 type TipoCalculo = "porcentaje_de" | "que_porcentaje" | "aumento" | "descuento" | "diferencia";
 
@@ -213,7 +214,9 @@ export default function Porcentajes() {
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-[2rem]">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-cyan-100 dark:bg-cyan-900 rounded-lg flex items-center justify-center text-base">💡</span>
+          <span className="w-8 h-8 bg-cyan-100 dark:bg-cyan-900 rounded-lg flex items-center justify-center text-cyan-600 dark:text-cyan-400">
+            <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
+          </span>
           Fórmulas útiles
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
