@@ -275,19 +275,19 @@ export default function CalculadoraHidratacion() {
                 </p>
                 <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-500">✓</span>
+                    <Icon name="seal-check" className="w-4 h-4 text-emerald-500" weight="fill" />
                     Bebe un vaso de agua al despertar
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-500">✓</span>
+                    <Icon name="seal-check" className="w-4 h-4 text-emerald-500" weight="fill" />
                     Lleva una botella de agua contigo
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-500">✓</span>
+                    <Icon name="seal-check" className="w-4 h-4 text-emerald-500" weight="fill" />
                     Bebe antes de sentir sed
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-500">✓</span>
+                    <Icon name="seal-check" className="w-4 h-4 text-emerald-500" weight="fill" />
                     Come frutas y verduras con alto contenido de agua
                   </li>
                 </ul>
