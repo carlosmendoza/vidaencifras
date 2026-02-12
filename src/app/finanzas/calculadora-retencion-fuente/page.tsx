@@ -78,9 +78,9 @@ export default function CalculadoraRetencion() {
     <div className="space-y-8">
       <Breadcrumbs />
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-emerald-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
             <Icon name="file-text" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -104,7 +104,7 @@ export default function CalculadoraRetencion() {
                   onClick={() => setField("tipoRetencion", t.tipo)}
                   className={`px-4 py-3 rounded-xl font-semibold text-sm transition-all text-left ${
                     values.tipoRetencion === t.tipo
-                      ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg"
+                      ? "bg-teal-500 text-white shadow-lg"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
                 >
@@ -125,7 +125,7 @@ export default function CalculadoraRetencion() {
                 onClick={() => setField("esDeclarante", "true")}
                 className={`flex-1 px-5 py-4 font-semibold transition-colors ${
                   values.esDeclarante === "true"
-                    ? "bg-emerald-500 text-white"
+                    ? "bg-teal-500 text-white"
                     : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
               >
@@ -135,7 +135,7 @@ export default function CalculadoraRetencion() {
                 onClick={() => setField("esDeclarante", "false")}
                 className={`flex-1 px-5 py-4 font-semibold transition-colors ${
                   values.esDeclarante !== "true"
-                    ? "bg-emerald-500 text-white"
+                    ? "bg-teal-500 text-white"
                     : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
               >
@@ -180,11 +180,11 @@ export default function CalculadoraRetencion() {
               )}
 
               {/* Resultado principal */}
-              <div className="p-8 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 rounded-3xl text-center ring-1 ring-emerald-100 dark:ring-emerald-900">
+              <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl text-center ring-1 ring-teal-100 dark:ring-teal-900">
                 <p className="text-slate-500 dark:text-slate-400 font-medium text-sm mb-2">
                   Neto a recibir
                 </p>
-                <p className="text-5xl font-black text-emerald-600 dark:text-emerald-400">
+                <p className="text-5xl font-black text-teal-600 dark:text-teal-400">
                   ${formatMoney(resultado.netoRecibir)}
                 </p>
               </div>
@@ -199,7 +199,7 @@ export default function CalculadoraRetencion() {
                   <span className="text-slate-600 dark:text-slate-400">
                     Retención ({resultado.tasaAplicada}%)
                   </span>
-                  <span className="font-bold text-red-600">-${formatMoney(resultado.retencion)}</span>
+                  <span className="font-bold text-rose-600">-${formatMoney(resultado.retencion)}</span>
                 </div>
                 <div className="flex justify-between items-center p-4 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl border-2 border-emerald-200 dark:border-emerald-800">
                   <span className="text-emerald-700 dark:text-emerald-300 font-medium">Neto a recibir</span>
@@ -223,7 +223,7 @@ export default function CalculadoraRetencion() {
       {/* Información sobre UVT */}
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+          <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600 dark:text-teal-400">
             <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
           </span>
           Tasas de retención 2025
@@ -256,7 +256,7 @@ export default function CalculadoraRetencion() {
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="emerald" />
+        <FAQ items={faqs} colorClass="teal" />
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">

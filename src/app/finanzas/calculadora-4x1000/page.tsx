@@ -65,14 +65,14 @@ export default function Calculadora4x1000() {
     <div className="space-y-8">
       <Link
         href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver a Finanzas
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-indigo-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-indigo-400 to-blue-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
             <Icon name="landmark" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -106,7 +106,7 @@ export default function Calculadora4x1000() {
                   onClick={() => setMonto(ej.valor.toString())}
                   className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
                     monto === ej.valor.toString()
-                      ? "bg-indigo-500 text-white"
+                      ? "bg-teal-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                   }`}
                 >
@@ -132,7 +132,7 @@ export default function Calculadora4x1000() {
                   onClick={() => setFrecuencia(opt.value as typeof frecuencia)}
                   className={`px-4 py-3 rounded-xl font-semibold transition-colors ${
                     frecuencia === opt.value
-                      ? "bg-indigo-500 text-white"
+                      ? "bg-teal-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                   }`}
                 >
@@ -160,12 +160,12 @@ export default function Calculadora4x1000() {
           {/* Resultado instantáneo */}
           {montoNum > 0 && (
             <div className="mt-8 space-y-4">
-              <div className="p-6 bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-950/50 dark:to-blue-950/50 rounded-3xl ring-1 ring-indigo-100 dark:ring-indigo-900">
+              <div className="p-6 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900">
                 <div className="text-center">
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
                     Impuesto 4x1000 {frecuencia === "unica" ? "" : frecuencia === "mensual" ? "(anual)" : "(total año)"}
                   </p>
-                  <p className="text-4xl font-black text-indigo-600">
+                  <p className="text-4xl font-black text-teal-600">
                     ${formatMoney(impuestoTotal)}
                   </p>
                   {frecuencia === "unica" && (
@@ -223,7 +223,7 @@ export default function Calculadora4x1000() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-500">
               <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
             </span>
             ¿Cómo funciona el 4x1000?
@@ -233,15 +233,15 @@ export default function Calculadora4x1000() {
           </p>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
             <li className="flex gap-3">
-              <span className="text-indigo-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Se cobra en:</strong> Retiros en cajero, transferencias, pagos con cheque, débitos automáticos.</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-indigo-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>NO se cobra en:</strong> Pagos con tarjeta débito/crédito en comercios, cuenta exenta (hasta 350 UVT/mes).</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-indigo-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Tip:</strong> Marca tu cuenta principal como exenta y evita este impuesto en la mayoría de tus transacciones.</span>
             </li>
           </ul>
@@ -251,7 +251,7 @@ export default function Calculadora4x1000() {
       {/* FAQs */}
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="indigo" />
+          <FAQ items={faqs} colorClass="teal" />
         </div>
       </div>
     </div>

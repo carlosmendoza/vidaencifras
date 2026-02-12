@@ -139,14 +139,14 @@ export default function DiferenciaFechas() {
     <div className="space-y-8">
       <Link
         href="/"
-        className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver al inicio
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-purple-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+          <div className="w-20 h-20 bg-purple-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
             <Icon name="calendar" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -166,7 +166,7 @@ export default function DiferenciaFechas() {
               </label>
               <button
                 onClick={() => setHoy("inicio")}
-                className="text-xs font-semibold text-teal-600 hover:text-teal-700"
+                className="text-xs font-semibold text-purple-600 hover:text-purple-700"
               >
                 Hoy
               </button>
@@ -187,7 +187,7 @@ export default function DiferenciaFechas() {
               </label>
               <button
                 onClick={() => setHoy("fin")}
-                className="text-xs font-semibold text-teal-600 hover:text-teal-700"
+                className="text-xs font-semibold text-purple-600 hover:text-purple-700"
               >
                 Hoy
               </button>
@@ -202,7 +202,7 @@ export default function DiferenciaFechas() {
 
           <button
             onClick={calcular}
-            className="w-full bg-gradient-to-r from-teal-500 to-cyan-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-teal-500/20 active:scale-[0.99]"
+            className="w-full bg-purple-500 hover:bg-purple-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-purple-500/20 active:scale-[0.99]"
           >
             Calcular Diferencia
           </button>
@@ -210,27 +210,27 @@ export default function DiferenciaFechas() {
           {resultado && (
             <div className="mt-10 space-y-4">
               {/* Resultado exacto */}
-              <div className="p-6 bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-950/50 dark:to-cyan-950/50 rounded-3xl text-center ring-1 ring-teal-100 dark:ring-teal-900">
+              <div className="p-6 bg-purple-50 dark:bg-purple-950/50 rounded-3xl text-center ring-1 ring-purple-100 dark:ring-purple-900">
                 <p className="text-slate-500 dark:text-slate-400 font-medium text-sm mb-3">Diferencia exacta</p>
                 <div className="flex justify-center items-baseline gap-2 flex-wrap">
                   {resultado.aniosCompletos > 0 && (
                     <>
-                      <span className="text-4xl font-black text-teal-600">{resultado.aniosCompletos}</span>
-                      <span className="text-lg font-bold text-teal-500 mr-2">
+                      <span className="text-4xl font-black text-purple-600">{resultado.aniosCompletos}</span>
+                      <span className="text-lg font-bold text-purple-500 mr-2">
                         {resultado.aniosCompletos === 1 ? "año" : "años"}
                       </span>
                     </>
                   )}
                   {resultado.mesesRestantes > 0 && (
                     <>
-                      <span className="text-3xl font-black text-teal-500">{resultado.mesesRestantes}</span>
-                      <span className="text-base font-bold text-teal-400 mr-2">
+                      <span className="text-3xl font-black text-purple-500">{resultado.mesesRestantes}</span>
+                      <span className="text-base font-bold text-purple-400 mr-2">
                         {resultado.mesesRestantes === 1 ? "mes" : "meses"}
                       </span>
                     </>
                   )}
-                  <span className="text-2xl font-black text-teal-400">{resultado.diasRestantes}</span>
-                  <span className="text-sm font-bold text-teal-300">
+                  <span className="text-2xl font-black text-purple-400">{resultado.diasRestantes}</span>
+                  <span className="text-sm font-bold text-purple-300">
                     {resultado.diasRestantes === 1 ? "día" : "días"}
                   </span>
                 </div>
@@ -269,7 +269,7 @@ export default function DiferenciaFechas() {
                   <p className="text-2xl font-black text-emerald-600">{formatNumber(resultado.diasLaborables)}</p>
                   <p className="text-xs font-bold text-emerald-500">días laborables</p>
                 </div>
-                <div className="p-4 bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-950/50 dark:to-indigo-950/50 rounded-2xl text-center ring-1 ring-purple-100 dark:ring-purple-900">
+                <div className="p-4 bg-purple-50 dark:bg-purple-950/50 rounded-2xl text-center ring-1 ring-purple-100 dark:ring-purple-900">
                   <p className="text-2xl font-black text-purple-600">{formatNumber(resultado.finesDeSemana)}</p>
                   <p className="text-xs font-bold text-purple-500">fines de semana</p>
                 </div>
@@ -281,22 +281,22 @@ export default function DiferenciaFechas() {
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600 dark:text-teal-400">
+          <span className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center text-purple-600 dark:text-purple-400">
             <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
           </span>
           Usos comunes
         </h2>
         <ul className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed space-y-3">
           <li className="flex items-start gap-2">
-            <span className="text-teal-500">•</span>
+            <span className="text-purple-500">•</span>
             Calcular cuántos días faltan para un evento importante
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-teal-500">•</span>
+            <span className="text-purple-500">•</span>
             Saber la duración exacta de un proyecto o contrato
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-teal-500">•</span>
+            <span className="text-purple-500">•</span>
             Contar días laborables para facturación o plazos
           </li>
         </ul>

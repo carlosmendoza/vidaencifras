@@ -150,14 +150,14 @@ export default function DiasVividos() {
     <div className="space-y-8">
       <Link
         href="/"
-        className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver al inicio
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-amber-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-purple-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-purple-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
             <Icon name="calendar" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -184,7 +184,7 @@ export default function DiasVividos() {
 
           <button
             onClick={calcular}
-            className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-amber-500/20 active:scale-[0.99]"
+            className="w-full bg-purple-500 hover:bg-purple-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-purple-500/20 active:scale-[0.99]"
           >
             Calcular
           </button>
@@ -192,15 +192,15 @@ export default function DiasVividos() {
           {resultado && (
             <div className="mt-10 space-y-4">
               {/* Edad exacta */}
-              <div className="p-6 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/50 dark:to-orange-950/50 rounded-3xl text-center ring-1 ring-amber-100 dark:ring-amber-900">
+              <div className="p-6 bg-purple-50 dark:bg-purple-950/50 rounded-3xl text-center ring-1 ring-purple-100 dark:ring-purple-900">
                 <p className="text-slate-500 dark:text-slate-400 font-medium text-sm mb-2">Tu edad exacta</p>
                 <div className="flex justify-center items-baseline gap-1 flex-wrap">
-                  <span className="text-5xl font-black text-amber-600">{resultado.edadAnios}</span>
-                  <span className="text-lg font-bold text-amber-500">años</span>
-                  <span className="text-3xl font-black text-amber-500 mx-1">{resultado.edadMeses}</span>
-                  <span className="text-base font-bold text-amber-400">meses</span>
-                  <span className="text-2xl font-black text-amber-400 mx-1">{resultado.edadDias}</span>
-                  <span className="text-sm font-bold text-amber-300">días</span>
+                  <span className="text-5xl font-black text-purple-600">{resultado.edadAnios}</span>
+                  <span className="text-lg font-bold text-purple-500">años</span>
+                  <span className="text-3xl font-black text-purple-500 mx-1">{resultado.edadMeses}</span>
+                  <span className="text-base font-bold text-purple-400">meses</span>
+                  <span className="text-2xl font-black text-purple-400 mx-1">{resultado.edadDias}</span>
+                  <span className="text-sm font-bold text-purple-300">días</span>
                 </div>
               </div>
 
@@ -230,13 +230,13 @@ export default function DiasVividos() {
 
               {/* Signo y generación */}
               <div className="grid grid-cols-2 gap-3">
-                <div className="p-4 bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-950/50 dark:to-indigo-950/50 rounded-2xl text-center ring-1 ring-purple-100 dark:ring-purple-900">
+                <div className="p-4 bg-purple-50 dark:bg-purple-950/50 rounded-2xl text-center ring-1 ring-purple-100 dark:ring-purple-900">
                   <p className="text-3xl mb-1">{resultado.signoZodiacal.emoji}</p>
                   <p className="font-bold text-purple-700 dark:text-purple-300">{resultado.signoZodiacal.nombre}</p>
                 </div>
-                <div className="p-4 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-950/50 dark:to-cyan-950/50 rounded-2xl text-center ring-1 ring-blue-100 dark:ring-blue-900">
-                  <Icon name="user" className="w-8 h-8 mx-auto mb-1 text-blue-600 dark:text-blue-400" weight="fill" />
-                  <p className="font-bold text-blue-700 dark:text-blue-300 text-sm">{resultado.generacion}</p>
+                <div className="p-4 bg-purple-50 dark:bg-purple-950/50 rounded-2xl text-center ring-1 ring-purple-100 dark:ring-purple-900">
+                  <Icon name="user" className="w-8 h-8 mx-auto mb-1 text-purple-600 dark:text-purple-400" weight="fill" />
+                  <p className="font-bold text-purple-700 dark:text-purple-300 text-sm">{resultado.generacion}</p>
                 </div>
               </div>
 
@@ -248,15 +248,15 @@ export default function DiasVividos() {
               </div>
 
               {/* Próximo cumpleaños */}
-              <div className="p-5 bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-950/50 dark:to-rose-950/50 rounded-2xl text-center ring-1 ring-pink-100 dark:ring-pink-900">
+              <div className="p-5 bg-purple-50 dark:bg-purple-950/50 rounded-2xl text-center ring-1 ring-purple-100 dark:ring-purple-900">
                 <p className="text-slate-600 dark:text-slate-300 font-medium">
                   {resultado.proximoCumple === 0 ? (
-                    <span className="font-black text-pink-600 text-xl flex items-center justify-center gap-2">
+                    <span className="font-black text-purple-600 text-xl flex items-center justify-center gap-2">
                       ¡Hoy es tu cumpleaños! <Icon name="cake" className="w-6 h-6" />
                     </span>
                   ) : (
                     <span className="flex items-center justify-center gap-2">
-                      Faltan <span className="font-black text-pink-600 text-xl">{resultado.proximoCumple}</span> días para tu cumple <Icon name="cake" className="w-6 h-6" />
+                      Faltan <span className="font-black text-purple-600 text-xl">{resultado.proximoCumple}</span> días para tu cumple <Icon name="cake" className="w-6 h-6" />
                     </span>
                   )}
                 </p>
@@ -268,22 +268,22 @@ export default function DiasVividos() {
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-10 h-10 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-amber-600 dark:text-amber-400">
+          <span className="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center text-purple-600 dark:text-purple-400">
             <Icon name="lightbulb" className="w-6 h-6" weight="fill" />
           </span>
           Datos curiosos
         </h2>
         <ul className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed space-y-3">
           <li className="flex items-start gap-2">
-            <span className="text-amber-500">•</span>
+            <span className="text-purple-500">•</span>
             El promedio de vida mundial es de aproximadamente 27,375 días (75 años)
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-amber-500">•</span>
+            <span className="text-purple-500">•</span>
             Pasamos cerca de 8,760 días durmiendo (24 años)
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-amber-500">•</span>
+            <span className="text-purple-500">•</span>
             El corazón late aproximadamente 100,000 veces por día
           </li>
         </ul>

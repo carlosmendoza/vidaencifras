@@ -111,14 +111,14 @@ export default function CalculadoraPresupuesto() {
     <div className="space-y-8">
       <Link
         href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver a Finanzas
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-violet-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-violet-400 to-purple-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
             <Icon name="bar-chart" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -135,7 +135,7 @@ export default function CalculadoraPresupuesto() {
               <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
                 ¿Cuánto ganas al mes?
               </label>
-              <CurrencySelector colorClass="violet" />
+              <CurrencySelector colorClass="teal" />
             </div>
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">{moneda.simbolo}</span>
@@ -234,17 +234,17 @@ export default function CalculadoraPresupuesto() {
           <button
             onClick={calcular}
             disabled={personalizarPorcentajes && !porcentajesValidos}
-            className="w-full bg-gradient-to-r from-violet-500 to-purple-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-violet-500/20 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-teal-500/20 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Calcular presupuesto
           </button>
 
           {resultado && (
             <div className="mt-10 space-y-6">
-              <div className="p-6 bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-950/50 dark:to-purple-950/50 rounded-3xl ring-1 ring-violet-100 dark:ring-violet-900">
+              <div className="p-6 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900">
                 <div className="text-center mb-6">
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">Tu ingreso mensual</p>
-                  <p className="text-3xl font-black text-violet-600">
+                  <p className="text-3xl font-black text-teal-600">
                     {moneda.simbolo}{formatMoney(parseFloat(ingresos))}
                   </p>
                 </div>
@@ -321,7 +321,7 @@ export default function CalculadoraPresupuesto() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-violet-100 dark:bg-violet-900 rounded-lg flex items-center justify-center text-violet-600 dark:text-violet-400">
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-500">
               <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
             </span>
             ¿Qué es la regla 50/30/20?
@@ -349,7 +349,7 @@ export default function CalculadoraPresupuesto() {
       {/* FAQs */}
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="violet" />
+          <FAQ items={faqs} colorClass="teal" />
         </div>
       </div>
     </div>

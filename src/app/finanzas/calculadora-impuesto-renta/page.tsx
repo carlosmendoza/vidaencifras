@@ -71,14 +71,14 @@ export default function CalculadoraImpuestoRenta() {
     <div className="space-y-8">
       <Link
         href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver a Finanzas
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-emerald-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
             <Icon name="landmark" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -103,7 +103,7 @@ export default function CalculadoraImpuestoRenta() {
                 onClick={() => setField("tipoTrabajador", "empleado")}
                 className={`flex-1 px-5 py-4 font-semibold transition-colors ${
                   values.tipoTrabajador === "empleado"
-                    ? "bg-emerald-500 text-white"
+                    ? "bg-teal-500 text-white"
                     : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
               >
@@ -113,7 +113,7 @@ export default function CalculadoraImpuestoRenta() {
                 onClick={() => setField("tipoTrabajador", "independiente")}
                 className={`flex-1 px-5 py-4 font-semibold transition-colors ${
                   values.tipoTrabajador === "independiente"
-                    ? "bg-emerald-500 text-white"
+                    ? "bg-teal-500 text-white"
                     : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
               >
@@ -222,7 +222,7 @@ export default function CalculadoraImpuestoRenta() {
 
           <button
             onClick={calcular}
-            className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-emerald-500/20 active:scale-[0.99]"
+            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-teal-500/20 active:scale-[0.99]"
           >
             Calcular impuesto
           </button>
@@ -245,7 +245,7 @@ export default function CalculadoraImpuestoRenta() {
                   {
                     label: "Tarifa efectiva",
                     value: `${resultado.tarifaEfectiva.toFixed(1)}%`,
-                    color: "emerald",
+                    color: "teal",
                   },
                   {
                     label: "Tarifa marginal",
@@ -266,7 +266,7 @@ export default function CalculadoraImpuestoRenta() {
               {/* Desglose de deducciones */}
               <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl space-y-4">
                 <h3 className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                  <span className="w-6 h-6 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center text-emerald-600">
+                  <span className="w-6 h-6 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600">
                     <Icon name="clipboard" className="w-4 h-4" />
                   </span>
                   Desglose de deducciones
@@ -336,7 +336,7 @@ export default function CalculadoraImpuestoRenta() {
               {/* Tabla de tarifas */}
               <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl space-y-4">
                 <h3 className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                  <span className="w-6 h-6 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center text-blue-600">
+                  <span className="w-6 h-6 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600">
                     <Icon name="bar-chart" className="w-4 h-4" />
                   </span>
                   Tabla de tarifas 2025
@@ -353,7 +353,7 @@ export default function CalculadoraImpuestoRenta() {
                       {TABLA_TARIFAS.map((rango, i) => (
                         <tr
                           key={i}
-                          className={resultado.rangoAplicable.includes(rango.desde.toString()) ? "bg-emerald-50 dark:bg-emerald-900/30" : ""}
+                          className={resultado.rangoAplicable.includes(rango.desde.toString()) ? "bg-teal-50 dark:bg-teal-900/30" : ""}
                         >
                           <td className="py-2 text-slate-700 dark:text-slate-300">
                             {rango.desde.toLocaleString()} - {rango.hasta === Infinity ? "∞" : rango.hasta.toLocaleString()}
@@ -379,22 +379,22 @@ export default function CalculadoraImpuestoRenta() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-amber-600">
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600">
               <Icon name="warning" className="w-5 h-5" weight="fill" />
             </span>
             Información importante
           </h2>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-teal-500">•</span>
               <span>Esta es una <strong>estimación</strong>. Tu impuesto real puede variar según otros factores como rentas de capital, dividendos, o beneficios tributarios específicos.</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-teal-500">•</span>
               <span>Consulta con un contador público para tu declaración oficial y para optimizar legalmente tus deducciones.</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-teal-500">•</span>
               <span>Los aportes a AFC y pensiones voluntarias son excelentes estrategias para reducir tu carga tributaria de forma legal.</span>
             </li>
           </ul>
@@ -404,7 +404,7 @@ export default function CalculadoraImpuestoRenta() {
       {/* FAQs */}
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="emerald" />
+          <FAQ items={faqs} colorClass="teal" />
         </div>
       </div>
     </div>

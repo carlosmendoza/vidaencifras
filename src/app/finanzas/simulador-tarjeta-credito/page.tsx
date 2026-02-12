@@ -199,9 +199,9 @@ export default function SimuladorTarjetaCredito() {
     <div className="space-y-8">
       <Breadcrumbs />
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-3xl mx-auto shadow-xl shadow-rose-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-3xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-rose-400 to-pink-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
             <Icon name="credit-card" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -353,11 +353,11 @@ export default function SimuladorTarjetaCredito() {
               </div>
 
               {/* Ahorro destacado */}
-              <div className="p-6 bg-gradient-to-br from-rose-50 to-pink-50 dark:from-rose-950/50 dark:to-pink-950/50 rounded-3xl text-center ring-1 ring-rose-100 dark:ring-rose-900">
+              <div className="p-6 bg-teal-50 dark:bg-teal-950/50 rounded-3xl text-center ring-1 ring-teal-100 dark:ring-teal-900">
                 <p className="text-slate-500 dark:text-slate-400 font-medium text-sm mb-2">
                   Tu ahorro con cuota fija
                 </p>
-                <p className="text-4xl font-black text-rose-600 dark:text-rose-400 mb-2">
+                <p className="text-4xl font-black text-teal-600 dark:text-teal-400 mb-2">
                   ${formatMoney(resultado.ahorro)}
                 </p>
                 <p className="text-sm text-slate-600 dark:text-slate-400">
@@ -401,33 +401,33 @@ export default function SimuladorTarjetaCredito() {
       {/* Consejos */}
       <div className="max-w-3xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-rose-100 dark:bg-rose-900 rounded-lg flex items-center justify-center text-rose-600 dark:text-rose-400">
+          <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600 dark:text-teal-400">
             <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
           </span>
           Consejos para salir de deudas de tarjeta
         </h2>
         <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
           <li className="flex gap-3">
-            <span className="text-rose-500">•</span>
+            <span className="text-teal-500">•</span>
             <span><strong>Nunca pagues solo el mínimo:</strong> Es la forma más cara y lenta de pagar. Los intereses se acumulan exponencialmente.</span>
           </li>
           <li className="flex gap-3">
-            <span className="text-rose-500">•</span>
+            <span className="text-teal-500">•</span>
             <span><strong>Considera compra de cartera:</strong> Algunos bancos ofrecen tasas más bajas para consolidar deudas de tarjetas.</span>
           </li>
           <li className="flex gap-3">
-            <span className="text-rose-500">•</span>
+            <span className="text-teal-500">•</span>
             <span><strong>Método avalancha:</strong> Paga primero la deuda con mayor tasa de interés mientras pagas mínimos en las demás.</span>
           </li>
           <li className="flex gap-3">
-            <span className="text-rose-500">•</span>
+            <span className="text-teal-500">•</span>
             <span><strong>Evita nuevas compras:</strong> Mientras pagas la deuda, no uses la tarjeta para compras adicionales.</span>
           </li>
         </ul>
       </div>
 
       <div className="max-w-3xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="rose" />
+        <FAQ items={faqs} colorClass="teal" />
       </div>
 
       <div className="max-w-3xl mx-auto p-8 card-glass rounded-xl">

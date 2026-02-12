@@ -378,14 +378,14 @@ function SimuladorCuentaAhorroContent() {
     <div className="space-y-8">
       <Link
         href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver a Finanzas
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-5xl mx-auto shadow-xl shadow-emerald-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-5xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
             <Icon name="piggy-bank" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -409,7 +409,7 @@ function SimuladorCuentaAhorroContent() {
                   onClick={() => toggleCuenta(cuenta.id)}
                   className={`p-3 rounded-xl text-left transition-all border-2 ${
                     cuentasSeleccionadas.has(cuenta.id)
-                      ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-950/50"
+                      ? "border-teal-500 bg-teal-50 dark:bg-teal-950/50"
                       : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600"
                   }`}
                 >
@@ -453,7 +453,7 @@ function SimuladorCuentaAhorroContent() {
                   onClick={() => setMontoInicial(monto.toString())}
                   className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
                     montoInicial === monto.toString()
-                      ? "bg-emerald-500 text-white"
+                      ? "bg-teal-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                   }`}
                 >
@@ -475,7 +475,7 @@ function SimuladorCuentaAhorroContent() {
                   onClick={() => setMeses(m.toString())}
                   className={`flex-1 px-4 py-4 font-semibold transition-colors ${
                     meses === m.toString()
-                      ? "bg-emerald-500 text-white"
+                      ? "bg-teal-500 text-white"
                       : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                   }`}
                 >
@@ -539,7 +539,7 @@ function SimuladorCuentaAhorroContent() {
               {/* Gráfica comparativa */}
               <div className="p-6 bg-white dark:bg-slate-800 rounded-3xl ring-1 ring-slate-200 dark:ring-slate-700">
                 <h3 className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
-                  <Icon name="trending-up" className="w-5 h-5 text-emerald-500" /> Comparación de rendimientos
+                  <Icon name="trending-up" className="w-5 h-5 text-teal-500" /> Comparación de rendimientos
                 </h3>
                 <ResponsiveContainer width="100%" height={350}>
                   <LineChart data={resultado.evolucion} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -576,9 +576,9 @@ function SimuladorCuentaAhorroContent() {
               </div>
 
               {/* Ranking de cuentas */}
-              <div className="p-6 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 rounded-3xl ring-1 ring-emerald-100 dark:ring-emerald-900">
+              <div className="p-6 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900">
                 <h3 className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
-                  <Icon name="seal-check" className="w-5 h-5 text-emerald-500" weight="fill" /> Ranking de rendimientos
+                  <Icon name="seal-check" className="w-5 h-5 text-teal-500" weight="fill" /> Ranking de rendimientos
                 </h3>
                 <div className="space-y-3">
                   {resultado.resumenCuentas.map((cuenta, index) => (
@@ -586,14 +586,14 @@ function SimuladorCuentaAhorroContent() {
                       key={cuenta.id}
                       className={`p-4 rounded-2xl flex items-center justify-between gap-3 ${
                         index === 0
-                          ? "bg-white dark:bg-slate-800 ring-2 ring-emerald-500"
+                          ? "bg-white dark:bg-slate-800 ring-2 ring-teal-500"
                           : "bg-white/60 dark:bg-slate-800/60"
                       }`}
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         <div
                           className={`w-8 h-8 shrink-0 rounded-full flex items-center justify-center text-white font-bold text-sm ${
-                            index === 0 ? "bg-emerald-500" : index === 1 ? "bg-slate-400" : "bg-slate-300"
+                            index === 0 ? "bg-teal-500" : index === 1 ? "bg-slate-400" : "bg-slate-300"
                           }`}
                         >
                           {index + 1}
@@ -633,11 +633,11 @@ function SimuladorCuentaAhorroContent() {
 
               {/* Resumen ganador */}
               {mejorCuenta && (
-                <div className="p-8 bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 rounded-3xl text-center">
+                <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl text-center">
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">
                     La mejor opción para tu ahorro
                   </p>
-                  <p className="text-3xl font-black text-emerald-600 mb-2">{mejorCuenta.nombre}</p>
+                  <p className="text-3xl font-black text-teal-600 mb-2">{mejorCuenta.nombre}</p>
                   <p className="text-lg text-slate-600 dark:text-slate-300 mb-4">
                     En {parseInt(meses) <= 12 ? `${meses} meses` : `${parseInt(meses) / 12} años`} tendrías{" "}
                     <strong className="text-emerald-600">${formatMoney(mejorCuenta.montoFinal)}</strong>
@@ -672,35 +672,35 @@ function SimuladorCuentaAhorroContent() {
       <div className="max-w-5xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center text-emerald-600">
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600">
               <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
             </span>
             Consejos para maximizar tus rendimientos
           </h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-4 text-slate-600 dark:text-slate-300">
-              <div className="p-4 bg-emerald-50 dark:bg-emerald-900/50 rounded-xl">
-                <h4 className="font-bold text-emerald-700 dark:text-emerald-300 mb-2">Diversifica tu ahorro</h4>
+              <div className="p-4 bg-teal-50 dark:bg-teal-900/50 rounded-xl">
+                <h4 className="font-bold text-teal-700 dark:text-teal-300 mb-2">Diversifica tu ahorro</h4>
                 <p className="text-sm">
                   Pon hasta $10M en Ualá (12% EA) y el resto en Pibank o Global66 (11% EA). Así maximizas rendimientos.
                 </p>
               </div>
-              <div className="p-4 bg-blue-50 dark:bg-blue-900/50 rounded-xl">
-                <h4 className="font-bold text-blue-700 dark:text-blue-300 mb-2">Fondo de emergencia</h4>
+              <div className="p-4 bg-teal-50 dark:bg-teal-900/50 rounded-xl">
+                <h4 className="font-bold text-teal-700 dark:text-teal-300 mb-2">Fondo de emergencia</h4>
                 <p className="text-sm">
                   Las cuentas de ahorro son ideales para tu fondo de emergencia (3-6 meses de gastos). Tienes liquidez inmediata y buenos rendimientos.
                 </p>
               </div>
             </div>
             <div className="space-y-4 text-slate-600 dark:text-slate-300">
-              <div className="p-4 bg-amber-50 dark:bg-amber-900/50 rounded-xl">
-                <h4 className="font-bold text-amber-700 dark:text-amber-300 mb-2">Revisa las tasas periódicamente</h4>
+              <div className="p-4 bg-teal-50 dark:bg-teal-900/50 rounded-xl">
+                <h4 className="font-bold text-teal-700 dark:text-teal-300 mb-2">Revisa las tasas periódicamente</h4>
                 <p className="text-sm">
                   Las tasas cambian según la política monetaria del Banco de la República. Revisa cada 2-3 meses para mantener tu dinero en la mejor opción.
                 </p>
               </div>
-              <div className="p-4 bg-purple-50 dark:bg-purple-900/50 rounded-xl">
-                <h4 className="font-bold text-purple-700 dark:text-purple-300 mb-2">Considera los CDTs</h4>
+              <div className="p-4 bg-teal-50 dark:bg-teal-900/50 rounded-xl">
+                <h4 className="font-bold text-teal-700 dark:text-teal-300 mb-2">Considera los CDTs</h4>
                 <p className="text-sm">
                   Para plazos mayores a 6 meses y montos grandes, los CDTs pueden ofrecer tasas más altas. Pero pierdes liquidez.
                 </p>
@@ -714,21 +714,21 @@ function SimuladorCuentaAhorroContent() {
       <div className="max-w-5xl mx-auto">
         <Link
           href="/finanzas/calculadora-meta-ahorro"
-          className="block p-6 card-glass rounded-2xl hover:ring-2 hover:ring-amber-500 transition-all group"
+          className="block p-6 card-glass rounded-2xl hover:ring-2 hover:ring-teal-500 transition-all group"
         >
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center text-white shadow-lg">
+            <div className="w-14 h-14 bg-teal-500 rounded-xl flex items-center justify-center text-white shadow-lg">
               <Icon name="target" className="w-7 h-7" />
             </div>
             <div className="flex-1">
-              <h3 className="font-bold text-lg text-slate-700 dark:text-slate-200 group-hover:text-amber-600 transition-colors">
+              <h3 className="font-bold text-lg text-slate-700 dark:text-slate-200 group-hover:text-teal-600 transition-colors">
                 Calculadora de Meta de Ahorro
               </h3>
               <p className="text-sm text-slate-500 dark:text-slate-400">
                 ¿Cuánto debo ahorrar mensualmente para llegar a mi meta?
               </p>
             </div>
-            <span className="text-2xl text-slate-400 group-hover:text-amber-500 transition-colors">→</span>
+            <span className="text-2xl text-slate-400 group-hover:text-teal-500 transition-colors">→</span>
           </div>
         </Link>
       </div>
@@ -746,7 +746,7 @@ function SimuladorCuentaAhorroContent() {
       {/* FAQs */}
       <div className="max-w-5xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="emerald" />
+          <FAQ items={faqs} colorClass="teal" />
         </div>
       </div>
     </div>
@@ -756,9 +756,9 @@ function SimuladorCuentaAhorroContent() {
 function SimuladorLoading() {
   return (
     <div className="space-y-8">
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-5xl mx-auto shadow-xl shadow-emerald-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-5xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg animate-pulse">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg animate-pulse">
             <Icon name="piggy-bank" className="w-10 h-10" />
           </div>
           <div className="h-10 bg-slate-200 dark:bg-slate-700 rounded-xl w-3/4 mx-auto mb-3 animate-pulse" />

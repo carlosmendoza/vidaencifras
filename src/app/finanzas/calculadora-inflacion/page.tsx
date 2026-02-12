@@ -178,14 +178,14 @@ export default function CalculadoraInflacion() {
     <div className="space-y-8">
       <Link
         href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver a Finanzas
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-red-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-red-400 to-rose-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="trending-down" className="w-10 h-10" /></div>
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="trending-down" className="w-10 h-10" /></div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora de Inflación
           </h1>
@@ -201,7 +201,7 @@ export default function CalculadoraInflacion() {
               onClick={() => setTipoCalculo("historico")}
               className={`flex-1 px-5 py-4 font-semibold transition-colors ${
                 tipoCalculo === "historico"
-                  ? "bg-red-500 text-white"
+                  ? "bg-teal-500 text-white"
                   : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
               }`}
             >
@@ -211,7 +211,7 @@ export default function CalculadoraInflacion() {
               onClick={() => setTipoCalculo("proyeccion")}
               className={`flex-1 px-5 py-4 font-semibold transition-colors ${
                 tipoCalculo === "proyeccion"
-                  ? "bg-red-500 text-white"
+                  ? "bg-teal-500 text-white"
                   : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
               }`}
             >
@@ -299,7 +299,7 @@ export default function CalculadoraInflacion() {
                       onClick={() => setAñosProyeccion(a.toString())}
                       className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
                         añosProyeccion === a.toString()
-                          ? "bg-red-500 text-white"
+                          ? "bg-teal-500 text-white"
                           : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                       }`}
                     >
@@ -332,7 +332,7 @@ export default function CalculadoraInflacion() {
                       onClick={() => setInflacionPersonalizada(i.toString())}
                       className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
                         inflacionPersonalizada === i.toString()
-                          ? "bg-red-500 text-white"
+                          ? "bg-teal-500 text-white"
                           : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                       }`}
                     >
@@ -349,7 +349,7 @@ export default function CalculadoraInflacion() {
 
           <button
             onClick={calcular}
-            className="w-full bg-gradient-to-r from-red-500 to-rose-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-red-500/20 active:scale-[0.99]"
+            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-teal-500/20 active:scale-[0.99]"
           >
             Calcular impacto
           </button>
@@ -357,14 +357,14 @@ export default function CalculadoraInflacion() {
           {resultado && (
             <div className="mt-10 space-y-6">
               {/* Resumen principal */}
-              <div className="p-8 bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-950/50 dark:to-rose-950/50 rounded-3xl ring-1 ring-red-100 dark:ring-red-900">
+              <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900">
                 <div className="text-center">
                   {tipoCalculo === "historico" ? (
                     <>
                       <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
                         ${formatMoney(parseFloat(monto))} de {añoInicio} equivalen hoy a
                       </p>
-                      <p className="text-4xl font-black text-red-600">
+                      <p className="text-4xl font-black text-teal-600">
                         ${formatMoney(resultado.valorFuturo)}
                       </p>
                       <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
@@ -376,7 +376,7 @@ export default function CalculadoraInflacion() {
                       <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
                         Para tener el mismo poder de compra en {añosProyeccion} años necesitarás
                       </p>
-                      <p className="text-4xl font-black text-red-600">
+                      <p className="text-4xl font-black text-teal-600">
                         ${formatMoney(resultado.valorFuturo)}
                       </p>
                       <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
@@ -430,7 +430,7 @@ export default function CalculadoraInflacion() {
                         {resultado.evolucion.map((row) => (
                           <tr key={row.año} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                             <td className="px-4 py-3 font-semibold text-slate-800 dark:text-slate-100">{row.año}</td>
-                            <td className="px-4 py-3 text-right font-bold text-red-600">
+                            <td className="px-4 py-3 text-right font-bold text-teal-600">
                               ${formatMoney(row.valor)}
                             </td>
                             <td className="px-4 py-3 text-right text-slate-600 dark:text-slate-300">
@@ -445,8 +445,8 @@ export default function CalculadoraInflacion() {
               )}
 
               {/* Consejo */}
-              <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl text-sm text-amber-700 dark:text-amber-300">
-                <span className="inline-flex items-center gap-1 text-amber-600"><Icon name="lightbulb" className="w-4 h-4" weight="fill" /> <strong>Tip:</strong></span> Para proteger tu dinero de la inflación, busca inversiones que rindan por encima del IPC: CDTs, fondos de inversión, acciones o finca raíz.
+              <div className="p-4 bg-teal-50 dark:bg-teal-900/30 rounded-xl text-sm text-teal-700 dark:text-teal-300">
+                <span className="inline-flex items-center gap-1 text-teal-600"><Icon name="lightbulb" className="w-4 h-4" weight="fill" /> <strong>Tip:</strong></span> Para proteger tu dinero de la inflación, busca inversiones que rindan por encima del IPC: CDTs, fondos de inversión, acciones o finca raíz.
               </div>
             </div>
           )}
@@ -457,7 +457,7 @@ export default function CalculadoraInflacion() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center text-red-500"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /></span>
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-500"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /></span>
             ¿Qué es la inflación?
           </h2>
           <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed mb-4">
@@ -465,19 +465,19 @@ export default function CalculadoraInflacion() {
           </p>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
             <li className="flex gap-3">
-              <span className="text-red-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>IPC:</strong> El Índice de Precios al Consumidor mide la inflación en Colombia. Lo calcula el DANE cada mes.</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-red-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Meta de inflación:</strong> El Banco de la República busca mantener la inflación alrededor del 3% anual.</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-red-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Impacto en ahorros:</strong> Si tu cuenta de ahorros rinde 3% pero la inflación es 5%, en realidad estás perdiendo 2% de poder adquisitivo.</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-red-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Salario mínimo:</strong> Se ajusta anualmente considerando la inflación del año anterior para mantener el poder de compra.</span>
             </li>
           </ul>
@@ -487,7 +487,7 @@ export default function CalculadoraInflacion() {
       {/* FAQs */}
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="red" />
+          <FAQ items={faqs} colorClass="teal" />
         </div>
       </div>
     </div>

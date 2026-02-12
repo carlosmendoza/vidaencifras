@@ -133,9 +133,9 @@ export default function Porcentajes() {
     <div className="space-y-8">
       <Breadcrumbs />
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-cyan-500/5 dark:shadow-cyan-500/10">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-purple-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">%</div>
+          <div className="w-20 h-20 bg-purple-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">%</div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora de Porcentajes
           </h1>
@@ -160,7 +160,7 @@ export default function Porcentajes() {
                   }}
                   className={`px-4 py-3 rounded-xl font-semibold text-sm transition-all ${
                     tipoCalculo === tipo.valor
-                      ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg"
+                      ? "bg-purple-500 text-white shadow-lg"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
                 >
@@ -203,15 +203,15 @@ export default function Porcentajes() {
 
           <button
             onClick={calcular}
-            className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 active:scale-[0.99]"
+            className="w-full bg-purple-500 hover:bg-purple-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-purple-500/20 active:scale-[0.99]"
           >
             Calcular
           </button>
 
           {resultado && (
-            <div className="mt-8 p-8 bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-950/50 dark:to-blue-950/50 rounded-3xl text-center ring-1 ring-cyan-100 dark:ring-cyan-900">
+            <div className="mt-8 p-8 bg-purple-50 dark:bg-purple-950/50 rounded-3xl text-center ring-1 ring-purple-100 dark:ring-purple-900">
               <p className="text-slate-400 font-bold uppercase tracking-widest text-xs mb-3">Resultado</p>
-              <p className="text-5xl font-black text-cyan-600 dark:text-cyan-400 mb-4 tracking-tighter">
+              <p className="text-5xl font-black text-purple-600 dark:text-purple-400 mb-4 tracking-tighter">
                 {tipoCalculo === "que_porcentaje" || tipoCalculo === "diferencia"
                   ? `${resultado.valor.toFixed(2)}%`
                   : resultado.valor.toFixed(2)}
@@ -224,7 +224,7 @@ export default function Porcentajes() {
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-cyan-100 dark:bg-cyan-900 rounded-lg flex items-center justify-center text-cyan-600 dark:text-cyan-400">
+          <span className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center text-purple-600 dark:text-purple-400">
             <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
           </span>
           Fórmulas útiles
@@ -250,7 +250,7 @@ export default function Porcentajes() {
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="cyan" />
+        <FAQ items={faqs} colorClass="purple" />
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">

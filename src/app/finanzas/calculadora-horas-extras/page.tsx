@@ -110,9 +110,9 @@ export default function CalculadoraHorasExtras() {
     <div className="space-y-8">
       <Breadcrumbs />
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-amber-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg text-white">
             <Icon name="clock" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -146,7 +146,7 @@ export default function CalculadoraHorasExtras() {
                 onClick={() => setField("salario", SMMLV.toString())}
                 className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
                   values.salario === SMMLV.toString()
-                    ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white"
+                    ? "bg-teal-500 text-white"
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
                 }`}
               >
@@ -156,7 +156,7 @@ export default function CalculadoraHorasExtras() {
                 onClick={() => setField("salario", (SMMLV * 2).toString())}
                 className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
                   values.salario === (SMMLV * 2).toString()
-                    ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white"
+                    ? "bg-teal-500 text-white"
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
                 }`}
               >
@@ -177,17 +177,17 @@ export default function CalculadoraHorasExtras() {
                   onClick={() => setField("tipoHora", tipo.id)}
                   className={`p-3 rounded-xl text-left transition-all ${
                     values.tipoHora === tipo.id
-                      ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg"
+                      ? "bg-teal-500 text-white shadow-lg"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
                 >
                   <div className="flex justify-between items-center">
                     <span className="font-bold text-sm">{tipo.nombre}</span>
-                    <span className={`text-xs font-black ${values.tipoHora === tipo.id ? "text-white" : "text-amber-600 dark:text-amber-400"}`}>
+                    <span className={`text-xs font-black ${values.tipoHora === tipo.id ? "text-white" : "text-teal-600 dark:text-teal-400"}`}>
                       +{(tipo.recargo * 100).toFixed(0)}%
                     </span>
                   </div>
-                  <p className={`text-xs mt-1 ${values.tipoHora === tipo.id ? "text-amber-100" : "text-slate-400"}`}>
+                  <p className={`text-xs mt-1 ${values.tipoHora === tipo.id ? "text-teal-100" : "text-slate-400"}`}>
                     {tipo.descripcion}
                   </p>
                 </button>
@@ -217,7 +217,7 @@ export default function CalculadoraHorasExtras() {
 
           <button
             onClick={calcular}
-            className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-amber-500/20 active:scale-[0.99]"
+            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-teal-500/20 active:scale-[0.99]"
           >
             Calcular horas extras
           </button>
@@ -225,11 +225,11 @@ export default function CalculadoraHorasExtras() {
           {resultado && (
             <div className="mt-8 space-y-4">
               {/* Resultado principal */}
-              <div className="p-8 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/50 dark:to-orange-950/50 rounded-3xl text-center ring-1 ring-amber-100 dark:ring-amber-900">
+              <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl text-center ring-1 ring-teal-100 dark:ring-teal-900">
                 <p className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest text-xs mb-3">
                   Total a recibir
                 </p>
-                <p className="text-5xl md:text-6xl font-black text-amber-600 dark:text-amber-400 tracking-tighter">
+                <p className="text-5xl md:text-6xl font-black text-teal-600 dark:text-teal-400 tracking-tighter">
                   {formatMoney(resultado.totalPagar)}
                 </p>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
@@ -253,22 +253,22 @@ export default function CalculadoraHorasExtras() {
                     <span className="text-sm text-slate-500 dark:text-slate-400">
                       + Recargo ({(tipoSeleccionado.recargo * 100).toFixed(0)}%)
                     </span>
-                    <span className="font-bold text-amber-600 dark:text-amber-400">
+                    <span className="font-bold text-teal-600 dark:text-teal-400">
                       +{formatMoney(resultado.recargo)}
                     </span>
                   </div>
                   <div className="border-t border-slate-200 dark:border-slate-700 pt-3 flex justify-between items-center">
                     <span className="font-bold text-slate-700 dark:text-slate-200">Valor hora total</span>
-                    <span className="font-black text-amber-600 dark:text-amber-400">
+                    <span className="font-black text-teal-600 dark:text-teal-400">
                       {formatMoney(resultado.valorHoraTotal)}
                     </span>
                   </div>
                   <div className="flex justify-between items-center text-sm">
                     <span className="text-slate-500 dark:text-slate-400">× {resultado.totalHoras} horas</span>
                   </div>
-                  <div className="border-t-2 border-amber-200 dark:border-amber-800 pt-3 flex justify-between items-center">
+                  <div className="border-t-2 border-teal-200 dark:border-teal-800 pt-3 flex justify-between items-center">
                     <span className="font-black text-slate-800 dark:text-slate-100">TOTAL</span>
-                    <span className="font-black text-xl text-amber-600 dark:text-amber-400">
+                    <span className="font-black text-xl text-teal-600 dark:text-teal-400">
                       {formatMoney(resultado.totalPagar)}
                     </span>
                   </div>
@@ -282,7 +282,7 @@ export default function CalculadoraHorasExtras() {
       {/* Tabla de referencia */}
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-base text-amber-600 dark:text-amber-400">
+          <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-base text-teal-500">
             <Icon name="bar-chart" className="w-5 h-5" />
           </span>
           Tabla de recargos Colombia
@@ -299,7 +299,7 @@ export default function CalculadoraHorasExtras() {
               {tiposHora.map((tipo) => (
                 <tr key={tipo.id} className="border-b border-slate-100 dark:border-slate-800">
                   <td className="py-2 text-slate-600 dark:text-slate-400">{tipo.nombre}</td>
-                  <td className="py-2 text-right font-bold text-amber-600 dark:text-amber-400">
+                  <td className="py-2 text-right font-bold text-teal-600 dark:text-teal-400">
                     +{(tipo.recargo * 100).toFixed(0)}%
                   </td>
                 </tr>
@@ -310,7 +310,7 @@ export default function CalculadoraHorasExtras() {
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="amber" />
+        <FAQ items={faqs} colorClass="teal" />
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">

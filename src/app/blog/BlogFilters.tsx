@@ -70,9 +70,9 @@ export function BlogFilters({ posts, categoryLabels, categoryColors }: Props) {
               >
                 <div className="flex items-center gap-3 mb-4">
                   <span
-                    className={`px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${
+                    className={`px-3 py-1 text-xs font-semibold rounded-full ${
                       categoryColors[post.category] ||
-                      "from-slate-500 to-slate-600"
+                      "bg-slate-500"
                     } text-white`}
                   >
                     {categoryLabels[post.category] || post.category}

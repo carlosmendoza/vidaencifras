@@ -177,14 +177,14 @@ export default function ConversorUnidades() {
     <div className="space-y-8">
       <Link
         href="/"
-        className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver al inicio
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-indigo-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-purple-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+          <div className="w-20 h-20 bg-purple-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
             <Icon name="refresh" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -209,7 +209,7 @@ export default function ConversorUnidades() {
                 }}
                 className={`p-3 rounded-xl text-center transition-all ${
                   categoria === cat
-                    ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg"
+                    ? "bg-purple-500 text-white shadow-lg"
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
               >
@@ -247,7 +247,7 @@ export default function ConversorUnidades() {
             <div className="flex justify-center">
               <button
                 onClick={intercambiar}
-                className="w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-600 flex items-center justify-center hover:bg-indigo-200 transition-colors"
+                className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-600 flex items-center justify-center hover:bg-purple-200 transition-colors"
               >
                 ⇅
               </button>
@@ -255,7 +255,7 @@ export default function ConversorUnidades() {
 
             {/* Resultado */}
             <div className="flex gap-3">
-              <div className="flex-1 px-6 py-4 rounded-2xl text-xl font-semibold bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/50 dark:to-purple-950/50 ring-1 ring-indigo-100 dark:ring-indigo-900">
+              <div className="flex-1 px-6 py-4 rounded-2xl text-xl font-semibold bg-purple-50 dark:bg-purple-950/50 ring-1 ring-purple-100 dark:ring-purple-900">
                 {resultado !== null ? formatNumber(resultado) : "0"}
               </div>
               <select
@@ -278,7 +278,7 @@ export default function ConversorUnidades() {
               <p className="text-slate-600 dark:text-slate-300 font-medium">
                 <span className="font-bold text-slate-800 dark:text-slate-100">{valor} {catData.unidades.find(u => u.id === unidadOrigen)?.simbolo}</span>
                 {" = "}
-                <span className="font-bold text-indigo-600">{formatNumber(resultado)} {catData.unidades.find(u => u.id === unidadDestino)?.simbolo}</span>
+                <span className="font-bold text-purple-600">{formatNumber(resultado)} {catData.unidades.find(u => u.id === unidadDestino)?.simbolo}</span>
               </p>
             </div>
           )}

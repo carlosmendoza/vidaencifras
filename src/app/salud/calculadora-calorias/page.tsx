@@ -137,9 +137,9 @@ export default function Calorias() {
     <div className="space-y-8">
       <Breadcrumbs />
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-orange-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-red-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-red-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+          <div className="w-20 h-20 bg-red-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
             <Icon name="flame" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -225,7 +225,7 @@ export default function Calorias() {
                   key={nivel.valor}
                   onClick={() => setField("actividad", nivel.valor)}
                   className={`w-full p-4 rounded-xl text-left transition-all ${values.actividad === nivel.valor
-                      ? "bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg"
+                      ? "bg-red-500 text-white shadow-lg"
                       : "bg-slate-50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
                     }`}
                 >
@@ -247,7 +247,7 @@ export default function Calorias() {
                   key={obj.valor}
                   onClick={() => setField("objetivo", obj.valor)}
                   className={`p-4 rounded-xl text-center transition-all ${values.objetivo === obj.valor
-                      ? "bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg"
+                      ? "bg-red-500 text-white shadow-lg"
                       : "bg-slate-50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
                     }`}
                 >
@@ -260,7 +260,7 @@ export default function Calorias() {
 
           <button
             onClick={calcular}
-            className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-orange-500/20 active:scale-[0.99]"
+            className="w-full bg-red-500 hover:bg-red-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-red-500/20 active:scale-[0.99]"
           >
             Calcular Calorías
           </button>
@@ -268,9 +268,9 @@ export default function Calorias() {
           {resultado && (
             <div className="mt-10 space-y-4">
               {/* TDEE */}
-              <div className="p-6 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/50 dark:to-red-950/50 rounded-3xl text-center ring-1 ring-orange-100 dark:ring-orange-900">
+              <div className="p-6 bg-red-50 dark:bg-red-950/50 rounded-3xl text-center ring-1 ring-red-100 dark:ring-red-900">
                 <p className="text-slate-500 dark:text-slate-400 font-medium text-sm mb-2">Tu gasto calórico diario (TDEE)</p>
-                <p className="text-5xl font-black text-orange-600">{resultado.tdee.toLocaleString()}</p>
+                <p className="text-5xl font-black text-red-600">{resultado.tdee.toLocaleString()}</p>
                 <p className="text-slate-500 dark:text-slate-400 font-bold">calorías/día</p>
               </div>
 
@@ -312,27 +312,27 @@ export default function Calorias() {
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <Icon name="info" className="w-8 h-8 text-orange-500" weight="fill" />
+          <Icon name="info" className="w-8 h-8 text-red-500" weight="fill" />
           ¿Qué significan estos números?
         </h2>
         <ul className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed space-y-3">
           <li className="flex items-start gap-2">
-            <span className="text-orange-500 font-bold">TMB:</span>
+            <span className="text-red-500 font-bold">TMB:</span>
             Calorías que quemas en reposo total (funciones vitales).
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-orange-500 font-bold">TDEE:</span>
+            <span className="text-red-500 font-bold">TDEE:</span>
             Total de calorías que quemas al día incluyendo actividad.
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-orange-500 font-bold">Macros:</span>
+            <span className="text-red-500 font-bold">Macros:</span>
             Distribución sugerida de proteínas, carbohidratos y grasas.
           </li>
         </ul>
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="orange" />
+        <FAQ items={faqs} colorClass="red" />
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">

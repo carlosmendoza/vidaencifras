@@ -44,14 +44,14 @@ export default function Prestamos() {
     <div className="space-y-8">
       <Link
         href="/"
-        className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver al inicio
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-rose-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-rose-400 to-pink-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
             <Icon name="landmark" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -69,7 +69,7 @@ export default function Prestamos() {
               <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
                 Monto del préstamo
               </label>
-              <CurrencySelector colorClass="rose" />
+              <CurrencySelector colorClass="teal" />
             </div>
 
             <div className="relative">
@@ -123,7 +123,7 @@ export default function Prestamos() {
                   onClick={() => setField("plazoMeses", p.toString())}
                   className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
                     values.plazoMeses === p.toString()
-                      ? "bg-rose-500 text-white"
+                      ? "bg-teal-500 text-white"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
                 >
@@ -135,7 +135,7 @@ export default function Prestamos() {
 
           <button
             onClick={calcular}
-            className="w-full bg-gradient-to-r from-rose-500 to-pink-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-rose-500/20 active:scale-[0.99]"
+            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-teal-500/20 active:scale-[0.99]"
           >
             Calcular Cuota
           </button>
@@ -143,9 +143,9 @@ export default function Prestamos() {
           {resultado && (
             <div className="mt-10 space-y-4">
               {/* Cuota mensual */}
-              <div className="p-8 bg-gradient-to-br from-rose-50 to-pink-50 dark:from-rose-950/50 dark:to-pink-950/50 rounded-3xl text-center ring-1 ring-rose-100 dark:ring-rose-900">
+              <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl text-center ring-1 ring-teal-100 dark:ring-teal-900">
                 <p className="text-slate-500 dark:text-slate-400 font-medium text-sm mb-2">Tu cuota mensual</p>
-                <p className="text-5xl font-black text-rose-600">
+                <p className="text-5xl font-black text-teal-600">
                   {moneda.simbolo}{formatMoney(resultado.cuotaMensual)}
                 </p>
               </div>
@@ -189,7 +189,7 @@ export default function Prestamos() {
               {/* Tabla de amortización */}
               <button
                 onClick={() => setMostrarTabla(!mostrarTabla)}
-                className="w-full py-3 rounded-xl font-semibold text-rose-700 dark:text-rose-300 bg-rose-100 dark:bg-rose-900 hover:bg-rose-200 dark:hover:bg-rose-800 transition-colors flex items-center justify-center gap-2"
+                className="w-full py-3 rounded-xl font-semibold text-teal-700 dark:text-teal-300 bg-teal-100 dark:bg-teal-900 hover:bg-teal-200 dark:hover:bg-teal-800 transition-colors flex items-center justify-center gap-2"
               >
                 {mostrarTabla ? "Ocultar" : "Ver"} tabla de amortización
                 <span className={`transition-transform ${mostrarTabla ? "rotate-180" : ""}`}>▼</span>
@@ -228,7 +228,7 @@ export default function Prestamos() {
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-rose-100 dark:bg-rose-900 rounded-lg flex items-center justify-center text-rose-600 dark:text-rose-400">
+          <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-500">
               <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
             </span>
           Sistema de amortización francés

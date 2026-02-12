@@ -159,14 +159,14 @@ export default function DividirCuenta() {
     <div className="space-y-8">
       <Link
         href="/herramientas"
-        className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver a Herramientas
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-pink-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-purple-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-pink-400 to-rose-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+          <div className="w-20 h-20 bg-purple-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
             <Icon name="receipt" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -184,7 +184,7 @@ export default function DividirCuenta() {
               onClick={() => setField("modo", "igual")}
               className={`px-5 py-3 rounded-xl font-bold transition-all ${
                 modo === "igual"
-                  ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-500/20"
+                  ? "bg-purple-500 text-white shadow-lg shadow-purple-500/20"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
               }`}
             >
@@ -194,7 +194,7 @@ export default function DividirCuenta() {
               onClick={() => setField("modo", "diferente")}
               className={`px-5 py-3 rounded-xl font-bold transition-all ${
                 modo === "diferente"
-                  ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-500/20"
+                  ? "bg-purple-500 text-white shadow-lg shadow-purple-500/20"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
               }`}
             >
@@ -211,7 +211,7 @@ export default function DividirCuenta() {
                 <select
                   value={moneda.codigo}
                   onChange={(e) => setMoneda(monedas.find(m => m.codigo === e.target.value) || monedas[0])}
-                  className="text-xs font-medium text-slate-400 dark:text-slate-500 bg-transparent border-none cursor-pointer hover:text-pink-600"
+                  className="text-xs font-medium text-slate-400 dark:text-slate-500 bg-transparent border-none cursor-pointer hover:text-purple-600"
                 >
                   {monedas.map((m) => (
                     <option key={m.codigo} value={m.codigo}>
@@ -239,7 +239,7 @@ export default function DividirCuenta() {
                 <select
                   value={moneda.codigo}
                   onChange={(e) => setMoneda(monedas.find(m => m.codigo === e.target.value) || monedas[0])}
-                  className="text-xs font-medium text-slate-400 dark:text-slate-500 bg-transparent border-none cursor-pointer hover:text-pink-600"
+                  className="text-xs font-medium text-slate-400 dark:text-slate-500 bg-transparent border-none cursor-pointer hover:text-purple-600"
                 >
                   {monedas.map((m) => (
                     <option key={m.codigo} value={m.codigo}>
@@ -279,7 +279,7 @@ export default function DividirCuenta() {
               ))}
               <button
                 onClick={agregarPersona}
-                className="w-full py-3 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl text-slate-400 dark:text-slate-500 font-bold hover:border-pink-400 hover:text-pink-500 transition-colors"
+                className="w-full py-3 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl text-slate-400 dark:text-slate-500 font-bold hover:border-purple-400 hover:text-purple-500 transition-colors"
               >
                 + Agregar persona
               </button>
@@ -298,7 +298,7 @@ export default function DividirCuenta() {
                   onClick={() => seleccionarPropina(p)}
                   className={`flex-1 py-3 rounded-xl font-bold transition-all ${
                     propina === p && propinaCustom === ""
-                      ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-md"
+                      ? "bg-purple-500 text-white shadow-md"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
                 >
@@ -313,7 +313,7 @@ export default function DividirCuenta() {
                   placeholder="Otro"
                   className={`w-full py-3 px-3 rounded-xl font-bold text-center transition-all ${
                     propinaCustom !== ""
-                      ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white ring-2 ring-pink-300"
+                      ? "bg-purple-500 text-white ring-2 ring-purple-300"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
                   }`}
                 />
@@ -355,20 +355,20 @@ export default function DividirCuenta() {
 
           <button
             onClick={modo === "igual" ? calcularIgual : calcularDiferente}
-            className="w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-pink-500/20 active:scale-[0.99]"
+            className="w-full bg-purple-500 hover:bg-purple-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-purple-500/20 active:scale-[0.99]"
           >
             Calcular
           </button>
 
           {resultado && (
-            <div className="mt-10 p-8 bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-950/50 dark:to-rose-950/50 rounded-3xl ring-1 ring-pink-100 dark:ring-pink-900">
+            <div className="mt-10 p-8 bg-purple-50 dark:bg-purple-950/50 rounded-3xl ring-1 ring-purple-100 dark:ring-purple-900">
               <div className="text-center mb-6">
                 <p className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest text-xs mb-3">Cada persona paga</p>
-                <p className="text-5xl font-black text-pink-600 tracking-tighter">
+                <p className="text-5xl font-black text-purple-600 tracking-tighter">
                   {moneda.simbolo}{formatMoney(resultado.porPersona)}
                 </p>
               </div>
-              <div className="border-t border-pink-200 dark:border-pink-700 pt-4 space-y-3 text-sm">
+              <div className="border-t border-purple-200 dark:border-purple-700 pt-4 space-y-3 text-sm">
                 <div className="flex justify-between items-center">
                   <span className="text-slate-600 dark:text-slate-300 font-medium">Subtotal</span>
                   <span className="font-bold text-slate-700 dark:text-slate-300">
@@ -379,7 +379,7 @@ export default function DividirCuenta() {
                   <span className="text-slate-600 dark:text-slate-300 font-medium">Propina ({propinaActual}%)</span>
                   <span className="font-bold text-slate-700 dark:text-slate-300">{moneda.simbolo}{formatMoney(resultado.propinaTotal)}</span>
                 </div>
-                <div className="flex justify-between items-center pt-2 border-t border-pink-100 dark:border-pink-900">
+                <div className="flex justify-between items-center pt-2 border-t border-purple-100 dark:border-purple-900">
                   <span className="font-bold text-slate-700 dark:text-slate-300">Total</span>
                   <span className="font-black text-lg text-slate-800 dark:text-slate-100">{moneda.simbolo}{formatMoney(resultado.totalConPropina)}</span>
                 </div>
@@ -425,18 +425,18 @@ export default function DividirCuenta() {
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-pink-100 dark:bg-pink-900 rounded-lg flex items-center justify-center text-pink-600 dark:text-pink-400">
+          <span className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center text-purple-600 dark:text-purple-400">
             <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
           </span>
           Consejos
         </h2>
         <ul className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed space-y-3">
           <li className="flex items-start gap-2">
-            <span className="text-pink-500">•</span>
+            <span className="text-purple-500">•</span>
             En muchos países es costumbre dejar entre 10% y 20% de propina.
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-pink-500">•</span>
+            <span className="text-purple-500">•</span>
             El modo "Cada quien lo suyo" es ideal cuando hay diferencias grandes en lo que consumió cada persona.
           </li>
         </ul>

@@ -18,10 +18,10 @@ const pilarCounts: Record<string, number> = {
 };
 
 const categoryChips = [
-  { label: "Finanzas", href: "/finanzas", bg: "bg-emerald-100 dark:bg-emerald-900/40", text: "text-emerald-700 dark:text-emerald-400" },
+  { label: "Finanzas", href: "/finanzas", bg: "bg-teal-100 dark:bg-teal-900/40", text: "text-teal-700 dark:text-teal-400" },
   { label: "Salud", href: "/salud", bg: "bg-red-100 dark:bg-red-900/40", text: "text-red-700 dark:text-red-400" },
-  { label: "Productividad", href: "/productividad", bg: "bg-amber-100 dark:bg-amber-900/40", text: "text-amber-700 dark:text-amber-400" },
-  { label: "Herramientas", href: "/herramientas", bg: "bg-indigo-100 dark:bg-indigo-900/40", text: "text-indigo-700 dark:text-indigo-400" },
+  { label: "Productividad", href: "/productividad", bg: "bg-orange-100 dark:bg-orange-900/40", text: "text-orange-700 dark:text-orange-400" },
+  { label: "Herramientas", href: "/herramientas", bg: "bg-purple-100 dark:bg-purple-900/40", text: "text-purple-700 dark:text-purple-400" },
 ];
 
 export default function Home() {
@@ -61,10 +61,10 @@ export default function Home() {
               href={pilar.href}
               className="relative bg-white border border-slate-200 dark:bg-slate-800 dark:border-slate-700/50 rounded-2xl p-8 group hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-black/20 transition-all overflow-hidden"
             >
-              <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${pilar.gradient}`} />
+              <div className={`absolute top-0 left-0 right-0 h-1 ${pilar.gradient}`} />
 
               <div className="flex items-center gap-4 mb-4">
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${pilar.gradient} flex items-center justify-center text-white shadow-md flex-shrink-0`}>
+                <div className={`w-12 h-12 rounded-xl ${pilar.gradient} flex items-center justify-center text-white shadow-md flex-shrink-0`}>
                   <Icon name={pilar.icon} className="w-6 h-6" />
                 </div>
                 <div>
@@ -117,7 +117,7 @@ export default function Home() {
                 href={util.href}
                 className="flex items-center gap-4 py-4 md:py-5 group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors -mx-4 px-4 rounded-lg"
               >
-                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${util.gradient} flex items-center justify-center text-white flex-shrink-0`}>
+                <div className={`w-10 h-10 rounded-xl ${util.gradient} flex items-center justify-center text-white flex-shrink-0`}>
                   <Icon name={util.icon} className="w-5 h-5" />
                 </div>
                 <span className="font-bold text-slate-800 dark:text-slate-100">
@@ -159,7 +159,7 @@ export default function Home() {
                 className="md:col-span-3 bg-indigo-50 dark:bg-slate-800/60 border border-indigo-100 dark:border-slate-700/50 rounded-2xl p-8 group hover:bg-indigo-100/60 dark:hover:bg-slate-800 transition-colors"
               >
                 <span
-                  className={`inline-block px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r ${categoryColors[posts[0].category] || "from-slate-500 to-slate-600"} text-white mb-4`}
+                  className={`inline-block px-3 py-1 text-xs font-bold rounded-full ${categoryColors[posts[0].category] || "bg-slate-500"} text-white mb-4`}
                 >
                   {categoryLabels[posts[0].category] || posts[0].category}
                 </span>
@@ -183,7 +183,7 @@ export default function Home() {
                     className="flex-1 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/50 rounded-2xl p-6 group hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                   >
                     <span
-                      className={`inline-block px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r ${categoryColors[post.category] || "from-slate-500 to-slate-600"} text-white mb-3`}
+                      className={`inline-block px-3 py-1 text-xs font-bold rounded-full ${categoryColors[post.category] || "bg-slate-500"} text-white mb-3`}
                     >
                       {categoryLabels[post.category] || post.category}
                     </span>

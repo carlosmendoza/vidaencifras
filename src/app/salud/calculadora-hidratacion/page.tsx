@@ -125,9 +125,9 @@ export default function CalculadoraHidratacion() {
     <div className="space-y-8">
       <Breadcrumbs />
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-cyan-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-red-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+          <div className="w-20 h-20 bg-red-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
             <Icon name="droplets" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -170,12 +170,12 @@ export default function CalculadoraHidratacion() {
                   key={nivel.value}
                   onClick={() => setField("actividad", nivel.value)}
                   className={`p-3 rounded-xl text-center transition-all ${values.actividad === nivel.value
-                      ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/20"
+                      ? "bg-red-500 text-white shadow-lg shadow-red-500/20"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                     }`}
                 >
                   <span className="font-bold text-sm block">{nivel.label}</span>
-                  <span className={`text-xs ${values.actividad === nivel.value ? "text-cyan-100" : "text-slate-400"}`}>
+                  <span className={`text-xs ${values.actividad === nivel.value ? "text-red-100" : "text-slate-400"}`}>
                     {nivel.desc}
                   </span>
                 </button>
@@ -194,12 +194,12 @@ export default function CalculadoraHidratacion() {
                   key={nivel.value}
                   onClick={() => setField("clima", nivel.value)}
                   className={`p-3 rounded-xl text-center transition-all ${values.clima === nivel.value
-                      ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/20"
+                      ? "bg-red-500 text-white shadow-lg shadow-red-500/20"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                     }`}
                 >
                   <span className="font-bold text-sm block">{nivel.label}</span>
-                  <span className={`text-xs ${values.clima === nivel.value ? "text-cyan-100" : "text-slate-400"}`}>
+                  <span className={`text-xs ${values.clima === nivel.value ? "text-red-100" : "text-slate-400"}`}>
                     {nivel.desc}
                   </span>
                 </button>
@@ -209,7 +209,7 @@ export default function CalculadoraHidratacion() {
 
           <button
             onClick={calcular}
-            className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 active:scale-[0.99]"
+            className="w-full bg-red-500 hover:bg-red-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-red-500/20 active:scale-[0.99]"
           >
             Calcular hidratación
           </button>
@@ -217,14 +217,14 @@ export default function CalculadoraHidratacion() {
           {resultado && (
             <div className="mt-10 space-y-6">
               {/* Resultado principal */}
-              <div className="p-8 bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-950/50 dark:to-blue-950/50 rounded-3xl text-center ring-1 ring-cyan-100 dark:ring-cyan-900">
+              <div className="p-8 bg-red-50 dark:bg-red-950/50 rounded-3xl text-center ring-1 ring-red-100 dark:ring-red-900">
                 <p className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest text-xs mb-3">
                   Necesitas beber
                 </p>
-                <p className="text-7xl font-black text-cyan-600 mb-2 tracking-tighter">
+                <p className="text-7xl font-black text-red-600 mb-2 tracking-tighter">
                   {(resultado.aguaTotal / 1000).toFixed(1)}
                 </p>
-                <p className="text-2xl font-bold text-cyan-500">litros al día</p>
+                <p className="text-2xl font-bold text-red-500">litros al día</p>
               </div>
 
               {/* Desglose */}
@@ -261,7 +261,7 @@ export default function CalculadoraHidratacion() {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-slate-500 dark:text-slate-400">+ Actividad física</span>
-                    <span className="font-bold text-cyan-600">+{resultado.aguaActividad} ml</span>
+                    <span className="font-bold text-red-600">+{resultado.aguaActividad} ml</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-slate-500 dark:text-slate-400">+ Ajuste por clima</span>
@@ -269,7 +269,7 @@ export default function CalculadoraHidratacion() {
                   </div>
                   <div className="border-t border-slate-200 dark:border-slate-700 pt-3 flex justify-between items-center">
                     <span className="font-bold text-slate-700 dark:text-slate-200">Total diario</span>
-                    <span className="font-black text-cyan-600 text-lg">{Math.round(resultado.aguaTotal)} ml</span>
+                    <span className="font-black text-red-600 text-lg">{Math.round(resultado.aguaTotal)} ml</span>
                   </div>
                 </div>
               </div>
@@ -305,7 +305,7 @@ export default function CalculadoraHidratacion() {
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <Icon name="info" className="w-8 h-8 text-cyan-500" weight="fill" />
+          <Icon name="info" className="w-8 h-8 text-red-500" weight="fill" />
           ¿Por qué es importante hidratarse?
         </h2>
         <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
@@ -317,7 +317,7 @@ export default function CalculadoraHidratacion() {
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="cyan" />
+        <FAQ items={faqs} colorClass="red" />
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">

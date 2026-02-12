@@ -143,9 +143,9 @@ export default function IMC() {
     <div className="space-y-8">
       <Breadcrumbs />
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-violet-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-red-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-violet-400 to-purple-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+          <div className="w-20 h-20 bg-red-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
             <Icon name="scale" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -162,7 +162,7 @@ export default function IMC() {
             <button
               onClick={() => setField("sistema", "metrico")}
               className={`px-5 py-3 rounded-xl font-bold transition-all ${values.sistema === "metrico"
-                  ? "bg-gradient-to-r from-violet-500 to-purple-500 text-white shadow-lg shadow-violet-500/20"
+                  ? "bg-red-500 text-white shadow-lg shadow-red-500/20"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
             >
@@ -171,7 +171,7 @@ export default function IMC() {
             <button
               onClick={() => setField("sistema", "imperial")}
               className={`px-5 py-3 rounded-xl font-bold transition-all ${values.sistema === "imperial"
-                  ? "bg-gradient-to-r from-violet-500 to-purple-500 text-white shadow-lg shadow-violet-500/20"
+                  ? "bg-red-500 text-white shadow-lg shadow-red-500/20"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
             >
@@ -251,7 +251,7 @@ export default function IMC() {
 
           <button
             onClick={calcular}
-            className="w-full bg-gradient-to-r from-violet-500 to-purple-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-violet-500/20 active:scale-[0.99]"
+            className="w-full bg-red-500 hover:bg-red-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-red-500/20 active:scale-[0.99]"
           >
             Calcular IMC
           </button>
@@ -259,9 +259,9 @@ export default function IMC() {
           {resultado && (
             <div className="mt-10 space-y-6">
               {/* Resultado principal */}
-              <div className="p-8 bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-950/50 dark:to-purple-950/50 rounded-3xl text-center ring-1 ring-violet-100 dark:ring-violet-900">
+              <div className="p-8 bg-red-50 dark:bg-red-950/50 rounded-3xl text-center ring-1 ring-red-100 dark:ring-red-900">
                 <p className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest text-xs mb-3">Tu IMC es</p>
-                <p className="text-7xl font-black text-violet-600 mb-4 tracking-tighter">
+                <p className="text-7xl font-black text-red-600 mb-4 tracking-tighter">
                   {resultado.imc.toFixed(1)}
                 </p>
                 <div className={`text-2xl font-black px-6 py-2 rounded-full inline-block ${resultado.bgClass} ${resultado.colorClass}`}>
@@ -347,7 +347,7 @@ export default function IMC() {
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <Icon name="info" className="w-8 h-8 text-violet-500" weight="fill" />
+          <Icon name="info" className="w-8 h-8 text-red-500" weight="fill" />
           ¿Qué es el IMC?
         </h2>
         <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
@@ -359,7 +359,7 @@ export default function IMC() {
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="violet" />
+        <FAQ items={faqs} colorClass="red" />
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">

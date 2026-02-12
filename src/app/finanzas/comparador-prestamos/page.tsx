@@ -132,9 +132,9 @@ export default function ComparadorPrestamos() {
     <div className="space-y-8">
       <Breadcrumbs />
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-emerald-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
             <Icon name="landmark" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -158,7 +158,7 @@ export default function ComparadorPrestamos() {
                   onClick={() => setTipoPrestamo(tipo.valor)}
                   className={`px-4 py-3 rounded-xl font-semibold text-sm transition-all ${
                     tipoPrestamo === tipo.valor
-                      ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg"
+                      ? "bg-teal-500 text-white shadow-lg"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
                 >
@@ -214,7 +214,7 @@ export default function ComparadorPrestamos() {
                 onClick={() => setPlazo(p.toString())}
                 className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
                   plazo === p.toString()
-                    ? "bg-emerald-500 text-white"
+                    ? "bg-teal-500 text-white"
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
               >
@@ -227,17 +227,17 @@ export default function ComparadorPrestamos() {
           {resultados.length > 0 && (
             <div className="mt-8 space-y-6 animate-result-appear">
               {/* Mejor opción destacada */}
-              <div className="p-8 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 rounded-3xl ring-1 ring-emerald-100 dark:ring-emerald-900">
+              <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900">
                 <div className="flex items-center gap-2 mb-4">
-                  <Icon name="seal-check" className="w-6 h-6 text-emerald-600" />
-                  <h3 className="text-lg font-bold text-emerald-700 dark:text-emerald-300">
+                  <Icon name="seal-check" className="w-6 h-6 text-teal-600" />
+                  <h3 className="text-lg font-bold text-teal-700 dark:text-teal-300">
                     Mejor opción: {mejorOpcion.nombre}
                   </h3>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                   <div className="text-center">
                     <p className="text-xs text-slate-500 dark:text-slate-400">Cuota mensual</p>
-                    <p className="text-2xl font-black text-emerald-600">${formatMoney(mejorOpcion.cuotaMensual)}</p>
+                    <p className="text-2xl font-black text-teal-600">${formatMoney(mejorOpcion.cuotaMensual)}</p>
                   </div>
                   <div className="text-center">
                     <p className="text-xs text-slate-500 dark:text-slate-400">Tasa EA</p>
@@ -296,7 +296,7 @@ export default function ComparadorPrestamos() {
                       >
                         <td className="px-4 py-3 font-semibold text-slate-800 dark:text-slate-100">
                           {index === 0 && (
-                            <Icon name="seal-check" className="w-5 h-5 inline-block mr-2 text-emerald-600" />
+                            <Icon name="seal-check" className="w-5 h-5 inline-block mr-2 text-teal-600" />
                           )}
                           {r.nombre}
                         </td>
@@ -312,7 +312,7 @@ export default function ComparadorPrestamos() {
                         <td className="px-4 py-3 text-right text-slate-500">
                           ${formatMoney(r.seguroTotal + r.administracionTotal)}
                         </td>
-                        <td className="px-4 py-3 text-right font-bold text-emerald-600">
+                        <td className="px-4 py-3 text-right font-bold text-teal-600">
                           ${formatMoney(r.costoTotal)}
                         </td>
                       </tr>
@@ -335,33 +335,33 @@ export default function ComparadorPrestamos() {
       {/* Consejos */}
       <div className="max-w-4xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+          <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600 dark:text-teal-400">
             <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
           </span>
           Consejos para obtener mejor tasa
         </h2>
         <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
           <li className="flex gap-3">
-            <span className="text-emerald-500">•</span>
+            <span className="text-teal-500">•</span>
             <span><strong>Mantén buen historial crediticio:</strong> Paga a tiempo tus deudas y mantén bajo tu nivel de endeudamiento.</span>
           </li>
           <li className="flex gap-3">
-            <span className="text-emerald-500">•</span>
+            <span className="text-teal-500">•</span>
             <span><strong>Sé cliente del banco:</strong> Las mejores tasas suelen ser para clientes con productos activos (nómina, ahorro, tarjetas).</span>
           </li>
           <li className="flex gap-3">
-            <span className="text-emerald-500">•</span>
+            <span className="text-teal-500">•</span>
             <span><strong>Negocia:</strong> Lleva cotizaciones de otros bancos para negociar mejores condiciones.</span>
           </li>
           <li className="flex gap-3">
-            <span className="text-emerald-500">•</span>
+            <span className="text-teal-500">•</span>
             <span><strong>Considera el plazo:</strong> Plazos más cortos = menos intereses totales, aunque cuotas más altas.</span>
           </li>
         </ul>
       </div>
 
       <div className="max-w-4xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="emerald" />
+        <FAQ items={faqs} colorClass="teal" />
       </div>
 
       <div className="max-w-4xl mx-auto p-8 card-glass rounded-xl">

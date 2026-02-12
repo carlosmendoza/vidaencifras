@@ -168,14 +168,14 @@ export default function ComparadorCDT() {
     <div className="space-y-8">
       <Link
         href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver a Finanzas
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-emerald-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg text-white">
             <Icon name="bar-chart" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -209,7 +209,7 @@ export default function ComparadorCDT() {
                   onClick={() => setCapital(monto.toString())}
                   className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
                     capital === monto.toString()
-                      ? "bg-emerald-500 text-white"
+                      ? "bg-teal-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                   }`}
                 >
@@ -231,7 +231,7 @@ export default function ComparadorCDT() {
                   onClick={() => actualizarPlazo(dias as 90 | 180 | 360)}
                   className={`flex-1 px-5 py-4 font-semibold transition-colors ${
                     plazoSeleccionado === dias
-                      ? "bg-emerald-500 text-white"
+                      ? "bg-teal-500 text-white"
                       : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                   }`}
                 >
@@ -249,7 +249,7 @@ export default function ComparadorCDT() {
               </label>
               <button
                 onClick={() => setMostrarPersonalizado(!mostrarPersonalizado)}
-                className="text-sm text-emerald-600 dark:text-emerald-400 hover:underline"
+                className="text-sm text-teal-600 dark:text-teal-400 hover:underline"
               >
                 {mostrarPersonalizado ? "Ocultar opciones" : "Agregar banco"}
               </button>
@@ -267,14 +267,14 @@ export default function ComparadorCDT() {
                     <button
                       key={banco.nombre}
                       onClick={() => agregarCDT(banco)}
-                      className="px-3 py-2 bg-white dark:bg-slate-700 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/50 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors border border-slate-200 dark:border-slate-600"
+                      className="px-3 py-2 bg-white dark:bg-slate-700 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-teal-900/50 hover:text-teal-600 dark:hover:text-teal-400 transition-colors border border-slate-200 dark:border-slate-600"
                     >
                       + {banco.nombre}
                     </button>
                   ))}
                   <button
                     onClick={() => agregarCDT()}
-                    className="px-3 py-2 bg-emerald-50 dark:bg-emerald-900/50 rounded-xl text-sm font-medium text-emerald-600 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900 transition-colors border border-emerald-200 dark:border-emerald-800"
+                    className="px-3 py-2 bg-teal-50 dark:bg-teal-900/50 rounded-xl text-sm font-medium text-teal-600 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900 transition-colors border border-teal-200 dark:border-teal-800"
                   >
                     + Personalizado
                   </button>
@@ -298,7 +298,7 @@ export default function ComparadorCDT() {
                       type="checkbox"
                       checked={cdt.habilitado}
                       onChange={(e) => actualizarCDT(cdt.id, "habilitado", e.target.checked)}
-                      className="w-5 h-5 rounded-lg border-2 border-slate-300 text-emerald-500 focus:ring-emerald-500"
+                      className="w-5 h-5 rounded-lg border-2 border-slate-300 text-teal-500 focus:ring-teal-500"
                     />
                     <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-3">
                       <input
@@ -341,10 +341,10 @@ export default function ComparadorCDT() {
           {resultados.length > 0 && (
             <div className="mt-10 space-y-6">
               {/* Mejor opción destacada */}
-              <div className="p-8 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 rounded-3xl ring-1 ring-emerald-100 dark:ring-emerald-900 animate-result-appear">
+              <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900 animate-result-appear">
                 <div className="flex items-center gap-2 mb-4">
-                  <Icon name="seal-check" className="w-6 h-6 text-emerald-600" />
-                  <h3 className="text-lg font-bold text-emerald-700 dark:text-emerald-300">
+                  <Icon name="seal-check" className="w-6 h-6 text-teal-600" />
+                  <h3 className="text-lg font-bold text-teal-700 dark:text-teal-300">
                     Mejor opción: {mejorOpcion.banco}
                   </h3>
                 </div>
@@ -409,7 +409,7 @@ export default function ComparadorCDT() {
                         }`}
                       >
                         <td className="px-4 py-3 font-semibold text-slate-800 dark:text-slate-100">
-                          {index === 0 && <Icon name="seal-check" className="w-5 h-5 inline-block mr-2 text-emerald-600" />}
+                          {index === 0 && <Icon name="seal-check" className="w-5 h-5 inline-block mr-2 text-teal-600" />}
                           {r.banco}
                         </td>
                         <td className="px-4 py-3 text-right text-slate-600 dark:text-slate-300">
@@ -449,24 +449,24 @@ export default function ComparadorCDT() {
       <div className="max-w-4xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center text-base text-emerald-600 dark:text-emerald-400"><Icon name="lightbulb" className="w-5 h-5" /></span>
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-base text-teal-600 dark:text-teal-400"><Icon name="lightbulb" className="w-5 h-5" /></span>
             Consejos para invertir en CDT
           </h2>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
             <li className="flex gap-3">
-              <span className="text-emerald-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Compara siempre:</strong> Las tasas varían significativamente entre bancos. Una diferencia de 0.5% puede representar miles de pesos en intereses.</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-emerald-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Considera el plazo:</strong> A mayor plazo, mayor tasa, pero menos liquidez. Solo invierte a largo plazo dinero que no necesitarás.</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-emerald-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Diversifica:</strong> Si tienes un monto grande, considera dividirlo en varios CDTs con diferentes vencimientos (escalera de CDTs).</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-emerald-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Revisa el Fogafin:</strong> Los CDTs están protegidos por el Fogafin hasta $50 millones por banco, así que tus depósitos están seguros.</span>
             </li>
           </ul>
@@ -476,7 +476,7 @@ export default function ComparadorCDT() {
       {/* FAQs */}
       <div className="max-w-4xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="emerald" />
+          <FAQ items={faqs} colorClass="teal" />
         </div>
       </div>
     </div>

@@ -89,14 +89,14 @@ export default function CalculadoraPrestacionServicios() {
     <div className="space-y-8">
       <Link
         href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver a Finanzas
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-amber-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="file-text" className="w-10 h-10" /></div>
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="file-text" className="w-10 h-10" /></div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora Prestación de Servicios
           </h1>
@@ -133,7 +133,7 @@ export default function CalculadoraPrestacionServicios() {
                 onClick={() => setEsDeclarante(true)}
                 className={`px-4 py-3 rounded-xl font-semibold transition-colors ${
                   esDeclarante
-                    ? "bg-amber-500 text-white"
+                    ? "bg-teal-500 text-white"
                     : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                 }`}
               >
@@ -143,7 +143,7 @@ export default function CalculadoraPrestacionServicios() {
                 onClick={() => setEsDeclarante(false)}
                 className={`px-4 py-3 rounded-xl font-semibold transition-colors ${
                   !esDeclarante
-                    ? "bg-amber-500 text-white"
+                    ? "bg-teal-500 text-white"
                     : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                 }`}
               >
@@ -158,7 +158,7 @@ export default function CalculadoraPrestacionServicios() {
               type="checkbox"
               checked={incluyeArl}
               onChange={(e) => setIncluyeArl(e.target.checked)}
-              className="w-5 h-5 rounded-lg border-2 border-slate-300 text-amber-500 focus:ring-amber-500"
+              className="w-5 h-5 rounded-lg border-2 border-slate-300 text-teal-500 focus:ring-teal-500"
             />
             <div>
               <span className="font-semibold text-slate-700 dark:text-slate-300">
@@ -194,12 +194,12 @@ export default function CalculadoraPrestacionServicios() {
           {tieneResultados && (
             <div className="mt-8 space-y-4">
               {/* Resultado principal */}
-              <div className="p-8 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/50 dark:to-orange-950/50 rounded-3xl ring-1 ring-amber-100 dark:ring-amber-900">
+              <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900">
                 <div className="text-center">
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
                     Recibirás neto
                   </p>
-                  <p className="text-4xl font-black text-amber-600">
+                  <p className="text-4xl font-black text-teal-600">
                     ${formatMoney(valorNeto)}
                   </p>
                   <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
@@ -228,7 +228,7 @@ export default function CalculadoraPrestacionServicios() {
                     <div>
                       <span className="text-sm text-slate-600 dark:text-slate-300">IBC (40% del contrato)</span>
                       {ibcCalculado < SMMLV && (
-                        <p className="text-xs text-amber-600">Ajustado al mínimo (1 SMMLV)</p>
+                        <p className="text-xs text-teal-600">Ajustado al mínimo (1 SMMLV)</p>
                       )}
                     </div>
                     <span className="font-semibold text-slate-600 dark:text-slate-300">
@@ -259,29 +259,29 @@ export default function CalculadoraPrestacionServicios() {
                   </div>
                 </div>
 
-                <div className="flex justify-between items-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
+                <div className="flex justify-between items-center p-4 bg-teal-50 dark:bg-teal-900/20 rounded-xl">
                   <div>
-                    <span className="font-semibold text-blue-700 dark:text-blue-300">Retención en la fuente</span>
-                    <p className="text-xs text-blue-500">{esDeclarante ? "11%" : "10%"} del valor bruto</p>
+                    <span className="font-semibold text-teal-700 dark:text-teal-300">Retención en la fuente</span>
+                    <p className="text-xs text-teal-500">{esDeclarante ? "11%" : "10%"} del valor bruto</p>
                   </div>
-                  <span className="font-bold text-lg text-blue-600">
+                  <span className="font-bold text-lg text-teal-600">
                     -${formatMoney(retencion)}
                   </span>
                 </div>
 
-                <div className="flex justify-between items-center p-4 bg-green-50 dark:bg-green-900/20 rounded-xl ring-2 ring-green-200 dark:ring-green-800">
+                <div className="flex justify-between items-center p-4 bg-teal-50 dark:bg-teal-900/20 rounded-xl ring-2 ring-teal-200 dark:ring-teal-800">
                   <div>
-                    <span className="font-semibold text-green-700 dark:text-green-300">Valor neto a recibir</span>
+                    <span className="font-semibold text-teal-700 dark:text-teal-300">Valor neto a recibir</span>
                   </div>
-                  <span className="font-bold text-xl text-green-600">
+                  <span className="font-bold text-xl text-teal-600">
                     ${formatMoney(valorNeto)}
                   </span>
                 </div>
               </div>
 
               {/* Notas */}
-              <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-2xl text-sm text-amber-700 dark:text-amber-300">
-                <span className="inline-flex items-center gap-1 text-amber-600"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /> <strong>Recuerda:</strong></span> La retención en la fuente es un anticipo de impuestos que puedes descontar en tu declaración de renta. Los aportes a seguridad social son deducibles al 100%.
+              <div className="p-4 bg-teal-50 dark:bg-teal-900/20 rounded-2xl text-sm text-teal-700 dark:text-teal-300">
+                <span className="inline-flex items-center gap-1 text-teal-600"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /> <strong>Recuerda:</strong></span> La retención en la fuente es un anticipo de impuestos que puedes descontar en tu declaración de renta. Los aportes a seguridad social son deducibles al 100%.
               </div>
             </div>
           )}
@@ -292,28 +292,28 @@ export default function CalculadoraPrestacionServicios() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-amber-600"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /></span>
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /></span>
             Sobre prestación de servicios
           </h2>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>IBC:</strong> Es el 40% de tus ingresos mensuales. Se usa para calcular tus aportes a seguridad social.</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Salud:</strong> 12.5% del IBC. Da derecho a EPS para ti y tu familia.</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Pensión:</strong> 16% del IBC. Acumula semanas para tu jubilación.</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>ARL:</strong> Protección por accidentes laborales. Obligatoria en muchos contratos.</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Retención:</strong> Es un anticipo de impuestos, no un descuento definitivo.</span>
             </li>
           </ul>
@@ -324,7 +324,7 @@ export default function CalculadoraPrestacionServicios() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-amber-600"><Icon name="bar-chart" className="w-5 h-5" weight="fill" /></span>
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600"><Icon name="bar-chart" className="w-5 h-5" weight="fill" /></span>
             Valores de referencia 2026
           </h2>
           <div className="grid grid-cols-2 gap-4 text-sm">
@@ -351,7 +351,7 @@ export default function CalculadoraPrestacionServicios() {
       {/* FAQs */}
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="orange" />
+          <FAQ items={faqs} colorClass="teal" />
         </div>
       </div>
     </div>

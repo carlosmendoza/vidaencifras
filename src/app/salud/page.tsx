@@ -26,35 +26,35 @@ const calculadoras = [
     descripcion: "Calcula tu gasto calórico diario y macronutrientes según tu actividad física",
     href: "/salud/calculadora-calorias",
     icon: "flame",
-    gradient: "from-orange-400 to-red-500",
+    color: "bg-red-500",
   },
   {
     nombre: "Calculadora de IMC",
     descripcion: "Calcula tu índice de masa corporal y conoce tu peso ideal",
     href: "/salud/calculadora-imc",
     icon: "scale",
-    gradient: "from-violet-400 to-purple-500",
+    color: "bg-red-500",
   },
   {
     nombre: "Calculadora de Hidratación",
     descripcion: "Descubre cuántos litros de agua necesitas beber según tu peso y actividad",
     href: "/salud/calculadora-hidratacion",
     icon: "droplets",
-    gradient: "from-cyan-400 to-blue-500",
+    color: "bg-red-500",
   },
   {
     nombre: "Calculadora de Frecuencia Cardíaca",
     descripcion: "Calcula tu FC máxima y zonas de entrenamiento personalizadas",
     href: "/salud/calculadora-frecuencia-cardiaca",
     icon: "heart",
-    gradient: "from-rose-400 to-red-500",
+    color: "bg-red-500",
   },
   {
     nombre: "Calculadora de Sueño",
     descripcion: "Optimiza tus ciclos de sueño para despertar descansado",
     href: "/salud/calculadora-sueno",
     icon: "moon",
-    gradient: "from-indigo-400 to-purple-500",
+    color: "bg-red-500",
   },
 ];
 
@@ -79,7 +79,7 @@ export default function SaludPage() {
             href={calc.href}
             className="bg-white border border-slate-200 dark:bg-slate-800 dark:border-slate-700/50 rounded-2xl p-8 group hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-black/20 transition-all"
           >
-            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center text-white mb-6 shadow-md`}>
+            <div className={`w-14 h-14 rounded-2xl ${calc.color} flex items-center justify-center text-white mb-6 shadow-md`}>
               <Icon name={calc.icon} className="w-7 h-7" />
             </div>
             <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">

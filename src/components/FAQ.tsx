@@ -17,45 +17,40 @@ export function FAQ({ items, title = "Preguntas Frecuentes", colorClass = "indig
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const colorStyles: Record<string, { bg: string; text: string; ring: string }> = {
-    indigo: {
-      bg: "bg-indigo-50 dark:bg-indigo-950/50",
-      text: "text-indigo-600 dark:text-indigo-400",
-      ring: "ring-indigo-100 dark:ring-indigo-900",
+    teal: {
+      bg: "bg-teal-50 dark:bg-teal-950/50",
+      text: "text-teal-600 dark:text-teal-400",
+      ring: "ring-teal-100 dark:ring-teal-900",
+    },
+    red: {
+      bg: "bg-red-50 dark:bg-red-950/50",
+      text: "text-red-600 dark:text-red-400",
+      ring: "ring-red-100 dark:ring-red-900",
     },
     orange: {
       bg: "bg-orange-50 dark:bg-orange-950/50",
       text: "text-orange-600 dark:text-orange-400",
       ring: "ring-orange-100 dark:ring-orange-900",
     },
+    purple: {
+      bg: "bg-purple-50 dark:bg-purple-950/50",
+      text: "text-purple-600 dark:text-purple-400",
+      ring: "ring-purple-100 dark:ring-purple-900",
+    },
+    indigo: {
+      bg: "bg-indigo-50 dark:bg-indigo-950/50",
+      text: "text-indigo-600 dark:text-indigo-400",
+      ring: "ring-indigo-100 dark:ring-indigo-900",
+    },
     emerald: {
       bg: "bg-emerald-50 dark:bg-emerald-950/50",
       text: "text-emerald-600 dark:text-emerald-400",
       ring: "ring-emerald-100 dark:ring-emerald-900",
     },
-    violet: {
-      bg: "bg-violet-50 dark:bg-violet-950/50",
-      text: "text-violet-600 dark:text-violet-400",
-      ring: "ring-violet-100 dark:ring-violet-900",
-    },
-    rose: {
-      bg: "bg-rose-50 dark:bg-rose-950/50",
-      text: "text-rose-600 dark:text-rose-400",
-      ring: "ring-rose-100 dark:ring-rose-900",
-    },
-    cyan: {
-      bg: "bg-cyan-50 dark:bg-cyan-950/50",
-      text: "text-cyan-600 dark:text-cyan-400",
-      ring: "ring-cyan-100 dark:ring-cyan-900",
-    },
-    blue: {
-      bg: "bg-blue-50 dark:bg-blue-950/50",
-      text: "text-blue-600 dark:text-blue-400",
-      ring: "ring-blue-100 dark:ring-blue-900",
-    },
-    red: {
-      bg: "bg-red-50 dark:bg-red-950/50",
-      text: "text-red-600 dark:text-red-400",
-      ring: "ring-red-100 dark:ring-red-900",
+    amber: {
+      bg: "bg-amber-50 dark:bg-amber-950/50",
+      text: "text-amber-600 dark:text-amber-400",
+      ring: "ring-amber-100 dark:ring-amber-900",
     },
   };
 

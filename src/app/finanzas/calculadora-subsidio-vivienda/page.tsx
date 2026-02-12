@@ -85,7 +85,7 @@ export default function CalculadoraSubsidioVivienda() {
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-teal-500/20 text-white">
             <Icon name="home" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -287,8 +287,8 @@ export default function CalculadoraSubsidioVivienda() {
                   </div>
 
                   {resultado.coberturaTasa && (
-                    <div className="p-4 bg-cyan-50 dark:bg-cyan-950/50 rounded-2xl border border-cyan-200 dark:border-cyan-800">
-                      <p className="text-sm text-cyan-700 dark:text-cyan-300 font-medium flex items-center gap-2">
+                    <div className="p-4 bg-teal-50 dark:bg-teal-900/30 rounded-2xl border border-teal-200 dark:border-teal-800">
+                      <p className="text-sm text-teal-700 dark:text-teal-300 font-medium flex items-center gap-2">
                         <Icon name="seal-check" className="w-5 h-5" />
                         Incluye cobertura a la tasa de interés (reduce la cuota en los primeros años)
                       </p>
@@ -333,7 +333,7 @@ export default function CalculadoraSubsidioVivienda() {
       {/* Documentos */}
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-cyan-100 dark:bg-cyan-900 rounded-lg flex items-center justify-center text-cyan-600 dark:text-cyan-400">
+          <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600 dark:text-teal-400">
             <Icon name="file-text" className="w-5 h-5" />
           </span>
           Documentos necesarios
@@ -341,7 +341,7 @@ export default function CalculadoraSubsidioVivienda() {
         <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
           {DOCUMENTOS_REQUERIDOS.map((doc, i) => (
             <li key={i} className="flex gap-3">
-              <span className="text-cyan-500">•</span>
+              <span className="text-teal-500">•</span>
               <span>{doc}</span>
             </li>
           ))}

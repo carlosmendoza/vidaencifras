@@ -101,9 +101,9 @@ export default function CalculadoraSalarioNeto() {
     <div className="space-y-8">
       <Breadcrumbs />
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-emerald-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
             <Icon name="banknote" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -140,7 +140,7 @@ export default function CalculadoraSalarioNeto() {
                   onClick={() => setField("salario", s.toString())}
                   className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
                     values.salario === s.toString()
-                      ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg"
+                      ? "bg-teal-500 text-white shadow-lg"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
                 >
@@ -155,7 +155,7 @@ export default function CalculadoraSalarioNeto() {
             <button
               onClick={() => setField("incluyeTransporte", values.incluyeTransporte === "true" ? "false" : "true")}
               className={`relative flex-shrink-0 w-12 h-7 rounded-full transition-colors ${
-                values.incluyeTransporte === "true" ? "bg-emerald-500" : "bg-slate-300 dark:bg-slate-600"
+                values.incluyeTransporte === "true" ? "bg-teal-500" : "bg-slate-300 dark:bg-slate-600"
               }`}
             >
               <span
@@ -289,7 +289,7 @@ export default function CalculadoraSalarioNeto() {
 
           <button
             onClick={calcular}
-            className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-emerald-500/20 active:scale-[0.99]"
+            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-teal-500/20 active:scale-[0.99]"
           >
             Calcular salario neto
           </button>
@@ -297,11 +297,11 @@ export default function CalculadoraSalarioNeto() {
           {resultado && (
             <div className="mt-8 space-y-4">
               {/* Resultado principal */}
-              <div className="p-8 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 rounded-3xl text-center ring-1 ring-emerald-100 dark:ring-emerald-900">
+              <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl text-center ring-1 ring-teal-100 dark:ring-teal-900">
                 <p className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest text-xs mb-3">
                   Recibes mensualmente
                 </p>
-                <p className="text-5xl md:text-6xl font-black text-emerald-600 dark:text-emerald-400 tracking-tighter">
+                <p className="text-5xl md:text-6xl font-black text-teal-600 dark:text-teal-400 tracking-tighter">
                   {formatMoney(resultado.salarioNeto)}
                 </p>
               </div>
@@ -371,9 +371,9 @@ export default function CalculadoraSalarioNeto() {
                     </span>
                   </div>
 
-                  <div className="border-t-2 border-emerald-200 dark:border-emerald-800 pt-3 flex justify-between items-center">
+                  <div className="border-t-2 border-teal-200 dark:border-teal-800 pt-3 flex justify-between items-center">
                     <span className="font-black text-slate-800 dark:text-slate-100">SALARIO NETO</span>
-                    <span className="font-black text-xl text-emerald-600 dark:text-emerald-400">
+                    <span className="font-black text-xl text-teal-600 dark:text-teal-400">
                       {formatMoney(resultado.salarioNeto)}
                     </span>
                   </div>
@@ -388,8 +388,8 @@ export default function CalculadoraSalarioNeto() {
                   </p>
                   <p className="text-xs font-bold text-slate-400">de descuentos</p>
                 </div>
-                <div className="p-4 bg-emerald-50 dark:bg-emerald-950/50 rounded-2xl text-center">
-                  <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400">
+                <div className="p-4 bg-teal-50 dark:bg-teal-950/50 rounded-2xl text-center">
+                  <p className="text-2xl font-black text-teal-600 dark:text-teal-400">
                     {(100 - (resultado.totalDescuentos / resultado.salarioBruto) * 100).toFixed(1)}%
                   </p>
                   <p className="text-xs font-bold text-slate-400">recibes</p>
@@ -452,7 +452,7 @@ export default function CalculadoraSalarioNeto() {
       {/* Info sobre aportes del empleador */}
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center text-emerald-600">
+          <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600">
             <Icon name="info" className="w-5 h-5" weight="fill" />
           </span>
           ¿Y el empleador qué paga?
@@ -481,7 +481,7 @@ export default function CalculadoraSalarioNeto() {
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="emerald" />
+        <FAQ items={faqs} colorClass="teal" />
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">

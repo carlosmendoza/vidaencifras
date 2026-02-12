@@ -25,42 +25,42 @@ const calculadoras = [
     descripcion: "Calcula cualquier porcentaje: aumentos, descuentos, diferencias y más",
     href: "/herramientas/calculadora-porcentajes",
     icon: "percent",
-    gradient: "from-cyan-400 to-blue-500",
+    gradient: "bg-purple-500",
   },
   {
     nombre: "Calculadora de Descuentos",
     descripcion: "Calcula el precio final y cuánto ahorras con descuentos y ofertas",
     href: "/herramientas/calculadora-descuentos",
     icon: "tag",
-    gradient: "from-pink-400 to-rose-500",
+    gradient: "bg-purple-500",
   },
   {
     nombre: "Conversor de Unidades",
     descripcion: "Convierte entre unidades de longitud, peso, temperatura y más",
     href: "/herramientas/conversor-unidades",
     icon: "refresh",
-    gradient: "from-indigo-400 to-purple-500",
+    gradient: "bg-purple-500",
   },
   {
     nombre: "Días Vividos",
     descripcion: "Descubre cuántos días, horas y minutos has vivido desde tu nacimiento",
     href: "/herramientas/calculadora-dias-vividos",
     icon: "calendar",
-    gradient: "from-amber-400 to-orange-500",
+    gradient: "bg-purple-500",
   },
   {
     nombre: "Diferencia entre Fechas",
     descripcion: "Calcula el tiempo exacto entre dos fechas en años, meses y días",
     href: "/herramientas/calculadora-diferencia-fechas",
     icon: "calendar-days",
-    gradient: "from-teal-400 to-cyan-500",
+    gradient: "bg-purple-500",
   },
   {
     nombre: "Dividir Cuenta",
     descripcion: "Divide gastos entre amigos de forma justa y sin complicaciones",
     href: "/herramientas/calculadora-dividir-cuenta",
     icon: "receipt",
-    gradient: "from-emerald-400 to-teal-500",
+    gradient: "bg-purple-500",
   },
 ];
 
@@ -68,10 +68,10 @@ export default function HerramientasPage() {
   return (
     <div className="space-y-12">
       <section className="space-y-4">
-        <div className="w-12 h-1.5 bg-indigo-500 dark:bg-indigo-400 rounded-full" />
+        <div className="w-12 h-1.5 bg-purple-500 dark:bg-purple-400 rounded-full" />
         <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-800 dark:text-slate-100">
           Herramientas{" "}
-          <span className="text-indigo-600 dark:text-indigo-400">del día a día</span>
+          <span className="text-purple-600 dark:text-purple-400">del día a día</span>
         </h1>
         <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl">
           Calculadoras de uso general para resolver cálculos cotidianos de forma rápida y sencilla.
@@ -85,14 +85,14 @@ export default function HerramientasPage() {
             href={calc.href}
             className="bg-white border border-slate-200 dark:bg-slate-800 dark:border-slate-700/50 rounded-2xl p-8 group hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-black/20 transition-all"
           >
-            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center text-white mb-6 shadow-md`}>
+            <div className={`w-14 h-14 rounded-2xl ${calc.gradient} flex items-center justify-center text-white mb-6 shadow-md`}>
               <Icon name={calc.icon} className="w-7 h-7" />
             </div>
             <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">
               {calc.nombre}
             </h2>
             <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-sm">{calc.descripcion}</p>
-            <div className="mt-6 text-indigo-600 dark:text-indigo-400 font-bold text-sm">
+            <div className="mt-6 text-purple-600 dark:text-purple-400 font-bold text-sm">
               Usar calculadora
             </div>
           </Link>

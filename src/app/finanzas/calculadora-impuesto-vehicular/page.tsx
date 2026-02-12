@@ -100,9 +100,9 @@ export default function CalculadoraImpuestoVehicular() {
     <div className="space-y-8">
       <Breadcrumbs />
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-amber-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-teal-500/20 text-white">
             <Icon name="car" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -122,7 +122,7 @@ export default function CalculadoraImpuestoVehicular() {
             <select
               value={departamento}
               onChange={(e) => setDepartamento(e.target.value)}
-              className="w-full px-5 py-4 rounded-2xl text-lg font-semibold bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-amber-500 focus:ring-amber-500"
+              className="w-full px-5 py-4 rounded-2xl text-lg font-semibold bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-teal-500 focus:ring-teal-500"
             >
               {DEPARTAMENTOS.map((d) => (
                 <option key={d.codigo} value={d.codigo}>
@@ -144,7 +144,7 @@ export default function CalculadoraImpuestoVehicular() {
                   onClick={() => setTipoVehiculo(t.valor)}
                   className={`px-4 py-3 rounded-xl font-semibold text-sm transition-all text-left ${
                     tipoVehiculo === t.valor
-                      ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg"
+                      ? "bg-teal-500 text-white shadow-lg shadow-teal-500/20"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
                 >
@@ -181,11 +181,11 @@ export default function CalculadoraImpuestoVehicular() {
           {resultado && (
             <div className="mt-8 space-y-4 animate-result-appear">
               {/* Impuesto principal */}
-              <div className="p-8 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/50 dark:to-orange-950/50 rounded-3xl text-center ring-1 ring-amber-100 dark:ring-amber-900">
+              <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl text-center ring-1 ring-teal-100 dark:ring-teal-900">
                 <p className="text-slate-500 dark:text-slate-400 font-medium text-sm mb-2">
                   Impuesto anual
                 </p>
-                <p className="text-5xl font-black text-amber-600 dark:text-amber-400">
+                <p className="text-5xl font-black text-teal-600 dark:text-teal-400">
                   ${formatMoney(resultado.impuestoAnual)}
                 </p>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
@@ -253,7 +253,7 @@ export default function CalculadoraImpuestoVehicular() {
       {/* Tabla de tarifas */}
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-amber-600 dark:text-amber-400">
+          <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600 dark:text-teal-400">
             <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
           </span>
           Tarifas para vehículos particulares
@@ -269,15 +269,15 @@ export default function CalculadoraImpuestoVehicular() {
             <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
               <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                 <td className="px-4 py-3 text-slate-600 dark:text-slate-300">Hasta $45.000.000</td>
-                <td className="px-4 py-3 text-right font-bold text-amber-600">1.5%</td>
+                <td className="px-4 py-3 text-right font-bold text-teal-600">1.5%</td>
               </tr>
               <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                 <td className="px-4 py-3 text-slate-600 dark:text-slate-300">$45.000.001 - $90.000.000</td>
-                <td className="px-4 py-3 text-right font-bold text-amber-600">2.5%</td>
+                <td className="px-4 py-3 text-right font-bold text-teal-600">2.5%</td>
               </tr>
               <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                 <td className="px-4 py-3 text-slate-600 dark:text-slate-300">Más de $90.000.000</td>
-                <td className="px-4 py-3 text-right font-bold text-amber-600">3.5%</td>
+                <td className="px-4 py-3 text-right font-bold text-teal-600">3.5%</td>
               </tr>
             </tbody>
           </table>
@@ -288,7 +288,7 @@ export default function CalculadoraImpuestoVehicular() {
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="amber" />
+        <FAQ items={faqs} colorClass="teal" />
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">

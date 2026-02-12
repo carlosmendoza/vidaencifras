@@ -160,14 +160,14 @@ export default function ValorHoraPage() {
     <div className="space-y-8">
       <Link
         href="/productividad"
-        className="text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-orange-600 dark:hover:text-orange-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver a Productividad
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-amber-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-orange-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
             <Icon name="gem" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -184,7 +184,7 @@ export default function ValorHoraPage() {
             <button
               onClick={() => setField("tipoIngreso", "mensual")}
               className={`flex-1 px-5 py-4 font-semibold transition-colors ${values.tipoIngreso === "mensual"
-                ? "bg-amber-500 text-white"
+                ? "bg-orange-500 text-white"
                 : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
             >
@@ -193,7 +193,7 @@ export default function ValorHoraPage() {
             <button
               onClick={() => setField("tipoIngreso", "anual")}
               className={`flex-1 px-5 py-4 font-semibold transition-colors ${values.tipoIngreso === "anual"
-                ? "bg-amber-500 text-white"
+                ? "bg-orange-500 text-white"
                 : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
             >
@@ -207,7 +207,7 @@ export default function ValorHoraPage() {
               <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
                 Tu ingreso {values.tipoIngreso}
               </label>
-              <CurrencySelector colorClass="amber" />
+              <CurrencySelector colorClass="orange" />
             </div>
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">
@@ -268,7 +268,7 @@ export default function ValorHoraPage() {
                   key={m}
                   onClick={() => setField("tiempoTraslado", m.toString())}
                   className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${values.tiempoTraslado === m.toString()
-                    ? "bg-amber-500 text-white"
+                    ? "bg-orange-500 text-white"
                     : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                     }`}
                 >
@@ -337,7 +337,7 @@ export default function ValorHoraPage() {
 
           <button
             onClick={calcular}
-            className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-amber-500/20 active:scale-[0.99]"
+            className="w-full bg-orange-500 hover:bg-orange-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-orange-500/20 active:scale-[0.99]"
           >
             Calcular valor de mi hora
           </button>
@@ -346,11 +346,11 @@ export default function ValorHoraPage() {
             <div className="mt-10 space-y-6">
               {/* Resultado principal */}
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-6 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/50 dark:to-orange-950/50 rounded-3xl ring-1 ring-amber-100 dark:ring-amber-900 text-center">
+                <div className="p-6 bg-orange-50 dark:bg-orange-950/50 rounded-3xl ring-1 ring-orange-100 dark:ring-orange-900 text-center">
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
                     Valor bruto
                   </p>
-                  <p className="text-3xl font-black text-amber-600">
+                  <p className="text-3xl font-black text-orange-600">
                     {moneda.simbolo}{formatMoney(resultado.valorBruto)}
                   </p>
                   <p className="text-xs text-slate-400 mt-1">por hora</p>
@@ -402,7 +402,7 @@ export default function ValorHoraPage() {
                       key={eq.nombre}
                       className="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-center"
                     >
-                      <Icon name={eq.icon} className="w-8 h-8 mx-auto mb-2 text-amber-500" />
+                      <Icon name={eq.icon} className="w-8 h-8 mx-auto mb-2 text-orange-500" />
                       <p className="text-xl font-black text-slate-800 dark:text-slate-100 mt-1">
                         {formatDecimal(eq.cantidad)}
                       </p>
@@ -413,8 +413,8 @@ export default function ValorHoraPage() {
               </div>
 
               {/* Reflexión */}
-              <div className="p-6 bg-amber-50 dark:bg-amber-950/30 rounded-2xl border border-amber-200 dark:border-amber-800">
-                <p className="text-sm text-amber-800 dark:text-amber-200">
+              <div className="p-6 bg-orange-50 dark:bg-orange-950/30 rounded-2xl border border-orange-200 dark:border-orange-800">
+                <p className="text-sm text-orange-800 dark:text-orange-200">
                   <strong>Piénsalo así:</strong> Cada vez que gastas{" "}
                   {moneda.simbolo}{formatMoney(resultado.valorNeto)}, estás intercambiando
                   una hora de tu vida por ello. ¿Vale la pena?
@@ -429,35 +429,35 @@ export default function ValorHoraPage() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-10 h-10 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-amber-600 dark:text-amber-400">
+            <span className="w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center text-orange-600 dark:text-orange-400">
               <Icon name="lightbulb" className="w-6 h-6" weight="fill" />
             </span>
             Cómo usar el valor de tu hora
           </h2>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-orange-500">•</span>
               <span>
                 <strong>Delegar tareas:</strong> Si pagar por un servicio cuesta menos que el valor
                 de tu hora, probablemente vale la pena delegarlo.
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-orange-500">•</span>
               <span>
                 <strong>Negociar salario:</strong> Conocer tu tarifa real te ayuda a negociar
                 aumentos o evaluar ofertas laborales.
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-orange-500">•</span>
               <span>
                 <strong>Freelance:</strong> Usa el valor neto como base para establecer tus
                 tarifas, añadiendo un margen por impuestos e imprevistos.
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-orange-500">•</span>
               <span>
                 <strong>Compras conscientes:</strong> Antes de comprar algo, piensa cuántas horas
                 de trabajo representa.
@@ -470,7 +470,7 @@ export default function ValorHoraPage() {
       {/* FAQs */}
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="amber" />
+          <FAQ items={faqs} colorClass="orange" />
         </div>
       </div>
     </div>

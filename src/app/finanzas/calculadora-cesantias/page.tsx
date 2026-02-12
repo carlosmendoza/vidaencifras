@@ -65,14 +65,14 @@ export default function CalculadoraCesantias() {
     <div className="space-y-8">
       <Link
         href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver a Finanzas
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-cyan-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-cyan-400 to-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="briefcase" className="w-10 h-10" /></div>
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="briefcase" className="w-10 h-10" /></div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora de Cesantías
           </h1>
@@ -104,7 +104,7 @@ export default function CalculadoraCesantias() {
                   onClick={() => setField("salario", s.toString())}
                   className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
                     values.salario === s.toString()
-                      ? "bg-cyan-500 text-white"
+                      ? "bg-teal-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                   }`}
                 >
@@ -121,7 +121,7 @@ export default function CalculadoraCesantias() {
                 type="checkbox"
                 checked={values.incluyeTransporte === "true"}
                 onChange={(e) => setField("incluyeTransporte", String(e.target.checked))}
-                className="w-5 h-5 rounded-lg border-2 border-slate-300 text-cyan-500 focus:ring-cyan-500"
+                className="w-5 h-5 rounded-lg border-2 border-slate-300 text-teal-500 focus:ring-teal-500"
               />
               <div>
                 <span className="font-semibold text-slate-700 dark:text-slate-300">
@@ -172,7 +172,7 @@ export default function CalculadoraCesantias() {
               type="checkbox"
               checked={mostrarIntereses}
               onChange={(e) => setMostrarIntereses(e.target.checked)}
-              className="w-5 h-5 rounded-lg border-2 border-slate-300 text-cyan-500 focus:ring-cyan-500"
+              className="w-5 h-5 rounded-lg border-2 border-slate-300 text-teal-500 focus:ring-teal-500"
             />
             <div>
               <span className="font-semibold text-slate-700 dark:text-slate-300">
@@ -187,20 +187,20 @@ export default function CalculadoraCesantias() {
           {/* Resultado */}
           {salarioNum > 0 && (
             <div className="mt-8 space-y-4">
-              <div className="p-8 bg-gradient-to-br from-cyan-50 to-teal-50 dark:from-cyan-950/50 dark:to-teal-950/50 rounded-3xl ring-1 ring-cyan-100 dark:ring-cyan-900">
+              <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900">
                 <div className="text-center">
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
                     Tus cesantías
                   </p>
-                  <p className="text-4xl font-black text-cyan-600">
+                  <p className="text-4xl font-black text-teal-600 dark:text-teal-400">
                     ${formatMoney(cesantias)}
                   </p>
                   {mostrarIntereses && (
-                    <div className="mt-4 pt-4 border-t border-cyan-200 dark:border-cyan-800">
+                    <div className="mt-4 pt-4 border-t border-teal-200 dark:border-teal-800">
                       <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
                         + Intereses sobre cesantías
                       </p>
-                      <p className="text-2xl font-black text-teal-600">
+                      <p className="text-2xl font-black text-teal-600 dark:text-teal-400">
                         ${formatMoney(interesesCesantias)}
                       </p>
                     </div>
@@ -229,7 +229,7 @@ export default function CalculadoraCesantias() {
                 {aplicaAuxilio && (
                   <div className="flex justify-between items-center p-3 bg-white dark:bg-slate-800 rounded-xl">
                     <span className="text-slate-600 dark:text-slate-300">+ Auxilio transporte</span>
-                    <span className="font-bold text-cyan-600">
+                    <span className="font-bold text-teal-600 dark:text-teal-400">
                       ${formatMoney(AUXILIO_TRANSPORTE)}
                     </span>
                   </div>
@@ -265,24 +265,24 @@ export default function CalculadoraCesantias() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-cyan-100 dark:bg-cyan-900 rounded-lg flex items-center justify-center text-cyan-500"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /></span>
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-500"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /></span>
             Sobre las cesantías
           </h2>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
             <li className="flex gap-3">
-              <span className="text-cyan-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Fórmula:</strong> (Salario + Aux. Transporte) × Días trabajados ÷ 360</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-cyan-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Intereses:</strong> Cesantías × 12% × Días trabajados ÷ 360</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-cyan-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Dónde se guardan:</strong> En un fondo de cesantías (Porvenir, Protección, Colfondos, FNA).</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-cyan-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Retiro parcial:</strong> Solo para vivienda o educación, con autorización del empleador.</span>
             </li>
           </ul>
@@ -292,7 +292,7 @@ export default function CalculadoraCesantias() {
       {/* FAQs */}
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="cyan" />
+          <FAQ items={faqs} colorClass="teal" />
         </div>
       </div>
     </div>

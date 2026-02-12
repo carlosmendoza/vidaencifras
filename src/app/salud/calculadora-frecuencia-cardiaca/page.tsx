@@ -127,9 +127,9 @@ export default function CalculadoraFrecuenciaCardiaca() {
     <div className="space-y-8">
       <Breadcrumbs />
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-rose-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-red-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-rose-400 to-red-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+          <div className="w-20 h-20 bg-red-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
             <Icon name="heart" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -186,7 +186,7 @@ export default function CalculadoraFrecuenciaCardiaca() {
 
           <button
             onClick={calcular}
-            className="w-full bg-gradient-to-r from-rose-500 to-red-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-rose-500/20 active:scale-[0.99]"
+            className="w-full bg-red-500 hover:bg-red-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-red-500/20 active:scale-[0.99]"
           >
             Calcular zonas
           </button>
@@ -195,16 +195,16 @@ export default function CalculadoraFrecuenciaCardiaca() {
             <div className="mt-10 space-y-6">
               {/* Resultados principales */}
               <div className="grid grid-cols-3 gap-3">
-                <div className="p-5 bg-gradient-to-br from-rose-50 to-red-50 dark:from-rose-950/50 dark:to-red-950/50 rounded-2xl text-center ring-1 ring-rose-100 dark:ring-rose-900">
-                  <p className="text-4xl font-black text-rose-600">{resultado.fcMaxima}</p>
+                <div className="p-5 bg-red-50 dark:bg-red-950/50 rounded-2xl text-center ring-1 ring-red-100 dark:ring-red-900">
+                  <p className="text-4xl font-black text-red-600">{resultado.fcMaxima}</p>
                   <p className="text-xs font-bold text-slate-400 mt-1">FC Máxima</p>
                 </div>
                 <div className="p-5 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 rounded-2xl text-center ring-1 ring-slate-200 dark:ring-slate-700">
                   <p className="text-4xl font-black text-slate-700 dark:text-slate-200">{resultado.fcReposo}</p>
                   <p className="text-xs font-bold text-slate-400 mt-1">FC Reposo</p>
                 </div>
-                <div className="p-5 bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-950/50 dark:to-purple-950/50 rounded-2xl text-center ring-1 ring-violet-100 dark:ring-violet-900">
-                  <p className="text-4xl font-black text-violet-600">{resultado.fcReserva}</p>
+                <div className="p-5 bg-red-50 dark:bg-red-950/50 rounded-2xl text-center ring-1 ring-red-100 dark:ring-red-900">
+                  <p className="text-4xl font-black text-red-600">{resultado.fcReserva}</p>
                   <p className="text-xs font-bold text-slate-400 mt-1">FC Reserva</p>
                 </div>
               </div>
@@ -260,7 +260,7 @@ export default function CalculadoraFrecuenciaCardiaca() {
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <Icon name="info" className="w-8 h-8 text-rose-500" weight="fill" />
+          <Icon name="info" className="w-8 h-8 text-red-500" weight="fill" />
           ¿Por qué entrenar por zonas?
         </h2>
         <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
@@ -273,7 +273,7 @@ export default function CalculadoraFrecuenciaCardiaca() {
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="rose" />
+        <FAQ items={faqs} colorClass="red" />
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">

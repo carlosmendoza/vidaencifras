@@ -69,7 +69,7 @@ export const utilidadesDestacadas: Calculadora[] = [
     descripcion: "Calcula cualquier porcentaje",
     href: "/herramientas/calculadora-porcentajes",
     icon: "percent",
-    gradient: gradients.porcentajes,
+    gradient: gradients.herramientas,
     categoria: "herramientas",
   },
   {
@@ -77,7 +77,7 @@ export const utilidadesDestacadas: Calculadora[] = [
     descripcion: "Precio final y cuánto ahorras",
     href: "/herramientas/calculadora-descuentos",
     icon: "tag",
-    gradient: gradients.descuentos,
+    gradient: gradients.herramientas,
     categoria: "herramientas",
   },
   {
@@ -85,7 +85,7 @@ export const utilidadesDestacadas: Calculadora[] = [
     descripcion: "Convierte longitud, peso y más",
     href: "/herramientas/conversor-unidades",
     icon: "refresh",
-    gradient: gradients.conversor,
+    gradient: gradients.herramientas,
     categoria: "herramientas",
   },
   {
@@ -93,7 +93,7 @@ export const utilidadesDestacadas: Calculadora[] = [
     descripcion: "Divide gastos entre amigos",
     href: "/herramientas/calculadora-dividir-cuenta",
     icon: "receipt",
-    gradient: gradients.dividir,
+    gradient: gradients.herramientas,
     categoria: "herramientas",
   },
 ];

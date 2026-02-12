@@ -100,8 +100,8 @@ export const categoryLabels: Record<string, string> = {
 };
 
 export const categoryColors: Record<string, string> = {
-  finanzas: "from-emerald-500 to-teal-500",
-  salud: "from-orange-500 to-red-500",
-  productividad: "from-amber-500 to-orange-500",
-  herramientas: "from-indigo-500 to-purple-500",
+  finanzas: "bg-teal-500",
+  salud: "bg-red-500",
+  productividad: "bg-orange-500",
+  herramientas: "bg-purple-500",
 };

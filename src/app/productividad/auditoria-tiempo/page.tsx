@@ -317,14 +317,14 @@ export default function AuditoriaTiempoPage() {
     <div className="space-y-8">
       <Link
         href="/productividad"
-        className="text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-orange-600 dark:hover:text-orange-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver a Productividad
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-3xl mx-auto shadow-xl shadow-amber-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-3xl mx-auto shadow-xl shadow-orange-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
             <Icon name="clock" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -390,7 +390,7 @@ export default function AuditoriaTiempoPage() {
           onClick={calcularResultado}
           disabled={Math.abs(horasRestantes) > 0.5}
           className={`w-full py-5 rounded-2xl font-black text-xl transition-all shadow-xl active:scale-[0.99] ${Math.abs(horasRestantes) <= 0.5
-            ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:opacity-90 shadow-amber-500/20"
+            ? "bg-orange-500 hover:bg-orange-600 text-white shadow-orange-500/20"
             : "bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed"
             }`}
         >
@@ -506,15 +506,15 @@ export default function AuditoriaTiempoPage() {
             </div>
 
             {/* Sugerencias */}
-            <div className="p-6 bg-amber-50 dark:bg-amber-950/30 rounded-2xl border border-amber-200 dark:border-amber-800">
-              <h3 className="font-bold text-amber-800 dark:text-amber-200 mb-3 flex items-center gap-2">
+            <div className="p-6 bg-orange-50 dark:bg-orange-950/30 rounded-2xl border border-orange-200 dark:border-orange-800">
+              <h3 className="font-bold text-orange-800 dark:text-orange-200 mb-3 flex items-center gap-2">
                 <Icon name="lightbulb" className="w-5 h-5" weight="fill" /> Sugerencias personalizadas
               </h3>
               <ul className="space-y-2">
                 {sugerencias.map((s, i) => (
                   <li
                     key={i}
-                    className="text-sm text-amber-700 dark:text-amber-300 flex gap-2"
+                    className="text-sm text-orange-700 dark:text-orange-300 flex gap-2"
                   >
                     <span>•</span>
                     {s}
@@ -530,7 +530,7 @@ export default function AuditoriaTiempoPage() {
       <div className="max-w-3xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <Icon name="lightbulb" className="w-8 h-8 text-amber-500" weight="fill" />
+            <Icon name="lightbulb" className="w-8 h-8 text-orange-500" weight="fill" />
             Distribución recomendada
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 text-center">
@@ -552,7 +552,7 @@ export default function AuditoriaTiempoPage() {
       {/* FAQs */}
       <div className="max-w-3xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="amber" />
+          <FAQ items={faqs} colorClass="orange" />
         </div>
       </div>
     </div>

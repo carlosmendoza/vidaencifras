@@ -87,9 +87,9 @@ export default function CalculadoraVacaciones() {
     <div className="space-y-8">
       <Breadcrumbs />
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-cyan-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-cyan-400 to-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
             <Icon name="palmtree" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -123,7 +123,7 @@ export default function CalculadoraVacaciones() {
                 onClick={() => setField("salario", SMMLV.toString())}
                 className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
                   values.salario === SMMLV.toString()
-                    ? "bg-gradient-to-r from-cyan-500 to-teal-500 text-white"
+                    ? "bg-teal-500 text-white"
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
                 }`}
               >
@@ -133,7 +133,7 @@ export default function CalculadoraVacaciones() {
                 onClick={() => setField("salario", (SMMLV * 2).toString())}
                 className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
                   values.salario === (SMMLV * 2).toString()
-                    ? "bg-gradient-to-r from-cyan-500 to-teal-500 text-white"
+                    ? "bg-teal-500 text-white"
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
                 }`}
               >
@@ -143,7 +143,7 @@ export default function CalculadoraVacaciones() {
                 onClick={() => setField("salario", (SMMLV * 3).toString())}
                 className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
                   values.salario === (SMMLV * 3).toString()
-                    ? "bg-gradient-to-r from-cyan-500 to-teal-500 text-white"
+                    ? "bg-teal-500 text-white"
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
                 }`}
               >
@@ -190,7 +190,7 @@ export default function CalculadoraVacaciones() {
 
           <button
             onClick={calcular}
-            className="w-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 active:scale-[0.99]"
+            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-teal-500/20 active:scale-[0.99]"
           >
             Calcular vacaciones
           </button>
@@ -198,11 +198,11 @@ export default function CalculadoraVacaciones() {
           {resultado && (
             <div className="mt-8 space-y-4">
               {/* Resultado principal */}
-              <div className="p-8 bg-gradient-to-br from-cyan-50 to-teal-50 dark:from-cyan-950/50 dark:to-teal-950/50 rounded-3xl text-center ring-1 ring-cyan-100 dark:ring-cyan-900">
+              <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl text-center ring-1 ring-teal-100 dark:ring-teal-900">
                 <p className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest text-xs mb-3">
                   Vacaciones acumuladas
                 </p>
-                <p className="text-5xl md:text-6xl font-black text-cyan-600 dark:text-cyan-400 tracking-tighter">
+                <p className="text-5xl md:text-6xl font-black text-teal-600 dark:text-teal-400 tracking-tighter">
                   {resultado.diasHabiles}
                 </p>
                 <p className="text-lg font-bold text-slate-500 dark:text-slate-400">
@@ -214,7 +214,7 @@ export default function CalculadoraVacaciones() {
               </div>
 
               {/* Valor en dinero */}
-              <div className="p-6 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 rounded-2xl ring-1 ring-emerald-100 dark:ring-emerald-900">
+              <div className="p-6 bg-teal-50 dark:bg-teal-950/50 rounded-2xl ring-1 ring-teal-100 dark:ring-teal-900">
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="text-sm font-bold text-slate-700 dark:text-slate-300">Valor de tus vacaciones</p>
@@ -240,7 +240,7 @@ export default function CalculadoraVacaciones() {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-slate-500 dark:text-slate-400">Días hábiles acumulados</span>
-                    <span className="font-bold text-cyan-600 dark:text-cyan-400">
+                    <span className="font-bold text-teal-600 dark:text-teal-400">
                       {resultado.diasHabiles} días
                     </span>
                   </div>
@@ -269,7 +269,7 @@ export default function CalculadoraVacaciones() {
       {/* Info adicional */}
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-cyan-100 dark:bg-cyan-900 rounded-lg flex items-center justify-center text-cyan-600 dark:text-cyan-400">
+          <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-500">
             <Icon name="calendar" className="w-5 h-5" weight="fill" />
           </span>
           ¿Cómo funcionan las vacaciones?
@@ -291,7 +291,7 @@ export default function CalculadoraVacaciones() {
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="cyan" />
+        <FAQ items={faqs} colorClass="teal" />
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">

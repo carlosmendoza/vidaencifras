@@ -138,14 +138,14 @@ export default function VidaEnSemanasPage() {
     <div className="space-y-8">
       <Link
         href="/productividad"
-        className="text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-orange-600 dark:hover:text-orange-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver a Productividad
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-amber-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-orange-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
             <Icon name="calendar" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -200,7 +200,7 @@ export default function VidaEnSemanasPage() {
                     setMostrarResultado(false);
                   }}
                   className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${values.expectativaVida === e.toString()
-                      ? "bg-amber-500 text-white"
+                      ? "bg-orange-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                     }`}
                 >
@@ -214,7 +214,7 @@ export default function VidaEnSemanasPage() {
             onClick={calcular}
             disabled={!values.fechaNacimiento}
             className={`w-full py-5 rounded-2xl font-black text-xl transition-all shadow-xl active:scale-[0.99] ${values.fechaNacimiento
-                ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:opacity-90 shadow-amber-500/20"
+                ? "bg-orange-500 hover:bg-orange-600 text-white shadow-orange-500/20"
                 : "bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed"
               }`}
           >
@@ -225,11 +225,11 @@ export default function VidaEnSemanasPage() {
         {mostrarResultado && estadisticas && (
           <div className="mt-12 space-y-8">
             {/* Estadística principal */}
-            <div className="text-center p-8 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/50 dark:to-orange-950/50 rounded-3xl">
+            <div className="text-center p-8 bg-orange-50 dark:bg-orange-950/50 rounded-3xl">
               <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">
                 Has vivido
               </p>
-              <p className="text-5xl font-black text-amber-600 mb-2">
+              <p className="text-5xl font-black text-orange-600 mb-2">
                 {estadisticas.porcentajeVivido.toFixed(1)}%
               </p>
               <p className="text-slate-500 dark:text-slate-400">
@@ -239,7 +239,7 @@ export default function VidaEnSemanasPage() {
               {/* Barra de progreso */}
               <div className="mt-6 h-4 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-amber-400 to-orange-500 rounded-full transition-all duration-1000"
+                  className="h-full bg-orange-500 rounded-full transition-all duration-1000"
                   style={{ width: `${Math.min(estadisticas.porcentajeVivido, 100)}%` }}
                 />
               </div>
@@ -266,7 +266,7 @@ export default function VidaEnSemanasPage() {
             {/* Estadísticas de momentos restantes */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="p-5 bg-slate-50 dark:bg-slate-800 rounded-2xl text-center">
-                <Icon name="sun" className="w-8 h-8 mx-auto mb-1 text-amber-500" weight="duotone" />
+                <Icon name="sun" className="w-8 h-8 mx-auto mb-1 text-orange-500" weight="duotone" />
                 <p className="text-2xl font-black text-slate-800 dark:text-slate-100">
                   {estadisticas.veranosRestantes}
                 </p>
@@ -318,8 +318,8 @@ export default function VidaEnSemanasPage() {
             </div>
 
             {/* Reflexión */}
-            <div className="p-6 bg-amber-50 dark:bg-amber-950/30 rounded-2xl border border-amber-200 dark:border-amber-800">
-              <p className="text-amber-800 dark:text-amber-200 text-center">
+            <div className="p-6 bg-orange-50 dark:bg-orange-950/30 rounded-2xl border border-orange-200 dark:border-orange-800">
+              <p className="text-orange-800 dark:text-orange-200 text-center">
                 <strong>Cada cuadrito vacío es una oportunidad.</strong>
                 <br />
                 <span className="text-sm">
@@ -350,33 +350,33 @@ export default function VidaEnSemanasPage() {
       <div className="max-w-4xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <Icon name="lightbulb" className="w-8 h-8 text-amber-500" weight="fill" />
+            <Icon name="lightbulb" className="w-8 h-8 text-orange-500" weight="fill" />
             La perspectiva del tiempo
           </h2>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-orange-500">•</span>
               <span>
                 <strong>Memento mori:</strong> Los estoicos usaban esta frase ("recuerda que
                 morirás") no para ser pesimistas, sino para vivir con más intención.
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-orange-500">•</span>
               <span>
                 <strong>El tiempo con padres:</strong> Si ves a tus padres 10 días al año y les
                 quedan 20 años, solo los verás 200 días más. Haz que cuenten.
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-orange-500">•</span>
               <span>
                 <strong>Summers left:</strong> Si tienes 30 años y tus padres 60, probablemente
                 solo queden 15-20 veranos juntos. Planéalos.
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-orange-500">•</span>
               <span>
                 <strong>No es depresión, es claridad:</strong> Ver tu tiempo finito no es triste,
                 es liberador. Te ayuda a decir no a lo que no importa.
@@ -389,7 +389,7 @@ export default function VidaEnSemanasPage() {
       {/* FAQs */}
       <div className="max-w-4xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="amber" />
+          <FAQ items={faqs} colorClass="orange" />
         </div>
       </div>
     </div>

@@ -85,14 +85,14 @@ export default function InteresCompuesto() {
     <div className="space-y-8">
       <Link
         href="/"
-        className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver al inicio
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-emerald-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
             <Icon name="trending-up" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -110,7 +110,7 @@ export default function InteresCompuesto() {
               <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
                 ¿Cuánto vas a invertir?
               </label>
-              <CurrencySelector colorClass="emerald" />
+              <CurrencySelector colorClass="teal" />
             </div>
 
             <div className="relative">
@@ -148,7 +148,7 @@ export default function InteresCompuesto() {
                       key={tipo.valor}
                       onClick={() => setField("tipoTasa", tipo.valor)}
                       className={`px-5 py-4 font-semibold transition-colors ${values.tipoTasa === tipo.valor || (tipo.valor === "anual" && values.tipoTasa !== "mensual" && values.tipoTasa !== "anual")
-                        ? "bg-emerald-500 text-white"
+                        ? "bg-teal-500 text-white"
                         : "bg-white text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                         }`}
                     >
@@ -160,7 +160,7 @@ export default function InteresCompuesto() {
                 <select
                   value={values.tipoTasa}
                   onChange={(e) => setField("tipoTasa", e.target.value)}
-                  className="px-4 py-4 rounded-2xl text-base font-semibold bg-emerald-50 text-emerald-700 border-2 border-emerald-200 min-w-[180px]"
+                  className="px-4 py-4 rounded-2xl text-base font-semibold bg-teal-50 text-teal-700 border-2 border-teal-200 min-w-[180px]"
                 >
                   {tiposTasaAvanzado.map((tipo) => (
                     <option key={tipo.valor} value={tipo.valor}>
@@ -171,7 +171,7 @@ export default function InteresCompuesto() {
               )}
             </div>
             {values.tipoTasa === "mensual" && (
-              <p className="text-xs text-emerald-600 ml-1">
+              <p className="text-xs text-teal-600 ml-1">
                 Ej: 1.5% mensual equivale a ~19.6% anual
               </p>
             )}
@@ -274,7 +274,7 @@ export default function InteresCompuesto() {
                       type="checkbox"
                       checked={values.aporteAlInicio === "true"}
                       onChange={(e) => setField("aporteAlInicio", String(e.target.checked))}
-                      className="w-5 h-5 rounded-lg border-2 border-slate-300 text-emerald-500 focus:ring-emerald-500"
+                      className="w-5 h-5 rounded-lg border-2 border-slate-300 text-teal-500 focus:ring-teal-500"
                     />
                     <span className="text-sm text-slate-600 dark:text-slate-300">
                       Aportar al inicio de cada período
@@ -287,7 +287,7 @@ export default function InteresCompuesto() {
 
           <button
             onClick={calcular}
-            className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-emerald-500/20 active:scale-[0.99]"
+            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-teal-500/20 active:scale-[0.99]"
           >
             Calcular
           </button>
@@ -296,10 +296,10 @@ export default function InteresCompuesto() {
           {resultado && (
             <div className="mt-10 space-y-6">
               {/* Resumen principal */}
-              <div className="p-8 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 rounded-3xl ring-1 ring-emerald-100 dark:ring-emerald-900">
+              <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900">
                 <div className="text-center mb-6">
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">En {values.tiempo} años tendrás</p>
-                  <p className="text-4xl font-black text-emerald-600">
+                  <p className="text-4xl font-black text-teal-600">
                     {moneda.simbolo}{formatMoney(resultado.montoFinal)}
                   </p>
                 </div>
@@ -332,14 +332,14 @@ export default function InteresCompuesto() {
 
               {/* Métricas */}
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 rounded-2xl ring-1 ring-blue-100 dark:ring-blue-900 text-center">
-                  <p className="text-2xl font-black text-blue-700">{formatPercent(resultado.tasaEfectivaAnual)}%</p>
-                  <p className="text-xs text-blue-500 mt-1">tasa anual equivalente</p>
+                <div className="p-4 bg-teal-50 dark:bg-teal-950/50 rounded-2xl ring-1 ring-teal-100 dark:ring-teal-900 text-center">
+                  <p className="text-2xl font-black text-teal-600 dark:text-teal-400">{formatPercent(resultado.tasaEfectivaAnual)}%</p>
+                  <p className="text-xs text-teal-500 mt-1">tasa anual equivalente</p>
                 </div>
 
-                <div className="p-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/50 dark:to-pink-950/50 rounded-2xl ring-1 ring-purple-100 dark:ring-purple-900 text-center">
-                  <p className="text-2xl font-black text-purple-700">+{formatPercent(resultado.rendimientoTotal)}%</p>
-                  <p className="text-xs text-purple-500 mt-1">ganancia total</p>
+                <div className="p-4 bg-teal-50 dark:bg-teal-950/50 rounded-2xl ring-1 ring-teal-100 dark:ring-teal-900 text-center">
+                  <p className="text-2xl font-black text-teal-600 dark:text-teal-400">+{formatPercent(resultado.rendimientoTotal)}%</p>
+                  <p className="text-xs text-teal-500 mt-1">ganancia total</p>
                 </div>
               </div>
 
@@ -348,7 +348,7 @@ export default function InteresCompuesto() {
                 <>
                   <button
                     onClick={() => setMostrarTabla(!mostrarTabla)}
-                    className="w-full py-3 rounded-xl font-semibold text-emerald-700 bg-emerald-100 dark:bg-emerald-900 hover:bg-emerald-200 dark:hover:bg-emerald-800 transition-colors flex items-center justify-center gap-2"
+                    className="w-full py-3 rounded-xl font-semibold text-teal-700 bg-teal-100 dark:bg-teal-900 hover:bg-teal-200 dark:hover:bg-teal-800 transition-colors flex items-center justify-center gap-2"
                   >
                     {mostrarTabla ? "Ocultar" : "Ver"} crecimiento año a año
                     <span className={`transition-transform ${mostrarTabla ? "rotate-180" : ""}`}>▼</span>
@@ -371,7 +371,7 @@ export default function InteresCompuesto() {
                           {resultado.evolucion.map((row) => (
                             <tr key={row.periodo} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                               <td className="px-4 py-3 font-semibold text-slate-800 dark:text-slate-100">{row.periodo}</td>
-                              <td className="px-4 py-3 text-right font-semibold text-emerald-600">
+                              <td className="px-4 py-3 text-right font-semibold text-teal-600">
                                 {moneda.simbolo}{formatMoney(row.capital)}
                               </td>
                               {resultado.totalAportes > 0 && (
@@ -399,7 +399,7 @@ export default function InteresCompuesto() {
       <div className="max-w-2xl mx-auto space-y-8">
         <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600 dark:text-teal-400">
               <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
             </span>
             ¿Cómo funciona?
@@ -408,7 +408,7 @@ export default function InteresCompuesto() {
             El interés compuesto hace que tu dinero crezca más rápido porque <strong className="text-slate-700 dark:text-slate-300">ganas intereses sobre tus intereses</strong>.
             Mientras más tiempo dejes tu dinero invertido, más notable es el efecto.
           </p>
-          <div className="p-4 bg-emerald-50 dark:bg-emerald-900/50 rounded-xl text-sm text-emerald-700 dark:text-emerald-300">
+          <div className="p-4 bg-teal-50 dark:bg-teal-900/50 rounded-xl text-sm text-teal-700 dark:text-teal-300">
             <strong>Ejemplo:</strong> $10,000 al 10% anual durante 20 años = $67,275 (¡$57,275 solo en intereses!)
           </div>
         </div>
@@ -418,9 +418,9 @@ export default function InteresCompuesto() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Link
               href="/finanzas/calculadora-prestamos"
-              className="p-6 card-glass card-hover card-hover-emerald rounded-3xl flex items-center gap-4 group"
+              className="p-6 card-glass card-hover card-hover-teal rounded-3xl flex items-center gap-4 group"
             >
-              <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center text-emerald-600 dark:text-emerald-400 transition-transform group-hover:scale-110">
+              <div className="w-12 h-12 bg-teal-100 dark:bg-teal-900/50 rounded-xl flex items-center justify-center text-teal-600 dark:text-teal-400 transition-transform group-hover:scale-110">
                 <Icon name="landmark" className="w-6 h-6" />
               </div>
               <div className="flex-1">
@@ -430,9 +430,9 @@ export default function InteresCompuesto() {
             </Link>
             <Link
               href="/finanzas/calculadora-salario-neto"
-              className="p-6 card-glass card-hover card-hover-emerald rounded-3xl flex items-center gap-4 group"
+              className="p-6 card-glass card-hover card-hover-teal rounded-3xl flex items-center gap-4 group"
             >
-              <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center text-emerald-600 dark:text-emerald-400 transition-transform group-hover:scale-110">
+              <div className="w-12 h-12 bg-teal-100 dark:bg-teal-900/50 rounded-xl flex items-center justify-center text-teal-600 dark:text-teal-400 transition-transform group-hover:scale-110">
                 <Icon name="banknote" className="w-6 h-6" />
               </div>
               <div className="flex-1">

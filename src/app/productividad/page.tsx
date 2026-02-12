@@ -27,42 +27,42 @@ const herramientas = [
     descripcion: "Descubre cuánto vale realmente tu tiempo. Ingresa tu salario y gastos laborales (transporte, comida) para conocer tu tarifa real por hora.",
     href: "/productividad/valor-hora",
     icon: "gem",
-    gradient: "from-amber-400 to-orange-500",
+    gradient: "bg-orange-500",
   },
   {
     nombre: "Calculadora de Hábitos",
     descripcion: "¿Cuánto suman tus pequeños hábitos? Calcula el impacto a 1, 5 y 10 años de acciones diarias como ahorrar, leer, hacer ejercicio o dejar de fumar.",
     href: "/productividad/calculadora-habitos",
     icon: "target",
-    gradient: "from-emerald-400 to-teal-500",
+    gradient: "bg-orange-500",
   },
   {
     nombre: "Auditoría de Tiempo",
     descripcion: "Todos tenemos 168 horas a la semana. Registra cómo distribuyes tu tiempo entre trabajo, sueño, familia y ocio, y recibe sugerencias de mejora.",
     href: "/productividad/auditoria-tiempo",
     icon: "clock",
-    gradient: "from-blue-400 to-indigo-500",
+    gradient: "bg-orange-500",
   },
   {
     nombre: "Tu Vida en Semanas",
     descripcion: "Visualiza tu vida como una cuadrícula donde cada cuadrito es una semana. Descubre cuántas semanas has vivido y cuántas te quedan.",
     href: "/productividad/vida-en-semanas",
     icon: "calendar",
-    gradient: "from-purple-400 to-pink-500",
+    gradient: "bg-orange-500",
   },
   {
     nombre: "Matriz Eisenhower",
     descripcion: "Prioriza tus tareas por urgencia e importancia. Organiza tu día y enfócate en lo que realmente importa.",
     href: "/productividad/matriz-eisenhower",
     icon: "grid",
-    gradient: "from-indigo-400 to-violet-500",
+    gradient: "bg-orange-500",
   },
   {
     nombre: "Calculadora Pomodoro",
     descripcion: "Planifica tus sesiones de trabajo con la técnica Pomodoro. Calcula cuántos pomodoros necesitas para completar tus tareas.",
     href: "/productividad/calculadora-pomodoro",
     icon: "timer",
-    gradient: "from-red-400 to-rose-500",
+    gradient: "bg-orange-500",
   },
 ];
 
@@ -72,10 +72,10 @@ export default function ProductividadPage() {
   return (
     <div className="space-y-12">
       <section className="space-y-4">
-        <div className="w-12 h-1.5 bg-amber-500 dark:bg-amber-400 rounded-full" />
+        <div className="w-12 h-1.5 bg-orange-500 dark:bg-orange-400 rounded-full" />
         <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-800 dark:text-slate-100">
           Optimiza tu{" "}
-          <span className="text-amber-600 dark:text-amber-400">tiempo</span>
+          <span className="text-orange-600 dark:text-orange-400">tiempo</span>
         </h1>
         <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl">
           Herramientas para medir tu productividad, visualizar tu tiempo y tomar el control de tus metas y hábitos.
@@ -89,14 +89,14 @@ export default function ProductividadPage() {
             href={herr.href}
             className="bg-white border border-slate-200 dark:bg-slate-800 dark:border-slate-700/50 rounded-2xl p-8 group hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-black/20 transition-all"
           >
-            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${herr.gradient} flex items-center justify-center text-white mb-6 shadow-md`}>
+            <div className={`w-14 h-14 rounded-2xl ${herr.gradient} flex items-center justify-center text-white mb-6 shadow-md`}>
               <Icon name={herr.icon} className="w-7 h-7" />
             </div>
             <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">
               {herr.nombre}
             </h2>
             <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-sm">{herr.descripcion}</p>
-            <div className="mt-6 text-amber-600 dark:text-amber-400 font-bold text-sm">
+            <div className="mt-6 text-orange-600 dark:text-orange-400 font-bold text-sm">
               Usar calculadora
             </div>
           </Link>
@@ -111,7 +111,7 @@ export default function ProductividadPage() {
             </h2>
             <Link
               href="/blog?categoria=productividad"
-              className="text-sm font-bold text-amber-600 dark:text-amber-400 hover:underline"
+              className="text-sm font-bold text-orange-600 dark:text-orange-400 hover:underline"
             >
               Ver todos
             </Link>
@@ -124,7 +124,7 @@ export default function ProductividadPage() {
                 className="bg-white border border-slate-200 dark:bg-slate-800 dark:border-slate-700/50 rounded-2xl p-6 group hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-black/20 transition-all"
               >
                 <span
-                  className={`inline-block px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${categoryColors[post.category]} text-white mb-3`}
+                  className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${categoryColors[post.category]} text-white mb-3`}
                 >
                   Productividad
                 </span>

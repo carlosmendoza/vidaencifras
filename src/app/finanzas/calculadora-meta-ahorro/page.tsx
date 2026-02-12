@@ -469,7 +469,7 @@ function CalculadoraMetaAhorroContent() {
             {data?.mes === 0 ? "Inicio" : `Mes ${data?.mes}`}
           </p>
           <p className="text-sm text-slate-600 dark:text-slate-300">
-            Saldo: <strong className="text-amber-600">${formatMoney(data?.saldo || 0)}</strong>
+            Saldo: <strong className="text-teal-600">${formatMoney(data?.saldo || 0)}</strong>
           </p>
           <p className="text-sm text-slate-500">
             Aportes: ${formatMoney(data?.aportes || 0)}
@@ -487,14 +487,14 @@ function CalculadoraMetaAhorroContent() {
     <div className="space-y-8">
       <Link
         href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver a Finanzas
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-amber-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
             <Icon name="target" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -516,7 +516,7 @@ function CalculadoraMetaAhorroContent() {
                 onClick={() => setTipoCalculo("meta")}
                 className={`flex-1 px-4 py-3 font-semibold transition-colors ${
                   tipoCalculo === "meta"
-                    ? "bg-amber-500 text-white"
+                    ? "bg-teal-500 text-white"
                     : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
               >
@@ -526,7 +526,7 @@ function CalculadoraMetaAhorroContent() {
                 onClick={() => setTipoCalculo("tiempo")}
                 className={`flex-1 px-4 py-3 font-semibold transition-colors ${
                   tipoCalculo === "tiempo"
-                    ? "bg-amber-500 text-white"
+                    ? "bg-teal-500 text-white"
                     : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
               >
@@ -562,7 +562,7 @@ function CalculadoraMetaAhorroContent() {
                   onClick={() => setMeta(monto.toString())}
                   className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
                     meta === monto.toString()
-                      ? "bg-amber-500 text-white"
+                      ? "bg-teal-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                   }`}
                 >
@@ -585,7 +585,7 @@ function CalculadoraMetaAhorroContent() {
                     onClick={() => setMeses(m.toString())}
                     className={`px-4 py-2 rounded-xl font-semibold transition-colors ${
                       meses === m.toString()
-                        ? "bg-amber-500 text-white"
+                        ? "bg-teal-500 text-white"
                         : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                     }`}
                   >
@@ -630,7 +630,7 @@ function CalculadoraMetaAhorroContent() {
                     onClick={() => setAhorroMensual(monto.toString())}
                     className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
                       ahorroMensual === monto.toString()
-                        ? "bg-amber-500 text-white"
+                        ? "bg-teal-500 text-white"
                         : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                     }`}
                   >
@@ -673,7 +673,7 @@ function CalculadoraMetaAhorroContent() {
                   onClick={() => setCuentaSeleccionada(cuenta.id)}
                   className={`p-3 rounded-xl text-left transition-all border-2 ${
                     cuentaSeleccionada === cuenta.id
-                      ? "border-amber-500 bg-amber-50 dark:bg-amber-950/50"
+                      ? "border-teal-500 bg-teal-50 dark:bg-teal-950/50"
                       : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600"
                   }`}
                 >
@@ -737,7 +737,7 @@ function CalculadoraMetaAhorroContent() {
               ) : (
                 <>
                   {/* Resultado principal */}
-                  <div className="p-8 bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-900/50 dark:to-orange-900/50 rounded-3xl text-center">
+                  <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl text-center">
                     <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
                       Para llegar a
                     </p>
@@ -755,7 +755,7 @@ function CalculadoraMetaAhorroContent() {
                         <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
                           debes ahorrar mensualmente:
                         </p>
-                        <p className="text-5xl md:text-6xl font-black text-amber-600 mb-2">
+                        <p className="text-5xl md:text-6xl font-black text-teal-600 mb-2">
                           ${formatMoney(Math.ceil(resultado.aporteMensual))}
                         </p>
                         <p className="text-slate-400 text-sm mb-6">por mes</p>
@@ -771,7 +771,7 @@ function CalculadoraMetaAhorroContent() {
                         <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
                           necesitarás:
                         </p>
-                        <p className="text-5xl md:text-6xl font-black text-amber-600 mb-2">
+                        <p className="text-5xl md:text-6xl font-black text-teal-600 mb-2">
                           {formatPlazo(resultado.meses)}
                         </p>
                         <p className="text-slate-400 text-sm mb-6">para alcanzar tu meta</p>
@@ -808,7 +808,7 @@ function CalculadoraMetaAhorroContent() {
                       </div>
                       <div className="h-5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden flex">
                         <div
-                          className="h-full bg-amber-500 transition-all duration-500"
+                          className="h-full bg-teal-500 transition-all duration-500"
                           style={{ width: `${resultado.porcentajeAporte}%` }}
                         />
                         <div
@@ -836,7 +836,7 @@ function CalculadoraMetaAhorroContent() {
                   {resultado.evolucion && resultado.evolucion.length > 1 && (
                     <div className="p-6 bg-white dark:bg-slate-800 rounded-3xl ring-1 ring-slate-200 dark:ring-slate-700">
                       <h3 className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
-                        <Icon name="trending-up" className="w-5 h-5 text-amber-500" /> Así crecerá tu ahorro
+                        <Icon name="trending-up" className="w-5 h-5 text-teal-500" /> Así crecerá tu ahorro
                       </h3>
                       <ResponsiveContainer width="100%" height={300}>
                         <AreaChart
@@ -845,8 +845,8 @@ function CalculadoraMetaAhorroContent() {
                         >
                           <defs>
                             <linearGradient id="colorAportes" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.8} />
-                              <stop offset="95%" stopColor="#f59e0b" stopOpacity={0.1} />
+                              <stop offset="5%" stopColor="#14b8a6" stopOpacity={0.8} />
+                              <stop offset="95%" stopColor="#14b8a6" stopOpacity={0.1} />
                             </linearGradient>
                             <linearGradient id="colorIntereses" x1="0" y1="0" x2="0" y2="1">
                               <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
@@ -867,12 +867,12 @@ function CalculadoraMetaAhorroContent() {
                           <Tooltip content={<CustomTooltip />} />
                           <ReferenceLine
                             y={resultado.meta}
-                            stroke="#f59e0b"
+                            stroke="#14b8a6"
                             strokeDasharray="5 5"
                             label={{
                               value: "Meta",
                               position: "insideTopRight",
-                              fill: "#f59e0b",
+                              fill: "#14b8a6",
                               fontSize: 11,
                               fontWeight: 600,
                             }}
@@ -881,7 +881,7 @@ function CalculadoraMetaAhorroContent() {
                             type="monotone"
                             dataKey="aportes"
                             stackId="1"
-                            stroke="#f59e0b"
+                            stroke="#14b8a6"
                             fill="url(#colorAportes)"
                             name="Aportes"
                           />
@@ -897,7 +897,7 @@ function CalculadoraMetaAhorroContent() {
                       </ResponsiveContainer>
                       <div className="flex justify-center gap-6 mt-4">
                         <div className="flex items-center gap-2">
-                          <div className="w-3 h-3 rounded-full bg-amber-500" />
+                          <div className="w-3 h-3 rounded-full bg-teal-500" />
                           <span className="text-xs text-slate-500 dark:text-slate-400">Tus aportes</span>
                         </div>
                         <div className="flex items-center gap-2">
@@ -912,7 +912,7 @@ function CalculadoraMetaAhorroContent() {
                   {resultado.comparacionCuentas.length > 0 && (
                     <div className="p-6 bg-white dark:bg-slate-800 rounded-3xl ring-1 ring-slate-200 dark:ring-slate-700">
                       <h3 className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
-                        <Icon name="bar-chart" className="w-5 h-5 text-amber-500" /> Compara: {resultado.tipoCalculo === "meta" ? "¿cuánto ahorrarías en cada cuenta?" : "¿cuánto tardarías con cada cuenta?"}
+                        <Icon name="bar-chart" className="w-5 h-5 text-teal-500" /> Compara: {resultado.tipoCalculo === "meta" ? "¿cuánto ahorrarías en cada cuenta?" : "¿cuánto tardarías con cada cuenta?"}
                       </h3>
                       <div className="space-y-2">
                         {resultado.comparacionCuentas.map((cuenta, index) => (
@@ -920,7 +920,7 @@ function CalculadoraMetaAhorroContent() {
                             key={cuenta.id}
                             className={`p-4 rounded-xl flex items-center justify-between gap-3 transition-all ${
                               cuenta.id === cuentaSeleccionada
-                                ? "bg-amber-50 dark:bg-amber-950/50 ring-2 ring-amber-500"
+                                ? "bg-teal-50 dark:bg-teal-950/50 ring-2 ring-teal-500"
                                 : "bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700/50 cursor-pointer"
                             }`}
                             onClick={() => setCuentaSeleccionada(cuenta.id)}
@@ -938,7 +938,7 @@ function CalculadoraMetaAhorroContent() {
                                 </span>
                                 <span className="text-xs text-slate-400 ml-2">{cuenta.tasa}% EA</span>
                                 {cuenta.id === cuentaSeleccionada && (
-                                  <span className="ml-2 text-xs bg-amber-500 text-white px-2 py-0.5 rounded-full">
+                                  <span className="ml-2 text-xs bg-teal-500 text-white px-2 py-0.5 rounded-full">
                                     Seleccionada
                                   </span>
                                 )}
@@ -1011,21 +1011,21 @@ function CalculadoraMetaAhorroContent() {
       <div className="max-w-4xl mx-auto">
         <Link
           href="/finanzas/simulador-cuenta-ahorro"
-          className="block p-6 card-glass rounded-2xl hover:ring-2 hover:ring-emerald-500 transition-all group"
+          className="block p-6 card-glass rounded-2xl hover:ring-2 hover:ring-teal-500 transition-all group"
         >
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl flex items-center justify-center text-white">
+            <div className="w-12 h-12 bg-teal-500 rounded-xl flex items-center justify-center text-white">
               <Icon name="landmark" className="w-6 h-6" />
             </div>
             <div className="flex-1">
-              <h3 className="font-bold text-slate-700 dark:text-slate-200 group-hover:text-emerald-600 transition-colors">
+              <h3 className="font-bold text-slate-700 dark:text-slate-200 group-hover:text-teal-600 transition-colors">
                 Comparador de Cuentas de Ahorro
               </h3>
               <p className="text-sm text-slate-500 dark:text-slate-400">
                 ¿Ya tienes dinero? Simula cuánto crecerá en cada cuenta
               </p>
             </div>
-            <span className="text-slate-400 group-hover:text-emerald-500 transition-colors">→</span>
+            <span className="text-slate-400 group-hover:text-teal-500 transition-colors">→</span>
           </div>
         </Link>
       </div>
@@ -1033,7 +1033,7 @@ function CalculadoraMetaAhorroContent() {
       {/* FAQs */}
       <div className="max-w-4xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="amber" />
+          <FAQ items={faqs} colorClass="teal" />
         </div>
       </div>
     </div>
@@ -1043,9 +1043,9 @@ function CalculadoraMetaAhorroContent() {
 function CalculadoraLoading() {
   return (
     <div className="space-y-8">
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-amber-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg animate-pulse">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg animate-pulse">
             <Icon name="target" className="w-10 h-10" />
           </div>
           <div className="h-10 bg-slate-200 dark:bg-slate-700 rounded-xl w-3/4 mx-auto mb-3 animate-pulse" />

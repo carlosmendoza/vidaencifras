@@ -327,14 +327,14 @@ export default function CalculadoraHabitosPage() {
     <div className="space-y-8">
       <Link
         href="/productividad"
-        className="text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-orange-600 dark:hover:text-orange-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver a Productividad
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-amber-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-orange-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
             <Icon name="target" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -377,7 +377,7 @@ export default function CalculadoraHabitosPage() {
                 key={tipo}
                 onClick={() => setField("tipoHabito", tipo)}
                 className={`flex-1 px-4 py-3 font-semibold transition-colors text-sm ${values.tipoHabito === tipo
-                    ? "bg-amber-500 text-white"
+                    ? "bg-orange-500 text-white"
                     : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                   }`}
               >
@@ -432,7 +432,7 @@ export default function CalculadoraHabitosPage() {
                     ? "Minutos por día"
                     : "Cantidad diaria"}
               </label>
-              {values.tipoHabito === "dinero" && <CurrencySelector colorClass="amber" />}
+              {values.tipoHabito === "dinero" && <CurrencySelector colorClass="orange" />}
             </div>
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">
@@ -459,7 +459,7 @@ export default function CalculadoraHabitosPage() {
                   key={d}
                   onClick={() => setField("frecuencia", d.toString())}
                   className={`w-12 h-12 rounded-xl font-bold transition-colors ${values.frecuencia === d.toString()
-                      ? "bg-amber-500 text-white"
+                      ? "bg-orange-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                     }`}
                 >
@@ -500,7 +500,7 @@ export default function CalculadoraHabitosPage() {
 
           <button
             onClick={calcular}
-            className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-amber-500/20 active:scale-[0.99]"
+            className="w-full bg-orange-500 hover:bg-orange-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-orange-500/20 active:scale-[0.99]"
           >
             Calcular impacto acumulado
           </button>
@@ -590,13 +590,13 @@ export default function CalculadoraHabitosPage() {
               <div
                 className={`p-6 rounded-2xl border ${values.tipoImpacto === "positivo"
                     ? "bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800"
-                    : "bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800"
+                    : "bg-orange-50 dark:bg-orange-950/30 border-orange-200 dark:border-orange-800"
                   }`}
               >
                 <p
                   className={`text-sm ${values.tipoImpacto === "positivo"
                       ? "text-emerald-800 dark:text-emerald-200"
-                      : "text-amber-800 dark:text-amber-200"
+                      : "text-orange-800 dark:text-orange-200"
                     }`}
                 >
                   {values.tipoImpacto === "positivo" ? (
@@ -622,33 +622,33 @@ export default function CalculadoraHabitosPage() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <Icon name="lightbulb" className="w-8 h-8 text-amber-500" weight="fill" />
+            <Icon name="lightbulb" className="w-8 h-8 text-orange-500" weight="fill" />
             El poder de los hábitos pequeños
           </h2>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-orange-500">•</span>
               <span>
                 <strong>1% mejor cada día:</strong> Mejorar solo 1% diario te hace 37 veces mejor
                 al final del año.
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-orange-500">•</span>
               <span>
                 <strong>Efecto bola de nieve:</strong> Los hábitos positivos generan más hábitos
                 positivos. Empieza con uno y expándete.
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-orange-500">•</span>
               <span>
                 <strong>Costos ocultos:</strong> Un café diario de {moneda.simbolo}8.000 son casi{" "}
                 {moneda.simbolo}3 millones al año. ¿Vale la pena?
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="text-amber-500">•</span>
+              <span className="text-orange-500">•</span>
               <span>
                 <strong>Tiempo finito:</strong> 2 horas de redes sociales al día son 30 días
                 completos al año. Úsalas sabiamente.
@@ -661,7 +661,7 @@ export default function CalculadoraHabitosPage() {
       {/* FAQs */}
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="amber" />
+          <FAQ items={faqs} colorClass="orange" />
         </div>
       </div>
     </div>

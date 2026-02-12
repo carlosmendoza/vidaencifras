@@ -194,14 +194,14 @@ export default function ArriendoVsCompra() {
     <div className="space-y-8">
       <Link
         href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver a Finanzas
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-emerald-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg text-white">
             <Icon name="home" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -214,8 +214,8 @@ export default function ArriendoVsCompra() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Columna Compra */}
-          <div className="space-y-4 p-6 bg-emerald-50/50 dark:bg-emerald-950/20 rounded-2xl">
-            <h2 className="text-lg font-bold text-emerald-700 dark:text-emerald-300 flex items-center gap-2">
+          <div className="space-y-4 p-6 bg-teal-50/50 dark:bg-teal-950/20 rounded-2xl">
+            <h2 className="text-lg font-bold text-teal-700 dark:text-teal-300 flex items-center gap-2">
               <Icon name="home" className="w-5 h-5" /> Escenario Compra
             </h2>
 
@@ -318,8 +318,8 @@ export default function ArriendoVsCompra() {
           </div>
 
           {/* Columna Arriendo */}
-          <div className="space-y-4 p-6 bg-emerald-50/50 dark:bg-emerald-950/20 rounded-2xl">
-            <h2 className="text-lg font-bold text-emerald-700 dark:text-emerald-300 flex items-center gap-2">
+          <div className="space-y-4 p-6 bg-teal-50/50 dark:bg-teal-950/20 rounded-2xl">
+            <h2 className="text-lg font-bold text-teal-700 dark:text-teal-300 flex items-center gap-2">
               <Icon name="lock" className="w-5 h-5" /> Escenario Arriendo
             </h2>
 
@@ -389,7 +389,7 @@ export default function ArriendoVsCompra() {
                     onClick={() => setHorizonteTiempo(años.toString())}
                     className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                       horizonteTiempo === años.toString()
-                        ? "bg-emerald-500 text-white"
+                        ? "bg-teal-500 text-white"
                         : "bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300"
                     }`}
                   >
@@ -408,9 +408,9 @@ export default function ArriendoVsCompra() {
             <div
               className={`p-8 rounded-3xl ring-1 animate-result-appear ${
                 resultado.recomendacion === "comprar"
-                  ? "bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 ring-emerald-100 dark:ring-emerald-900"
+                  ? "bg-teal-50 dark:bg-teal-950/50 ring-teal-100 dark:ring-teal-900"
                   : resultado.recomendacion === "arrendar"
-                  ? "bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 ring-emerald-100 dark:ring-emerald-900"
+                  ? "bg-teal-50 dark:bg-teal-950/50 ring-teal-100 dark:ring-teal-900"
                   : "bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/50 dark:to-orange-950/50 ring-amber-100 dark:ring-amber-900"
               }`}
             >
@@ -439,7 +439,7 @@ export default function ArriendoVsCompra() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Resumen Compra */}
                 <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-2xl">
-                  <h4 className="font-bold text-emerald-700 dark:text-emerald-300 mb-3 flex items-center gap-2"><Icon name="home" className="w-5 h-5" /> Compra</h4>
+                  <h4 className="font-bold text-teal-700 dark:text-teal-300 mb-3 flex items-center gap-2"><Icon name="home" className="w-5 h-5" /> Compra</h4>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between gap-2">
                       <span className="text-slate-600 dark:text-slate-400">Cuota mensual</span>
@@ -455,14 +455,14 @@ export default function ArriendoVsCompra() {
                     </div>
                     <div className="flex justify-between gap-2 border-t border-slate-200 dark:border-slate-700 pt-2 mt-2">
                       <span className="font-bold text-slate-700 dark:text-slate-300">Patrimonio final</span>
-                      <span className="font-black text-emerald-600 shrink-0">${formatMoney(resultado.patrimonioFinalCompra)}</span>
+                      <span className="font-black text-teal-600 shrink-0">${formatMoney(resultado.patrimonioFinalCompra)}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Resumen Arriendo */}
                 <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-2xl">
-                  <h4 className="font-bold text-emerald-700 dark:text-emerald-300 mb-3 flex items-center gap-2"><Icon name="lock" className="w-5 h-5" /> Arriendo</h4>
+                  <h4 className="font-bold text-teal-700 dark:text-teal-300 mb-3 flex items-center gap-2"><Icon name="lock" className="w-5 h-5" /> Arriendo</h4>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between gap-2">
                       <span className="text-slate-600 dark:text-slate-400">Arriendo inicial</span>
@@ -478,7 +478,7 @@ export default function ArriendoVsCompra() {
                     </div>
                     <div className="flex justify-between gap-2 border-t border-slate-200 dark:border-slate-700 pt-2 mt-2">
                       <span className="font-bold text-slate-700 dark:text-slate-300">Patrimonio final</span>
-                      <span className="font-black text-emerald-600 shrink-0">${formatMoney(resultado.patrimonioFinalArriendo)}</span>
+                      <span className="font-black text-teal-600 shrink-0">${formatMoney(resultado.patrimonioFinalArriendo)}</span>
                     </div>
                   </div>
                 </div>
@@ -496,8 +496,8 @@ export default function ArriendoVsCompra() {
                 <thead className="bg-slate-50 dark:bg-slate-800">
                   <tr>
                     <th className="px-4 py-3 text-left font-bold text-slate-700 dark:text-slate-300">Año</th>
-                    <th className="px-4 py-3 text-right font-bold text-emerald-600">Patrimonio Compra</th>
-                    <th className="px-4 py-3 text-right font-bold text-emerald-600">Patrimonio Arriendo</th>
+                    <th className="px-4 py-3 text-right font-bold text-teal-600">Patrimonio Compra</th>
+                    <th className="px-4 py-3 text-right font-bold text-teal-600">Patrimonio Arriendo</th>
                     <th className="px-4 py-3 text-right font-bold text-slate-700 dark:text-slate-300">Diferencia</th>
                   </tr>
                 </thead>
@@ -507,13 +507,13 @@ export default function ArriendoVsCompra() {
                     return (
                       <tr key={row.año} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                         <td className="px-4 py-3 font-semibold text-slate-800 dark:text-slate-100">{row.año}</td>
-                        <td className="px-4 py-3 text-right text-emerald-600 font-semibold">
+                        <td className="px-4 py-3 text-right text-teal-600 font-semibold">
                           ${formatMoney(row.patrimonioCompra)}
                         </td>
-                        <td className="px-4 py-3 text-right text-emerald-600 font-semibold">
+                        <td className="px-4 py-3 text-right text-teal-600 font-semibold">
                           ${formatMoney(row.patrimonioArriendo)}
                         </td>
-                        <td className={`px-4 py-3 text-right font-bold ${diff > 0 ? "text-emerald-600" : "text-emerald-600"}`}>
+                        <td className={`px-4 py-3 text-right font-bold ${diff > 0 ? "text-teal-600" : "text-teal-600"}`}>
                           {diff > 0 ? "+" : ""}{formatMoney(diff)}
                         </td>
                       </tr>
@@ -553,7 +553,7 @@ export default function ArriendoVsCompra() {
       {/* FAQs */}
       <div className="max-w-4xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="emerald" />
+          <FAQ items={faqs} colorClass="teal" />
         </div>
       </div>
     </div>

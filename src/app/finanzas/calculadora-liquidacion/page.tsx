@@ -74,14 +74,14 @@ export default function CalculadoraLiquidacion() {
     <div className="space-y-8">
       <Link
         href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 inline-flex items-center gap-2 font-medium transition-colors"
+        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
       >
         <span>←</span> Volver a Finanzas
       </Link>
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-purple-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="clipboard" className="w-10 h-10" /></div>
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="clipboard" className="w-10 h-10" /></div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
             Calculadora de Liquidación
           </h1>
@@ -108,7 +108,7 @@ export default function CalculadoraLiquidacion() {
                   onClick={() => setField("tipoTerminacion", opt.value)}
                   className={`px-4 py-3 rounded-xl font-semibold text-sm transition-colors ${
                     values.tipoTerminacion === opt.value
-                      ? "bg-purple-500 text-white"
+                      ? "bg-teal-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                   }`}
                 >
@@ -129,7 +129,7 @@ export default function CalculadoraLiquidacion() {
                   onClick={() => setField("tipoContrato", "indefinido")}
                   className={`px-4 py-3 rounded-xl font-semibold transition-colors ${
                     values.tipoContrato === "indefinido"
-                      ? "bg-purple-500 text-white"
+                      ? "bg-teal-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
                   }`}
                 >
@@ -139,7 +139,7 @@ export default function CalculadoraLiquidacion() {
                   onClick={() => setField("tipoContrato", "fijo")}
                   className={`px-4 py-3 rounded-xl font-semibold transition-colors ${
                     values.tipoContrato === "fijo"
-                      ? "bg-purple-500 text-white"
+                      ? "bg-teal-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
                   }`}
                 >
@@ -173,7 +173,7 @@ export default function CalculadoraLiquidacion() {
                 type="checkbox"
                 checked={values.incluyeTransporte === "true"}
                 onChange={(e) => setField("incluyeTransporte", String(e.target.checked))}
-                className="w-5 h-5 rounded-lg border-2 border-slate-300 text-purple-500 focus:ring-purple-500"
+                className="w-5 h-5 rounded-lg border-2 border-slate-300 text-teal-500 focus:ring-teal-500"
               />
               <div>
                 <span className="font-semibold text-slate-700 dark:text-slate-300">
@@ -232,12 +232,12 @@ export default function CalculadoraLiquidacion() {
           {/* Resultado */}
           {tieneResultados && (
             <div className="mt-8 space-y-4">
-              <div className="p-8 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/50 dark:to-pink-950/50 rounded-3xl ring-1 ring-purple-100 dark:ring-purple-900">
+              <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900">
                 <div className="text-center">
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
                     Total liquidación
                   </p>
-                  <p className="text-4xl font-black text-purple-600">
+                  <p className="text-4xl font-black text-teal-600">
                     ${formatMoney(totalLiquidacion)}
                   </p>
                   <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
@@ -255,7 +255,7 @@ export default function CalculadoraLiquidacion() {
                     <span className="font-semibold text-slate-700 dark:text-slate-300">Prima de servicios</span>
                     <p className="text-xs text-slate-500">{diasSemestreActual} días del semestre</p>
                   </div>
-                  <span className="font-bold text-lg text-purple-600">
+                  <span className="font-bold text-lg text-teal-600">
                     ${formatMoney(prima)}
                   </span>
                 </div>
@@ -265,7 +265,7 @@ export default function CalculadoraLiquidacion() {
                     <span className="font-semibold text-slate-700 dark:text-slate-300">Cesantías</span>
                     <p className="text-xs text-slate-500">{diasAñoActual} días del año</p>
                   </div>
-                  <span className="font-bold text-lg text-purple-600">
+                  <span className="font-bold text-lg text-teal-600">
                     ${formatMoney(cesantias)}
                   </span>
                 </div>
@@ -275,7 +275,7 @@ export default function CalculadoraLiquidacion() {
                     <span className="font-semibold text-slate-700 dark:text-slate-300">Intereses sobre cesantías</span>
                     <p className="text-xs text-slate-500">12% anual</p>
                   </div>
-                  <span className="font-bold text-lg text-purple-600">
+                  <span className="font-bold text-lg text-teal-600">
                     ${formatMoney(interesesCesantias)}
                   </span>
                 </div>
@@ -285,7 +285,7 @@ export default function CalculadoraLiquidacion() {
                     <span className="font-semibold text-slate-700 dark:text-slate-300">Vacaciones</span>
                     <p className="text-xs text-slate-500">{diasVacaciones.toFixed(1)} días</p>
                   </div>
-                  <span className="font-bold text-lg text-purple-600">
+                  <span className="font-bold text-lg text-teal-600">
                     ${formatMoney(vacaciones)}
                   </span>
                 </div>
@@ -316,28 +316,28 @@ export default function CalculadoraLiquidacion() {
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center text-purple-600"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /></span>
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-500"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /></span>
             Sobre la liquidación
           </h2>
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
             <li className="flex gap-3">
-              <span className="text-purple-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Prima:</strong> 15 días de salario por semestre trabajado.</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-purple-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Cesantías:</strong> 1 mes de salario por año trabajado.</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-purple-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Intereses:</strong> 12% anual sobre las cesantías.</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-purple-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Vacaciones:</strong> 15 días hábiles por año trabajado.</span>
             </li>
             <li className="flex gap-3">
-              <span className="text-purple-500">•</span>
+              <span className="text-teal-500">•</span>
               <span><strong>Indemnización:</strong> Solo aplica si te despiden sin justa causa.</span>
             </li>
           </ul>
@@ -347,7 +347,7 @@ export default function CalculadoraLiquidacion() {
       {/* FAQs */}
       <div className="max-w-2xl mx-auto">
         <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="violet" />
+          <FAQ items={faqs} colorClass="teal" />
         </div>
       </div>
     </div>

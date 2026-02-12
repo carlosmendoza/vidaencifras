@@ -133,9 +133,9 @@ export default function CalculadoraIVA() {
     <div className="space-y-8">
       <Breadcrumbs />
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-indigo-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-purple-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
+          <div className="w-20 h-20 bg-purple-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
             <Icon name="receipt" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -159,7 +159,7 @@ export default function CalculadoraIVA() {
                   onClick={() => setField("modo", m.valor)}
                   className={`px-4 py-3 rounded-xl font-semibold text-sm transition-all ${
                     modo === m.valor
-                      ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg"
+                      ? "bg-purple-500 text-white shadow-lg"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
                 >
@@ -184,7 +184,7 @@ export default function CalculadoraIVA() {
                   onClick={() => setField("tasa", String(t.valor))}
                   className={`flex-1 px-4 py-3 rounded-xl transition-all ${
                     tasa === t.valor
-                      ? "bg-indigo-500 text-white font-bold shadow-lg"
+                      ? "bg-purple-500 text-white font-bold shadow-lg"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
                 >
@@ -218,11 +218,11 @@ export default function CalculadoraIVA() {
           {resultado && (
             <div className="mt-8 space-y-4 animate-result-appear">
               {/* Resultado principal */}
-              <div className="p-8 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/50 dark:to-purple-950/50 rounded-3xl text-center ring-1 ring-indigo-100 dark:ring-indigo-900">
+              <div className="p-8 bg-purple-50 dark:bg-purple-950/50 rounded-3xl text-center ring-1 ring-purple-100 dark:ring-purple-900">
                 <p className="text-slate-500 dark:text-slate-400 font-medium text-sm mb-2">
                   {modo === "solo_iva" ? "IVA a pagar" : modo === "agregar" ? "Total con IVA" : "Base sin IVA"}
                 </p>
-                <p className="text-5xl font-black text-indigo-600 dark:text-indigo-400">
+                <p className="text-5xl font-black text-purple-600 dark:text-purple-400">
                   ${formatMoney(modo === "solo_iva" ? resultado.iva : modo === "agregar" ? resultado.total : resultado.base)}
                 </p>
               </div>
@@ -237,7 +237,7 @@ export default function CalculadoraIVA() {
                 </div>
                 <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-2xl ring-1 ring-slate-100 dark:ring-slate-700 text-center">
                   <p className="text-slate-500 dark:text-slate-400 text-xs mb-1">IVA ({tasa}%)</p>
-                  <p className="text-lg font-bold text-indigo-600 dark:text-indigo-400">
+                  <p className="text-lg font-bold text-purple-600 dark:text-purple-400">
                     ${formatMoney(resultado.iva)}
                   </p>
                 </div>
@@ -252,13 +252,13 @@ export default function CalculadoraIVA() {
               {/* Fórmula aplicada */}
               <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl text-center text-sm text-slate-600 dark:text-slate-400">
                 {modo === "agregar" && (
-                  <span>${formatMoney(resultado.base)} × 1.{tasa.toString().padStart(2, "0")} = <strong className="text-indigo-600">${formatMoney(resultado.total)}</strong></span>
+                  <span>${formatMoney(resultado.base)} × 1.{tasa.toString().padStart(2, "0")} = <strong className="text-purple-600">${formatMoney(resultado.total)}</strong></span>
                 )}
                 {modo === "quitar" && (
-                  <span>${formatMoney(resultado.total)} ÷ 1.{tasa.toString().padStart(2, "0")} = <strong className="text-indigo-600">${formatMoney(resultado.base)}</strong></span>
+                  <span>${formatMoney(resultado.total)} ÷ 1.{tasa.toString().padStart(2, "0")} = <strong className="text-purple-600">${formatMoney(resultado.base)}</strong></span>
                 )}
                 {modo === "solo_iva" && (
-                  <span>${formatMoney(resultado.base)} × 0.{tasa.toString().padStart(2, "0")} = <strong className="text-indigo-600">${formatMoney(resultado.iva)}</strong></span>
+                  <span>${formatMoney(resultado.base)} × 0.{tasa.toString().padStart(2, "0")} = <strong className="text-purple-600">${formatMoney(resultado.iva)}</strong></span>
                 )}
               </div>
 
@@ -278,7 +278,7 @@ export default function CalculadoraIVA() {
       {/* Información sobre tasas */}
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+          <span className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center text-purple-600 dark:text-purple-400">
             <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
           </span>
           Tasas de IVA en Colombia
@@ -306,7 +306,7 @@ export default function CalculadoraIVA() {
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="indigo" />
+        <FAQ items={faqs} colorClass="purple" />
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">

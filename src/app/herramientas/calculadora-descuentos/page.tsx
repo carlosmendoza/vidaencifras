@@ -105,9 +105,9 @@ export default function CalculadoraDescuentos() {
     <div className="space-y-8">
       <Breadcrumbs />
 
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-pink-500/5">
+      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-purple-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-gradient-to-br from-pink-400 to-rose-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
+          <div className="w-20 h-20 bg-purple-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
             <Icon name="tag" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -164,7 +164,7 @@ export default function CalculadoraDescuentos() {
                   onClick={() => setField("descuento1", d.toString())}
                   className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${
                     descuento1 === d.toString()
-                      ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg"
+                      ? "bg-purple-500 text-white shadow-lg"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
                 >
@@ -179,7 +179,7 @@ export default function CalculadoraDescuentos() {
             <button
               onClick={() => setField("usarDescuentoAdicional", String(!usarDescuentoAdicional))}
               className={`relative w-12 h-7 rounded-full transition-colors ${
-                usarDescuentoAdicional ? "bg-pink-500" : "bg-slate-300 dark:bg-slate-600"
+                usarDescuentoAdicional ? "bg-purple-500" : "bg-slate-300 dark:bg-slate-600"
               }`}
             >
               <span
@@ -195,7 +195,7 @@ export default function CalculadoraDescuentos() {
 
           {/* Descuento adicional */}
           {usarDescuentoAdicional && (
-            <div className="space-y-3 p-4 bg-pink-50 dark:bg-pink-950/30 rounded-2xl">
+            <div className="space-y-3 p-4 bg-purple-50 dark:bg-purple-950/30 rounded-2xl">
               <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
                 Descuento adicional (%)
               </label>
@@ -220,7 +220,7 @@ export default function CalculadoraDescuentos() {
 
           <button
             onClick={calcular}
-            className="w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white py-5 rounded-2xl font-black text-xl hover:opacity-90 transition-all shadow-xl shadow-pink-500/20 active:scale-[0.99]"
+            className="w-full bg-purple-500 hover:bg-purple-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-purple-500/20 active:scale-[0.99]"
           >
             Calcular descuento
           </button>
@@ -228,11 +228,11 @@ export default function CalculadoraDescuentos() {
           {resultado && (
             <div className="mt-8 space-y-4">
               {/* Precio final */}
-              <div className="p-8 bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-950/50 dark:to-rose-950/50 rounded-3xl text-center ring-1 ring-pink-100 dark:ring-pink-900">
+              <div className="p-8 bg-purple-50 dark:bg-purple-950/50 rounded-3xl text-center ring-1 ring-purple-100 dark:ring-purple-900">
                 <p className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest text-xs mb-3">
                   Precio final
                 </p>
-                <p className="text-5xl md:text-6xl font-black text-pink-600 dark:text-pink-400 tracking-tighter">
+                <p className="text-5xl md:text-6xl font-black text-purple-600 dark:text-purple-400 tracking-tighter">
                   ${formatearPrecio(resultado.precioFinal)}
                 </p>
               </div>
@@ -272,7 +272,7 @@ export default function CalculadoraDescuentos() {
                 </div>
                 <div className="border-t border-slate-200 dark:border-slate-700 pt-2 flex items-center justify-between">
                   <span className="font-bold text-slate-700 dark:text-slate-200">Total a pagar</span>
-                  <span className="font-black text-lg text-pink-600 dark:text-pink-400">
+                  <span className="font-black text-lg text-purple-600 dark:text-purple-400">
                     ${formatearPrecio(resultado.precioFinal)}
                   </span>
                 </div>
@@ -285,7 +285,7 @@ export default function CalculadoraDescuentos() {
       {/* Tabla de descuentos comunes */}
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-pink-100 dark:bg-pink-900 rounded-lg flex items-center justify-center text-pink-600 dark:text-pink-400">
+          <span className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center text-purple-600 dark:text-purple-400">
             <Icon name="bar-chart" className="w-5 h-5" weight="fill" />
           </span>
           Tabla rápida de descuentos
@@ -296,7 +296,7 @@ export default function CalculadoraDescuentos() {
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 text-center">
           {[10, 20, 30, 40, 50, 70].map((d) => (
             <div key={d} className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
-              <p className="text-xs font-bold text-pink-600 dark:text-pink-400 mb-1">{d}%</p>
+              <p className="text-xs font-bold text-purple-600 dark:text-purple-400 mb-1">{d}%</p>
               <p className="font-bold text-slate-700 dark:text-slate-200 text-sm">
                 ${formatearPrecio(100000 * (1 - d / 100))}
               </p>
@@ -306,7 +306,7 @@ export default function CalculadoraDescuentos() {
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="pink" />
+        <FAQ items={faqs} colorClass="purple" />
       </div>
 
       <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
