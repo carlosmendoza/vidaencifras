@@ -434,11 +434,11 @@ export default function DividirCuenta() {
         <ul className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed space-y-3">
           <li className="flex items-start gap-2">
             <span className="text-pink-500">•</span>
-            En muchos países es costumbre dejar entre 10% y 20% de propina
+            En muchos países es costumbre dejar entre 10% y 20% de propina.
           </li>
           <li className="flex items-start gap-2">
             <span className="text-pink-500">•</span>
-            El modo "Cada quien lo suyo" es ideal cuando hay diferencias grandes en lo que consumió cada persona
+            El modo "Cada quien lo suyo" es ideal cuando hay diferencias grandes en lo que consumió cada persona.
           </li>
         </ul>
       </div>

@@ -351,7 +351,7 @@ export default function ArriendoVsCompra() {
                 />
                 <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">%</span>
               </div>
-              <p className="text-xs text-slate-400">En Colombia el límite legal es el IPC</p>
+              <p className="text-xs text-slate-400">En Colombia el límite legal es el IPC.</p>
             </div>
 
             <div className="space-y-3">

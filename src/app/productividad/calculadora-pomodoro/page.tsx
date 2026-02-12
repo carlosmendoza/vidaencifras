@@ -780,19 +780,19 @@ export default function CalculadoraPomodoro() {
           </h2>
           <ol className="space-y-3 text-sm text-slate-600 dark:text-slate-300 list-decimal list-inside">
             <li className="pl-2">
-              <strong>Planifica tu sesión</strong> - indica cuánto tiempo tienes disponible
+              <strong>Planifica tu sesión</strong> - indica cuánto tiempo tienes disponible.
             </li>
             <li className="pl-2">
-              <strong>Revisa tu horario</strong> - verás cuántos pomodoros puedes hacer
+              <strong>Revisa tu horario</strong> - verás cuántos pomodoros puedes hacer.
             </li>
             <li className="pl-2">
-              <strong>Inicia el temporizador</strong> y trabaja sin interrupciones
+              <strong>Inicia el temporizador</strong> y trabaja sin interrupciones.
             </li>
             <li className="pl-2">
-              <strong>Cuando suene</strong>, toma el descanso indicado
+              <strong>Cuando suene</strong>, toma el descanso indicado.
             </li>
             <li className="pl-2">
-              <strong>Durante los descansos</strong>: estira, toma agua, NO revises el celular
+              <strong>Durante los descansos</strong>: estira, toma agua, NO revises el celular.
             </li>
           </ol>
         </div>

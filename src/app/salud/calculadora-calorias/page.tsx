@@ -318,15 +318,15 @@ export default function Calorias() {
         <ul className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed space-y-3">
           <li className="flex items-start gap-2">
             <span className="text-orange-500 font-bold">TMB:</span>
-            Calorías que quemas en reposo total (funciones vitales)
+            Calorías que quemas en reposo total (funciones vitales).
           </li>
           <li className="flex items-start gap-2">
             <span className="text-orange-500 font-bold">TDEE:</span>
-            Total de calorías que quemas al día incluyendo actividad
+            Total de calorías que quemas al día incluyendo actividad.
           </li>
           <li className="flex items-start gap-2">
             <span className="text-orange-500 font-bold">Macros:</span>
-            Distribución sugerida de proteínas, carbohidratos y grasas
+            Distribución sugerida de proteínas, carbohidratos y grasas.
           </li>
         </ul>
       </div>

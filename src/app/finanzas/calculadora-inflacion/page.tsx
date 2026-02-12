@@ -340,7 +340,7 @@ export default function CalculadoraInflacion() {
                   ))}
                 </div>
                 <p className="text-xs text-slate-400 ml-1">
-                  El Banco de la República tiene meta de inflación del 3% anual
+                  El Banco de la República tiene meta de inflación del 3% anual.
                 </p>
               </div>
             </>
