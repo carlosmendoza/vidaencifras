@@ -219,9 +219,34 @@ input::placeholder {
 input:focus,
 select:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+  border-color: var(--input-focus-border, var(--primary));
+  box-shadow: 0 0 0 4px var(--input-focus-ring, rgba(99, 102, 241, 0.15));
   background: var(--input-focus-bg);
+}
+
+/* Colores de focus por sección */
+.section-finanzas input:focus,
+.section-finanzas select:focus {
+  border-color: #14b8a6;
+  box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.15);
+}
+
+.section-salud input:focus,
+.section-salud select:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+}
+
+.section-productividad input:focus,
+.section-productividad select:focus {
+  border-color: #f97316;
+  box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.15);
+}
+
+.section-herramientas input:focus,
+.section-herramientas select:focus {
+  border-color: #a855f7;
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.15);
 }
 
 /* Modern button styles */
