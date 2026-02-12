@@ -43,7 +43,7 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
-  const components = useMDXComponents({});
+  const components = useMDXComponents({}, post.category);
 
   return (
     <>

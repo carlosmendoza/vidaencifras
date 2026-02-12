@@ -54,7 +54,15 @@ const OvertimeRatesChart = dynamic(
   { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
 );
 
-export function useMDXComponents(components: MDXComponents): MDXComponents {
+const theadColorsByCategory: Record<string, string> = {
+  finanzas: "bg-teal-500",
+  salud: "bg-red-500",
+  productividad: "bg-orange-500",
+  herramientas: "bg-purple-500",
+};
+
+export function useMDXComponents(components: MDXComponents, category?: string): MDXComponents {
+  const theadColor = theadColorsByCategory[category || ""] || "bg-purple-500";
   return {
     h1: ({ children }) => (
       <h1 className="text-4xl font-black mb-6 gradient-text">{children}</h1>
@@ -121,7 +129,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </div>
     ),
     thead: ({ children }) => (
-      <thead className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
+      <thead className={`${theadColor} text-white`}>
         {children}
       </thead>
     ),
