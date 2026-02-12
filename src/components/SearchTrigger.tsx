@@ -10,7 +10,7 @@ export default function SearchTrigger() {
     return (
         <button
             onClick={handleOpen}
-            className="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors hidden sm:block"
+            className="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
             aria-label="Buscar herramienta"
         >
             <Icon name="search" className="w-5 h-5" />
