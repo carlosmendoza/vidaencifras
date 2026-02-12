@@ -18,11 +18,13 @@ export default function BlogPage() {
 
   return (
     <div className="space-y-12">
-      <header className="text-center space-y-4">
-        <h1 className="text-5xl font-black gradient-text">Blog</h1>
-        <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-          Guías, consejos y artículos para entender tus cifras y tomar mejores
-          decisiones
+      <header className="space-y-4">
+        <div className="w-12 h-1.5 bg-indigo-600 dark:bg-indigo-400 rounded-full" />
+        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-800 dark:text-slate-100">
+          Blog
+        </h1>
+        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl">
+          Guías, consejos y artículos para entender tus cifras y tomar mejores decisiones.
         </p>
       </header>
 

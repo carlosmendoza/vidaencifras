@@ -4,9 +4,9 @@ import { getAllPosts, categoryColors } from "@/lib/blog";
 import { Icon } from "@/lib/icons";
 
 export const metadata: Metadata = {
-  title: "Calculadoras de Finanzas Personales Colombia",
+  title: "Calculadoras de Finanzas Personales",
   description:
-    "Calculadoras financieras gratuitas: liquidación laboral, prima, cesantías, 4x1000, préstamos, ahorro y más. Herramientas para empleados y finanzas personales.",
+    "Calculadoras financieras gratuitas: liquidación laboral, prima, cesantías, salario neto, horas extras, préstamos, interés compuesto, impuesto de renta y más.",
   keywords: [
     "calculadora liquidacion",
     "calculadora prima",
@@ -14,13 +14,11 @@ export const metadata: Metadata = {
     "calculadora salario neto",
     "calculadora horas extras",
     "calculadora vacaciones",
-    "calculadora 4x1000",
     "calculadora prestamos",
     "calculadora interes compuesto",
-    "finanzas personales Colombia",
-    "prestaciones sociales Colombia",
+    "finanzas personales",
+    "prestaciones sociales",
     "calculadora laboral",
-    "nomina colombia",
   ],
 };
 
@@ -137,19 +135,14 @@ export default function FinanzasPage() {
 
   return (
     <div className="space-y-12">
-      <section className="text-center space-y-6">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 text-sm font-semibold">
-          <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-          Finanzas Personales
-        </div>
+      <section className="space-y-4">
+        <div className="w-12 h-1.5 bg-emerald-500 dark:bg-emerald-400 rounded-full" />
         <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-800 dark:text-slate-100">
           Domina tu dinero{" "}
-          <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
-            con números
-          </span>
+          <span className="text-emerald-600 dark:text-emerald-400">con números</span>
         </h1>
-        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
-          Herramientas para planificar inversiones, entender préstamos y gestionar gastos compartidos.
+        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl">
+          Herramientas para planificar inversiones, entender préstamos y gestionar tus finanzas personales.
         </p>
       </section>
 
@@ -158,23 +151,17 @@ export default function FinanzasPage() {
           <Link
             key={calc.href}
             href={calc.href}
-            className="card-glass card-hover card-hover-emerald rounded-3xl p-8 group relative overflow-hidden"
+            className="bg-white border border-slate-200 dark:bg-slate-800 dark:border-slate-700/50 rounded-2xl p-8 group hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-black/20 transition-all"
           >
-            <div className="absolute top-0 right-0 w-40 h-40 opacity-20 -z-10">
-              <div className={`w-full h-full bg-gradient-to-br ${calc.gradient} rounded-full blur-3xl`} />
+            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center text-white mb-6 shadow-md`}>
+              <Icon name={calc.icon} className="w-7 h-7" />
             </div>
-            <div className="relative">
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center text-white mb-6 shadow-lg`}>
-                <Icon name={calc.icon} className="w-8 h-8" />
-              </div>
-              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">
-                {calc.nombre}
-              </h2>
-              <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-sm">{calc.descripcion}</p>
-              <div className="mt-6 flex items-center text-emerald-600 dark:text-emerald-400 font-bold text-sm">
-                Usar calculadora
-                <span className="ml-2">→</span>
-              </div>
+            <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">
+              {calc.nombre}
+            </h2>
+            <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-sm">{calc.descripcion}</p>
+            <div className="mt-6 text-emerald-600 dark:text-emerald-400 font-bold text-sm">
+              Usar calculadora
             </div>
           </Link>
         ))}
@@ -182,15 +169,15 @@ export default function FinanzasPage() {
 
       {articulos.length > 0 && (
         <section>
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-baseline justify-between mb-6">
             <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">
               Artículos de Finanzas
             </h2>
             <Link
               href="/blog?categoria=finanzas"
-              className="text-sm text-emerald-600 dark:text-emerald-400 hover:underline"
+              className="text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:underline"
             >
-              Ver todos →
+              Ver todos
             </Link>
           </div>
           <div className="grid gap-6 md:grid-cols-2">
@@ -198,7 +185,7 @@ export default function FinanzasPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="card-glass card-hover card-hover-emerald rounded-2xl p-6 group"
+                className="bg-white border border-slate-200 dark:bg-slate-800 dark:border-slate-700/50 rounded-2xl p-6 group hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-black/20 transition-all"
               >
                 <span
                   className={`inline-block px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${categoryColors[post.category]} text-white mb-3`}
@@ -216,7 +203,6 @@ export default function FinanzasPage() {
           </div>
         </section>
       )}
-
     </div>
   );
 }

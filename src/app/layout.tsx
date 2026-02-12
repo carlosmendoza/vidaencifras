@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     template: "%s | VidaEnCifras",
   },
   description:
-    "Calculadoras online gratis: porcentajes, calorías TDEE, interés compuesto, préstamos, IMC, conversor de unidades y más. Herramientas rápidas, privadas y sin registro.",
+    "Las cuentas que nadie te enseñó a hacer. Calculadoras gratuitas de finanzas, salud y productividad: salario neto, impuesto de renta, interés compuesto, IMC, Pomodoro y más.",
   keywords: [
     "calculadora online",
     "calculadora gratis",
@@ -62,9 +62,9 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: "VidaEnCifras - Calculadoras Online Gratis",
+    title: "VidaEnCifras - Las cuentas que nadie te enseñó a hacer",
     description:
-      "Herramientas de cálculo gratuitas: porcentajes, calorías, préstamos, IMC y más. Rápidas, privadas y fáciles de usar.",
+      "Calculadoras gratuitas de finanzas, salud y productividad: salario neto, impuesto de renta, interés compuesto, IMC, Pomodoro y más.",
     url: siteUrl,
     siteName: "VidaEnCifras",
     locale: "es_ES",
@@ -80,9 +80,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "VidaEnCifras - Calculadoras Online Gratis",
+    title: "VidaEnCifras - Las cuentas que nadie te enseñó a hacer",
     description:
-      "Herramientas de cálculo gratuitas: porcentajes, calorías, préstamos, IMC y más.",
+      "Calculadoras gratuitas de finanzas, salud y productividad: salario neto, impuesto de renta, interés compuesto, IMC y más.",
     images: [`${siteUrl}/og`],
   },
   robots: {
@@ -122,15 +122,11 @@ export default function RootLayout({
     name: "VidaEnCifras",
     url: siteUrl,
     logo: `${siteUrl}/favicon.svg`,
-    description: "Calculadoras online gratis para finanzas, salud y productividad en Colombia y Latinoamérica",
+    description: "Calculadoras gratuitas de finanzas, salud y productividad",
     foundingDate: "2024",
-    areaServed: {
-      "@type": "GeoShape",
-      name: "Latinoamérica",
-    },
     knowsAbout: [
       "Finanzas personales",
-      "Cálculos laborales Colombia",
+      "Cálculos laborales",
       "Salud y bienestar",
       "Productividad personal",
     ],
@@ -140,7 +136,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "VidaEnCifras",
-    description: "Calculadoras online gratis para finanzas, salud y productividad",
+    description: "Calculadoras gratuitas de finanzas, salud y productividad",
     url: siteUrl,
     potentialAction: {
       "@type": "SearchAction",

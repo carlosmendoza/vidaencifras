@@ -36,7 +36,7 @@ export function BlogFilters({ posts, categoryLabels, categoryColors }: Props) {
   return (
     <>
       {/* Filtros */}
-      <div className="flex flex-wrap justify-center gap-2">
+      <div className="flex flex-wrap gap-2">
         {categorias.map((cat) => (
           <button
             key={cat.id}
@@ -61,43 +61,44 @@ export function BlogFilters({ posts, categoryLabels, categoryColors }: Props) {
           </p>
         </div>
       ) : (
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2">
           {postsFiltrados.map((post) => (
-            <article key={post.slug} className="group">
-              <Link href={`/blog/${post.slug}`}>
-                <div className="card-glass p-6 h-full hover:scale-[1.02] transition-all duration-300 hover:shadow-xl rounded-2xl">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span
-                      className={`px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${
-                        categoryColors[post.category] ||
-                        "from-slate-500 to-slate-600"
-                      } text-white`}
-                    >
-                      {categoryLabels[post.category] || post.category}
-                    </span>
-                    <span className="text-sm text-slate-500 dark:text-slate-400">
-                      {post.readingTime}
-                    </span>
-                  </div>
+            <article key={post.slug}>
+              <Link
+                href={`/blog/${post.slug}`}
+                className="block bg-white border border-slate-200 dark:bg-slate-800 dark:border-slate-700/50 rounded-2xl p-6 hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-black/20 transition-all"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <span
+                    className={`px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${
+                      categoryColors[post.category] ||
+                      "from-slate-500 to-slate-600"
+                    } text-white`}
+                  >
+                    {categoryLabels[post.category] || post.category}
+                  </span>
+                  <span className="text-sm text-slate-400 dark:text-slate-500">
+                    {post.readingTime}
+                  </span>
+                </div>
 
-                  <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                    {post.title}
-                  </h2>
+                <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2">
+                  {post.title}
+                </h2>
 
-                  <p className="text-slate-600 dark:text-slate-300 mb-4 line-clamp-2">
-                    {post.description}
-                  </p>
+                <p className="text-slate-500 dark:text-slate-400 mb-4 line-clamp-2 text-sm">
+                  {post.description}
+                </p>
 
-                  <div className="flex items-center justify-between">
-                    {post.calculadora && (
-                      <span className="text-xs text-indigo-600 dark:text-indigo-400 font-medium">
-                        + Calculadora incluida
-                      </span>
-                    )}
-                    <span className="text-indigo-600 dark:text-indigo-400 font-medium text-sm ml-auto group-hover:translate-x-1 transition-transform">
-                      Leer más →
+                <div className="flex items-center justify-between">
+                  {post.calculadora && (
+                    <span className="text-xs text-indigo-600 dark:text-indigo-400 font-medium">
+                      + Calculadora incluida
                     </span>
-                  </div>
+                  )}
+                  <span className="text-indigo-600 dark:text-indigo-400 font-bold text-sm ml-auto">
+                    Leer artículo
+                  </span>
                 </div>
               </Link>
             </article>

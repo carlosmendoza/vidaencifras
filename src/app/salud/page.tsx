@@ -5,7 +5,7 @@ import { Icon } from "@/lib/icons";
 export const metadata: Metadata = {
   title: "Calculadoras de Salud y Bienestar",
   description:
-    "Calculadoras gratuitas para tu salud: calorías diarias (TDEE), índice de masa corporal (IMC) y más. Cuida tu bienestar con datos precisos.",
+    "Calculadoras gratuitas de salud: calorías diarias (TDEE), índice de masa corporal (IMC), hidratación, frecuencia cardíaca y ciclos de sueño. Cuida tu bienestar con datos precisos.",
   keywords: [
     "calculadora salud",
     "calculadora calorias",
@@ -61,18 +61,13 @@ const calculadoras = [
 export default function SaludPage() {
   return (
     <div className="space-y-12">
-      <section className="text-center space-y-6">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-50 dark:bg-red-950 text-red-600 dark:text-red-400 text-sm font-semibold">
-          <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-          Salud y Bienestar
-        </div>
+      <section className="space-y-4">
+        <div className="w-12 h-1.5 bg-red-500 dark:bg-red-400 rounded-full" />
         <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-800 dark:text-slate-100">
           Cuida tu salud{" "}
-          <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-            con datos
-          </span>
+          <span className="text-red-600 dark:text-red-400">con datos</span>
         </h1>
-        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl">
           Herramientas para entender mejor tu cuerpo y tomar decisiones informadas sobre tu bienestar físico.
         </p>
       </section>
@@ -82,28 +77,21 @@ export default function SaludPage() {
           <Link
             key={calc.href}
             href={calc.href}
-            className="card-glass card-hover card-hover-red rounded-3xl p-8 group relative overflow-hidden"
+            className="bg-white border border-slate-200 dark:bg-slate-800 dark:border-slate-700/50 rounded-2xl p-8 group hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-black/20 transition-all"
           >
-            <div className="absolute top-0 right-0 w-40 h-40 opacity-20 -z-10">
-              <div className={`w-full h-full bg-gradient-to-br ${calc.gradient} rounded-full blur-3xl`} />
+            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center text-white mb-6 shadow-md`}>
+              <Icon name={calc.icon} className="w-7 h-7" />
             </div>
-            <div className="relative">
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center text-white mb-6 shadow-lg`}>
-                <Icon name={calc.icon} className="w-8 h-8" />
-              </div>
-              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-3">
-                {calc.nombre}
-              </h2>
-              <p className="text-slate-500 dark:text-slate-400 leading-relaxed">{calc.descripcion}</p>
-              <div className="mt-6 flex items-center text-red-600 dark:text-red-400 font-bold text-sm">
-                Usar calculadora
-                <span className="ml-2">→</span>
-              </div>
+            <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">
+              {calc.nombre}
+            </h2>
+            <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-sm">{calc.descripcion}</p>
+            <div className="mt-6 text-red-600 dark:text-red-400 font-bold text-sm">
+              Usar calculadora
             </div>
           </Link>
         ))}
       </section>
-
     </div>
   );
 }

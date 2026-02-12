@@ -6,7 +6,7 @@ import { Icon } from "@/lib/icons";
 export const metadata: Metadata = {
   title: "Calculadoras de Productividad - Optimiza tu Tiempo y Hábitos",
   description:
-    "Herramientas gratuitas para gestionar tu tiempo: calcula el valor real de tu hora, mide el impacto de tus hábitos, audita tus 168 horas semanales y visualiza tu vida en semanas.",
+    "Herramientas gratuitas para gestionar tu tiempo: valor real de tu hora, impacto de tus hábitos, auditoría de 168 horas semanales, vida en semanas, Pomodoro y Eisenhower.",
   keywords: [
     "productividad personal",
     "gestion del tiempo",
@@ -71,18 +71,13 @@ export default function ProductividadPage() {
 
   return (
     <div className="space-y-12">
-      <section className="text-center space-y-6">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-400 text-sm font-semibold">
-          <span className="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></span>
-          Productividad
-        </div>
+      <section className="space-y-4">
+        <div className="w-12 h-1.5 bg-amber-500 dark:bg-amber-400 rounded-full" />
         <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-800 dark:text-slate-100">
           Optimiza tu{" "}
-          <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
-            tiempo
-          </span>
+          <span className="text-amber-600 dark:text-amber-400">tiempo</span>
         </h1>
-        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl">
           Herramientas para medir tu productividad, visualizar tu tiempo y tomar el control de tus metas y hábitos.
         </p>
       </section>
@@ -92,23 +87,17 @@ export default function ProductividadPage() {
           <Link
             key={herr.href}
             href={herr.href}
-            className="card-glass card-hover card-hover-amber rounded-3xl p-8 group relative overflow-hidden"
+            className="bg-white border border-slate-200 dark:bg-slate-800 dark:border-slate-700/50 rounded-2xl p-8 group hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-black/20 transition-all"
           >
-            <div className="absolute top-0 right-0 w-40 h-40 opacity-20 -z-10">
-              <div className={`w-full h-full bg-gradient-to-br ${herr.gradient} rounded-full blur-3xl`} />
+            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${herr.gradient} flex items-center justify-center text-white mb-6 shadow-md`}>
+              <Icon name={herr.icon} className="w-7 h-7" />
             </div>
-            <div className="relative">
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${herr.gradient} flex items-center justify-center text-white mb-6 shadow-lg`}>
-                <Icon name={herr.icon} className="w-8 h-8" />
-              </div>
-              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">
-                {herr.nombre}
-              </h2>
-              <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-sm">{herr.descripcion}</p>
-              <div className="mt-6 flex items-center text-amber-600 dark:text-amber-400 font-bold text-sm">
-                Usar calculadora
-                <span className="ml-2">→</span>
-              </div>
+            <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">
+              {herr.nombre}
+            </h2>
+            <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-sm">{herr.descripcion}</p>
+            <div className="mt-6 text-amber-600 dark:text-amber-400 font-bold text-sm">
+              Usar calculadora
             </div>
           </Link>
         ))}
@@ -116,15 +105,15 @@ export default function ProductividadPage() {
 
       {articulos.length > 0 && (
         <section>
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-baseline justify-between mb-6">
             <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">
               Artículos de Productividad
             </h2>
             <Link
               href="/blog?categoria=productividad"
-              className="text-sm text-amber-600 dark:text-amber-400 hover:underline"
+              className="text-sm font-bold text-amber-600 dark:text-amber-400 hover:underline"
             >
-              Ver todos →
+              Ver todos
             </Link>
           </div>
           <div className="grid gap-6 md:grid-cols-2">
@@ -132,7 +121,7 @@ export default function ProductividadPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="card-glass card-hover card-hover-amber rounded-2xl p-6 group"
+                className="bg-white border border-slate-200 dark:bg-slate-800 dark:border-slate-700/50 rounded-2xl p-6 group hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-black/20 transition-all"
               >
                 <span
                   className={`inline-block px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${categoryColors[post.category]} text-white mb-3`}
