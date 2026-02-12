@@ -7,6 +7,7 @@ import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
+import { CurrencyInput } from "@/components/CurrencyInput";
 
 type ModoCalculo = "agregar" | "quitar" | "solo_iva";
 type TasaIVA = 19 | 5 | 0;
@@ -203,11 +204,11 @@ export default function CalculadoraIVA() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold">
                 $
               </span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={valor}
-                onChange={(e) => setField("valor", e.target.value)}
+                onChange={(v) => setField("valor", v)}
                 placeholder="100000"
+                locale="es-CO"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />
             </div>

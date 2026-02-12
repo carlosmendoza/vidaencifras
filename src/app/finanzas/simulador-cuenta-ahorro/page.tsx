@@ -17,6 +17,7 @@ import {
 import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
 import { Icon } from "@/lib/icons";
+import { CurrencyInput } from "@/components/CurrencyInput";
 
 // Cuentas de ahorro disponibles en Colombia (tasas actualizadas febrero 2025)
 const CUENTAS_AHORRO = [
@@ -437,10 +438,10 @@ function SimuladorCuentaAhorroContent() {
             </label>
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={montoInicial}
-                onChange={(e) => setMontoInicial(e.target.value)}
+                onChange={(v) => setMontoInicial(v)}
+                locale="es-CO"
                 placeholder="1.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
@@ -519,10 +520,10 @@ function SimuladorCuentaAhorroContent() {
                 </label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
-                  <input
-                    type="number"
+                  <CurrencyInput
                     value={aporteMensual}
-                    onChange={(e) => setAporteMensual(e.target.value)}
+                    onChange={(v) => setAporteMensual(v)}
+                    locale="es-CO"
                     placeholder="100.000"
                     className="w-full pl-10 pr-6 py-3 rounded-xl text-base font-semibold"
                   />

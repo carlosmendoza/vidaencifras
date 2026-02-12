@@ -6,6 +6,7 @@ import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
+import { CurrencyInput } from "@/components/CurrencyInput";
 import {
   SMMLV_2025,
   LIMITES_MI_CASA_YA,
@@ -105,11 +106,11 @@ export default function CalculadoraSubsidioVivienda() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold">
                 $
               </span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={valorVivienda}
-                onChange={(e) => setValorVivienda(e.target.value)}
-                placeholder="100000000"
+                onChange={(v) => setValorVivienda(v)}
+                locale="es-CO"
+                placeholder="100.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />
             </div>
@@ -128,11 +129,11 @@ export default function CalculadoraSubsidioVivienda() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold">
                 $
               </span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={ingresosFamiliares}
-                onChange={(e) => setIngresosFamiliares(e.target.value)}
-                placeholder="4000000"
+                onChange={(v) => setIngresosFamiliares(v)}
+                locale="es-CO"
+                placeholder="4.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />
             </div>

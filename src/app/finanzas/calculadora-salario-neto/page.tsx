@@ -7,6 +7,7 @@ import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { calcularSalarioNeto, type SalarioNetoOutput } from "@/lib/calculadoras";
 import { SMMLV, AUXILIO_TRANSPORTE, TOPE_AUXILIO, UVT_2026 } from "@/lib/calculadoras/constantes";
+import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
 
 export default function CalculadoraSalarioNeto() {
@@ -123,10 +124,10 @@ export default function CalculadoraSalarioNeto() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold">
                 $
               </span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={values.salario}
-                onChange={(e) => setField("salario", e.target.value)}
+                onChange={(v) => setField("salario", v)}
+                locale="es-CO"
                 placeholder="2.500.000"
                 className="w-full pl-10 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />
@@ -236,10 +237,10 @@ export default function CalculadoraSalarioNeto() {
                   </label>
                   <div className="relative">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
-                    <input
-                      type="number"
+                    <CurrencyInput
                       value={values.medicinaPrepagada}
-                      onChange={(e) => setField("medicinaPrepagada", e.target.value)}
+                      onChange={(v) => setField("medicinaPrepagada", v)}
+                      locale="es-CO"
                       placeholder="0"
                       className="w-full pl-8 pr-4 py-3 rounded-xl text-sm"
                     />
@@ -253,10 +254,10 @@ export default function CalculadoraSalarioNeto() {
                   </label>
                   <div className="relative">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
-                    <input
-                      type="number"
+                    <CurrencyInput
                       value={values.interesesVivienda}
-                      onChange={(e) => setField("interesesVivienda", e.target.value)}
+                      onChange={(v) => setField("interesesVivienda", v)}
+                      locale="es-CO"
                       placeholder="0"
                       className="w-full pl-8 pr-4 py-3 rounded-xl text-sm"
                     />
@@ -270,10 +271,10 @@ export default function CalculadoraSalarioNeto() {
                   </label>
                   <div className="relative">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
-                    <input
-                      type="number"
+                    <CurrencyInput
                       value={values.aportesAfc}
-                      onChange={(e) => setField("aportesAfc", e.target.value)}
+                      onChange={(v) => setField("aportesAfc", v)}
+                      locale="es-CO"
                       placeholder="0"
                       className="w-full pl-8 pr-4 py-3 rounded-xl text-sm"
                     />

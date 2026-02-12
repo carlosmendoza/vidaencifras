@@ -5,6 +5,7 @@ import { FAQ } from "@/components/FAQ";
 import { Icon } from "@/lib/icons";
 import { calcularLiquidacion, type TipoTerminacion, type TipoContrato } from "@/lib/calculadoras";
 import { AUXILIO_TRANSPORTE, SMMLV, TOPE_AUXILIO } from "@/lib/calculadoras/constantes";
+import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
 
 const faqs = [
@@ -155,10 +156,10 @@ export default function CalculadoraLiquidacion() {
             </label>
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={values.salario}
-                onChange={(e) => setField("salario", e.target.value)}
+                onChange={(v) => setField("salario", v)}
+                locale="es-CO"
                 placeholder="1.300.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />

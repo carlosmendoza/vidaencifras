@@ -6,6 +6,7 @@ import { FAQ } from "@/components/FAQ";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
 import { Icon } from "@/lib/icons";
+import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
 
 const faqs = [
@@ -212,10 +213,9 @@ export default function ValorHoraPage() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">
                 {moneda.simbolo}
               </span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={values.ingreso}
-                onChange={(e) => setField("ingreso", e.target.value)}
+                onChange={(v) => setField("ingreso", v)}
                 placeholder={values.tipoIngreso === "mensual" ? "3.500.000" : "42.000.000"}
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
@@ -292,10 +292,9 @@ export default function ValorHoraPage() {
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
                     {moneda.simbolo}
                   </span>
-                  <input
-                    type="number"
+                  <CurrencyInput
                     value={values.gastoTransporte}
-                    onChange={(e) => setField("gastoTransporte", e.target.value)}
+                    onChange={(v) => setField("gastoTransporte", v)}
                     placeholder="200.000"
                     className="w-full pl-10 pr-4 py-3 rounded-xl text-sm font-semibold"
                   />
@@ -309,10 +308,9 @@ export default function ValorHoraPage() {
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
                     {moneda.simbolo}
                   </span>
-                  <input
-                    type="number"
+                  <CurrencyInput
                     value={values.gastoComida}
-                    onChange={(e) => setField("gastoComida", e.target.value)}
+                    onChange={(v) => setField("gastoComida", v)}
                     placeholder="300.000"
                     className="w-full pl-10 pr-4 py-3 rounded-xl text-sm font-semibold"
                   />
@@ -326,10 +324,9 @@ export default function ValorHoraPage() {
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
                     {moneda.simbolo}
                   </span>
-                  <input
-                    type="number"
+                  <CurrencyInput
                     value={values.otrosGastos}
-                    onChange={(e) => setField("otrosGastos", e.target.value)}
+                    onChange={(v) => setField("otrosGastos", v)}
                     placeholder="0"
                     className="w-full pl-10 pr-4 py-3 rounded-xl text-sm font-semibold"
                   />

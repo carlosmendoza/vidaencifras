@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
+import { CurrencyInput } from "@/components/CurrencyInput";
 
 interface Resultado {
   precioFinal: number;
@@ -127,11 +128,11 @@ export default function CalculadoraDescuentos() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold">
                 $
               </span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={precioOriginal}
-                onChange={(e) => setField("precioOriginal", e.target.value)}
+                onChange={(v) => setField("precioOriginal", v)}
                 placeholder="150.000"
+                locale="es-CO"
                 className="w-full pl-10 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />
             </div>

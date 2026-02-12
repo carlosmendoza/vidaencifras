@@ -61,6 +61,72 @@ export function formatMoney(num: number, moneda: Moneda, options?: { decimals?: 
   }).format(num);
 }
 
+// --- Utilidades para formateo de inputs monetarios ---
+
+const separatorCache = new Map<string, { thousands: string; decimal: string }>();
+
+export function getSeparators(locale: string): { thousands: string; decimal: string } {
+  const cached = separatorCache.get(locale);
+  if (cached) return cached;
+
+  const parts = new Intl.NumberFormat(locale).formatToParts(1234567.89);
+  const thousands = parts.find(p => p.type === "group")?.value ?? ".";
+  const decimal = parts.find(p => p.type === "decimal")?.value ?? ",";
+  const result = { thousands, decimal };
+  separatorCache.set(locale, result);
+  return result;
+}
+
+export function getThousandSeparator(locale: string): string {
+  return getSeparators(locale).thousands;
+}
+
+export function getDecimalSeparator(locale: string): string {
+  return getSeparators(locale).decimal;
+}
+
+export function formatInputValue(rawValue: string, locale: string): string {
+  if (!rawValue) return "";
+
+  const { thousands, decimal } = getSeparators(locale);
+  const hasDecimal = rawValue.includes(".");
+  const [intPart, decPart] = rawValue.split(".");
+
+  // Formatear parte entera con separadores de miles
+  const digits = intPart.replace(/^0+(?=\d)/, ""); // quitar ceros al inicio
+  let formatted = "";
+  for (let i = 0; i < digits.length; i++) {
+    if (i > 0 && (digits.length - i) % 3 === 0) {
+      formatted += thousands;
+    }
+    formatted += digits[i];
+  }
+
+  if (!formatted) formatted = "0";
+
+  if (hasDecimal) {
+    formatted += decimal + (decPart ?? "");
+  }
+
+  return formatted;
+}
+
+export function parseFormattedValue(displayValue: string, locale: string): string {
+  if (!displayValue) return "";
+
+  const { thousands, decimal } = getSeparators(locale);
+
+  let result = displayValue;
+  // Eliminar separadores de miles
+  result = result.split(thousands).join("");
+  // Convertir separador decimal a punto
+  if (decimal !== ".") {
+    result = result.replace(decimal, ".");
+  }
+
+  return result;
+}
+
 export function formatMoneyShort(num: number, moneda: Moneda): string {
   if (num >= 1000000000) {
     return `${(num / 1000000000).toFixed(1)} mil millones`;

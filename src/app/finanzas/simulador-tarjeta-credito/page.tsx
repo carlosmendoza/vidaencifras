@@ -7,6 +7,7 @@ import { ShareButtons } from "@/components/ShareButtons";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { CreditCardPayoffChart } from "@/components/charts/CreditCardPayoffChart";
 import { Icon } from "@/lib/icons";
+import { CurrencyInput } from "@/components/CurrencyInput";
 
 interface SimulacionResultado {
   pagoMinimo: {
@@ -221,10 +222,10 @@ export default function SimuladorTarjetaCredito() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold">
                 $
               </span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={saldo}
-                onChange={(e) => setSaldo(e.target.value)}
+                onChange={(v) => setSaldo(v)}
+                locale="es-CO"
                 placeholder="5000000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />
@@ -280,10 +281,10 @@ export default function SimuladorTarjetaCredito() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold">
                 $
               </span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={cuotaFijaInput}
-                onChange={(e) => setCuotaFijaInput(e.target.value)}
+                onChange={(v) => setCuotaFijaInput(v)}
+                locale="es-CO"
                 placeholder={formatMoney(cuotaFijaSugerida)}
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />

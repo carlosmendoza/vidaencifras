@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useUrlState } from "@/hooks/useUrlState";
 import Link from "next/link";
 import { Icon } from "@/lib/icons";
+import { CurrencyInput } from "@/components/CurrencyInput";
 
 interface Persona {
   id: number;
@@ -221,10 +222,9 @@ export default function DividirCuenta() {
               </div>
               <div className="relative">
                 <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold">{moneda.simbolo}</span>
-                <input
-                  type="number"
+                <CurrencyInput
                   value={total}
-                  onChange={(e) => setField("total", e.target.value)}
+                  onChange={(v) => setField("total", v)}
                   placeholder="50000"
                   className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
                 />
@@ -260,11 +260,10 @@ export default function DividirCuenta() {
                   />
                   <div className="relative flex-1">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold text-sm">{moneda.simbolo}</span>
-                    <input
-                      type="number"
+                    <CurrencyInput
                       value={persona.pagado}
-                      onChange={(e) =>
-                        actualizarPersona(persona.id, "pagado", e.target.value)
+                      onChange={(v) =>
+                        actualizarPersona(persona.id, "pagado", v)
                       }
                       placeholder="0"
                       className="w-full pl-10 pr-4 py-3 rounded-xl text-lg font-semibold"

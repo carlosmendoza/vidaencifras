@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
+import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
 import { calcularPrestamo, type PrestamoOutput } from "@/lib/calculadoras";
 import { useUrlState } from "@/hooks/useUrlState";
@@ -73,11 +74,10 @@ export default function Prestamos() {
 
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold">{moneda.simbolo}</span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={values.monto}
-                onChange={(e) => setField("monto", e.target.value)}
-                placeholder="100000"
+                onChange={(v) => setField("monto", v)}
+                placeholder="100.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />
             </div>

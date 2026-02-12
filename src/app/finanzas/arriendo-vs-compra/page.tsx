@@ -6,6 +6,7 @@ import { FAQ } from "@/components/FAQ";
 import { CalculatorResult } from "@/components/CalculatorResult";
 import { ShareButtons } from "@/components/ShareButtons";
 import { Icon } from "@/lib/icons";
+import { CurrencyInput } from "@/components/CurrencyInput";
 
 const faqs = [
   {
@@ -224,10 +225,10 @@ export default function ArriendoVsCompra() {
               </label>
               <div className="relative">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
-                <input
-                  type="number"
+                <CurrencyInput
                   value={precioVivienda}
-                  onChange={(e) => setPrecioVivienda(e.target.value)}
+                  onChange={(v) => setPrecioVivienda(v)}
+                  locale="es-CO"
                   className="w-full pl-10 pr-4 py-3 rounded-xl"
                 />
               </div>
@@ -239,10 +240,10 @@ export default function ArriendoVsCompra() {
               </label>
               <div className="relative">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
-                <input
-                  type="number"
+                <CurrencyInput
                   value={cuotaInicial}
-                  onChange={(e) => setCuotaInicial(e.target.value)}
+                  onChange={(v) => setCuotaInicial(v)}
+                  locale="es-CO"
                   className="w-full pl-10 pr-4 py-3 rounded-xl"
                 />
               </div>
@@ -304,10 +305,10 @@ export default function ArriendoVsCompra() {
                 </label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">$</span>
-                  <input
-                    type="number"
+                  <CurrencyInput
                     value={costosAdicionales}
-                    onChange={(e) => setCostosAdicionales(e.target.value)}
+                    onChange={(v) => setCostosAdicionales(v)}
+                    locale="es-CO"
                     className="w-full pl-8 pr-4 py-3 rounded-xl text-sm"
                   />
                 </div>
@@ -328,10 +329,10 @@ export default function ArriendoVsCompra() {
               </label>
               <div className="relative">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
-                <input
-                  type="number"
+                <CurrencyInput
                   value={canonArriendo}
-                  onChange={(e) => setCanonArriendo(e.target.value)}
+                  onChange={(v) => setCanonArriendo(v)}
+                  locale="es-CO"
                   className="w-full pl-10 pr-4 py-3 rounded-xl"
                 />
               </div>

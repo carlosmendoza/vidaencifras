@@ -7,6 +7,7 @@ import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { calcularHorasExtras, type HorasExtrasOutput } from "@/lib/calculadoras";
 import { SMMLV, TIPOS_HORA, type TipoHora } from "@/lib/calculadoras/constantes";
+import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
 
 interface TipoHoraUI {
@@ -132,10 +133,10 @@ export default function CalculadoraHorasExtras() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold">
                 $
               </span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={values.salario}
-                onChange={(e) => setField("salario", e.target.value)}
+                onChange={(v) => setField("salario", v)}
+                locale="es-CO"
                 placeholder="1.750.905"
                 className="w-full pl-10 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />

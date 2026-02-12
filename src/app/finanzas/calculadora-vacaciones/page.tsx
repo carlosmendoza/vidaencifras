@@ -7,6 +7,7 @@ import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { calcularVacaciones, type VacacionesOutput } from "@/lib/calculadoras";
 import { SMMLV } from "@/lib/calculadoras/constantes";
+import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
 
 export default function CalculadoraVacaciones() {
@@ -109,10 +110,10 @@ export default function CalculadoraVacaciones() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold">
                 $
               </span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={values.salario}
-                onChange={(e) => setField("salario", e.target.value)}
+                onChange={(v) => setField("salario", v)}
+                locale="es-CO"
                 placeholder="2.500.000"
                 className="w-full pl-10 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />

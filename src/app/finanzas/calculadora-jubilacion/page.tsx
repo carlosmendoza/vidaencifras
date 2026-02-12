@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
+import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
 
 const faqs = [
@@ -244,10 +245,9 @@ export default function CalculadoraJubilacion() {
             </div>
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">{moneda.simbolo}</span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={gastoMensualActual}
-                onChange={(e) => setGastoMensualActual(e.target.value)}
+                onChange={(v) => setGastoMensualActual(v)}
                 placeholder="3.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
@@ -264,10 +264,9 @@ export default function CalculadoraJubilacion() {
             </label>
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">{moneda.simbolo}</span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={ahorroActual}
-                onChange={(e) => setAhorroActual(e.target.value)}
+                onChange={(v) => setAhorroActual(v)}
                 placeholder="20.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
@@ -284,10 +283,9 @@ export default function CalculadoraJubilacion() {
             </label>
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">{moneda.simbolo}</span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={ahorroMensual}
-                onChange={(e) => setAhorroMensual(e.target.value)}
+                onChange={(v) => setAhorroMensual(v)}
                 placeholder="500.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />

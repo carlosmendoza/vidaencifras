@@ -8,6 +8,7 @@ import { ShareButtons } from "@/components/ShareButtons";
 import { Icon } from "@/lib/icons";
 import { calcularImpuestoRenta, type ImpuestoRentaOutput, type TipoTrabajador } from "@/lib/calculadoras";
 import { UVT_2025, TABLA_TARIFAS_RENTA } from "@/lib/calculadoras/constantes";
+import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
 
 const TABLA_TARIFAS = TABLA_TARIFAS_RENTA;
@@ -128,10 +129,10 @@ export default function CalculadoraImpuestoRenta() {
             </label>
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={values.ingresos}
-                onChange={(e) => setField("ingresos", e.target.value)}
+                onChange={(v) => setField("ingresos", v)}
+                locale="es-CO"
                 placeholder="60.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
@@ -175,10 +176,10 @@ export default function CalculadoraImpuestoRenta() {
                 </label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">$</span>
-                  <input
-                    type="number"
+                  <CurrencyInput
                     value={values.interesesVivienda}
-                    onChange={(e) => setField("interesesVivienda", e.target.value)}
+                    onChange={(v) => setField("interesesVivienda", v)}
+                    locale="es-CO"
                     placeholder="0"
                     className="w-full pl-10 pr-4 py-3 rounded-xl text-sm"
                   />
@@ -191,10 +192,10 @@ export default function CalculadoraImpuestoRenta() {
                 </label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">$</span>
-                  <input
-                    type="number"
+                  <CurrencyInput
                     value={values.medicinaPrepagada}
-                    onChange={(e) => setField("medicinaPrepagada", e.target.value)}
+                    onChange={(v) => setField("medicinaPrepagada", v)}
+                    locale="es-CO"
                     placeholder="0"
                     className="w-full pl-10 pr-4 py-3 rounded-xl text-sm"
                   />
@@ -207,10 +208,10 @@ export default function CalculadoraImpuestoRenta() {
                 </label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">$</span>
-                  <input
-                    type="number"
+                  <CurrencyInput
                     value={values.aportesVoluntarios}
-                    onChange={(e) => setField("aportesVoluntarios", e.target.value)}
+                    onChange={(v) => setField("aportesVoluntarios", v)}
+                    locale="es-CO"
                     placeholder="0"
                     className="w-full pl-10 pr-4 py-3 rounded-xl text-sm"
                   />

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
 import { Icon } from "@/lib/icons";
+import { CurrencyInput } from "@/components/CurrencyInput";
 
 // Tasas de referencia de bancos colombianos (actualizar periódicamente)
 const BANCOS_PRESETS = [
@@ -193,10 +194,10 @@ export default function ComparadorCDT() {
             </label>
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={capital}
-                onChange={(e) => setCapital(e.target.value)}
+                onChange={(v) => setCapital(v)}
+                locale="es-CO"
                 placeholder="10.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />

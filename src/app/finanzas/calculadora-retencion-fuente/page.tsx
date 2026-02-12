@@ -8,6 +8,7 @@ import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { calcularRetencionFuente, type RetencionFuenteOutput } from "@/lib/calculadoras";
 import { TASAS_RETENCION, UVT_2025, type TipoRetencion } from "@/lib/calculadoras/constantes";
+import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
 
 export default function CalculadoraRetencion() {
@@ -152,11 +153,11 @@ export default function CalculadoraRetencion() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 font-semibold">
                 $
               </span>
-              <input
-                type="number"
+              <CurrencyInput
                 value={values.valorBruto}
-                onChange={(e) => setField("valorBruto", e.target.value)}
-                placeholder="1000000"
+                onChange={(v) => setField("valorBruto", v)}
+                locale="es-CO"
+                placeholder="1.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />
             </div>
