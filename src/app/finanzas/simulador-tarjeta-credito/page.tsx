@@ -8,6 +8,7 @@ import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { CreditCardPayoffChart } from "@/components/charts/CreditCardPayoffChart";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 interface SimulacionResultado {
   pagoMinimo: {
@@ -296,6 +297,7 @@ export default function SimuladorTarjetaCredito() {
 
           {/* Resultados */}
           {resultado && resultado.cuotaFija.meses < 999 && (
+            <ResultWithMascot>
             <div className="mt-8 space-y-6 animate-result-appear">
               {/* Comparación lado a lado */}
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
@@ -384,6 +386,7 @@ export default function SimuladorTarjetaCredito() {
                 }}
               />
             </div>
+            </ResultWithMascot>
           )}
 
           {/* Advertencia si cuota no alcanza */}

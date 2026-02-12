@@ -10,6 +10,7 @@ import { calcularRetencionFuente, type RetencionFuenteOutput } from "@/lib/calcu
 import { TASAS_RETENCION, UVT_2025, type TipoRetencion } from "@/lib/calculadoras/constantes";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 export default function CalculadoraRetencion() {
   const { values, setField } = useUrlState(
@@ -168,6 +169,7 @@ export default function CalculadoraRetencion() {
 
           {/* Resultado */}
           {resultado && (
+            <ResultWithMascot>
             <div className="mt-8 space-y-4 animate-result-appear">
               {/* Alerta si no supera base mínima */}
               {!resultado.superaBaseMinima && (
@@ -216,6 +218,7 @@ export default function CalculadoraRetencion() {
                 }}
               />
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>

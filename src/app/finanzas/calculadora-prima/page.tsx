@@ -127,18 +127,22 @@ export default function CalculadoraPrima() {
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
             </div>
-            <div className="flex gap-2 flex-wrap">
-              {[1300000, 1800000, 2500000, 3500000].map((s) => (
+            <div className="flex flex-wrap gap-2">
+              {[
+                { value: SMMLV, label: "1 SMMLV" },
+                { value: SMMLV * 2, label: "2 SMMLV" },
+                { value: SMMLV * 3, label: "3 SMMLV" },
+              ].map((s) => (
                 <button
-                  key={s}
-                  onClick={() => setField("salario", s.toString())}
-                  className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                    values.salario === s.toString()
+                  key={s.value}
+                  onClick={() => setField("salario", s.value.toString())}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
+                    values.salario === s.value.toString()
                       ? "bg-teal-500 text-white"
-                      : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
+                      : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
                 >
-                  ${formatMoney(s)}
+                  {s.label}
                 </button>
               ))}
             </div>

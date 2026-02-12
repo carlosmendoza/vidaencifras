@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getAllPosts, categoryColors } from "@/lib/blog";
 import { Icon } from "@/lib/icons";
+import { CategoryHero } from "@/components/CategoryHero";
 
 export const metadata: Metadata = {
   title: "Calculadoras de Productividad - Optimiza tu Tiempo y Hábitos",
@@ -71,16 +72,12 @@ export default function ProductividadPage() {
 
   return (
     <div className="space-y-12">
-      <section className="space-y-4">
-        <div className="w-12 h-1.5 bg-orange-500 dark:bg-orange-400 rounded-full" />
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-800 dark:text-slate-100">
-          Optimiza tu{" "}
-          <span className="text-orange-600 dark:text-orange-400">tiempo</span>
-        </h1>
-        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl">
-          Herramientas para medir tu productividad, visualizar tu tiempo y tomar el control de tus metas y hábitos.
-        </p>
-      </section>
+      <CategoryHero
+        pilar="productividad"
+        accentBarColor="bg-orange-500 dark:bg-orange-400"
+        title={<>Optimiza tu{" "}<span className="text-orange-600 dark:text-orange-400">tiempo</span></>}
+        description="Herramientas para medir tu productividad, visualizar tu tiempo y tomar el control de tus metas y hábitos."
+      />
 
       <section className="grid gap-6 md:grid-cols-2">
         {herramientas.map((herr) => (

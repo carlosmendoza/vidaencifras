@@ -9,6 +9,7 @@ import {
   calculadorasProductividad,
 } from "@/lib/calculators";
 import { Icon } from "@/lib/icons";
+import { mascotPaths, type PilarConMascota } from "@/lib/mascots";
 import Reveal from "@/components/Reveal";
 import DatoDelDia from "@/components/DatoDelDia";
 
@@ -18,10 +19,10 @@ const pilarCounts: Record<string, number> = {
   Productividad: calculadorasProductividad.length,
 };
 
-const pilarImages: Record<string, string> = {
-  Salud: "/heart.svg",
-  Finanzas: "/coin.svg",
-  Productividad: "/clock.svg",
+const pilarKeys: Record<string, PilarConMascota> = {
+  Salud: "salud",
+  Finanzas: "finanzas",
+  Productividad: "productividad",
 };
 
 const pilarImageStyle: Record<string, string> = {
@@ -77,7 +78,7 @@ export default function Home() {
               <div className={`absolute top-0 left-0 right-0 h-1 ${pilar.gradient}`} />
 
               <Image
-                src={pilarImages[pilar.nombre]}
+                src={mascotPaths[pilarKeys[pilar.nombre]].default}
                 alt={pilar.nombre}
                 width={200}
                 height={200}

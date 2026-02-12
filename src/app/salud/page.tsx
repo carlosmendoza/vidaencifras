@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Icon } from "@/lib/icons";
+import { CategoryHero } from "@/components/CategoryHero";
 
 export const metadata: Metadata = {
   title: "Calculadoras de Salud y Bienestar",
@@ -61,16 +62,12 @@ const calculadoras = [
 export default function SaludPage() {
   return (
     <div className="space-y-12">
-      <section className="space-y-4">
-        <div className="w-12 h-1.5 bg-red-500 dark:bg-red-400 rounded-full" />
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-800 dark:text-slate-100">
-          Cuida tu salud{" "}
-          <span className="text-red-600 dark:text-red-400">con datos</span>
-        </h1>
-        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl">
-          Herramientas para entender mejor tu cuerpo y tomar decisiones informadas sobre tu bienestar físico.
-        </p>
-      </section>
+      <CategoryHero
+        pilar="salud"
+        accentBarColor="bg-red-500 dark:bg-red-400"
+        title={<>Cuida tu salud{" "}<span className="text-red-600 dark:text-red-400">con datos</span></>}
+        description="Herramientas para entender mejor tu cuerpo y tomar decisiones informadas sobre tu bienestar físico."
+      />
 
       <section className="grid gap-6 md:grid-cols-2">
         {calculadoras.map((calc) => (

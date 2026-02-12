@@ -7,6 +7,7 @@ import { ShareButtons } from "@/components/ShareButtons";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 import {
   BANCOS_PRESTAMOS,
   TIPOS_PRESTAMO,
@@ -225,6 +226,7 @@ export default function ComparadorPrestamos() {
 
           {/* Resultados */}
           {resultados.length > 0 && (
+            <ResultWithMascot>
             <div className="mt-8 space-y-6 animate-result-appear">
               {/* Mejor opción destacada */}
               <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900">
@@ -328,6 +330,7 @@ export default function ComparadorPrestamos() {
                 </p>
               </div>
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>

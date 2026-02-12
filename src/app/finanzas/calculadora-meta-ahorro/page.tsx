@@ -17,6 +17,7 @@ import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 const CUENTAS_AHORRO = [
   {
@@ -724,6 +725,7 @@ function CalculadoraMetaAhorroContent() {
 
           {/* Resultado */}
           {resultado && (
+            <ResultWithMascot>
             <div className="mt-10 space-y-6 animate-result-appear">
               {resultado.mensaje ? (
                 <div className="p-8 bg-emerald-100 dark:bg-emerald-900/50 rounded-3xl text-center">
@@ -1003,6 +1005,7 @@ function CalculadoraMetaAhorroContent() {
                 </>
               )}
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>

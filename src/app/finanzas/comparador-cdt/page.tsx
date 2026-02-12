@@ -6,6 +6,7 @@ import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 // Tasas de referencia de bancos colombianos (actualizar periódicamente)
 const BANCOS_PRESETS = [
@@ -339,6 +340,7 @@ export default function ComparadorCDT() {
 
           {/* Resultados */}
           {resultados.length > 0 && (
+            <ResultWithMascot>
             <div className="mt-10 space-y-6">
               {/* Mejor opción destacada */}
               <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900 animate-result-appear">
@@ -441,6 +443,7 @@ export default function ComparadorCDT() {
                 </p>
               </div>
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>

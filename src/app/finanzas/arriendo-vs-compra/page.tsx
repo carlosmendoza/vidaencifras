@@ -7,6 +7,7 @@ import { CalculatorResult } from "@/components/CalculatorResult";
 import { ShareButtons } from "@/components/ShareButtons";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 const faqs = [
   {
@@ -403,6 +404,7 @@ export default function ArriendoVsCompra() {
 
         {/* Resultados */}
         {resultado && (
+          <ResultWithMascot>
           <div className="mt-10 space-y-6">
             {/* Recomendación principal */}
             <div
@@ -523,6 +525,7 @@ export default function ArriendoVsCompra() {
               </table>
             </div>
           </div>
+          </ResultWithMascot>
         )}
       </div>
 

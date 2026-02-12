@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getAllPosts, categoryColors } from "@/lib/blog";
 import { Icon } from "@/lib/icons";
+import { CategoryHero } from "@/components/CategoryHero";
 
 export const metadata: Metadata = {
   title: "Calculadoras de Finanzas Personales",
@@ -135,16 +136,12 @@ export default function FinanzasPage() {
 
   return (
     <div className="space-y-12">
-      <section className="space-y-4">
-        <div className="w-12 h-1.5 bg-teal-500 dark:bg-teal-400 rounded-full" />
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-800 dark:text-slate-100">
-          Domina tu dinero{" "}
-          <span className="text-teal-600 dark:text-teal-400">con números</span>
-        </h1>
-        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl">
-          Herramientas para planificar inversiones, entender préstamos y gestionar tus finanzas personales.
-        </p>
-      </section>
+      <CategoryHero
+        pilar="finanzas"
+        accentBarColor="bg-teal-500 dark:bg-teal-400"
+        title={<>Domina tu dinero{" "}<span className="text-teal-600 dark:text-teal-400">con números</span></>}
+        description="Herramientas para planificar inversiones, entender préstamos y gestionar tus finanzas personales."
+      />
 
       <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {calculadoras.map((calc) => (

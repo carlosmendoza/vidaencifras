@@ -18,6 +18,7 @@ import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 // Cuentas de ahorro disponibles en Colombia (tasas actualizadas febrero 2025)
 const CUENTAS_AHORRO = [
@@ -535,6 +536,7 @@ function SimuladorCuentaAhorroContent() {
 
           {/* Resultados */}
           {resultado && (
+            <ResultWithMascot>
             <div className="mt-10 space-y-6 animate-result-appear">
               {/* Gráfica comparativa */}
               <div className="p-6 bg-white dark:bg-slate-800 rounded-3xl ring-1 ring-slate-200 dark:ring-slate-700">
@@ -664,6 +666,7 @@ function SimuladorCuentaAhorroContent() {
                 </div>
               )}
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>
