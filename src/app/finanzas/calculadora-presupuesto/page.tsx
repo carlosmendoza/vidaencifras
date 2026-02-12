@@ -279,17 +279,17 @@ export default function CalculadoraPresupuesto() {
                     key={cat.nombre}
                     className="p-6 bg-white dark:bg-slate-800 rounded-2xl ring-1 ring-slate-200 dark:ring-slate-700"
                   >
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${cat.color} flex items-center justify-center text-white shadow-lg`}>
+                    <div className="flex items-center justify-between gap-3 mb-4">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className={`w-12 h-12 shrink-0 rounded-xl bg-gradient-to-br ${cat.color} flex items-center justify-center text-white shadow-lg`}>
                           <Icon name={cat.icono} className="w-7 h-7" />
                         </div>
-                        <div>
-                          <h3 className="font-bold text-slate-800 dark:text-slate-100">{cat.nombre}</h3>
+                        <div className="min-w-0">
+                          <h3 className="font-bold text-sm sm:text-base text-slate-800 dark:text-slate-100">{cat.nombre}</h3>
                           <p className="text-sm text-slate-500">{cat.porcentaje}% de tu ingreso</p>
                         </div>
                       </div>
-                      <p className="text-2xl font-black text-slate-800 dark:text-slate-100">
+                      <p className="text-xl sm:text-2xl font-black text-slate-800 dark:text-slate-100 shrink-0 text-right">
                         {moneda.simbolo}{formatMoney(cat.monto)}
                       </p>
                     </div>

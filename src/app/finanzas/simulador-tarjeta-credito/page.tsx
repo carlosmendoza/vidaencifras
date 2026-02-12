@@ -297,9 +297,9 @@ export default function SimuladorTarjetaCredito() {
           {resultado && resultado.cuotaFija.meses < 999 && (
             <div className="mt-8 space-y-6 animate-result-appear">
               {/* Comparación lado a lado */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 {/* Pago mínimo */}
-                <div className="p-6 bg-red-50 dark:bg-red-950/30 rounded-2xl border-2 border-red-200 dark:border-red-800">
+                <div className="p-4 sm:p-6 bg-red-50 dark:bg-red-950/30 rounded-2xl border-2 border-red-200 dark:border-red-800">
                   <div className="flex items-center gap-2 mb-4">
                     <Icon name="trending-down" className="w-5 h-5 text-red-500" />
                     <h3 className="font-bold text-red-700 dark:text-red-300">Pago mínimo</h3>
@@ -307,17 +307,17 @@ export default function SimuladorTarjetaCredito() {
                   <div className="space-y-3">
                     <div>
                       <p className="text-xs text-slate-500 dark:text-slate-400">Meses para pagar</p>
-                      <p className="text-2xl font-black text-red-600">{resultado.pagoMinimo.meses}</p>
+                      <p className="text-xl sm:text-2xl font-black text-red-600">{resultado.pagoMinimo.meses}</p>
                     </div>
                     <div>
                       <p className="text-xs text-slate-500 dark:text-slate-400">Total a pagar</p>
-                      <p className="text-lg font-bold text-slate-700 dark:text-slate-300">
+                      <p className="text-base sm:text-lg font-bold text-slate-700 dark:text-slate-300">
                         ${formatMoney(resultado.pagoMinimo.totalPagado)}
                       </p>
                     </div>
                     <div>
                       <p className="text-xs text-slate-500 dark:text-slate-400">Solo en intereses</p>
-                      <p className="text-lg font-bold text-red-600">
+                      <p className="text-base sm:text-lg font-bold text-red-600">
                         ${formatMoney(resultado.pagoMinimo.interesesPagados)}
                       </p>
                     </div>
@@ -325,7 +325,7 @@ export default function SimuladorTarjetaCredito() {
                 </div>
 
                 {/* Cuota fija */}
-                <div className="p-6 bg-emerald-50 dark:bg-emerald-950/30 rounded-2xl border-2 border-emerald-200 dark:border-emerald-800">
+                <div className="p-4 sm:p-6 bg-emerald-50 dark:bg-emerald-950/30 rounded-2xl border-2 border-emerald-200 dark:border-emerald-800">
                   <div className="flex items-center gap-2 mb-4">
                     <Icon name="trending-up" className="w-5 h-5 text-emerald-500" />
                     <h3 className="font-bold text-emerald-700 dark:text-emerald-300">Cuota fija</h3>
@@ -333,17 +333,17 @@ export default function SimuladorTarjetaCredito() {
                   <div className="space-y-3">
                     <div>
                       <p className="text-xs text-slate-500 dark:text-slate-400">Meses para pagar</p>
-                      <p className="text-2xl font-black text-emerald-600">{resultado.cuotaFija.meses}</p>
+                      <p className="text-xl sm:text-2xl font-black text-emerald-600">{resultado.cuotaFija.meses}</p>
                     </div>
                     <div>
                       <p className="text-xs text-slate-500 dark:text-slate-400">Total a pagar</p>
-                      <p className="text-lg font-bold text-slate-700 dark:text-slate-300">
+                      <p className="text-base sm:text-lg font-bold text-slate-700 dark:text-slate-300">
                         ${formatMoney(resultado.cuotaFija.totalPagado)}
                       </p>
                     </div>
                     <div>
                       <p className="text-xs text-slate-500 dark:text-slate-400">Solo en intereses</p>
-                      <p className="text-lg font-bold text-emerald-600">
+                      <p className="text-base sm:text-lg font-bold text-emerald-600">
                         ${formatMoney(resultado.cuotaFija.interesesPagados)}
                       </p>
                     </div>

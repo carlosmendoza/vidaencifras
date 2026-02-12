@@ -917,22 +917,22 @@ function CalculadoraMetaAhorroContent() {
                         {resultado.comparacionCuentas.map((cuenta, index) => (
                           <div
                             key={cuenta.id}
-                            className={`p-4 rounded-xl flex items-center justify-between transition-all ${
+                            className={`p-4 rounded-xl flex items-center justify-between gap-3 transition-all ${
                               cuenta.id === cuentaSeleccionada
                                 ? "bg-amber-50 dark:bg-amber-950/50 ring-2 ring-amber-500"
                                 : "bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700/50 cursor-pointer"
                             }`}
                             onClick={() => setCuentaSeleccionada(cuenta.id)}
                           >
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-3 min-w-0">
                               <div
-                                className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm"
+                                className="w-8 h-8 shrink-0 rounded-full flex items-center justify-center text-white font-bold text-sm"
                                 style={{ backgroundColor: cuenta.color }}
                               >
                                 {index + 1}
                               </div>
-                              <div>
-                                <span className="font-semibold text-slate-700 dark:text-slate-200">
+                              <div className="min-w-0">
+                                <span className="font-semibold text-sm sm:text-base text-slate-700 dark:text-slate-200">
                                   {cuenta.nombre}
                                 </span>
                                 <span className="text-xs text-slate-400 ml-2">{cuenta.tasa}% EA</span>
@@ -943,12 +943,12 @@ function CalculadoraMetaAhorroContent() {
                                 )}
                               </div>
                             </div>
-                            <div className="text-right">
+                            <div className="text-right shrink-0">
                               {resultado.tipoCalculo === "meta" ? (
                                 <>
-                                  <p className="font-bold text-lg" style={{ color: cuenta.color }}>
+                                  <p className="font-bold text-base sm:text-lg" style={{ color: cuenta.color }}>
                                     ${formatMoney(Math.ceil(cuenta.aporteMensual))}
-                                    <span className="text-sm font-normal text-slate-400">/mes</span>
+                                    <span className="text-xs sm:text-sm font-normal text-slate-400">/mes</span>
                                   </p>
                                   <p className="text-xs text-emerald-600">
                                     +${formatMoney(Math.floor(cuenta.interesesGanados))} en intereses
@@ -956,7 +956,7 @@ function CalculadoraMetaAhorroContent() {
                                 </>
                               ) : (
                                 <>
-                                  <p className="font-bold text-lg" style={{ color: cuenta.color }}>
+                                  <p className="font-bold text-base sm:text-lg" style={{ color: cuenta.color }}>
                                     {formatPlazo(cuenta.mesesRequeridos)}
                                   </p>
                                   <p className="text-xs text-emerald-600">

@@ -387,7 +387,7 @@ export default function CalculadoraJubilacion() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-5 bg-white dark:bg-slate-800 rounded-2xl ring-1 ring-slate-200 dark:ring-slate-700">
                   <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">Tendrás acumulado</p>
-                  <p className="text-2xl font-black text-slate-700 dark:text-slate-200">
+                  <p className="text-xl sm:text-2xl font-black text-slate-700 dark:text-slate-200 break-all">
                     {moneda.simbolo}{formatMoney(resultado.ahorroActualProyectado)}
                   </p>
                   <p className="text-xs text-slate-400 mt-1">
@@ -398,7 +398,7 @@ export default function CalculadoraJubilacion() {
                 {resultado.brecha > 0 ? (
                   <div className="p-5 bg-red-50 dark:bg-red-900/20 rounded-2xl ring-1 ring-red-200 dark:ring-red-800">
                     <p className="text-sm text-red-600 dark:text-red-400 mb-1">Te faltarían</p>
-                    <p className="text-2xl font-black text-red-600">
+                    <p className="text-xl sm:text-2xl font-black text-red-600 break-all">
                       {moneda.simbolo}{formatMoney(resultado.brecha)}
                     </p>
                     <p className="text-xs text-red-500 mt-1">
@@ -408,7 +408,7 @@ export default function CalculadoraJubilacion() {
                 ) : (
                   <div className="p-5 bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl ring-1 ring-emerald-200 dark:ring-emerald-800">
                     <p className="text-sm text-emerald-600 dark:text-emerald-400 mb-1">¡Vas bien!</p>
-                    <p className="text-2xl font-black text-emerald-600">
+                    <p className="text-xl sm:text-2xl font-black text-emerald-600">
                       Meta cubierta
                     </p>
                     <p className="text-xs text-emerald-500 mt-1">

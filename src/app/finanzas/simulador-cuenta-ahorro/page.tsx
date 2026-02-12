@@ -583,40 +583,40 @@ function SimuladorCuentaAhorroContent() {
                   {resultado.resumenCuentas.map((cuenta, index) => (
                     <div
                       key={cuenta.id}
-                      className={`p-4 rounded-2xl flex items-center justify-between ${
+                      className={`p-4 rounded-2xl flex items-center justify-between gap-3 ${
                         index === 0
                           ? "bg-white dark:bg-slate-800 ring-2 ring-emerald-500"
                           : "bg-white/60 dark:bg-slate-800/60"
                       }`}
                     >
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 min-w-0">
                         <div
-                          className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm ${
+                          className={`w-8 h-8 shrink-0 rounded-full flex items-center justify-center text-white font-bold text-sm ${
                             index === 0 ? "bg-emerald-500" : index === 1 ? "bg-slate-400" : "bg-slate-300"
                           }`}
                         >
                           {index + 1}
                         </div>
-                        <div>
+                        <div className="min-w-0">
                           <div className="flex items-center gap-2">
                             <div
-                              className="w-3 h-3 rounded-full"
+                              className="w-3 h-3 shrink-0 rounded-full"
                               style={{ backgroundColor: cuenta.color }}
                             />
-                            <span className="font-bold text-slate-700 dark:text-slate-200">
+                            <span className="font-bold text-sm sm:text-base text-slate-700 dark:text-slate-200">
                               {cuenta.nombre}
                             </span>
-                            <span className="text-xs text-slate-400">{cuenta.tasa}% EA</span>
+                            <span className="text-xs text-slate-400 shrink-0">{cuenta.tasa}% EA</span>
                           </div>
                           <p className="text-xs text-slate-400">{cuenta.nota}</p>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <p className="font-black text-lg" style={{ color: cuenta.color }}>
+                      <div className="text-right shrink-0">
+                        <p className="font-black text-base sm:text-lg" style={{ color: cuenta.color }}>
                           ${formatMoney(cuenta.montoFinal)}
                         </p>
                         <p
-                          className={`text-sm font-medium ${
+                          className={`text-xs sm:text-sm font-medium ${
                             cuenta.ganancia >= 0 ? "text-emerald-600" : "text-red-500"
                           }`}
                         >

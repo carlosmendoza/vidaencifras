@@ -350,23 +350,23 @@ export default function ComparadorCDT() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                   <div className="text-center">
                     <p className="text-xs text-slate-500 dark:text-slate-400">Interés neto</p>
-                    <p className="text-2xl font-black text-emerald-600">${formatMoney(mejorOpcion.interesNeto)}</p>
+                    <p className="text-xl sm:text-2xl font-black text-emerald-600">${formatMoney(mejorOpcion.interesNeto)}</p>
                   </div>
                   <div className="text-center">
                     <p className="text-xs text-slate-500 dark:text-slate-400">Total al vencimiento</p>
-                    <p className="text-2xl font-black text-slate-700 dark:text-slate-200">
+                    <p className="text-xl sm:text-2xl font-black text-slate-700 dark:text-slate-200">
                       ${formatMoney(mejorOpcion.totalFinal)}
                     </p>
                   </div>
                   <div className="text-center">
                     <p className="text-xs text-slate-500 dark:text-slate-400">Tasa nominal</p>
-                    <p className="text-2xl font-black text-slate-700 dark:text-slate-200">
+                    <p className="text-xl sm:text-2xl font-black text-slate-700 dark:text-slate-200">
                       {mejorOpcion.tasaAnual.toFixed(1)}%
                     </p>
                   </div>
                   <div className="text-center">
                     <p className="text-xs text-slate-500 dark:text-slate-400">Tasa efectiva neta</p>
-                    <p className="text-2xl font-black text-emerald-600">
+                    <p className="text-xl sm:text-2xl font-black text-emerald-600">
                       {mejorOpcion.tasaEfectivaNeta.toFixed(2)}%
                     </p>
                   </div>

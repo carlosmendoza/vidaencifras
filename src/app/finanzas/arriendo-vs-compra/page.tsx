@@ -440,21 +440,21 @@ export default function ArriendoVsCompra() {
                 <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-2xl">
                   <h4 className="font-bold text-emerald-700 dark:text-emerald-300 mb-3 flex items-center gap-2"><Icon name="home" className="w-5 h-5" /> Compra</h4>
                   <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
+                    <div className="flex justify-between gap-2">
                       <span className="text-slate-600 dark:text-slate-400">Cuota mensual</span>
-                      <span className="font-semibold">${formatMoney(resultado.cuotaMensualHipoteca + parseFloat(costosAdicionales))}</span>
+                      <span className="font-semibold shrink-0">${formatMoney(resultado.cuotaMensualHipoteca + parseFloat(costosAdicionales))}</span>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between gap-2">
                       <span className="text-slate-600 dark:text-slate-400">Valor final vivienda</span>
-                      <span className="font-semibold">${formatMoney(resultado.valorFinalVivienda)}</span>
+                      <span className="font-semibold shrink-0">${formatMoney(resultado.valorFinalVivienda)}</span>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between gap-2">
                       <span className="text-slate-600 dark:text-slate-400">Costo total pagado</span>
-                      <span className="font-semibold text-red-500">${formatMoney(resultado.costoTotalCompra)}</span>
+                      <span className="font-semibold text-red-500 shrink-0">${formatMoney(resultado.costoTotalCompra)}</span>
                     </div>
-                    <div className="flex justify-between border-t border-slate-200 dark:border-slate-700 pt-2 mt-2">
+                    <div className="flex justify-between gap-2 border-t border-slate-200 dark:border-slate-700 pt-2 mt-2">
                       <span className="font-bold text-slate-700 dark:text-slate-300">Patrimonio final</span>
-                      <span className="font-black text-emerald-600">${formatMoney(resultado.patrimonioFinalCompra)}</span>
+                      <span className="font-black text-emerald-600 shrink-0">${formatMoney(resultado.patrimonioFinalCompra)}</span>
                     </div>
                   </div>
                 </div>
@@ -463,21 +463,21 @@ export default function ArriendoVsCompra() {
                 <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-2xl">
                   <h4 className="font-bold text-emerald-700 dark:text-emerald-300 mb-3 flex items-center gap-2"><Icon name="lock" className="w-5 h-5" /> Arriendo</h4>
                   <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
+                    <div className="flex justify-between gap-2">
                       <span className="text-slate-600 dark:text-slate-400">Arriendo inicial</span>
-                      <span className="font-semibold">${formatMoney(parseFloat(canonArriendo))}</span>
+                      <span className="font-semibold shrink-0">${formatMoney(parseFloat(canonArriendo))}</span>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between gap-2">
                       <span className="text-slate-600 dark:text-slate-400">Inversión acumulada</span>
-                      <span className="font-semibold">${formatMoney(resultado.patrimonioFinalArriendo)}</span>
+                      <span className="font-semibold shrink-0">${formatMoney(resultado.patrimonioFinalArriendo)}</span>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between gap-2">
                       <span className="text-slate-600 dark:text-slate-400">Total arriendo pagado</span>
-                      <span className="font-semibold text-red-500">${formatMoney(resultado.costoTotalArriendo)}</span>
+                      <span className="font-semibold text-red-500 shrink-0">${formatMoney(resultado.costoTotalArriendo)}</span>
                     </div>
-                    <div className="flex justify-between border-t border-slate-200 dark:border-slate-700 pt-2 mt-2">
+                    <div className="flex justify-between gap-2 border-t border-slate-200 dark:border-slate-700 pt-2 mt-2">
                       <span className="font-bold text-slate-700 dark:text-slate-300">Patrimonio final</span>
-                      <span className="font-black text-emerald-600">${formatMoney(resultado.patrimonioFinalArriendo)}</span>
+                      <span className="font-black text-emerald-600 shrink-0">${formatMoney(resultado.patrimonioFinalArriendo)}</span>
                     </div>
                   </div>
                 </div>
