@@ -291,7 +291,7 @@ export default function ComparadorPrestamos() {
                       <tr
                         key={r.nombre}
                         className={`hover:bg-slate-50 dark:hover:bg-slate-800/50 ${
-                          index === 0 ? "bg-emerald-50/50 dark:bg-emerald-900/20" : ""
+                          index === 0 ? "bg-teal-50/50 dark:bg-teal-900/20" : ""
                         }`}
                       >
                         <td className="px-4 py-3 font-semibold text-slate-800 dark:text-slate-100">

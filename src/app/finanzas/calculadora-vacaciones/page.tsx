@@ -220,7 +220,7 @@ export default function CalculadoraVacaciones() {
                     <p className="text-sm font-bold text-slate-700 dark:text-slate-300">Valor de tus vacaciones</p>
                     <p className="text-xs text-slate-400 dark:text-slate-500">Si las cobraras hoy</p>
                   </div>
-                  <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400">
+                  <p className="text-2xl font-black text-teal-600 dark:text-teal-400">
                     {formatMoney(resultado.valorVacaciones)}
                   </p>
                 </div>
@@ -246,7 +246,7 @@ export default function CalculadoraVacaciones() {
                   </div>
                   <div className="border-t border-slate-200 dark:border-slate-700 pt-3 flex justify-between items-center">
                     <span className="font-bold text-slate-700 dark:text-slate-200">Total</span>
-                    <span className="font-black text-emerald-600 dark:text-emerald-400">
+                    <span className="font-black text-teal-600 dark:text-teal-400">
                       {formatMoney(resultado.valorVacaciones)}
                     </span>
                   </div>

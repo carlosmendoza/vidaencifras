@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getAllPosts, categoryLabels, categoryColors } from "@/lib/blog";
 import {
   pilares,
@@ -15,6 +16,18 @@ const pilarCounts: Record<string, number> = {
   Salud: calculadorasSalud.length,
   Finanzas: calculadorasFinanzas.length,
   Productividad: calculadorasProductividad.length,
+};
+
+const pilarImages: Record<string, string> = {
+  Salud: "/heart.svg",
+  Finanzas: "/coin.svg",
+  Productividad: "/clock.svg",
+};
+
+const pilarImageStyle: Record<string, string> = {
+  Salud: "w-[140px] h-[140px] md:w-[160px] md:h-[160px] -bottom-1 right-1",
+  Finanzas: "w-[160px] h-[160px] md:w-[180px] md:h-[180px] -bottom-3 -right-3",
+  Productividad: "w-[180px] h-[180px] md:w-[200px] md:h-[200px] -bottom-6 -right-4",
 };
 
 const categoryChips = [
@@ -59,14 +72,19 @@ export default function Home() {
             <Link
               key={pilar.href}
               href={pilar.href}
-              className="relative bg-white border border-slate-200 dark:bg-slate-800 dark:border-slate-700/50 rounded-2xl p-8 group hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-black/20 transition-all overflow-hidden"
+              className="relative bg-white border border-slate-200 dark:bg-slate-800 dark:border-slate-700/50 rounded-2xl group hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-black/20 transition-all overflow-hidden min-h-[200px]"
             >
               <div className={`absolute top-0 left-0 right-0 h-1 ${pilar.gradient}`} />
 
-              <div className="flex items-center gap-4 mb-4">
-                <div className={`w-12 h-12 rounded-xl ${pilar.gradient} flex items-center justify-center text-white shadow-md flex-shrink-0`}>
-                  <Icon name={pilar.icon} className="w-6 h-6" />
-                </div>
+              <Image
+                src={pilarImages[pilar.nombre]}
+                alt={pilar.nombre}
+                width={200}
+                height={200}
+                className={`${pilarImageStyle[pilar.nombre]} object-contain drop-shadow-lg absolute group-hover:scale-110 group-hover:-translate-y-1 transition-transform duration-300 opacity-90 group-hover:opacity-100`}
+              />
+
+              <div className="relative z-10 flex flex-col gap-2 p-6 pr-[120px] md:pr-[140px]">
                 <div>
                   <h2 className={`text-xl font-black ${pilar.color}`}>
                     {pilar.nombre}
@@ -75,21 +93,21 @@ export default function Home() {
                     {pilarCounts[pilar.nombre]} calculadoras
                   </span>
                 </div>
-              </div>
 
-              <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-sm mb-4">
-                {pilar.descripcion}
-              </p>
+                <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-sm">
+                  {pilar.descripcion}
+                </p>
 
-              <div className="flex flex-wrap gap-2">
-                {pilar.calculadoras.slice(0, 3).map((calc) => (
-                  <span
-                    key={calc}
-                    className="text-[10px] px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-600/50 text-slate-600 dark:text-slate-200 font-bold uppercase tracking-wider"
-                  >
-                    {calc}
-                  </span>
-                ))}
+                <div className="flex flex-wrap gap-2">
+                  {pilar.calculadoras.slice(0, 3).map((calc) => (
+                    <span
+                      key={calc}
+                      className="text-[10px] px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-600/50 text-slate-600 dark:text-slate-200 font-bold uppercase tracking-wider"
+                    >
+                      {calc}
+                    </span>
+                  ))}
+                </div>
               </div>
             </Link>
           ))}

@@ -977,9 +977,9 @@ function CalculadoraMetaAhorroContent() {
 
                   {/* Tip - solo si hay comparación y la cuenta seleccionada no es especial */}
                   {resultado.comparacionCuentas.length > 0 && cuentaSeleccionada !== "sin-rendimiento" && cuentaSeleccionada !== "otro" && (
-                    <div className="p-4 bg-emerald-50 dark:bg-emerald-900/30 rounded-2xl border border-emerald-200 dark:border-emerald-800">
-                      <p className="text-sm text-emerald-700 dark:text-emerald-300 flex items-start gap-2">
-                        <Icon name="lightbulb" className="w-5 h-5 flex-shrink-0 text-emerald-600" weight="fill" />
+                    <div className="p-4 bg-teal-50 dark:bg-teal-900/30 rounded-2xl border border-teal-200 dark:border-teal-800">
+                      <p className="text-sm text-teal-700 dark:text-teal-300 flex items-start gap-2">
+                        <Icon name="lightbulb" className="w-5 h-5 flex-shrink-0 text-teal-600" weight="fill" />
                         {resultado.tipoCalculo === "meta" ? (
                           <span>
                             <strong>Tip:</strong> Con {resultado.comparacionCuentas[0]?.nombre} ahorras{" "}

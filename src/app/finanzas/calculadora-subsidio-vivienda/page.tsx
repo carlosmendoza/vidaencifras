@@ -216,8 +216,8 @@ export default function CalculadoraSubsidioVivienda() {
               <div
                 className={`p-8 rounded-3xl text-center ring-1 ${
                   resultado.esElegible
-                    ? "bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 ring-emerald-100 dark:ring-emerald-900"
-                    : "bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-950/50 dark:to-orange-950/50 ring-red-100 dark:ring-red-900"
+                    ? "bg-emerald-50 dark:bg-emerald-950/50 ring-emerald-100 dark:ring-emerald-900"
+                    : "bg-red-50 dark:bg-red-950/50 ring-red-100 dark:ring-red-900"
                 }`}
               >
                 <div className="flex justify-center mb-4">

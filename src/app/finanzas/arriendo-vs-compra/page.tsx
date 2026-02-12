@@ -411,7 +411,7 @@ export default function ArriendoVsCompra() {
                   ? "bg-teal-50 dark:bg-teal-950/50 ring-teal-100 dark:ring-teal-900"
                   : resultado.recomendacion === "arrendar"
                   ? "bg-teal-50 dark:bg-teal-950/50 ring-teal-100 dark:ring-teal-900"
-                  : "bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/50 dark:to-orange-950/50 ring-amber-100 dark:ring-amber-900"
+                  : "bg-amber-50 dark:bg-amber-950/50 ring-amber-100 dark:ring-amber-900"
               }`}
             >
               <div className="text-center mb-6">
