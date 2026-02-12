@@ -447,8 +447,9 @@ export default function CalculadoraInflacion() {
               )}
 
               {/* Consejo */}
-              <div className="p-4 bg-teal-50 dark:bg-teal-900/30 rounded-xl text-sm text-teal-700 dark:text-teal-300">
-                <span className="inline-flex items-center gap-1 text-teal-600"><Icon name="lightbulb" className="w-4 h-4" weight="fill" /> <strong>Tip:</strong></span> Para proteger tu dinero de la inflación, busca inversiones que rindan por encima del IPC: CDTs, fondos de inversión, acciones o finca raíz.
+              <div className="flex gap-2 p-4 bg-teal-50 dark:bg-teal-900/30 rounded-xl text-sm text-teal-700 dark:text-teal-300">
+                <Icon name="lightbulb" className="w-4 h-4 text-teal-600 shrink-0 mt-0.5" weight="fill" />
+                <p><strong>Tip:</strong> Para proteger tu dinero de la inflación, busca inversiones que rindan por encima del IPC: CDTs, fondos de inversión, acciones o finca raíz.</p>
               </div>
             </div>
             </ResultWithMascot>

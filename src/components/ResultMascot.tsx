@@ -20,13 +20,13 @@ export function ResultMascot({
 
   return (
     <div
-      className={`absolute -top-4 -right-4 md:-top-10 md:-right-6 animate-fade-in-up pointer-events-none z-10 ${className}`}
+      className={`absolute -top-6 -right-5 md:-top-8 md:-right-6 animate-fade-in-up pointer-events-none z-10 ${className}`}
     >
       <PilarMascot
         pilar={pilar}
         variant={variant}
-        size="lg"
-        className={`opacity-80 drop-shadow-md ${variant !== "default" ? "scale-130" : ""}`}
+        size="sm"
+        className={`opacity-60 drop-shadow-md ${variant !== "default" ? "scale-130" : ""}`}
       />
     </div>
   );

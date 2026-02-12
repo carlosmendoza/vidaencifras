@@ -347,21 +347,21 @@ export default function ValorHoraPage() {
             <ResultWithMascot>
             <div className="mt-10 space-y-6">
               {/* Resultado principal */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-6 bg-orange-50 dark:bg-orange-950/50 rounded-3xl ring-1 ring-orange-100 dark:ring-orange-900 text-center">
-                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
+              <div className="grid grid-cols-2 gap-3 md:gap-4">
+                <div className="p-4 md:p-6 bg-orange-50 dark:bg-orange-950/50 rounded-3xl ring-1 ring-orange-100 dark:ring-orange-900 text-center">
+                  <p className="text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
                     Valor bruto
                   </p>
-                  <p className="text-3xl font-black text-orange-600">
+                  <p className="text-xl md:text-3xl font-black text-orange-600">
                     {moneda.simbolo}{formatMoney(resultado.valorBruto)}
                   </p>
                   <p className="text-xs text-slate-400 mt-1">por hora</p>
                 </div>
-                <div className="p-6 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 rounded-3xl ring-1 ring-emerald-100 dark:ring-emerald-900 text-center">
-                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
+                <div className="p-4 md:p-6 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 rounded-3xl ring-1 ring-emerald-100 dark:ring-emerald-900 text-center">
+                  <p className="text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
                     Valor neto real
                   </p>
-                  <p className="text-3xl font-black text-emerald-600">
+                  <p className="text-xl md:text-3xl font-black text-emerald-600">
                     {moneda.simbolo}{formatMoney(resultado.valorNeto)}
                   </p>
                   <p className="text-xs text-slate-400 mt-1">por hora</p>

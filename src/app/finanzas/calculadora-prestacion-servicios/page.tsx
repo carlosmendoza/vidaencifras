@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 const faqs = [
   {
@@ -121,6 +122,25 @@ export default function CalculadoraPrestacionServicios() {
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
             </div>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { value: SMMLV * 3, label: "3 SMMLV" },
+                { value: SMMLV * 5, label: "5 SMMLV" },
+                { value: SMMLV * 8, label: "8 SMMLV" },
+              ].map((s) => (
+                <button
+                  key={s.value}
+                  onClick={() => setValorContrato(s.value.toString())}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
+                    valorContrato === s.value.toString()
+                      ? "bg-teal-500 text-white"
+                      : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
+                  }`}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Declarante de renta */}
@@ -192,6 +212,7 @@ export default function CalculadoraPrestacionServicios() {
 
           {/* Resultados */}
           {tieneResultados && (
+            <ResultWithMascot>
             <div className="mt-8 space-y-4">
               {/* Resultado principal */}
               <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900">
@@ -280,10 +301,12 @@ export default function CalculadoraPrestacionServicios() {
               </div>
 
               {/* Notas */}
-              <div className="p-4 bg-teal-50 dark:bg-teal-900/20 rounded-2xl text-sm text-teal-700 dark:text-teal-300">
-                <span className="inline-flex items-center gap-1 text-teal-600"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /> <strong>Recuerda:</strong></span> La retención en la fuente es un anticipo de impuestos que puedes descontar en tu declaración de renta. Los aportes a seguridad social son deducibles al 100%.
+              <div className="flex gap-2 p-4 bg-teal-50 dark:bg-teal-900/20 rounded-2xl text-sm text-teal-700 dark:text-teal-300">
+                <Icon name="lightbulb" className="w-5 h-5 text-teal-600 shrink-0 mt-0.5" weight="fill" />
+                <p><strong>Recuerda:</strong> La retención en la fuente es un anticipo de impuestos que puedes descontar en tu declaración de renta. Los aportes a seguridad social son deducibles al 100%.</p>
               </div>
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>

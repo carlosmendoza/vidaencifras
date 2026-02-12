@@ -429,7 +429,7 @@ export default function CalculadoraPomodoro() {
         {viewMode === "planificar" && (
           <div className="space-y-6">
             {/* Inputs de planificación */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-slate-600 dark:text-slate-400">
                   Tiempo disponible
@@ -442,9 +442,9 @@ export default function CalculadoraPomodoro() {
                     min="0.5"
                     max="12"
                     step="0.5"
-                    className="w-full px-4 py-3 pr-16 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-orange-400 focus:ring-0 text-lg font-bold"
+                    className="w-full px-3 sm:px-4 py-3 pr-14 sm:pr-16 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-orange-400 focus:ring-0 text-base sm:text-lg font-bold"
                   />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium">
+                  <span className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium text-sm sm:text-base">
                     horas
                   </span>
                 </div>
@@ -457,7 +457,7 @@ export default function CalculadoraPomodoro() {
                   type="time"
                   value={values.horaInicio}
                   onChange={(e) => setField("horaInicio", e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-orange-400 focus:ring-0 text-lg font-bold"
+                  className="w-full px-2 sm:px-4 py-3 rounded-xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-orange-400 focus:ring-0 text-base sm:text-lg font-bold"
                 />
               </div>
             </div>
@@ -801,10 +801,10 @@ export default function CalculadoraPomodoro() {
       {/* Tips */}
       <div className="max-w-2xl mx-auto">
         <div className="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-2xl border border-orange-200 dark:border-orange-800">
-          <p className="text-sm text-orange-700 dark:text-orange-300">
-            <strong><Icon name="lightbulb" className="w-4 h-4 inline-block mr-1" weight="fill" /> Tip:</strong> Durante el pomodoro, silencia notificaciones y evita distracciones.
-            Si surge algo urgente, anótalo y continúa. Trátalo en el descanso o después.
-          </p>
+          <div className="flex gap-2 text-sm text-orange-700 dark:text-orange-300">
+            <Icon name="lightbulb" className="w-4 h-4 text-orange-600 shrink-0 mt-0.5" weight="fill" />
+            <p><strong>Tip:</strong> Durante el pomodoro, silencia notificaciones y evita distracciones. Si surge algo urgente, anótalo y continúa. Trátalo en el descanso o después.</p>
+          </div>
         </div>
       </div>
 

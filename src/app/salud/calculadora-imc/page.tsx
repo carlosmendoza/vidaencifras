@@ -274,23 +274,30 @@ export default function IMC() {
               {/* Barra visual del IMC */}
               <div className="p-6 bg-white/60 dark:bg-slate-800/60 rounded-2xl ring-1 ring-slate-100 dark:ring-slate-800">
                 <p className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-4 text-center">Tu posición en la escala</p>
-                <div className="relative h-8 rounded-full overflow-hidden">
-                  {/* Gradiente de la barra */}
-                  <div className="absolute inset-0 flex">
-                    <div className="flex-1 bg-amber-400"></div>
-                    <div className="flex-[1.5] bg-emerald-400"></div>
-                    <div className="flex-1 bg-orange-400"></div>
-                    <div className="flex-1 bg-rose-400"></div>
-                  </div>
-                  {/* Indicador */}
+                <div className="relative mt-8">
+                  {/* Tooltip del valor */}
                   <div
-                    className="absolute top-0 bottom-0 w-1 bg-slate-800 dark:bg-slate-200 shadow-lg transition-all duration-500"
+                    className="absolute -top-7 w-0 transition-all duration-500"
                     style={{ left: `${calcularPosicionBarra(resultado.imc)}%` }}
                   >
-                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs font-bold px-2 py-1 rounded">
+                    <div className="absolute left-1/2 -translate-x-1/2 bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-800 text-xs font-bold px-2 py-1 rounded whitespace-nowrap">
                       {resultado.imc.toFixed(1)}
                     </div>
                   </div>
+                  {/* Barra de colores */}
+                  <div className="relative h-8 rounded-full overflow-hidden">
+                    <div className="absolute inset-0 flex">
+                      <div className="flex-1 bg-amber-400"></div>
+                      <div className="flex-[1.5] bg-emerald-400"></div>
+                      <div className="flex-1 bg-orange-400"></div>
+                      <div className="flex-1 bg-rose-400"></div>
+                    </div>
+                  </div>
+                  {/* Indicador línea */}
+                  <div
+                    className="absolute top-0 h-8 w-1 bg-slate-800 dark:bg-slate-200 shadow-lg transition-all duration-500"
+                    style={{ left: `${calcularPosicionBarra(resultado.imc)}%` }}
+                  />
                 </div>
                 <div className="flex justify-between text-xs font-medium text-slate-500 dark:text-slate-400 mt-2">
                   <span>15</span>

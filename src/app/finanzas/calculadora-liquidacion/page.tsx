@@ -7,6 +7,7 @@ import { calcularLiquidacion, type TipoTerminacion, type TipoContrato } from "@/
 import { AUXILIO_TRANSPORTE, SMMLV, TOPE_AUXILIO } from "@/lib/calculadoras/constantes";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 const faqs = [
   {
@@ -160,9 +161,28 @@ export default function CalculadoraLiquidacion() {
                 value={values.salario}
                 onChange={(v) => setField("salario", v)}
                 locale="es-CO"
-                placeholder="1.300.000"
+                placeholder="1.750.905"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { value: SMMLV, label: "1 SMMLV" },
+                { value: SMMLV * 2, label: "2 SMMLV" },
+                { value: SMMLV * 3, label: "3 SMMLV" },
+              ].map((s) => (
+                <button
+                  key={s.value}
+                  onClick={() => setField("salario", s.value.toString())}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
+                    values.salario === s.value.toString()
+                      ? "bg-teal-500 text-white"
+                      : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
+                  }`}
+                >
+                  {s.label}
+                </button>
+              ))}
             </div>
           </div>
 
@@ -187,7 +207,7 @@ export default function CalculadoraLiquidacion() {
           )}
 
           {/* Fechas */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-3">
               <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
                 Fecha de ingreso
@@ -221,16 +241,17 @@ export default function CalculadoraLiquidacion() {
               type="number"
               value={values.diasVacacionesPendientes}
               onChange={(e) => setField("diasVacacionesPendientes", e.target.value)}
-              placeholder="Dejar vacío para calcular automático"
+              placeholder="Opcional"
               className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
             />
             <p className="text-xs text-slate-400 ml-1">
-              Si no sabes, se calculan 15 días por año trabajado
+              Si lo dejas vacío, se calculan 15 días por año trabajado
             </p>
           </div>
 
           {/* Resultado */}
           {tieneResultados && (
+            <ResultWithMascot>
             <div className="mt-8 space-y-4">
               <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900">
                 <div className="text-center">
@@ -304,10 +325,12 @@ export default function CalculadoraLiquidacion() {
               </div>
 
               {/* Nota */}
-              <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-2xl text-sm text-amber-700 dark:text-amber-300">
-                <span className="inline-flex items-center gap-1 text-amber-600"><Icon name="warning" className="w-5 h-5" weight="fill" /> <strong>Nota:</strong></span> Este cálculo es una estimación. No incluye salarios pendientes, bonificaciones, ni descuentos. Consulta con un abogado laboral para casos específicos.
+              <div className="flex gap-2 p-4 bg-amber-50 dark:bg-amber-900/20 rounded-2xl text-sm text-amber-700 dark:text-amber-300">
+                <Icon name="warning" className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" weight="fill" />
+                <p><strong>Nota:</strong> Este cálculo es una estimación. No incluye salarios pendientes, bonificaciones, ni descuentos. Consulta con un abogado laboral para casos específicos.</p>
               </div>
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>
