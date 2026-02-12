@@ -7,6 +7,7 @@ import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 const faqs = [
   {
@@ -359,12 +360,13 @@ export default function CalculadoraJubilacion() {
 
           <button
             onClick={calcular}
-            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-teal-500/20 active:scale-[0.99]"
+            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all active:scale-[0.99]"
           >
             Calcular plan de jubilación
           </button>
 
           {resultado && (
+            <ResultWithMascot>
             <div className="mt-10 space-y-6">
               {/* Resumen principal */}
               <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900">
@@ -471,6 +473,7 @@ export default function CalculadoraJubilacion() {
                 </div>
               )}
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>

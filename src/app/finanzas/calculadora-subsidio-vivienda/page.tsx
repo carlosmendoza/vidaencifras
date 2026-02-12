@@ -7,6 +7,7 @@ import { ShareButtons } from "@/components/ShareButtons";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 import {
   SMMLV_2025,
   LIMITES_MI_CASA_YA,
@@ -85,7 +86,7 @@ export default function CalculadoraSubsidioVivienda() {
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-teal-500/20 text-white">
+          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
             <Icon name="home" className="w-10 h-10" />
           </div>
           <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
@@ -211,6 +212,7 @@ export default function CalculadoraSubsidioVivienda() {
 
           {/* Resultado */}
           {resultado && (
+            <ResultWithMascot>
             <div className="mt-8 space-y-4 animate-result-appear">
               {/* Estado de elegibilidad */}
               <div
@@ -308,6 +310,7 @@ export default function CalculadoraSubsidioVivienda() {
                 />
               )}
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>

@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 interface HoraSugerida {
   hora: string;
@@ -192,7 +193,7 @@ export default function CalculadoraSueno() {
             <button
               onClick={() => setField("modo", "despertar")}
               className={`px-5 py-3 rounded-xl font-bold transition-all ${values.modo === "despertar"
-                  ? "bg-red-500 text-white shadow-lg shadow-red-500/20"
+                  ? "bg-red-500 text-white"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
             >
@@ -201,7 +202,7 @@ export default function CalculadoraSueno() {
             <button
               onClick={() => setField("modo", "dormir")}
               className={`px-5 py-3 rounded-xl font-bold transition-all ${values.modo === "dormir"
-                  ? "bg-red-500 text-white shadow-lg shadow-red-500/20"
+                  ? "bg-red-500 text-white"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
             >
@@ -224,12 +225,13 @@ export default function CalculadoraSueno() {
 
           <button
             onClick={calcular}
-            className="w-full bg-red-500 hover:bg-red-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-red-500/20 active:scale-[0.99]"
+            className="w-full bg-red-500 hover:bg-red-600 text-white py-5 rounded-2xl font-black text-xl transition-all active:scale-[0.99]"
           >
             Calcular horas óptimas
           </button>
 
           {resultado && (
+            <ResultWithMascot variant="happy">
             <div className="mt-10 space-y-4">
               <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 text-center">
                 {values.modo === "despertar" ? "Deberías ir a dormir a las:" : "Deberías despertar a las:"}
@@ -267,6 +269,7 @@ export default function CalculadoraSueno() {
                 </p>
               </div>
             </div>
+            </ResultWithMascot>
           )}
         </div>
 

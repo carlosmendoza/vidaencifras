@@ -350,7 +350,7 @@ export default function CalculadoraPomodoro() {
           label: "Tiempo de trabajo",
           icon: "tomato",
           color: "text-red-500",
-          bgColor: "from-red-500 to-rose-500",
+          bgColor: "bg-red-500 hover:bg-red-600",
           ringColor: "ring-red-200 dark:ring-red-800",
           bgGradient: "from-red-50 to-rose-50 dark:from-red-950/30 dark:to-rose-950/30",
         };
@@ -359,7 +359,7 @@ export default function CalculadoraPomodoro() {
           label: "Descanso corto",
           icon: "drop",
           color: "text-emerald-500",
-          bgColor: "from-emerald-500 to-teal-500",
+          bgColor: "bg-emerald-500 hover:bg-emerald-600",
           ringColor: "ring-emerald-200 dark:ring-emerald-800",
           bgGradient: "from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30",
         };
@@ -368,7 +368,7 @@ export default function CalculadoraPomodoro() {
           label: "Descanso largo",
           icon: "coffee",
           color: "text-blue-500",
-          bgColor: "from-blue-500 to-teal-500",
+          bgColor: "bg-blue-500 hover:bg-blue-600",
           ringColor: "ring-blue-200 dark:ring-blue-800",
           bgGradient: "from-blue-50 to-teal-50 dark:from-blue-950/30 dark:to-teal-950/30",
         };
@@ -528,7 +528,7 @@ export default function CalculadoraPomodoro() {
             {/* Botón calcular */}
             <button
               onClick={calcularPlan}
-              className="w-full py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-2xl transition-all shadow-lg shadow-orange-500/25"
+              className="w-full py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-2xl transition-all"
             >
               Calcular mi plan
             </button>
@@ -600,7 +600,7 @@ export default function CalculadoraPomodoro() {
                 {/* Botón iniciar sesión */}
                 <button
                   onClick={iniciarSesion}
-                  className="w-full py-3 sm:py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-xl sm:rounded-2xl hover:from-emerald-600 hover:to-teal-600 transition-all shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 text-sm sm:text-base"
+                  className="w-full py-3 sm:py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl sm:rounded-2xl transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
                   <Icon name="play" weight="fill" className="w-4 h-4 sm:w-5 sm:h-5" /> Iniciar sesión
                 </button>
@@ -662,7 +662,7 @@ export default function CalculadoraPomodoro() {
               <div className="flex justify-center gap-3 sm:gap-4">
                 <button
                   onClick={toggleTimer}
-                  className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br ${modeInfo.bgColor} text-white flex items-center justify-center shadow-lg hover:scale-105 transition-transform`}
+                  className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl ${modeInfo.bgColor} text-white flex items-center justify-center hover:scale-105 transition-all`}
                 >
                   {isRunning ? (
                     <Icon name="pause" weight="fill" className="w-6 h-6 sm:w-8 sm:h-8" />

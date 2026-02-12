@@ -7,6 +7,7 @@ import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
 import { Icon } from "@/lib/icons";
 import { useUrlState } from "@/hooks/useUrlState";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 const faqs = [
   {
@@ -500,12 +501,13 @@ export default function CalculadoraHabitosPage() {
 
           <button
             onClick={calcular}
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-orange-500/20 active:scale-[0.99]"
+            className="w-full bg-orange-500 hover:bg-orange-600 text-white py-5 rounded-2xl font-black text-xl transition-all active:scale-[0.99]"
           >
             Calcular impacto acumulado
           </button>
 
           {resultado && (
+            <ResultWithMascot>
             <div className="mt-10 space-y-6">
               {/* Encabezado del resultado */}
               <div
@@ -614,6 +616,7 @@ export default function CalculadoraHabitosPage() {
                 </p>
               </div>
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>

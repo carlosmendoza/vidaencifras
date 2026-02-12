@@ -390,7 +390,7 @@ export default function AuditoriaTiempoPage() {
           onClick={calcularResultado}
           disabled={Math.abs(horasRestantes) > 0.5}
           className={`w-full py-5 rounded-2xl font-black text-xl transition-all shadow-xl active:scale-[0.99] ${Math.abs(horasRestantes) <= 0.5
-            ? "bg-orange-500 hover:bg-orange-600 text-white shadow-orange-500/20"
+            ? "bg-orange-500 hover:bg-orange-600 text-white"
             : "bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed"
             }`}
         >

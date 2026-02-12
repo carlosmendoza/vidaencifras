@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 interface Resultado {
   imc: number;
@@ -162,7 +163,7 @@ export default function IMC() {
             <button
               onClick={() => setField("sistema", "metrico")}
               className={`px-5 py-3 rounded-xl font-bold transition-all ${values.sistema === "metrico"
-                  ? "bg-red-500 text-white shadow-lg shadow-red-500/20"
+                  ? "bg-red-500 text-white"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
             >
@@ -171,7 +172,7 @@ export default function IMC() {
             <button
               onClick={() => setField("sistema", "imperial")}
               className={`px-5 py-3 rounded-xl font-bold transition-all ${values.sistema === "imperial"
-                  ? "bg-red-500 text-white shadow-lg shadow-red-500/20"
+                  ? "bg-red-500 text-white"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
             >
@@ -251,12 +252,13 @@ export default function IMC() {
 
           <button
             onClick={calcular}
-            className="w-full bg-red-500 hover:bg-red-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-red-500/20 active:scale-[0.99]"
+            className="w-full bg-red-500 hover:bg-red-600 text-white py-5 rounded-2xl font-black text-xl transition-all active:scale-[0.99]"
           >
             Calcular IMC
           </button>
 
           {resultado && (
+            <ResultWithMascot variant={resultado.categoria === "Peso normal" ? "happy" : "default"}>
             <div className="mt-10 space-y-6">
               {/* Resultado principal */}
               <div className="p-8 bg-red-50 dark:bg-red-950/50 rounded-3xl text-center ring-1 ring-red-100 dark:ring-red-900">
@@ -321,6 +323,7 @@ export default function IMC() {
                 )}
               </div>
             </div>
+            </ResultWithMascot>
           )}
         </div>
 

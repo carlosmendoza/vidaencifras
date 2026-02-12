@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 type NivelActividad = "sedentario" | "ligero" | "moderado" | "activo" | "muy_activo";
 type Objetivo = "perder" | "mantener" | "ganar";
@@ -260,12 +261,13 @@ export default function Calorias() {
 
           <button
             onClick={calcular}
-            className="w-full bg-red-500 hover:bg-red-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-red-500/20 active:scale-[0.99]"
+            className="w-full bg-red-500 hover:bg-red-600 text-white py-5 rounded-2xl font-black text-xl transition-all active:scale-[0.99]"
           >
             Calcular Calorías
           </button>
 
           {resultado && (
+            <ResultWithMascot variant="happy">
             <div className="mt-10 space-y-4">
               {/* TDEE */}
               <div className="p-6 bg-red-50 dark:bg-red-950/50 rounded-3xl text-center ring-1 ring-red-100 dark:ring-red-900">
@@ -291,7 +293,7 @@ export default function Calorias() {
                 </div>
                 <div className="p-4 bg-amber-50 dark:bg-amber-950/50 rounded-2xl text-center ring-1 ring-amber-100 dark:ring-amber-900">
                   <p className="text-2xl font-black text-amber-600">{resultado.carbohidratos}g</p>
-                  <p className="text-xs font-bold text-amber-500">Carbohidratos</p>
+                  <p className="text-xs font-bold text-amber-500"><span className="md:hidden">Carbos</span><span className="hidden md:inline">Carbohidratos</span></p>
                 </div>
                 <div className="p-4 bg-purple-50 dark:bg-purple-950/50 rounded-2xl text-center ring-1 ring-purple-100 dark:ring-purple-900">
                   <p className="text-2xl font-black text-purple-600">{resultado.grasas}g</p>
@@ -306,6 +308,7 @@ export default function Calorias() {
                 </p>
               </div>
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>

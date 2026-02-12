@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 const faqs = [
   {
@@ -349,12 +350,13 @@ export default function CalculadoraInflacion() {
 
           <button
             onClick={calcular}
-            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-teal-500/20 active:scale-[0.99]"
+            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all active:scale-[0.99]"
           >
             Calcular impacto
           </button>
 
           {resultado && (
+            <ResultWithMascot>
             <div className="mt-10 space-y-6">
               {/* Resumen principal */}
               <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900">
@@ -449,6 +451,7 @@ export default function CalculadoraInflacion() {
                 <span className="inline-flex items-center gap-1 text-teal-600"><Icon name="lightbulb" className="w-4 h-4" weight="fill" /> <strong>Tip:</strong></span> Para proteger tu dinero de la inflación, busca inversiones que rindan por encima del IPC: CDTs, fondos de inversión, acciones o finca raíz.
               </div>
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>

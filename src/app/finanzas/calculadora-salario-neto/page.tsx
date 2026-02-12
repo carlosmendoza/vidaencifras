@@ -9,6 +9,7 @@ import { calcularSalarioNeto, type SalarioNetoOutput } from "@/lib/calculadoras"
 import { SMMLV, AUXILIO_TRANSPORTE, TOPE_AUXILIO, UVT_2026 } from "@/lib/calculadoras/constantes";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 export default function CalculadoraSalarioNeto() {
   const { values, setField, hadInitialParams } = useUrlState(
@@ -19,11 +20,23 @@ export default function CalculadoraSalarioNeto() {
 
   const UVT = UVT_2026;
 
+  const salarioNum = parseFloat(values.salario) || 0;
+  const aplicaAuxilio = !salarioNum || salarioNum <= TOPE_AUXILIO;
+
+  // Verificar si podría aplicar retención (sin deducciones adicionales)
+  const podriaAplicarRetencion = (() => {
+    if (!salarioNum) return false;
+    const fondoSol = salarioNum >= SMMLV * 16 ? 0.02 : salarioNum >= SMMLV * 4 ? 0.01 : 0;
+    const ingreso = salarioNum * (1 - 0.08 - fondoSol);
+    const exenta = Math.min(ingreso * 0.25, 240 * UVT);
+    return ingreso - exenta > 95 * UVT;
+  })();
+
   const calcular = () => {
     const res = calcularSalarioNeto({
       salario: parseFloat(values.salario),
-      incluyeTransporte: values.incluyeTransporte === "true",
-      calcularRetencion: values.mostrarRetencion === "true",
+      incluyeTransporte: aplicaAuxilio && values.incluyeTransporte === "true",
+      calcularRetencion: podriaAplicarRetencion && values.mostrarRetencion === "true",
       dependientes: parseInt(values.dependientes) || 0,
       medicinaPrepagada: parseFloat(values.medicinaPrepagada) || 0,
       interesesVivienda: parseFloat(values.interesesVivienda) || 0,
@@ -144,157 +157,162 @@ export default function CalculadoraSalarioNeto() {
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
                 >
-                  {s === SMMLV ? "1 SMMLV" : `${s / SMMLV} SMMLV`}
+                  {`${s / SMMLV} SMMLV`}
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Auxilio de transporte */}
-          <div className="flex items-start gap-3 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
-            <button
-              onClick={() => setField("incluyeTransporte", values.incluyeTransporte === "true" ? "false" : "true")}
-              className={`relative flex-shrink-0 w-12 h-7 rounded-full transition-colors ${
-                values.incluyeTransporte === "true" ? "bg-teal-500" : "bg-slate-300 dark:bg-slate-600"
-              }`}
-            >
-              <span
-                className={`absolute top-1 left-1 w-5 h-5 bg-white rounded-full shadow transition-transform ${
-                  values.incluyeTransporte === "true" ? "translate-x-5" : "translate-x-0"
-                }`}
-              />
-            </button>
-            <div>
-              <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                Incluir auxilio de transporte
-              </span>
-              <p className="text-xs text-slate-400 dark:text-slate-500">
-                {formatMoney(AUXILIO_TRANSPORTE)} (aplica hasta 2 SMMLV)
-              </p>
-            </div>
-          </div>
-
-          {/* Retención en la fuente */}
-          <div className="p-4 bg-amber-50 dark:bg-amber-950/30 rounded-2xl space-y-4">
-            <div className="flex items-start gap-3">
+          {/* Auxilio de transporte — solo aplica hasta 2 SMMLV */}
+          {aplicaAuxilio && (
+            <div className="flex items-start gap-3 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
               <button
-                onClick={() => setField("mostrarRetencion", values.mostrarRetencion === "true" ? "false" : "true")}
+                onClick={() => setField("incluyeTransporte", values.incluyeTransporte === "true" ? "false" : "true")}
                 className={`relative flex-shrink-0 w-12 h-7 rounded-full transition-colors ${
-                  values.mostrarRetencion === "true" ? "bg-amber-500" : "bg-slate-300 dark:bg-slate-600"
+                  values.incluyeTransporte === "true" ? "bg-teal-500" : "bg-slate-300 dark:bg-slate-600"
                 }`}
               >
                 <span
                   className={`absolute top-1 left-1 w-5 h-5 bg-white rounded-full shadow transition-transform ${
-                    values.mostrarRetencion === "true" ? "translate-x-5" : "translate-x-0"
+                    values.incluyeTransporte === "true" ? "translate-x-5" : "translate-x-0"
                   }`}
                 />
               </button>
               <div>
                 <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                  Calcular retención en la fuente
+                  Incluir auxilio de transporte
                 </span>
                 <p className="text-xs text-slate-400 dark:text-slate-500">
-                  Aplica para salarios altos (generalmente desde 4.5 SMMLV)
+                  {formatMoney(AUXILIO_TRANSPORTE)} (aplica hasta 2 SMMLV)
                 </p>
               </div>
             </div>
+          )}
 
-            {values.mostrarRetencion === "true" && (
-              <div className="space-y-4 pt-2 border-t border-amber-200 dark:border-amber-800">
-                <p className="text-xs font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wide">
-                  Deducciones para reducir retención
-                </p>
-
-                {/* Dependientes */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                    Dependientes económicos (0-4)
-                  </label>
-                  <div className="flex gap-2">
-                    {[0, 1, 2, 3, 4].map((n) => (
-                      <button
-                        key={n}
-                        onClick={() => setField("dependientes", n.toString())}
-                        className={`w-10 h-10 rounded-xl font-bold transition-all ${
-                          values.dependientes === n.toString()
-                            ? "bg-amber-500 text-white shadow-lg"
-                            : "bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-amber-100"
-                        }`}
-                      >
-                        {n}
-                      </button>
-                    ))}
-                  </div>
-                  <p className="text-xs text-slate-400">
-                    Hijos menores, cónyuge sin ingresos, padres dependientes
-                  </p>
-                </div>
-
-                {/* Medicina prepagada */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                    Medicina prepagada (mensual)
-                  </label>
-                  <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
-                    <CurrencyInput
-                      value={values.medicinaPrepagada}
-                      onChange={(v) => setField("medicinaPrepagada", v)}
-                      locale="es-CO"
-                      placeholder="0"
-                      className="w-full pl-8 pr-4 py-3 rounded-xl text-sm"
-                    />
-                  </div>
-                </div>
-
-                {/* Intereses vivienda */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                    Intereses crédito vivienda (mensual)
-                  </label>
-                  <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
-                    <CurrencyInput
-                      value={values.interesesVivienda}
-                      onChange={(v) => setField("interesesVivienda", v)}
-                      locale="es-CO"
-                      placeholder="0"
-                      className="w-full pl-8 pr-4 py-3 rounded-xl text-sm"
-                    />
-                  </div>
-                </div>
-
-                {/* AFC */}
-                <div className="space-y-2">
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                    Aportes AFC/FVP (mensual)
-                  </label>
-                  <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
-                    <CurrencyInput
-                      value={values.aportesAfc}
-                      onChange={(v) => setField("aportesAfc", v)}
-                      locale="es-CO"
-                      placeholder="0"
-                      className="w-full pl-8 pr-4 py-3 rounded-xl text-sm"
-                    />
-                  </div>
-                  <p className="text-xs text-slate-400">
-                    Ahorro en Fondo de Cesantías o Pensión Voluntaria
+          {/* Retención en la fuente — solo cuando el salario es suficientemente alto */}
+          {podriaAplicarRetencion && (
+            <div className="p-4 bg-amber-50 dark:bg-amber-950/30 rounded-2xl space-y-4">
+              <div className="flex items-start gap-3">
+                <button
+                  onClick={() => setField("mostrarRetencion", values.mostrarRetencion === "true" ? "false" : "true")}
+                  className={`relative flex-shrink-0 w-12 h-7 rounded-full transition-colors ${
+                    values.mostrarRetencion === "true" ? "bg-amber-500" : "bg-slate-300 dark:bg-slate-600"
+                  }`}
+                >
+                  <span
+                    className={`absolute top-1 left-1 w-5 h-5 bg-white rounded-full shadow transition-transform ${
+                      values.mostrarRetencion === "true" ? "translate-x-5" : "translate-x-0"
+                    }`}
+                  />
+                </button>
+                <div>
+                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                    Calcular retención en la fuente
+                  </span>
+                  <p className="text-xs text-slate-400 dark:text-slate-500">
+                    Tu salario supera el umbral de 95 UVT gravables
                   </p>
                 </div>
               </div>
-            )}
-          </div>
+
+              {values.mostrarRetencion === "true" && (
+                <div className="space-y-4 pt-2 border-t border-amber-200 dark:border-amber-800">
+                  <p className="text-xs font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wide">
+                    Deducciones para reducir retención
+                  </p>
+
+                  {/* Dependientes */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                      Dependientes económicos (0-4)
+                    </label>
+                    <div className="flex gap-2">
+                      {[0, 1, 2, 3, 4].map((n) => (
+                        <button
+                          key={n}
+                          onClick={() => setField("dependientes", n.toString())}
+                          className={`w-10 h-10 rounded-xl font-bold transition-all ${
+                            values.dependientes === n.toString()
+                              ? "bg-amber-500 text-white shadow-lg"
+                              : "bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-amber-100"
+                          }`}
+                        >
+                          {n}
+                        </button>
+                      ))}
+                    </div>
+                    <p className="text-xs text-slate-400">
+                      Hijos menores, cónyuge sin ingresos, padres dependientes
+                    </p>
+                  </div>
+
+                  {/* Medicina prepagada */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                      Medicina prepagada (mensual)
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
+                      <CurrencyInput
+                        value={values.medicinaPrepagada}
+                        onChange={(v) => setField("medicinaPrepagada", v)}
+                        locale="es-CO"
+                        placeholder="0"
+                        className="w-full pl-8 pr-4 py-3 rounded-xl text-sm"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Intereses vivienda */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                      Intereses crédito vivienda (mensual)
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
+                      <CurrencyInput
+                        value={values.interesesVivienda}
+                        onChange={(v) => setField("interesesVivienda", v)}
+                        locale="es-CO"
+                        placeholder="0"
+                        className="w-full pl-8 pr-4 py-3 rounded-xl text-sm"
+                      />
+                    </div>
+                  </div>
+
+                  {/* AFC */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                      Aportes AFC/FVP (mensual)
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
+                      <CurrencyInput
+                        value={values.aportesAfc}
+                        onChange={(v) => setField("aportesAfc", v)}
+                        locale="es-CO"
+                        placeholder="0"
+                        className="w-full pl-8 pr-4 py-3 rounded-xl text-sm"
+                      />
+                    </div>
+                    <p className="text-xs text-slate-400">
+                      Ahorro en Fondo de Cesantías o Pensión Voluntaria
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
 
           <button
             onClick={calcular}
-            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-teal-500/20 active:scale-[0.99]"
+            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all active:scale-[0.99]"
           >
             Calcular salario neto
           </button>
 
           {resultado && (
+            <ResultWithMascot>
             <div className="mt-8 space-y-4">
               {/* Resultado principal */}
               <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl text-center ring-1 ring-teal-100 dark:ring-teal-900">
@@ -397,7 +415,7 @@ export default function CalculadoraSalarioNeto() {
               </div>
 
               {/* Detalle retención en la fuente */}
-              {values.mostrarRetencion === "true" && (
+              {podriaAplicarRetencion && values.mostrarRetencion === "true" && (
                 <div className="p-6 bg-amber-50 dark:bg-amber-950/30 rounded-2xl ring-1 ring-amber-200 dark:ring-amber-800">
                   <h3 className="text-sm font-bold text-amber-700 dark:text-amber-400 mb-4 flex items-center gap-2">
                     <Icon name="bar-chart" className="w-5 h-5" weight="fill" /> Cálculo de retención en la fuente
@@ -445,6 +463,7 @@ export default function CalculadoraSalarioNeto() {
                 </div>
               )}
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>

@@ -9,6 +9,7 @@ import { calcularVacaciones, type VacacionesOutput } from "@/lib/calculadoras";
 import { SMMLV } from "@/lib/calculadoras/constantes";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 export default function CalculadoraVacaciones() {
   const { values, setField, hadInitialParams } = useUrlState(
@@ -118,37 +119,24 @@ export default function CalculadoraVacaciones() {
                 className="w-full pl-10 pr-6 py-4 rounded-2xl text-xl font-semibold"
               />
             </div>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setField("salario", SMMLV.toString())}
-                className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
-                  values.salario === SMMLV.toString()
-                    ? "bg-teal-500 text-white"
-                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
-                }`}
-              >
-                1 SMMLV
-              </button>
-              <button
-                onClick={() => setField("salario", (SMMLV * 2).toString())}
-                className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
-                  values.salario === (SMMLV * 2).toString()
-                    ? "bg-teal-500 text-white"
-                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
-                }`}
-              >
-                2 SMMLV
-              </button>
-              <button
-                onClick={() => setField("salario", (SMMLV * 3).toString())}
-                className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
-                  values.salario === (SMMLV * 3).toString()
-                    ? "bg-teal-500 text-white"
-                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
-                }`}
-              >
-                3 SMMLV
-              </button>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { value: SMMLV, label: "1 SMMLV" },
+                { value: SMMLV * 2, label: "2 SMMLV" },
+                { value: SMMLV * 3, label: "3 SMMLV" },
+              ].map((s) => (
+                <button
+                  key={s.value}
+                  onClick={() => setField("salario", s.value.toString())}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
+                    values.salario === s.value.toString()
+                      ? "bg-teal-500 text-white"
+                      : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
+                  }`}
+                >
+                  {s.label}
+                </button>
+              ))}
             </div>
           </div>
 
@@ -190,12 +178,13 @@ export default function CalculadoraVacaciones() {
 
           <button
             onClick={calcular}
-            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-teal-500/20 active:scale-[0.99]"
+            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all active:scale-[0.99]"
           >
             Calcular vacaciones
           </button>
 
           {resultado && (
+            <ResultWithMascot>
             <div className="mt-8 space-y-4">
               {/* Resultado principal */}
               <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl text-center ring-1 ring-teal-100 dark:ring-teal-900">
@@ -262,6 +251,7 @@ export default function CalculadoraVacaciones() {
                 </p>
               </div>
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>

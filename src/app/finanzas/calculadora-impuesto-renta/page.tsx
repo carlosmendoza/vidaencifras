@@ -10,6 +10,7 @@ import { calcularImpuestoRenta, type ImpuestoRentaOutput, type TipoTrabajador } 
 import { UVT_2025, TABLA_TARIFAS_RENTA } from "@/lib/calculadoras/constantes";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 const TABLA_TARIFAS = TABLA_TARIFAS_RENTA;
 
@@ -222,12 +223,13 @@ export default function CalculadoraImpuestoRenta() {
 
           <button
             onClick={calcular}
-            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-teal-500/20 active:scale-[0.99]"
+            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all active:scale-[0.99]"
           >
             Calcular impuesto
           </button>
 
           {resultado && (
+            <ResultWithMascot>
             <div className="mt-10 space-y-6">
               <CalculatorResult
                 mainValue={`$${formatMoney(resultado.impuestoRenta)}`}
@@ -371,6 +373,7 @@ export default function CalculadoraImpuestoRenta() {
                 </p>
               </div>
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>

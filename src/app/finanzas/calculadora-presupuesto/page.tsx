@@ -7,6 +7,7 @@ import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 const faqs = [
   {
@@ -234,12 +235,13 @@ export default function CalculadoraPresupuesto() {
           <button
             onClick={calcular}
             disabled={personalizarPorcentajes && !porcentajesValidos}
-            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-teal-500/20 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Calcular presupuesto
           </button>
 
           {resultado && (
+            <ResultWithMascot>
             <div className="mt-10 space-y-6">
               <div className="p-6 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900">
                 <div className="text-center mb-6">
@@ -252,19 +254,19 @@ export default function CalculadoraPresupuesto() {
                 {/* Barra de distribución visual */}
                 <div className="flex h-8 rounded-full overflow-hidden mb-6">
                   <div
-                    className="bg-gradient-to-r from-red-400 to-rose-500 flex items-center justify-center text-white text-xs font-bold"
+                    className="bg-rose-500 flex items-center justify-center text-white text-xs font-bold"
                     style={{ width: `${personalizarPorcentajes ? porcentajeNecesidades : 50}%` }}
                   >
                     {personalizarPorcentajes ? porcentajeNecesidades : 50}%
                   </div>
                   <div
-                    className="bg-gradient-to-r from-amber-400 to-orange-500 flex items-center justify-center text-white text-xs font-bold"
+                    className="bg-amber-500 flex items-center justify-center text-white text-xs font-bold"
                     style={{ width: `${personalizarPorcentajes ? porcentajeDeseos : 30}%` }}
                   >
                     {personalizarPorcentajes ? porcentajeDeseos : 30}%
                   </div>
                   <div
-                    className="bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center text-white text-xs font-bold"
+                    className="bg-emerald-500 flex items-center justify-center text-white text-xs font-bold"
                     style={{ width: `${personalizarPorcentajes ? porcentajeAhorro : 20}%` }}
                   >
                     {personalizarPorcentajes ? porcentajeAhorro : 20}%
@@ -313,6 +315,7 @@ export default function CalculadoraPresupuesto() {
                 <strong><Icon name="lightbulb" className="w-4 h-4 inline-block mr-1" weight="fill" /> Consejo:</strong> Si tus necesidades superan el 50%, revisa si puedes reducir gastos fijos como servicios o buscar opciones más económicas de transporte.
               </div>
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>

@@ -8,6 +8,7 @@ import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
 import { calcularPrestamo, type PrestamoOutput } from "@/lib/calculadoras";
 import { useUrlState } from "@/hooks/useUrlState";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 export default function Prestamos() {
   const { moneda } = useCurrency();
@@ -135,12 +136,13 @@ export default function Prestamos() {
 
           <button
             onClick={calcular}
-            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-teal-500/20 active:scale-[0.99]"
+            className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all active:scale-[0.99]"
           >
             Calcular Cuota
           </button>
 
           {resultado && (
+            <ResultWithMascot>
             <div className="mt-10 space-y-4">
               {/* Cuota mensual */}
               <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl text-center ring-1 ring-teal-100 dark:ring-teal-900">
@@ -222,6 +224,7 @@ export default function Prestamos() {
                 </div>
               )}
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>

@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
+import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 interface Zona {
   nombre: string;
@@ -186,12 +187,13 @@ export default function CalculadoraFrecuenciaCardiaca() {
 
           <button
             onClick={calcular}
-            className="w-full bg-red-500 hover:bg-red-600 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-xl shadow-red-500/20 active:scale-[0.99]"
+            className="w-full bg-red-500 hover:bg-red-600 text-white py-5 rounded-2xl font-black text-xl transition-all active:scale-[0.99]"
           >
             Calcular zonas
           </button>
 
           {resultado && (
+            <ResultWithMascot>
             <div className="mt-10 space-y-6">
               {/* Resultados principales */}
               <div className="grid grid-cols-3 gap-3">
@@ -254,6 +256,7 @@ export default function CalculadoraFrecuenciaCardiaca() {
                 </ul>
               </div>
             </div>
+            </ResultWithMascot>
           )}
         </div>
       </div>
