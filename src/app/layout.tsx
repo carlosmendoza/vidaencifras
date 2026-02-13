@@ -12,6 +12,7 @@ import SearchTrigger from "@/components/SearchTrigger";
 import { Icon } from "@/lib/icons";
 import { CookieConsent } from "@/components/CookieConsent";
 import { GoogleTagManager, GoogleTagManagerNoscript } from "@/components/GoogleTagManager";
+import { AnalyticsClickTracker } from "@/components/AnalyticsClickTracker";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -255,6 +256,7 @@ export default function RootLayout({
             </div>
           </footer>
           <CookieConsent />
+          <AnalyticsClickTracker />
         </Providers>
       </body>
     </html>

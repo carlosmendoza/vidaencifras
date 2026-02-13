@@ -6,6 +6,7 @@ import { FAQ } from "@/components/FAQ";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Icon } from "@/lib/icons";
 import { useUrlState } from "@/hooks/useUrlState";
+import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
 
 const WeeksGrid = dynamic(
   () => import("@/components/charts/WeeksGrid").then((mod) => mod.WeeksGrid),
@@ -54,6 +55,7 @@ interface Hito {
 }
 
 export default function VidaEnSemanasPage() {
+  useCalculatorTracking();
   const { values, setField, hadInitialParams } = useUrlState(
     {
       fechaNacimiento: "",

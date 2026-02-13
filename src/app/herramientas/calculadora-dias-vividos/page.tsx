@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Icon } from "@/lib/icons";
+import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
 
 interface Resultado {
   dias: number;
@@ -89,6 +90,7 @@ export default function DiasVividos() {
 
   const fechaNacimiento = values.fechaNacimiento;
   const [resultado, setResultado] = useState<Resultado | null>(null);
+  useCalculatorTracking(resultado !== null);
 
   const calcular = useCallback(() => {
     if (!fechaNacimiento) return;

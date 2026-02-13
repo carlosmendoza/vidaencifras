@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { FAQ } from "@/components/FAQ";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Icon } from "@/lib/icons";
+import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
 
 const faqs = [
   {
@@ -70,6 +71,7 @@ const cuadranteInfo: Record<Cuadrante, { titulo: string; icon: string; color: st
 };
 
 export default function MatrizEisenhower() {
+  useCalculatorTracking();
   const [tareas, setTareas] = useState<Tarea[]>([]);
   const [nuevaTarea, setNuevaTarea] = useState("");
   const [urgente, setUrgente] = useState(false);

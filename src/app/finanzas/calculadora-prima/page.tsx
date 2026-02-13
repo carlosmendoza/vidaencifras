@@ -7,6 +7,7 @@ import { calcularPrima, type PeriodoPrima } from "@/lib/calculadoras";
 import { AUXILIO_TRANSPORTE, SMMLV, TOPE_AUXILIO } from "@/lib/calculadoras/constantes";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
+import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
 
 const faqs = [
   {
@@ -32,6 +33,7 @@ const faqs = [
 ];
 
 export default function CalculadoraPrima() {
+  useCalculatorTracking();
   const { values, setField } = useUrlState(
     { salario: "", incluyeTransporte: "true", fechaIngreso: "", periodo: "junio" },
     { paramNames: { incluyeTransporte: "transporte", fechaIngreso: "ingreso" } }

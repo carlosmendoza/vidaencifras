@@ -3,6 +3,7 @@
 import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Icon } from "@/lib/icons";
+import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
 
 type Categoria = "longitud" | "peso" | "temperatura" | "volumen" | "area" | "velocidad";
 
@@ -104,6 +105,7 @@ const categorias: Record<Categoria, CategoriaData> = {
 };
 
 export default function ConversorUnidades() {
+  useCalculatorTracking();
   const { values, setField } = useUrlState(
     { categoria: "longitud", valor: "", unidadOrigen: "m", unidadDestino: "km" },
     { paramNames: { categoria: "cat", valor: "v", unidadOrigen: "de", unidadDestino: "a" } }

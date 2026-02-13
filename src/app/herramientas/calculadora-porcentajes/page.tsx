@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
+import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
 
 type TipoCalculo = "porcentaje_de" | "que_porcentaje" | "aumento" | "descuento" | "diferencia";
 
@@ -24,6 +25,7 @@ export default function Porcentajes() {
   const valor1 = values.valor1;
   const valor2 = values.valor2;
   const [resultado, setResultado] = useState<Resultado | null>(null);
+  useCalculatorTracking(resultado !== null);
 
   const tiposCalculo = [
     { valor: "porcentaje_de" as TipoCalculo, nombre: "% de un número", descripcion: "¿Cuánto es el X% de Y?" },

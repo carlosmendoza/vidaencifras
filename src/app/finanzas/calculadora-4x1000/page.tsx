@@ -5,6 +5,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
 import { useUrlState } from "@/hooks/useUrlState";
+import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
 
 const faqs = [
   {
@@ -30,6 +31,7 @@ const faqs = [
 ];
 
 export default function Calculadora4x1000() {
+  useCalculatorTracking();
   const { values, setField } = useUrlState(
     {
       monto: "",

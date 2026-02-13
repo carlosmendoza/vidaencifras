@@ -62,6 +62,13 @@ const calculadoras = [
     icon: "receipt",
     gradient: "bg-purple-500",
   },
+  {
+    nombre: "Calculadora de IVA",
+    descripcion: "Agrega, quita o calcula el IVA de cualquier monto",
+    href: "/herramientas/calculadora-iva",
+    icon: "receipt",
+    gradient: "bg-purple-500",
+  },
 ];
 
 export default function HerramientasPage() {

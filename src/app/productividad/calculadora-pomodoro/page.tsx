@@ -5,6 +5,7 @@ import { FAQ } from "@/components/FAQ";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Icon } from "@/lib/icons";
 import { useUrlState } from "@/hooks/useUrlState";
+import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
 
 const faqs = [
   {
@@ -55,6 +56,7 @@ const defaultConfig: TimerConfig = {
 };
 
 export default function CalculadoraPomodoro() {
+  useCalculatorTracking();
   // Configuración + Planificación (URL-synced)
   const { values, setField, hadInitialParams } = useUrlState(
     {

@@ -5,6 +5,7 @@ import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
+import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
 
 interface Persona {
   id: number;
@@ -63,6 +64,7 @@ export default function DividirCuenta() {
     porPersona: number;
     propinaTotal: number;
   } | null>(null);
+  useCalculatorTracking(resultado !== null);
   const [resultadoDiferente, setResultadoDiferente] = useState<
     { nombre: string; debe: number }[] | null
   >(null);

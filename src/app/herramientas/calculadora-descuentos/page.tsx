@@ -7,6 +7,7 @@ import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
+import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
 
 interface Resultado {
   precioFinal: number;
@@ -25,6 +26,7 @@ export default function CalculadoraDescuentos() {
   const descuento2 = values.descuento2;
   const usarDescuentoAdicional = values.usarDescuentoAdicional === "true";
   const [resultado, setResultado] = useState<Resultado | null>(null);
+  useCalculatorTracking(resultado !== null);
 
   const descuentosRapidos = [10, 15, 20, 25, 30, 50];
 

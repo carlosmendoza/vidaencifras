@@ -8,6 +8,7 @@ import { ShareButtons } from "@/components/ShareButtons";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
+import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
 
 type ModoCalculo = "agregar" | "quitar" | "solo_iva";
 type TasaIVA = 19 | 5 | 0;
@@ -19,6 +20,7 @@ interface Resultado {
 }
 
 export default function CalculadoraIVA() {
+  useCalculatorTracking();
   const { values, setField } = useUrlState(
     { modo: "agregar", tasa: "19", valor: "" },
     { paramNames: { modo: "m", tasa: "t", valor: "v" } }

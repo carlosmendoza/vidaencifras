@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Icon } from "@/lib/icons";
+import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
 
 interface Resultado {
   dias: number;
@@ -79,6 +80,7 @@ export default function DiferenciaFechas() {
   const fechaInicio = values.fechaInicio;
   const fechaFin = values.fechaFin;
   const [resultado, setResultado] = useState<Resultado | null>(null);
+  useCalculatorTracking(resultado !== null);
 
   const calcular = useCallback(() => {
     if (!fechaInicio || !fechaFin) return;

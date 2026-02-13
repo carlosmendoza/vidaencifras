@@ -129,6 +129,62 @@ const calculadoras = [
     icon: "file-text",
     gradient: "bg-teal-500",
   },
+  {
+    nombre: "Impuesto de Renta",
+    descripcion: "Estima tu impuesto de renta anual según la tabla de rangos vigente",
+    href: "/finanzas/calculadora-impuesto-renta",
+    icon: "landmark",
+    gradient: "bg-teal-500",
+  },
+  {
+    nombre: "Comparador de CDTs",
+    descripcion: "Compara tasas de CDT entre los principales bancos colombianos",
+    href: "/finanzas/comparador-cdt",
+    icon: "bar-chart",
+    gradient: "bg-teal-500",
+  },
+  {
+    nombre: "Arriendo vs Compra",
+    descripcion: "Descubre si te conviene más arrendar o comprar vivienda",
+    href: "/finanzas/arriendo-vs-compra",
+    icon: "home",
+    gradient: "bg-teal-500",
+  },
+  {
+    nombre: "Retención en la Fuente",
+    descripcion: "Calcula la retención para servicios y honorarios",
+    href: "/finanzas/calculadora-retencion-fuente",
+    icon: "file-text",
+    gradient: "bg-teal-500",
+  },
+  {
+    nombre: "Simulador Tarjeta de Crédito",
+    descripcion: "Compara pago mínimo vs cuota fija y descubre cuánto pagas de más",
+    href: "/finanzas/simulador-tarjeta-credito",
+    icon: "credit-card",
+    gradient: "bg-teal-500",
+  },
+  {
+    nombre: "Comparador de Préstamos",
+    descripcion: "Encuentra la mejor tasa comparando préstamos entre bancos",
+    href: "/finanzas/comparador-prestamos",
+    icon: "landmark",
+    gradient: "bg-teal-500",
+  },
+  {
+    nombre: "Impuesto Vehicular",
+    descripcion: "Calcula el impuesto anual de tu carro o moto",
+    href: "/finanzas/calculadora-impuesto-vehicular",
+    icon: "car",
+    gradient: "bg-teal-500",
+  },
+  {
+    nombre: "Subsidio Mi Casa Ya",
+    descripcion: "Verifica si eres elegible para el subsidio de vivienda del gobierno",
+    href: "/finanzas/calculadora-subsidio-vivienda",
+    icon: "home",
+    gradient: "bg-teal-500",
+  },
 ];
 
 export default function FinanzasPage() {

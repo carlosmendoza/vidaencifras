@@ -83,6 +83,10 @@ export default async function BlogPostPage({ params }: Props) {
         {post.calculadora && (
           <Link
             href={post.calculadora}
+            data-track="cta_click"
+            data-track-blog={slug}
+            data-track-destino={post.calculadora}
+            data-track-posicion="header"
             className={`mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all hover:gap-3 ${
               post.category === "salud"
                 ? "bg-red-500/10 text-red-600 dark:bg-red-500/15 dark:text-red-400"
@@ -142,6 +146,10 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
             <Link
               href={post.calculadora}
+              data-track="cta_click"
+              data-track-blog={slug}
+              data-track-destino={post.calculadora}
+              data-track-posicion="final_articulo"
               className={`flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all hover:gap-3 hover:shadow-md ${
                 post.category === "salud" ? "bg-red-500 hover:bg-red-600"
                   : post.category === "productividad" ? "bg-orange-500 hover:bg-orange-600"
@@ -170,6 +178,10 @@ export default async function BlogPostPage({ params }: Props) {
         <Link
           href={post.calculadora}
           aria-label={`Ir a calculadora de ${calculadoraNames[post.calculadora] || "Calculadora"}`}
+          data-track="cta_click"
+          data-track-blog={slug}
+          data-track-destino={post.calculadora}
+          data-track-posicion="flotante"
           className={`fixed bottom-6 right-6 z-40 flex items-center gap-2 pl-4 pr-5 py-3 rounded-full text-white text-sm font-semibold shadow-lg transition-all hover:scale-105 hover:shadow-xl active:scale-95 ${
             post.category === "salud" ? "bg-red-500"
               : post.category === "productividad" ? "bg-orange-500"

@@ -5,6 +5,7 @@ import { FAQ } from "@/components/FAQ";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { Icon } from "@/lib/icons";
+import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
 
 const faqs = [
   {
@@ -139,6 +140,7 @@ interface Alerta {
 }
 
 export default function AuditoriaTiempoPage() {
+  useCalculatorTracking();
   const [horas, setHoras] = useState<Record<string, string>>(() => {
     const inicial: Record<string, string> = {};
     categorias.forEach((c) => (inicial[c.id] = ""));
