@@ -4,22 +4,22 @@ const siteUrl = "https://vidaencifras.com";
 const pageUrl = `${siteUrl}/finanzas/calculadora-jubilacion`;
 
 export const metadata: Metadata = {
-  title: "Calculadora de Jubilación Colombia - Planifica tu Retiro",
+  title: "Calculadora de Jubilación - Planifica tu Retiro",
   description:
-    "Calcula cuánto necesitas ahorrar para jubilarte tranquilo. Incluye inflación, retorno de inversión y pensión estimada.",
+    "Calcula cuánto necesitas ahorrar para jubilarte tranquilo. Incluye inflación, retorno de inversión y pensión estimada. Planifica tu retiro paso a paso.",
   keywords: [
     "calculadora jubilacion",
-    "pension Colombia",
     "cuanto ahorrar para jubilarse",
     "planificar retiro",
     "pension voluntaria",
     "ahorro jubilacion",
-    "edad pension Colombia",
     "retiro anticipado",
     "independencia financiera",
+    "calculadora pensión",
+    "planificación financiera retiro",
   ],
   openGraph: {
-    title: "Calculadora de Jubilación Colombia - Planifica tu Retiro",
+    title: "Calculadora de Jubilación - Planifica tu Retiro",
     description:
       "Descubre cuánto necesitas ahorrar para mantener tu nivel de vida en la jubilación.",
     url: pageUrl,

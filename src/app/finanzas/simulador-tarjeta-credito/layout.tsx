@@ -4,9 +4,9 @@ const siteUrl = "https://vidaencifras.com";
 const pageUrl = `${siteUrl}/finanzas/simulador-tarjeta-credito`;
 
 export const metadata: Metadata = {
-  title: "Simulador de Tarjeta de Crédito Colombia - Pago Mínimo vs Cuota Fija",
+  title: "Simulador de Tarjeta de Crédito - Pago Mínimo vs Cuota Fija",
   description:
-    "Simula el pago de tu tarjeta de crédito en Colombia. Compara pagar el mínimo vs cuota fija. Calcula meses para saldar deuda y ahorro en intereses.",
+    "Simula el pago de tu tarjeta de crédito. Compara pagar el mínimo vs cuota fija. Calcula meses para saldar deuda y ahorro en intereses.",
   keywords: [
     "simulador tarjeta de crédito",
     "pago mínimo tarjeta",
@@ -14,13 +14,13 @@ export const metadata: Metadata = {
     "cuota fija tarjeta crédito",
     "deuda tarjeta de crédito",
     "cómo pagar tarjeta rápido",
-    "interés tarjeta Colombia",
-    "tasa usura Colombia",
+    "intereses tarjeta de crédito",
     "comparar pagos tarjeta",
     "saldar deuda tarjeta",
+    "calculadora deuda tarjeta",
   ],
   openGraph: {
-    title: "Simulador de Tarjeta de Crédito Colombia - Pago Mínimo vs Cuota Fija",
+    title: "Simulador de Tarjeta de Crédito - Pago Mínimo vs Cuota Fija",
     description:
       "Compara pagar el mínimo vs cuota fija en tu tarjeta de crédito. Calcula cuánto ahorras en intereses.",
     url: pageUrl,
@@ -58,7 +58,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "Simulador de Tarjeta de Crédito Colombia",
+    name: "Simulador de Tarjeta de Crédito",
     description:
       "Simula el pago de tu tarjeta de crédito comparando pago mínimo vs cuota fija. Calcula ahorro en intereses.",
     url: pageUrl,
