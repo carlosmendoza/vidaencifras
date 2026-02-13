@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import { getAllSlugs, getPostBySlug, categoryLabels, categoryColors } from "@/lib/blog";
 import { useMDXComponents } from "../../../../mdx-components";
 import { BlogPostJsonLd } from "@/components/BlogPostJsonLd";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -56,14 +57,7 @@ export default async function BlogPostPage({ params }: Props) {
       />
       <article className="max-w-3xl mx-auto">
         <header className="mb-10">
-        <div className="flex items-center gap-3 mb-4">
-          <Link
-            href="/blog"
-            className="text-sm text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-          >
-            ← Volver al blog
-          </Link>
-        </div>
+        <Breadcrumbs />
 
         <div className="flex items-center gap-3 mb-4">
           <span

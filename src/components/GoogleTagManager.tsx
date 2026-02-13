@@ -10,6 +10,10 @@ export function GoogleTagManager() {
 
   useEffect(() => {
     setConsented(localStorage.getItem(CONSENT_KEY) === "accepted");
+
+    const handleConsentChange = () => setConsented(true);
+    window.addEventListener("cookie-consent-change", handleConsentChange);
+    return () => window.removeEventListener("cookie-consent-change", handleConsentChange);
   }, []);
 
   if (!consented) return null;
@@ -32,6 +36,10 @@ export function GoogleTagManagerNoscript() {
 
   useEffect(() => {
     setConsented(localStorage.getItem(CONSENT_KEY) === "accepted");
+
+    const handleConsentChange = () => setConsented(true);
+    window.addEventListener("cookie-consent-change", handleConsentChange);
+    return () => window.removeEventListener("cookie-consent-change", handleConsentChange);
   }, []);
 
   if (!consented) return null;

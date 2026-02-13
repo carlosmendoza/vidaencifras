@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -8,6 +8,7 @@ import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
+import { useUrlState } from "@/hooks/useUrlState";
 import {
   DEPARTAMENTOS,
   TIPOS_VEHICULO,
@@ -26,17 +27,28 @@ interface Resultado {
 }
 
 export default function CalculadoraImpuestoVehicular() {
-  const [departamento, setDepartamento] = useState<string>("BOG");
-  const [tipoVehiculo, setTipoVehiculo] = useState<TipoVehiculo>("particular");
-  const [valorComercial, setValorComercial] = useState<string>("50000000");
+  const { values, setField } = useUrlState(
+    {
+      departamento: "BOG",
+      tipoVehiculo: "particular",
+      valorComercial: "50000000",
+    },
+    {
+      paramNames: {
+        departamento: "d",
+        tipoVehiculo: "tv",
+        valorComercial: "vc",
+      },
+    }
+  );
 
-  const departamentoSeleccionado = DEPARTAMENTOS.find((d) => d.codigo === departamento)!;
+  const departamentoSeleccionado = DEPARTAMENTOS.find((d) => d.codigo === values.departamento)!;
 
   const resultado = useMemo((): Resultado | null => {
-    const valor = parseFloat(valorComercial);
+    const valor = parseFloat(values.valorComercial);
     if (isNaN(valor) || valor <= 0) return null;
 
-    const tarifas = getTarifas(departamentoSeleccionado, tipoVehiculo);
+    const tarifas = getTarifas(departamentoSeleccionado, values.tipoVehiculo as TipoVehiculo);
     const { impuesto, tarifa } = calcularImpuesto(valor, tarifas);
 
     const descuento = impuesto * (departamentoSeleccionado.descuentoProntoPago / 100);
@@ -50,7 +62,7 @@ export default function CalculadoraImpuestoVehicular() {
       departamento: departamentoSeleccionado.nombre,
       fechaLimite: departamentoSeleccionado.fechaLimiteProntoPago,
     };
-  }, [valorComercial, departamentoSeleccionado, tipoVehiculo]);
+  }, [values.valorComercial, departamentoSeleccionado, values.tipoVehiculo]);
 
   const formatMoney = (num: number) => {
     return new Intl.NumberFormat("es-CO", {
@@ -121,8 +133,8 @@ export default function CalculadoraImpuestoVehicular() {
               Departamento de matrícula
             </label>
             <select
-              value={departamento}
-              onChange={(e) => setDepartamento(e.target.value)}
+              value={values.departamento}
+              onChange={(e) => setField("departamento", e.target.value)}
               className="w-full px-5 py-4 rounded-2xl text-lg font-semibold bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-teal-500 focus:ring-teal-500"
             >
               {DEPARTAMENTOS.map((d) => (
@@ -142,9 +154,9 @@ export default function CalculadoraImpuestoVehicular() {
               {TIPOS_VEHICULO.map((t) => (
                 <button
                   key={t.valor}
-                  onClick={() => setTipoVehiculo(t.valor)}
+                  onClick={() => setField("tipoVehiculo", t.valor)}
                   className={`px-4 py-3 rounded-xl font-semibold text-sm transition-all text-left ${
-                    tipoVehiculo === t.valor
+                    values.tipoVehiculo === t.valor
                       ? "bg-teal-500 text-white"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
@@ -166,8 +178,8 @@ export default function CalculadoraImpuestoVehicular() {
                 $
               </span>
               <CurrencyInput
-                value={valorComercial}
-                onChange={(v) => setValorComercial(v)}
+                value={values.valorComercial}
+                onChange={(v) => setField("valorComercial", v)}
                 locale="es-CO"
                 placeholder="50.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-xl font-semibold"
@@ -222,7 +234,7 @@ export default function CalculadoraImpuestoVehicular() {
                 <div className="flex justify-between items-center p-4 bg-white/60 dark:bg-slate-800/60 rounded-xl">
                   <span className="text-slate-600 dark:text-slate-400">Valor comercial</span>
                   <span className="font-bold text-slate-800 dark:text-slate-200">
-                    ${formatMoney(parseFloat(valorComercial))}
+                    ${formatMoney(parseFloat(values.valorComercial))}
                   </span>
                 </div>
                 <div className="flex justify-between items-center p-4 bg-white/60 dark:bg-slate-800/60 rounded-xl">
@@ -241,7 +253,7 @@ export default function CalculadoraImpuestoVehicular() {
 
               <ShareButtons
                 title="Calculadora de Impuesto Vehicular Colombia"
-                text={`Calculé el impuesto vehicular de mi ${TIPOS_VEHICULO.find((t) => t.valor === tipoVehiculo)?.nombre.toLowerCase()} en ${resultado.departamento}`}
+                text={`Calculé el impuesto vehicular de mi ${TIPOS_VEHICULO.find((t) => t.valor === values.tipoVehiculo)?.nombre.toLowerCase()} en ${resultado.departamento}`}
                 result={{
                   label: "Impuesto anual",
                   value: `$${formatMoney(resultado.impuestoAnual)}`,

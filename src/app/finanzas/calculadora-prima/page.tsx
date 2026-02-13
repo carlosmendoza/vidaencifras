@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { Icon } from "@/lib/icons";
 import { calcularPrima, type PeriodoPrima } from "@/lib/calculadoras";
@@ -60,12 +60,7 @@ export default function CalculadoraPrima() {
 
   return (
     <div className="space-y-8">
-      <Link
-        href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
-      >
-        <span>←</span> Volver a Finanzas
-      </Link>
+      <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">

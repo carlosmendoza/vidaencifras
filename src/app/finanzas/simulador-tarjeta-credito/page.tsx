@@ -1,14 +1,20 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
+import dynamic from "next/dynamic";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
-import { CreditCardPayoffChart } from "@/components/charts/CreditCardPayoffChart";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
+import { useUrlState } from "@/hooks/useUrlState";
+
+const CreditCardPayoffChart = dynamic(
+  () => import("@/components/charts/CreditCardPayoffChart").then((mod) => mod.CreditCardPayoffChart),
+  { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
+);
 
 interface SimulacionResultado {
   pagoMinimo: {
@@ -28,15 +34,27 @@ interface SimulacionResultado {
 }
 
 export default function SimuladorTarjetaCredito() {
-  const [saldo, setSaldo] = useState<string>("5000000");
-  const [tasaEA, setTasaEA] = useState<string>("28");
-  const [porcentajeMinimo, setPorcentajeMinimo] = useState<string>("3");
-  const [cuotaFijaInput, setCuotaFijaInput] = useState<string>("");
+  const { values, setField } = useUrlState(
+    {
+      saldo: "5000000",
+      tasaEA: "28",
+      porcentajeMinimo: "3",
+      cuotaFijaInput: "",
+    },
+    {
+      paramNames: {
+        saldo: "s",
+        tasaEA: "tea",
+        porcentajeMinimo: "pm",
+        cuotaFijaInput: "cf",
+      },
+    }
+  );
 
   const resultado = useMemo((): SimulacionResultado | null => {
-    const saldoNum = parseFloat(saldo);
-    const tasaNum = parseFloat(tasaEA);
-    const minPorcentaje = parseFloat(porcentajeMinimo) / 100;
+    const saldoNum = parseFloat(values.saldo);
+    const tasaNum = parseFloat(values.tasaEA);
+    const minPorcentaje = parseFloat(values.porcentajeMinimo) / 100;
 
     if (isNaN(saldoNum) || isNaN(tasaNum) || saldoNum <= 0 || tasaNum <= 0) return null;
 
@@ -71,8 +89,8 @@ export default function SimuladorTarjetaCredito() {
     };
 
     // Calcular cuota fija sugerida (pagar en 12 meses)
-    const cuotaFijaSugerida = cuotaFijaInput
-      ? parseFloat(cuotaFijaInput)
+    const cuotaFijaSugerida = values.cuotaFijaInput
+      ? parseFloat(values.cuotaFijaInput)
       : saldoNum * (tasaMensual * Math.pow(1 + tasaMensual, 12)) / (Math.pow(1 + tasaMensual, 12) - 1);
 
     // Simular cuota fija
@@ -120,15 +138,15 @@ export default function SimuladorTarjetaCredito() {
       ahorro: pagoMinimo.interesesPagados - cuotaFija.interesesPagados,
       mesesAhorrados: pagoMinimo.meses - cuotaFija.meses,
     };
-  }, [saldo, tasaEA, porcentajeMinimo, cuotaFijaInput]);
+  }, [values.saldo, values.tasaEA, values.porcentajeMinimo, values.cuotaFijaInput]);
 
   // Calcular cuota fija sugerida para mostrar placeholder
   const cuotaFijaSugerida = useMemo(() => {
-    const saldoNum = parseFloat(saldo) || 0;
-    const tasaNum = parseFloat(tasaEA) || 28;
+    const saldoNum = parseFloat(values.saldo) || 0;
+    const tasaNum = parseFloat(values.tasaEA) || 28;
     const tasaMensual = Math.pow(1 + tasaNum / 100, 1 / 12) - 1;
     return saldoNum * (tasaMensual * Math.pow(1 + tasaMensual, 12)) / (Math.pow(1 + tasaMensual, 12) - 1);
-  }, [saldo, tasaEA]);
+  }, [values.saldo, values.tasaEA]);
 
   // Preparar datos para el gráfico
   const chartData = useMemo(() => {
@@ -224,8 +242,8 @@ export default function SimuladorTarjetaCredito() {
                 $
               </span>
               <CurrencyInput
-                value={saldo}
-                onChange={(v) => setSaldo(v)}
+                value={values.saldo}
+                onChange={(v) => setField("saldo", v)}
                 locale="es-CO"
                 placeholder="5000000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-xl font-semibold"
@@ -242,8 +260,8 @@ export default function SimuladorTarjetaCredito() {
               <div className="relative">
                 <input
                   type="number"
-                  value={tasaEA}
-                  onChange={(e) => setTasaEA(e.target.value)}
+                  value={values.tasaEA}
+                  onChange={(e) => setField("tasaEA", e.target.value)}
                   placeholder="28"
                   step="0.1"
                   className="w-full px-5 py-4 rounded-2xl text-lg font-semibold pr-12"
@@ -260,8 +278,8 @@ export default function SimuladorTarjetaCredito() {
               <div className="relative">
                 <input
                   type="number"
-                  value={porcentajeMinimo}
-                  onChange={(e) => setPorcentajeMinimo(e.target.value)}
+                  value={values.porcentajeMinimo}
+                  onChange={(e) => setField("porcentajeMinimo", e.target.value)}
                   placeholder="3"
                   step="0.5"
                   className="w-full px-5 py-4 rounded-2xl text-lg font-semibold pr-12"
@@ -283,8 +301,8 @@ export default function SimuladorTarjetaCredito() {
                 $
               </span>
               <CurrencyInput
-                value={cuotaFijaInput}
-                onChange={(v) => setCuotaFijaInput(v)}
+                value={values.cuotaFijaInput}
+                onChange={(v) => setField("cuotaFijaInput", v)}
                 locale="es-CO"
                 placeholder={formatMoney(cuotaFijaSugerida)}
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"

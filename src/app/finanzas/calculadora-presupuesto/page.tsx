@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const faqs = [
   {
@@ -49,20 +50,33 @@ interface Categoria {
 
 export default function CalculadoraPresupuesto() {
   const { moneda } = useCurrency();
-  const [ingresos, setIngresos] = useState<string>("");
+  const { values, setField } = useUrlState(
+    {
+      ingresos: "",
+      personalizarPorcentajes: "false",
+      porcentajeNecesidades: "50",
+      porcentajeDeseos: "30",
+      porcentajeAhorro: "20",
+    },
+    {
+      paramNames: {
+        ingresos: "i",
+        personalizarPorcentajes: "pp",
+        porcentajeNecesidades: "pn",
+        porcentajeDeseos: "pd",
+        porcentajeAhorro: "pa",
+      },
+    }
+  );
   const [resultado, setResultado] = useState<Distribucion | null>(null);
-  const [personalizarPorcentajes, setPersonalizarPorcentajes] = useState(false);
-  const [porcentajeNecesidades, setPorcentajeNecesidades] = useState<number>(50);
-  const [porcentajeDeseos, setPorcentajeDeseos] = useState<number>(30);
-  const [porcentajeAhorro, setPorcentajeAhorro] = useState<number>(20);
 
   const calcular = () => {
-    const ingreso = parseFloat(ingresos);
+    const ingreso = parseFloat(values.ingresos);
     if (isNaN(ingreso) || ingreso <= 0) return;
 
-    const pctNecesidades = personalizarPorcentajes ? porcentajeNecesidades : 50;
-    const pctDeseos = personalizarPorcentajes ? porcentajeDeseos : 30;
-    const pctAhorro = personalizarPorcentajes ? porcentajeAhorro : 20;
+    const pctNecesidades = values.personalizarPorcentajes === "true" ? Number(values.porcentajeNecesidades) : 50;
+    const pctDeseos = values.personalizarPorcentajes === "true" ? Number(values.porcentajeDeseos) : 30;
+    const pctAhorro = values.personalizarPorcentajes === "true" ? Number(values.porcentajeAhorro) : 20;
 
     setResultado({
       necesidades: ingreso * (pctNecesidades / 100),
@@ -78,14 +92,14 @@ export default function CalculadoraPresupuesto() {
     }).format(num);
   };
 
-  const totalPorcentaje = porcentajeNecesidades + porcentajeDeseos + porcentajeAhorro;
+  const totalPorcentaje = Number(values.porcentajeNecesidades) + Number(values.porcentajeDeseos) + Number(values.porcentajeAhorro);
   const porcentajesValidos = totalPorcentaje === 100;
 
   const categorias: Categoria[] = resultado ? [
     {
       nombre: "Necesidades",
       monto: resultado.necesidades,
-      porcentaje: personalizarPorcentajes ? porcentajeNecesidades : 50,
+      porcentaje: values.personalizarPorcentajes === "true" ? Number(values.porcentajeNecesidades) : 50,
       color: "from-red-400 to-rose-500",
       icono: "home",
       ejemplos: ["Arriendo o cuota vivienda", "Servicios públicos", "Mercado", "Transporte", "Salud", "Seguros"],
@@ -93,7 +107,7 @@ export default function CalculadoraPresupuesto() {
     {
       nombre: "Deseos",
       monto: resultado.deseos,
-      porcentaje: personalizarPorcentajes ? porcentajeDeseos : 30,
+      porcentaje: values.personalizarPorcentajes === "true" ? Number(values.porcentajeDeseos) : 30,
       color: "from-amber-400 to-orange-500",
       icono: "confetti",
       ejemplos: ["Restaurantes y domicilios", "Entretenimiento", "Ropa no esencial", "Suscripciones", "Hobbies"],
@@ -101,7 +115,7 @@ export default function CalculadoraPresupuesto() {
     {
       nombre: "Ahorro e inversión",
       monto: resultado.ahorro,
-      porcentaje: personalizarPorcentajes ? porcentajeAhorro : 20,
+      porcentaje: values.personalizarPorcentajes === "true" ? Number(values.porcentajeAhorro) : 20,
       color: "from-emerald-400 to-teal-500",
       icono: "piggy-bank",
       ejemplos: ["Fondo de emergencia", "Ahorro para metas", "Inversiones", "Pago extra de deudas", "Pensión voluntaria"],
@@ -110,12 +124,7 @@ export default function CalculadoraPresupuesto() {
 
   return (
     <div className="space-y-8">
-      <Link
-        href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
-      >
-        <span>←</span> Volver a Finanzas
-      </Link>
+      <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
@@ -141,8 +150,8 @@ export default function CalculadoraPresupuesto() {
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">{moneda.simbolo}</span>
               <CurrencyInput
-                value={ingresos}
-                onChange={(v) => setIngresos(v)}
+                value={values.ingresos}
+                onChange={(v) => setField("ingresos", v)}
                 placeholder="3.500.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
@@ -153,14 +162,14 @@ export default function CalculadoraPresupuesto() {
           </div>
 
           <button
-            onClick={() => setPersonalizarPorcentajes(!personalizarPorcentajes)}
+            onClick={() => setField("personalizarPorcentajes", values.personalizarPorcentajes === "true" ? "false" : "true")}
             className="w-full py-3 rounded-xl font-medium text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
           >
-            {personalizarPorcentajes ? "Usar porcentajes estándar (50/30/20)" : "Personalizar porcentajes"}
-            <span className={`transition-transform text-xs ${personalizarPorcentajes ? "rotate-180" : ""}`}>▼</span>
+            {values.personalizarPorcentajes === "true" ? "Usar porcentajes estándar (50/30/20)" : "Personalizar porcentajes"}
+            <span className={`transition-transform text-xs ${values.personalizarPorcentajes === "true" ? "rotate-180" : ""}`}>▼</span>
           </button>
 
-          {personalizarPorcentajes && (
+          {values.personalizarPorcentajes === "true" && (
             <div className="space-y-4 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border-2 border-slate-100 dark:border-slate-700">
               <div className="flex items-center justify-between mb-2">
                 <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide">
@@ -177,14 +186,14 @@ export default function CalculadoraPresupuesto() {
                     <span className="font-medium text-slate-600 dark:text-slate-300 flex items-center gap-2">
                       <Icon name="home" className="w-4 h-4" weight="fill" /> Necesidades
                     </span>
-                    <span className="font-bold text-rose-600">{porcentajeNecesidades}%</span>
+                    <span className="font-bold text-rose-600">{values.porcentajeNecesidades}%</span>
                   </div>
                   <input
                     type="range"
                     min="0"
                     max="100"
-                    value={porcentajeNecesidades}
-                    onChange={(e) => setPorcentajeNecesidades(Number(e.target.value))}
+                    value={Number(values.porcentajeNecesidades)}
+                    onChange={(e) => setField("porcentajeNecesidades", e.target.value)}
                     className="w-full accent-rose-500"
                   />
                 </div>
@@ -194,14 +203,14 @@ export default function CalculadoraPresupuesto() {
                     <span className="font-medium text-slate-600 dark:text-slate-300 flex items-center gap-2">
                       <Icon name="confetti" className="w-4 h-4" weight="fill" /> Deseos
                     </span>
-                    <span className="font-bold text-amber-600">{porcentajeDeseos}%</span>
+                    <span className="font-bold text-amber-600">{values.porcentajeDeseos}%</span>
                   </div>
                   <input
                     type="range"
                     min="0"
                     max="100"
-                    value={porcentajeDeseos}
-                    onChange={(e) => setPorcentajeDeseos(Number(e.target.value))}
+                    value={Number(values.porcentajeDeseos)}
+                    onChange={(e) => setField("porcentajeDeseos", e.target.value)}
                     className="w-full accent-amber-500"
                   />
                 </div>
@@ -211,14 +220,14 @@ export default function CalculadoraPresupuesto() {
                     <span className="font-medium text-slate-600 dark:text-slate-300 flex items-center gap-2">
                       <Icon name="piggy-bank" className="w-4 h-4" weight="fill" /> Ahorro
                     </span>
-                    <span className="font-bold text-emerald-600">{porcentajeAhorro}%</span>
+                    <span className="font-bold text-emerald-600">{values.porcentajeAhorro}%</span>
                   </div>
                   <input
                     type="range"
                     min="0"
                     max="100"
-                    value={porcentajeAhorro}
-                    onChange={(e) => setPorcentajeAhorro(Number(e.target.value))}
+                    value={Number(values.porcentajeAhorro)}
+                    onChange={(e) => setField("porcentajeAhorro", e.target.value)}
                     className="w-full accent-emerald-500"
                   />
                 </div>
@@ -234,7 +243,7 @@ export default function CalculadoraPresupuesto() {
 
           <button
             onClick={calcular}
-            disabled={personalizarPorcentajes && !porcentajesValidos}
+            disabled={values.personalizarPorcentajes === "true" && !porcentajesValidos}
             className="w-full bg-teal-500 hover:bg-teal-600 text-white py-5 rounded-2xl font-black text-xl transition-all active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Calcular presupuesto
@@ -247,7 +256,7 @@ export default function CalculadoraPresupuesto() {
                 <div className="text-center mb-6">
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">Tu ingreso mensual</p>
                   <p className="text-3xl font-black text-teal-600">
-                    {moneda.simbolo}{formatMoney(parseFloat(ingresos))}
+                    {moneda.simbolo}{formatMoney(parseFloat(values.ingresos))}
                   </p>
                 </div>
 
@@ -255,21 +264,21 @@ export default function CalculadoraPresupuesto() {
                 <div className="flex h-8 rounded-full overflow-hidden mb-6">
                   <div
                     className="bg-rose-500 flex items-center justify-center text-white text-xs font-bold"
-                    style={{ width: `${personalizarPorcentajes ? porcentajeNecesidades : 50}%` }}
+                    style={{ width: `${values.personalizarPorcentajes === "true" ? Number(values.porcentajeNecesidades) : 50}%` }}
                   >
-                    {personalizarPorcentajes ? porcentajeNecesidades : 50}%
+                    {values.personalizarPorcentajes === "true" ? values.porcentajeNecesidades : 50}%
                   </div>
                   <div
                     className="bg-amber-500 flex items-center justify-center text-white text-xs font-bold"
-                    style={{ width: `${personalizarPorcentajes ? porcentajeDeseos : 30}%` }}
+                    style={{ width: `${values.personalizarPorcentajes === "true" ? Number(values.porcentajeDeseos) : 30}%` }}
                   >
-                    {personalizarPorcentajes ? porcentajeDeseos : 30}%
+                    {values.personalizarPorcentajes === "true" ? values.porcentajeDeseos : 30}%
                   </div>
                   <div
                     className="bg-emerald-500 flex items-center justify-center text-white text-xs font-bold"
-                    style={{ width: `${personalizarPorcentajes ? porcentajeAhorro : 20}%` }}
+                    style={{ width: `${values.personalizarPorcentajes === "true" ? Number(values.porcentajeAhorro) : 20}%` }}
                   >
-                    {personalizarPorcentajes ? porcentajeAhorro : 20}%
+                    {values.personalizarPorcentajes === "true" ? values.porcentajeAhorro : 20}%
                   </div>
                 </div>
               </div>

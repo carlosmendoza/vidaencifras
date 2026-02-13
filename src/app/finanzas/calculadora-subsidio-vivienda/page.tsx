@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -8,6 +8,7 @@ import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
+import { useUrlState } from "@/hooks/useUrlState";
 import {
   SMMLV_2025,
   LIMITES_MI_CASA_YA,
@@ -17,21 +18,33 @@ import {
 } from "@/lib/data/subsidioViviendaColombia";
 
 export default function CalculadoraSubsidioVivienda() {
-  const [valorVivienda, setValorVivienda] = useState<string>("100000000");
-  const [ingresosFamiliares, setIngresosFamiliares] = useState<string>("4000000");
-  const [esPropietario, setEsPropietario] = useState<boolean>(false);
-  const [tuvoSubsidio, setTuvoSubsidio] = useState<boolean>(false);
+  const { values, setField } = useUrlState(
+    {
+      valorVivienda: "100000000",
+      ingresosFamiliares: "4000000",
+      esPropietario: "false",
+      tuvoSubsidio: "false",
+    },
+    {
+      paramNames: {
+        valorVivienda: "vv",
+        ingresosFamiliares: "if",
+        esPropietario: "ep",
+        tuvoSubsidio: "ts",
+      },
+    }
+  );
 
   const resultado = useMemo(() => {
-    const valor = parseFloat(valorVivienda);
-    const ingresos = parseFloat(ingresosFamiliares);
+    const valor = parseFloat(values.valorVivienda);
+    const ingresos = parseFloat(values.ingresosFamiliares);
 
     if (isNaN(valor) || isNaN(ingresos) || valor <= 0 || ingresos <= 0) {
       return null;
     }
 
-    return calcularElegibilidad(valor, ingresos, esPropietario, tuvoSubsidio);
-  }, [valorVivienda, ingresosFamiliares, esPropietario, tuvoSubsidio]);
+    return calcularElegibilidad(valor, ingresos, values.esPropietario === "true", values.tuvoSubsidio === "true");
+  }, [values.valorVivienda, values.ingresosFamiliares, values.esPropietario, values.tuvoSubsidio]);
 
   const formatMoney = (num: number) => {
     return new Intl.NumberFormat("es-CO", {
@@ -40,7 +53,7 @@ export default function CalculadoraSubsidioVivienda() {
     }).format(num);
   };
 
-  const ingresosSMMLV = parseFloat(ingresosFamiliares) / SMMLV_2025;
+  const ingresosSMMLV = parseFloat(values.ingresosFamiliares) / SMMLV_2025;
 
   const faqs = [
     {
@@ -108,8 +121,8 @@ export default function CalculadoraSubsidioVivienda() {
                 $
               </span>
               <CurrencyInput
-                value={valorVivienda}
-                onChange={(v) => setValorVivienda(v)}
+                value={values.valorVivienda}
+                onChange={(v) => setField("valorVivienda", v)}
                 locale="es-CO"
                 placeholder="100.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-xl font-semibold"
@@ -131,8 +144,8 @@ export default function CalculadoraSubsidioVivienda() {
                 $
               </span>
               <CurrencyInput
-                value={ingresosFamiliares}
-                onChange={(v) => setIngresosFamiliares(v)}
+                value={values.ingresosFamiliares}
+                onChange={(v) => setField("ingresosFamiliares", v)}
                 locale="es-CO"
                 placeholder="4.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-xl font-semibold"
@@ -151,19 +164,19 @@ export default function CalculadoraSubsidioVivienda() {
 
             <div className="space-y-3">
               <button
-                onClick={() => setEsPropietario(!esPropietario)}
+                onClick={() => setField("esPropietario", values.esPropietario === "true" ? "false" : "true")}
                 className={`w-full p-4 rounded-2xl text-left transition-all flex items-center gap-4 ${
-                  esPropietario
+                  values.esPropietario === "true"
                     ? "bg-red-50 dark:bg-red-950/30 border-2 border-red-200 dark:border-red-800"
                     : "bg-emerald-50 dark:bg-emerald-950/30 border-2 border-emerald-200 dark:border-emerald-800"
                 }`}
               >
                 <div
                   className={`w-6 h-6 rounded-lg flex items-center justify-center ${
-                    esPropietario ? "bg-red-500" : "bg-emerald-500"
+                    values.esPropietario === "true" ? "bg-red-500" : "bg-emerald-500"
                   }`}
                 >
-                  {esPropietario ? (
+                  {values.esPropietario === "true" ? (
                     <Icon name="warning" className="w-4 h-4 text-white" />
                   ) : (
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -173,26 +186,26 @@ export default function CalculadoraSubsidioVivienda() {
                 </div>
                 <div>
                   <p className="font-semibold text-slate-800 dark:text-slate-100">
-                    {esPropietario ? "Soy propietario de vivienda" : "No soy propietario de vivienda"}
+                    {values.esPropietario === "true" ? "Soy propietario de vivienda" : "No soy propietario de vivienda"}
                   </p>
                   <p className="text-xs text-slate-500">Toca para cambiar</p>
                 </div>
               </button>
 
               <button
-                onClick={() => setTuvoSubsidio(!tuvoSubsidio)}
+                onClick={() => setField("tuvoSubsidio", values.tuvoSubsidio === "true" ? "false" : "true")}
                 className={`w-full p-4 rounded-2xl text-left transition-all flex items-center gap-4 ${
-                  tuvoSubsidio
+                  values.tuvoSubsidio === "true"
                     ? "bg-red-50 dark:bg-red-950/30 border-2 border-red-200 dark:border-red-800"
                     : "bg-emerald-50 dark:bg-emerald-950/30 border-2 border-emerald-200 dark:border-emerald-800"
                 }`}
               >
                 <div
                   className={`w-6 h-6 rounded-lg flex items-center justify-center ${
-                    tuvoSubsidio ? "bg-red-500" : "bg-emerald-500"
+                    values.tuvoSubsidio === "true" ? "bg-red-500" : "bg-emerald-500"
                   }`}
                 >
-                  {tuvoSubsidio ? (
+                  {values.tuvoSubsidio === "true" ? (
                     <Icon name="warning" className="w-4 h-4 text-white" />
                   ) : (
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -202,7 +215,7 @@ export default function CalculadoraSubsidioVivienda() {
                 </div>
                 <div>
                   <p className="font-semibold text-slate-800 dark:text-slate-100">
-                    {tuvoSubsidio ? "Ya recibí subsidio de vivienda" : "Nunca he recibido subsidio de vivienda"}
+                    {values.tuvoSubsidio === "true" ? "Ya recibí subsidio de vivienda" : "Nunca he recibido subsidio de vivienda"}
                   </p>
                   <p className="text-xs text-slate-500">Toca para cambiar</p>
                 </div>

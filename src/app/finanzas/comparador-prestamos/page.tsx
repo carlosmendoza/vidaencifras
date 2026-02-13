@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -8,6 +8,7 @@ import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
+import { useUrlState } from "@/hooks/useUrlState";
 import {
   BANCOS_PRESTAMOS,
   TIPOS_PRESTAMO,
@@ -28,22 +29,33 @@ interface ResultadoBanco {
 }
 
 export default function ComparadorPrestamos() {
-  const [monto, setMonto] = useState<string>("20000000");
-  const [plazo, setPlazo] = useState<string>("36");
-  const [tipoPrestamo, setTipoPrestamo] = useState<TipoPrestamo>("libre_inversion");
+  const { values, setField } = useUrlState(
+    {
+      monto: "20000000",
+      plazo: "36",
+      tipoPrestamo: "libre_inversion",
+    },
+    {
+      paramNames: {
+        monto: "m",
+        plazo: "p",
+        tipoPrestamo: "t",
+      },
+    }
+  );
 
   const resultados = useMemo((): ResultadoBanco[] => {
-    const montoNum = parseFloat(monto);
-    const plazoNum = parseInt(plazo);
+    const montoNum = parseFloat(values.monto);
+    const plazoNum = parseInt(values.plazo);
 
     if (isNaN(montoNum) || isNaN(plazoNum) || montoNum <= 0 || plazoNum <= 0) {
       return [];
     }
 
     return BANCOS_PRESTAMOS
-      .filter((banco) => bancoOfreceProducto(banco, tipoPrestamo))
+      .filter((banco) => bancoOfreceProducto(banco, values.tipoPrestamo as TipoPrestamo))
       .map((banco) => {
-        const tasaAnual = getTasaTipica(banco, tipoPrestamo);
+        const tasaAnual = getTasaTipica(banco, values.tipoPrestamo as TipoPrestamo);
         const tasaMensual = tasaAnual / 100 / 12;
 
         // Cuota mensual (sistema francés)
@@ -72,7 +84,7 @@ export default function ComparadorPrestamos() {
         };
       })
       .sort((a, b) => a.costoTotal - b.costoTotal);
-  }, [monto, plazo, tipoPrestamo]);
+  }, [values.monto, values.plazo, values.tipoPrestamo]);
 
   const formatMoney = (num: number) => {
     return new Intl.NumberFormat("es-CO", {
@@ -81,7 +93,7 @@ export default function ComparadorPrestamos() {
     }).format(num);
   };
 
-  const plazosRapidos = tipoPrestamo === "vivienda"
+  const plazosRapidos = values.tipoPrestamo === "vivienda"
     ? [60, 120, 180, 240]
     : [12, 24, 36, 48, 60, 72];
 
@@ -156,9 +168,9 @@ export default function ComparadorPrestamos() {
               {TIPOS_PRESTAMO.map((tipo) => (
                 <button
                   key={tipo.valor}
-                  onClick={() => setTipoPrestamo(tipo.valor)}
+                  onClick={() => setField("tipoPrestamo", tipo.valor)}
                   className={`px-4 py-3 rounded-xl font-semibold text-sm transition-all ${
-                    tipoPrestamo === tipo.valor
+                    values.tipoPrestamo === tipo.valor
                       ? "bg-teal-500 text-white shadow-lg"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
@@ -180,8 +192,8 @@ export default function ComparadorPrestamos() {
                   $
                 </span>
                 <CurrencyInput
-                  value={monto}
-                  onChange={(v) => setMonto(v)}
+                  value={values.monto}
+                  onChange={(v) => setField("monto", v)}
                   locale="es-CO"
                   placeholder="20000000"
                   className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
@@ -195,8 +207,8 @@ export default function ComparadorPrestamos() {
               <div className="relative">
                 <input
                   type="number"
-                  value={plazo}
-                  onChange={(e) => setPlazo(e.target.value)}
+                  value={values.plazo}
+                  onChange={(e) => setField("plazo", e.target.value)}
                   placeholder="36"
                   className="w-full px-6 py-4 rounded-2xl text-lg font-semibold pr-20"
                 />
@@ -212,14 +224,14 @@ export default function ComparadorPrestamos() {
             {plazosRapidos.map((p) => (
               <button
                 key={p}
-                onClick={() => setPlazo(p.toString())}
+                onClick={() => setField("plazo", p.toString())}
                 className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
-                  plazo === p.toString()
+                  values.plazo === p.toString()
                     ? "bg-teal-500 text-white"
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
               >
-                {p} meses {tipoPrestamo === "vivienda" && `(${p / 12} años)`}
+                {p} meses {values.tipoPrestamo === "vivienda" && `(${p / 12} años)`}
               </button>
             ))}
           </div>
@@ -267,7 +279,7 @@ export default function ComparadorPrestamos() {
                 )}
                 <ShareButtons
                   title="Comparador de Préstamos Colombia"
-                  text={`El mejor préstamo de ${TIPOS_PRESTAMO.find(t => t.valor === tipoPrestamo)?.nombre.toLowerCase()} para $${formatMoney(parseFloat(monto))} a ${plazo} meses es ${mejorOpcion.nombre}`}
+                  text={`El mejor préstamo de ${TIPOS_PRESTAMO.find(t => t.valor === values.tipoPrestamo)?.nombre.toLowerCase()} para $${formatMoney(parseFloat(values.monto))} a ${values.plazo} meses es ${mejorOpcion.nombre}`}
                   result={{
                     label: "Cuota mensual",
                     value: `$${formatMoney(mejorOpcion.cuotaMensual)}`,

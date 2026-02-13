@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback, Suspense } from "react";
+import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { useUrlState } from "@/hooks/useUrlState";
 import {
   LineChart,
   Line,
@@ -150,77 +151,41 @@ function parseCuentasFromParam(param: string | null): Set<CuentaId> {
 }
 
 function SimuladorCuentaAhorroContent() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
+  const { values, setField } = useUrlState(
+    {
+      montoInicial: "1000000",
+      inflacion: INFLACION_DEFECTO.toString(),
+      meses: "12",
+      aporteMensual: "0",
+      cuentas: CUENTAS_DEFECTO.join(","),
+    },
+    {
+      paramNames: {
+        montoInicial: "monto",
+        inflacion: "inflacion",
+        meses: "meses",
+        aporteMensual: "aporte",
+        cuentas: "cuentas",
+      },
+    }
+  );
 
-  const [montoInicial, setMontoInicial] = useState<string>(
-    searchParams.get("monto") || "1000000"
+  const { montoInicial, inflacion, meses, aporteMensual } = values;
+
+  const cuentasSeleccionadas = useMemo(
+    () => parseCuentasFromParam(values.cuentas),
+    [values.cuentas]
   );
-  const [inflacion, setInflacion] = useState<string>(
-    searchParams.get("inflacion") || INFLACION_DEFECTO.toString()
-  );
-  const [meses, setMeses] = useState<string>(
-    searchParams.get("meses") || "12"
-  );
-  const [aporteMensual, setAporteMensual] = useState<string>(
-    searchParams.get("aporte") || "0"
-  );
+
   const [mostrarAvanzado, setMostrarAvanzado] = useState<boolean>(
-    !!searchParams.get("aporte") && searchParams.get("aporte") !== "0"
+    aporteMensual !== "0"
   );
-  const [cuentasSeleccionadas, setCuentasSeleccionadas] = useState<Set<CuentaId>>(
-    parseCuentasFromParam(searchParams.get("cuentas"))
-  );
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const buildShareUrl = useCallback(() => {
     if (typeof window === "undefined") return "";
-    const params = new URLSearchParams();
-    params.set("monto", montoInicial);
-    params.set("meses", meses);
-    if (inflacion !== INFLACION_DEFECTO.toString()) {
-      params.set("inflacion", inflacion);
-    }
-    if (aporteMensual && aporteMensual !== "0") {
-      params.set("aporte", aporteMensual);
-    }
-    const cuentasArray = [...cuentasSeleccionadas].sort();
-    const cuentasDefectoOrdenadas = [...CUENTAS_DEFECTO].sort();
-    if (JSON.stringify(cuentasArray) !== JSON.stringify(cuentasDefectoOrdenadas)) {
-      params.set("cuentas", cuentasArray.join(","));
-    }
-    return `${window.location.origin}${pathname}?${params.toString()}`;
-  }, [montoInicial, meses, inflacion, aporteMensual, cuentasSeleccionadas, pathname]);
-
-  useEffect(() => {
-    if (!isClient) return;
-    const params = new URLSearchParams();
-    if (montoInicial && montoInicial !== "1000000") {
-      params.set("monto", montoInicial);
-    }
-    if (meses && meses !== "12") {
-      params.set("meses", meses);
-    }
-    if (inflacion && inflacion !== INFLACION_DEFECTO.toString()) {
-      params.set("inflacion", inflacion);
-    }
-    if (aporteMensual && aporteMensual !== "0") {
-      params.set("aporte", aporteMensual);
-    }
-    const cuentasArray = [...cuentasSeleccionadas].sort();
-    const cuentasDefectoOrdenadas = [...CUENTAS_DEFECTO].sort();
-    if (JSON.stringify(cuentasArray) !== JSON.stringify(cuentasDefectoOrdenadas)) {
-      params.set("cuentas", cuentasArray.join(","));
-    }
-    const queryString = params.toString();
-    const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
-    router.replace(newUrl, { scroll: false });
-  }, [montoInicial, meses, inflacion, aporteMensual, cuentasSeleccionadas, isClient, pathname, router]);
+    const search = window.location.search;
+    return `${window.location.origin}${window.location.pathname}${search}`;
+  }, [values]);
 
   const toggleCuenta = (id: CuentaId) => {
     const nuevas = new Set(cuentasSeleccionadas);
@@ -231,7 +196,7 @@ function SimuladorCuentaAhorroContent() {
     } else {
       nuevas.add(id);
     }
-    setCuentasSeleccionadas(nuevas);
+    setField("cuentas", [...nuevas].join(","));
   };
 
   const resultado = useMemo(() => {
@@ -377,12 +342,7 @@ function SimuladorCuentaAhorroContent() {
 
   return (
     <div className="space-y-8">
-      <Link
-        href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
-      >
-        <span>←</span> Volver a Finanzas
-      </Link>
+      <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-5xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
@@ -441,7 +401,7 @@ function SimuladorCuentaAhorroContent() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
               <CurrencyInput
                 value={montoInicial}
-                onChange={(v) => setMontoInicial(v)}
+                onChange={(v) => setField("montoInicial",v)}
                 locale="es-CO"
                 placeholder="1.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
@@ -451,7 +411,7 @@ function SimuladorCuentaAhorroContent() {
               {[1000000, 5000000, 10000000, 20000000].map((monto) => (
                 <button
                   key={monto}
-                  onClick={() => setMontoInicial(monto.toString())}
+                  onClick={() => setField("montoInicial",monto.toString())}
                   className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
                     montoInicial === monto.toString()
                       ? "bg-teal-500 text-white"
@@ -473,7 +433,7 @@ function SimuladorCuentaAhorroContent() {
               {[6, 12, 24, 36].map((m) => (
                 <button
                   key={m}
-                  onClick={() => setMeses(m.toString())}
+                  onClick={() => setField("meses",m.toString())}
                   className={`flex-1 px-4 py-4 font-semibold transition-colors ${
                     meses === m.toString()
                       ? "bg-teal-500 text-white"
@@ -495,7 +455,7 @@ function SimuladorCuentaAhorroContent() {
               <input
                 type="number"
                 value={inflacion}
-                onChange={(e) => setInflacion(e.target.value)}
+                onChange={(e) => setField("inflacion",e.target.value)}
                 step="0.1"
                 className="w-full px-6 py-4 rounded-2xl text-lg font-semibold pr-12"
               />
@@ -523,7 +483,7 @@ function SimuladorCuentaAhorroContent() {
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
                   <CurrencyInput
                     value={aporteMensual}
-                    onChange={(v) => setAporteMensual(v)}
+                    onChange={(v) => setField("aporteMensual",v)}
                     locale="es-CO"
                     placeholder="100.000"
                     className="w-full pl-10 pr-6 py-3 rounded-xl text-base font-semibold"
@@ -756,26 +716,6 @@ function SimuladorCuentaAhorroContent() {
   );
 }
 
-function SimuladorLoading() {
-  return (
-    <div className="space-y-8">
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-5xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg animate-pulse">
-            <Icon name="piggy-bank" className="w-10 h-10" />
-          </div>
-          <div className="h-10 bg-slate-200 dark:bg-slate-700 rounded-xl w-3/4 mx-auto mb-3 animate-pulse" />
-          <div className="h-5 bg-slate-100 dark:bg-slate-800 rounded-lg w-1/2 mx-auto animate-pulse" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function SimuladorCuentaAhorro() {
-  return (
-    <Suspense fallback={<SimuladorLoading />}>
-      <SimuladorCuentaAhorroContent />
-    </Suspense>
-  );
+  return <SimuladorCuentaAhorroContent />;
 }

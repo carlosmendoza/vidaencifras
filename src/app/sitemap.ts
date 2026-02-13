@@ -18,15 +18,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Calculadoras de finanzas
   const finanzas = [
+    { slug: "calculadora-salario-neto", priority: 0.9 },
     { slug: "calculadora-interes-compuesto", priority: 0.9 },
     { slug: "calculadora-prestamos", priority: 0.9 },
     { slug: "calculadora-prestacion-servicios", priority: 0.9 },
+    { slug: "calculadora-prima", priority: 0.9 },
+    { slug: "calculadora-cesantias", priority: 0.9 },
+    { slug: "calculadora-liquidacion", priority: 0.9 },
+    { slug: "calculadora-vacaciones", priority: 0.8 },
+    { slug: "calculadora-horas-extras", priority: 0.8 },
+    { slug: "calculadora-impuesto-renta", priority: 0.8 },
+    { slug: "calculadora-retencion-fuente", priority: 0.8 },
+    { slug: "calculadora-impuesto-vehicular", priority: 0.7 },
+    { slug: "calculadora-4x1000", priority: 0.7 },
+    { slug: "calculadora-meta-ahorro", priority: 0.8 },
+    { slug: "calculadora-jubilacion", priority: 0.8 },
+    { slug: "calculadora-inflacion", priority: 0.7 },
+    { slug: "calculadora-presupuesto", priority: 0.8 },
+    { slug: "calculadora-subsidio-vivienda", priority: 0.7 },
+    { slug: "arriendo-vs-compra", priority: 0.8 },
+    { slug: "comparador-prestamos", priority: 0.8 },
+    { slug: "comparador-cdt", priority: 0.8 },
+    { slug: "simulador-cuenta-ahorro", priority: 0.7 },
+    { slug: "simulador-tarjeta-credito", priority: 0.7 },
   ];
 
   // Calculadoras de salud
   const salud = [
     { slug: "calculadora-calorias", priority: 0.9 },
     { slug: "calculadora-imc", priority: 0.9 },
+    { slug: "calculadora-hidratacion", priority: 0.8 },
+    { slug: "calculadora-sueno", priority: 0.8 },
+    { slug: "calculadora-frecuencia-cardiaca", priority: 0.8 },
   ];
 
   // Herramientas
@@ -36,6 +59,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { slug: "calculadora-diferencia-fechas", priority: 0.8 },
     { slug: "calculadora-dias-vividos", priority: 0.8 },
     { slug: "calculadora-dividir-cuenta", priority: 0.8 },
+    { slug: "calculadora-descuentos", priority: 0.8 },
+    { slug: "calculadora-iva", priority: 0.8 },
+  ];
+
+  // Productividad
+  const productividad = [
+    { slug: "calculadora-pomodoro", priority: 0.7 },
+    { slug: "calculadora-habitos", priority: 0.7 },
+    { slug: "matriz-eisenhower", priority: 0.7 },
+    { slug: "auditoria-tiempo", priority: 0.7 },
+    { slug: "vida-en-semanas", priority: 0.7 },
+    { slug: "valor-hora", priority: 0.7 },
   ];
 
   const calculadorasUrls = [
@@ -53,6 +88,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     ...herramientas.map((calc) => ({
       url: `${siteUrl}/herramientas/${calc.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: calc.priority,
+    })),
+    ...productividad.map((calc) => ({
+      url: `${siteUrl}/productividad/${calc.slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: calc.priority,

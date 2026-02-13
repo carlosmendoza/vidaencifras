@@ -40,7 +40,7 @@ export const datosDelDia: DatoDelDia[] = [
   {
     numero: "1.300",
     unidad: "UVT",
-    dato: "Si tus ingresos brutos anuales superan 1.300 UVT (~$69 millones en 2025), estás obligado a declarar renta en Colombia.",
+    dato: "Si tus ingresos brutos anuales superan 1.400 UVT (~$73 millones en 2026), estás obligado a declarar renta en Colombia.",
     calculadora: "/finanzas/calculadora-impuesto-renta",
     nombreCalculadora: "Calculadora de impuesto de renta",
     gradient: "from-sky-500 to-blue-600",
@@ -84,9 +84,9 @@ export const datosDelDia: DatoDelDia[] = [
     gradient: "from-teal-500 to-emerald-600",
   },
   {
-    numero: "49.799",
+    numero: "52.374",
     unidad: "COP",
-    dato: "Es el valor de la UVT en 2025, la unidad con la que se calculan impuestos, retenciones y beneficios tributarios en Colombia.",
+    dato: "Es el valor de la UVT en 2026, la unidad con la que se calculan impuestos, retenciones y beneficios tributarios en Colombia.",
     calculadora: "/finanzas/calculadora-retencion-fuente",
     nombreCalculadora: "Calculadora de retención en la fuente",
     gradient: "from-violet-500 to-indigo-600",

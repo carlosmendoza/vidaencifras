@@ -1,11 +1,16 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import Link from "next/link";
+import dynamic from "next/dynamic";
 import { FAQ } from "@/components/FAQ";
-import { WeeksGrid } from "@/components/charts/WeeksGrid";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Icon } from "@/lib/icons";
 import { useUrlState } from "@/hooks/useUrlState";
+
+const WeeksGrid = dynamic(
+  () => import("@/components/charts/WeeksGrid").then((mod) => mod.WeeksGrid),
+  { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
+);
 
 const faqs = [
   {
@@ -136,12 +141,7 @@ export default function VidaEnSemanasPage() {
 
   return (
     <div className="space-y-8">
-      <Link
-        href="/productividad"
-        className="text-slate-500 dark:text-slate-400 hover:text-orange-600 dark:hover:text-orange-400 inline-flex items-center gap-2 font-medium transition-colors"
-      >
-        <span>←</span> Volver a Productividad
-      </Link>
+      <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-orange-500/5">
         <div className="text-center mb-10">

@@ -1,13 +1,14 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import Link from "next/link";
+import { useMemo } from "react";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { CalculatorResult } from "@/components/CalculatorResult";
 import { ShareButtons } from "@/components/ShareButtons";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const faqs = [
   {
@@ -59,16 +60,47 @@ interface Resultado {
 }
 
 export default function ArriendoVsCompra() {
-  const [precioVivienda, setPrecioVivienda] = useState<string>("300000000");
-  const [cuotaInicial, setCuotaInicial] = useState<string>("60000000");
-  const [tasaHipotecaria, setTasaHipotecaria] = useState<string>("12");
-  const [plazoAnos, setPlazoAnos] = useState<string>("20");
-  const [canonArriendo, setCanonArriendo] = useState<string>("1500000");
-  const [incrementoArriendo, setIncrementoArriendo] = useState<string>("4");
-  const [valorizacion, setValorizacion] = useState<string>("4");
-  const [costosAdicionales, setCostosAdicionales] = useState<string>("500000");
-  const [rendimientoInversion, setRendimientoInversion] = useState<string>("8");
-  const [horizonteTiempo, setHorizonteTiempo] = useState<string>("10");
+  const { values, setField } = useUrlState(
+    {
+      precioVivienda: "300000000",
+      cuotaInicial: "60000000",
+      tasaHipotecaria: "12",
+      plazoAnos: "20",
+      canonArriendo: "1500000",
+      incrementoArriendo: "4",
+      valorizacion: "4",
+      costosAdicionales: "500000",
+      rendimientoInversion: "8",
+      horizonteTiempo: "10",
+    },
+    {
+      paramNames: {
+        precioVivienda: "pv",
+        cuotaInicial: "ci",
+        tasaHipotecaria: "th",
+        plazoAnos: "pa",
+        canonArriendo: "ca",
+        incrementoArriendo: "ia",
+        valorizacion: "v",
+        costosAdicionales: "co",
+        rendimientoInversion: "ri",
+        horizonteTiempo: "ht",
+      },
+    }
+  );
+
+  const {
+    precioVivienda,
+    cuotaInicial,
+    tasaHipotecaria,
+    plazoAnos,
+    canonArriendo,
+    incrementoArriendo,
+    valorizacion,
+    costosAdicionales,
+    rendimientoInversion,
+    horizonteTiempo,
+  } = values;
 
   const resultado = useMemo((): Resultado | null => {
     const precio = parseFloat(precioVivienda) || 0;
@@ -193,12 +225,7 @@ export default function ArriendoVsCompra() {
 
   return (
     <div className="space-y-8">
-      <Link
-        href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
-      >
-        <span>←</span> Volver a Finanzas
-      </Link>
+      <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
@@ -228,7 +255,7 @@ export default function ArriendoVsCompra() {
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
                 <CurrencyInput
                   value={precioVivienda}
-                  onChange={(v) => setPrecioVivienda(v)}
+                  onChange={(v) => setField("precioVivienda",v)}
                   locale="es-CO"
                   className="w-full pl-10 pr-4 py-3 rounded-xl"
                 />
@@ -243,7 +270,7 @@ export default function ArriendoVsCompra() {
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
                 <CurrencyInput
                   value={cuotaInicial}
-                  onChange={(v) => setCuotaInicial(v)}
+                  onChange={(v) => setField("cuotaInicial",v)}
                   locale="es-CO"
                   className="w-full pl-10 pr-4 py-3 rounded-xl"
                 />
@@ -264,7 +291,7 @@ export default function ArriendoVsCompra() {
                   <input
                     type="number"
                     value={tasaHipotecaria}
-                    onChange={(e) => setTasaHipotecaria(e.target.value)}
+                    onChange={(e) => setField("tasaHipotecaria",e.target.value)}
                     step="0.1"
                     className="w-full px-4 py-3 rounded-xl pr-10"
                   />
@@ -278,7 +305,7 @@ export default function ArriendoVsCompra() {
                 <input
                   type="number"
                   value={plazoAnos}
-                  onChange={(e) => setPlazoAnos(e.target.value)}
+                  onChange={(e) => setField("plazoAnos",e.target.value)}
                   className="w-full px-4 py-3 rounded-xl"
                 />
               </div>
@@ -293,7 +320,7 @@ export default function ArriendoVsCompra() {
                   <input
                     type="number"
                     value={valorizacion}
-                    onChange={(e) => setValorizacion(e.target.value)}
+                    onChange={(e) => setField("valorizacion",e.target.value)}
                     step="0.5"
                     className="w-full px-4 py-3 rounded-xl pr-10"
                   />
@@ -308,7 +335,7 @@ export default function ArriendoVsCompra() {
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">$</span>
                   <CurrencyInput
                     value={costosAdicionales}
-                    onChange={(v) => setCostosAdicionales(v)}
+                    onChange={(v) => setField("costosAdicionales",v)}
                     locale="es-CO"
                     className="w-full pl-8 pr-4 py-3 rounded-xl text-sm"
                   />
@@ -332,7 +359,7 @@ export default function ArriendoVsCompra() {
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
                 <CurrencyInput
                   value={canonArriendo}
-                  onChange={(v) => setCanonArriendo(v)}
+                  onChange={(v) => setField("canonArriendo",v)}
                   locale="es-CO"
                   className="w-full pl-10 pr-4 py-3 rounded-xl"
                 />
@@ -347,7 +374,7 @@ export default function ArriendoVsCompra() {
                 <input
                   type="number"
                   value={incrementoArriendo}
-                  onChange={(e) => setIncrementoArriendo(e.target.value)}
+                  onChange={(e) => setField("incrementoArriendo",e.target.value)}
                   step="0.5"
                   className="w-full px-4 py-3 rounded-xl pr-10"
                 />
@@ -364,7 +391,7 @@ export default function ArriendoVsCompra() {
                 <input
                   type="number"
                   value={rendimientoInversion}
-                  onChange={(e) => setRendimientoInversion(e.target.value)}
+                  onChange={(e) => setField("rendimientoInversion",e.target.value)}
                   step="0.5"
                   className="w-full px-4 py-3 rounded-xl pr-10"
                 />
@@ -380,14 +407,14 @@ export default function ArriendoVsCompra() {
               <input
                 type="number"
                 value={horizonteTiempo}
-                onChange={(e) => setHorizonteTiempo(e.target.value)}
+                onChange={(e) => setField("horizonteTiempo",e.target.value)}
                 className="w-full px-4 py-3 rounded-xl"
               />
               <div className="flex gap-2 flex-wrap">
                 {[5, 10, 15, 20].map((años) => (
                   <button
                     key={años}
-                    onClick={() => setHorizonteTiempo(años.toString())}
+                    onClick={() => setField("horizonteTiempo",años.toString())}
                     className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                       horizonteTiempo === años.toString()
                         ? "bg-teal-500 text-white"

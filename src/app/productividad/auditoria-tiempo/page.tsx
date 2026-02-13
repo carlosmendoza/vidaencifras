@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { Icon } from "@/lib/icons";
 
@@ -315,12 +315,7 @@ export default function AuditoriaTiempoPage() {
 
   return (
     <div className="space-y-8">
-      <Link
-        href="/productividad"
-        className="text-slate-500 dark:text-slate-400 hover:text-orange-600 dark:hover:text-orange-400 inline-flex items-center gap-2 font-medium transition-colors"
-      >
-        <span>←</span> Volver a Productividad
-      </Link>
+      <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-3xl mx-auto shadow-xl shadow-orange-500/5">
         <div className="text-center mb-10">

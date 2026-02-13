@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useUrlState } from "@/hooks/useUrlState";
-import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
 
@@ -157,12 +157,7 @@ export default function DividirCuenta() {
 
   return (
     <div className="space-y-8">
-      <Link
-        href="/herramientas"
-        className="text-slate-500 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 inline-flex items-center gap-2 font-medium transition-colors"
-      >
-        <span>←</span> Volver a Herramientas
-      </Link>
+      <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-purple-500/5">
         <div className="text-center mb-10">

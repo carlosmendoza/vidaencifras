@@ -21,8 +21,7 @@ export function CookieConsent() {
     setVisible(false);
 
     if (value === "accepted") {
-      // Recargar para que GoogleTagManager detecte el consentimiento
-      window.location.reload();
+      window.dispatchEvent(new CustomEvent("cookie-consent-change"));
     }
   };
 

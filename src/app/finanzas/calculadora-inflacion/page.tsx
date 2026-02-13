@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const faqs = [
   {
@@ -74,12 +75,26 @@ const inflacionHistorica: { [key: number]: number } = {
 };
 
 export default function CalculadoraInflacion() {
-  const [monto, setMonto] = useState<string>("");
-  const [añoInicio, setAñoInicio] = useState<string>("2020");
-  const [añoFin, setAñoFin] = useState<string>("2024");
-  const [tipoCalculo, setTipoCalculo] = useState<"historico" | "proyeccion">("historico");
-  const [inflacionPersonalizada, setInflacionPersonalizada] = useState<string>("5");
-  const [añosProyeccion, setAñosProyeccion] = useState<string>("10");
+  const { values, setField } = useUrlState(
+    {
+      monto: "",
+      añoInicio: "2020",
+      añoFin: "2024",
+      tipoCalculo: "historico",
+      inflacionPersonalizada: "5",
+      añosProyeccion: "10",
+    },
+    {
+      paramNames: {
+        monto: "m",
+        añoInicio: "ai",
+        añoFin: "af",
+        tipoCalculo: "t",
+        inflacionPersonalizada: "ip",
+        añosProyeccion: "ap",
+      },
+    }
+  );
   const [resultado, setResultado] = useState<ResultadoInflacion | null>(null);
 
   const añosDisponibles = Object.keys(inflacionHistorica).map(Number).sort((a, b) => a - b);
@@ -87,12 +102,12 @@ export default function CalculadoraInflacion() {
   const añoMaximo = añosDisponibles[añosDisponibles.length - 1];
 
   const calcular = () => {
-    const montoNum = parseFloat(monto) || 0;
+    const montoNum = parseFloat(values.monto) || 0;
     if (montoNum <= 0) return;
 
-    if (tipoCalculo === "historico") {
-      const inicio = parseInt(añoInicio);
-      const fin = parseInt(añoFin);
+    if (values.tipoCalculo === "historico") {
+      const inicio = parseInt(values.añoInicio);
+      const fin = parseInt(values.añoFin);
 
       if (inicio >= fin || inicio < añoMinimo || fin > añoMaximo) return;
 
@@ -128,8 +143,8 @@ export default function CalculadoraInflacion() {
       });
     } else {
       // Proyección futura
-      const años = parseInt(añosProyeccion) || 10;
-      const inflacionAnual = parseFloat(inflacionPersonalizada) || 5;
+      const años = parseInt(values.añosProyeccion) || 10;
+      const inflacionAnual = parseFloat(values.inflacionPersonalizada) || 5;
 
       const evolucion: ResultadoInflacion["evolucion"] = [];
       let valorActual = montoNum;
@@ -177,12 +192,7 @@ export default function CalculadoraInflacion() {
 
   return (
     <div className="space-y-8">
-      <Link
-        href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
-      >
-        <span>←</span> Volver a Finanzas
-      </Link>
+      <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
@@ -199,9 +209,9 @@ export default function CalculadoraInflacion() {
           {/* Tipo de cálculo */}
           <div className="flex rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700">
             <button
-              onClick={() => setTipoCalculo("historico")}
+              onClick={() => setField("tipoCalculo", "historico")}
               className={`flex-1 px-5 py-4 font-semibold transition-colors ${
-                tipoCalculo === "historico"
+                values.tipoCalculo === "historico"
                   ? "bg-teal-500 text-white"
                   : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
               }`}
@@ -209,9 +219,9 @@ export default function CalculadoraInflacion() {
               Histórico
             </button>
             <button
-              onClick={() => setTipoCalculo("proyeccion")}
+              onClick={() => setField("tipoCalculo", "proyeccion")}
               className={`flex-1 px-5 py-4 font-semibold transition-colors ${
-                tipoCalculo === "proyeccion"
+                values.tipoCalculo === "proyeccion"
                   ? "bg-teal-500 text-white"
                   : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
               }`}
@@ -223,15 +233,15 @@ export default function CalculadoraInflacion() {
           {/* Monto */}
           <div className="space-y-3">
             <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
-              {tipoCalculo === "historico"
+              {values.tipoCalculo === "historico"
                 ? "¿Cuánto valía en el año inicial?"
                 : "¿Cuánto vale hoy?"}
             </label>
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
               <CurrencyInput
-                value={monto}
-                onChange={(v) => setMonto(v)}
+                value={values.monto}
+                onChange={(v) => setField("monto", v)}
                 locale="es-CO"
                 placeholder="1.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
@@ -239,7 +249,7 @@ export default function CalculadoraInflacion() {
             </div>
           </div>
 
-          {tipoCalculo === "historico" ? (
+          {values.tipoCalculo === "historico" ? (
             <>
               {/* Año inicio */}
               <div className="grid grid-cols-2 gap-4">
@@ -248,8 +258,8 @@ export default function CalculadoraInflacion() {
                     Año inicial
                   </label>
                   <select
-                    value={añoInicio}
-                    onChange={(e) => setAñoInicio(e.target.value)}
+                    value={values.añoInicio}
+                    onChange={(e) => setField("añoInicio", e.target.value)}
                     className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
                   >
                     {añosDisponibles.map((año) => (
@@ -263,8 +273,8 @@ export default function CalculadoraInflacion() {
                     Año final
                   </label>
                   <select
-                    value={añoFin}
-                    onChange={(e) => setAñoFin(e.target.value)}
+                    value={values.añoFin}
+                    onChange={(e) => setField("añoFin", e.target.value)}
                     className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
                   >
                     {añosDisponibles.map((año) => (
@@ -286,8 +296,8 @@ export default function CalculadoraInflacion() {
                 </label>
                 <input
                   type="number"
-                  value={añosProyeccion}
-                  onChange={(e) => setAñosProyeccion(e.target.value)}
+                  value={values.añosProyeccion}
+                  onChange={(e) => setField("añosProyeccion", e.target.value)}
                   placeholder="10"
                   min="1"
                   max="50"
@@ -297,9 +307,9 @@ export default function CalculadoraInflacion() {
                   {[5, 10, 15, 20, 30].map((a) => (
                     <button
                       key={a}
-                      onClick={() => setAñosProyeccion(a.toString())}
+                      onClick={() => setField("añosProyeccion", a.toString())}
                       className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                        añosProyeccion === a.toString()
+                        values.añosProyeccion === a.toString()
                           ? "bg-teal-500 text-white"
                           : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                       }`}
@@ -318,8 +328,8 @@ export default function CalculadoraInflacion() {
                 <div className="relative">
                   <input
                     type="number"
-                    value={inflacionPersonalizada}
-                    onChange={(e) => setInflacionPersonalizada(e.target.value)}
+                    value={values.inflacionPersonalizada}
+                    onChange={(e) => setField("inflacionPersonalizada", e.target.value)}
                     placeholder="5"
                     step="0.1"
                     className="w-full px-6 py-4 rounded-2xl text-lg font-semibold pr-12"
@@ -330,9 +340,9 @@ export default function CalculadoraInflacion() {
                   {[3, 4, 5, 6, 8].map((i) => (
                     <button
                       key={i}
-                      onClick={() => setInflacionPersonalizada(i.toString())}
+                      onClick={() => setField("inflacionPersonalizada", i.toString())}
                       className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                        inflacionPersonalizada === i.toString()
+                        values.inflacionPersonalizada === i.toString()
                           ? "bg-teal-500 text-white"
                           : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                       }`}
@@ -361,10 +371,10 @@ export default function CalculadoraInflacion() {
               {/* Resumen principal */}
               <div className="p-8 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900">
                 <div className="text-center">
-                  {tipoCalculo === "historico" ? (
+                  {values.tipoCalculo === "historico" ? (
                     <>
                       <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
-                        ${formatMoney(parseFloat(monto))} de {añoInicio} equivalen hoy a
+                        ${formatMoney(parseFloat(values.monto))} de {values.añoInicio} equivalen hoy a
                       </p>
                       <p className="text-4xl font-black text-teal-600">
                         ${formatMoney(resultado.valorFuturo)}
@@ -376,7 +386,7 @@ export default function CalculadoraInflacion() {
                   ) : (
                     <>
                       <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
-                        Para tener el mismo poder de compra en {añosProyeccion} años necesitarás
+                        Para tener el mismo poder de compra en {values.añosProyeccion} años necesitarás
                       </p>
                       <p className="text-4xl font-black text-teal-600">
                         ${formatMoney(resultado.valorFuturo)}
@@ -393,7 +403,7 @@ export default function CalculadoraInflacion() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-5 bg-white dark:bg-slate-800 rounded-2xl ring-1 ring-slate-200 dark:ring-slate-700">
                   <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">
-                    {tipoCalculo === "historico" ? "Pérdida de poder adquisitivo" : "Dinero extra que necesitarás"}
+                    {values.tipoCalculo === "historico" ? "Pérdida de poder adquisitivo" : "Dinero extra que necesitarás"}
                   </p>
                   <p className="text-2xl font-black text-red-600">
                     +${formatMoney(resultado.perdidaPoder)}
@@ -402,9 +412,9 @@ export default function CalculadoraInflacion() {
 
                 <div className="p-5 bg-white dark:bg-slate-800 rounded-2xl ring-1 ring-slate-200 dark:ring-slate-700">
                   <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">
-                    {tipoCalculo === "historico"
-                      ? `$${formatMoney(parseFloat(monto))} de hoy valdrían en ${añoInicio}`
-                      : `$${formatMoney(parseFloat(monto))} de hoy valdrán en ${parseInt(añosProyeccion) + new Date().getFullYear()}`}
+                    {values.tipoCalculo === "historico"
+                      ? `$${formatMoney(parseFloat(values.monto))} de hoy valdrían en ${values.añoInicio}`
+                      : `$${formatMoney(parseFloat(values.monto))} de hoy valdrán en ${parseInt(values.añosProyeccion) + new Date().getFullYear()}`}
                   </p>
                   <p className="text-2xl font-black text-slate-700 dark:text-slate-200">
                     ${formatMoney(resultado.equivalenteHoy)}
@@ -417,7 +427,7 @@ export default function CalculadoraInflacion() {
               {resultado.evolucion.length > 0 && (
                 <div className="space-y-3">
                   <h3 className="font-bold text-slate-700 dark:text-slate-300">
-                    {tipoCalculo === "historico" ? "Inflación año a año" : "Proyección"}
+                    {values.tipoCalculo === "historico" ? "Inflación año a año" : "Proyección"}
                   </h3>
                   <div className="overflow-x-auto rounded-2xl ring-1 ring-slate-200 dark:ring-slate-700">
                     <table className="w-full text-sm">

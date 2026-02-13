@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const faqs = [
   {
@@ -47,14 +48,42 @@ interface ResultadoJubilacion {
 
 export default function CalculadoraJubilacion() {
   const { moneda } = useCurrency();
-  const [edadActual, setEdadActual] = useState<string>("");
-  const [edadJubilacion, setEdadJubilacion] = useState<string>("62");
-  const [gastoMensualActual, setGastoMensualActual] = useState<string>("");
-  const [ahorroActual, setAhorroActual] = useState<string>("");
-  const [ahorroMensual, setAhorroMensual] = useState<string>("");
-  const [tasaRetorno, setTasaRetorno] = useState<string>("8");
-  const [inflacion, setInflacion] = useState<string>("5");
-  const [añosJubilacion, setAñosJubilacion] = useState<string>("25");
+  const { values, setField } = useUrlState(
+    {
+      edadActual: "",
+      edadJubilacion: "62",
+      gastoMensualActual: "",
+      ahorroActual: "",
+      ahorroMensual: "",
+      tasaRetorno: "8",
+      inflacion: "5",
+      añosJubilacion: "25",
+    },
+    {
+      paramNames: {
+        edadActual: "ea",
+        edadJubilacion: "ej",
+        gastoMensualActual: "gm",
+        ahorroActual: "aa",
+        ahorroMensual: "am",
+        tasaRetorno: "tr",
+        inflacion: "inf",
+        añosJubilacion: "aj",
+      },
+    }
+  );
+
+  const {
+    edadActual,
+    edadJubilacion,
+    gastoMensualActual,
+    ahorroActual,
+    ahorroMensual,
+    tasaRetorno,
+    inflacion,
+    añosJubilacion,
+  } = values;
+
   const [resultado, setResultado] = useState<ResultadoJubilacion | null>(null);
   const [mostrarAvanzado, setMostrarAvanzado] = useState(false);
 
@@ -170,12 +199,7 @@ export default function CalculadoraJubilacion() {
 
   return (
     <div className="space-y-8">
-      <Link
-        href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
-      >
-        <span>←</span> Volver a Finanzas
-      </Link>
+      <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
@@ -197,7 +221,7 @@ export default function CalculadoraJubilacion() {
             <input
               type="number"
               value={edadActual}
-              onChange={(e) => setEdadActual(e.target.value)}
+              onChange={(e) => setField("edadActual",e.target.value)}
               placeholder="35"
               min="18"
               max="80"
@@ -213,7 +237,7 @@ export default function CalculadoraJubilacion() {
             <input
               type="number"
               value={edadJubilacion}
-              onChange={(e) => setEdadJubilacion(e.target.value)}
+              onChange={(e) => setField("edadJubilacion",e.target.value)}
               placeholder="62"
               min="45"
               max="80"
@@ -223,7 +247,7 @@ export default function CalculadoraJubilacion() {
               {[55, 57, 60, 62, 65].map((e) => (
                 <button
                   key={e}
-                  onClick={() => setEdadJubilacion(e.toString())}
+                  onClick={() => setField("edadJubilacion",e.toString())}
                   className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
                     edadJubilacion === e.toString()
                       ? "bg-teal-500 text-white"
@@ -248,7 +272,7 @@ export default function CalculadoraJubilacion() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">{moneda.simbolo}</span>
               <CurrencyInput
                 value={gastoMensualActual}
-                onChange={(v) => setGastoMensualActual(v)}
+                onChange={(v) => setField("gastoMensualActual",v)}
                 placeholder="3.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
@@ -267,7 +291,7 @@ export default function CalculadoraJubilacion() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">{moneda.simbolo}</span>
               <CurrencyInput
                 value={ahorroActual}
-                onChange={(v) => setAhorroActual(v)}
+                onChange={(v) => setField("ahorroActual",v)}
                 placeholder="20.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
@@ -286,7 +310,7 @@ export default function CalculadoraJubilacion() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">{moneda.simbolo}</span>
               <CurrencyInput
                 value={ahorroMensual}
-                onChange={(v) => setAhorroMensual(v)}
+                onChange={(v) => setField("ahorroMensual",v)}
                 placeholder="500.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
               />
@@ -313,7 +337,7 @@ export default function CalculadoraJubilacion() {
                     <input
                       type="number"
                       value={tasaRetorno}
-                      onChange={(e) => setTasaRetorno(e.target.value)}
+                      onChange={(e) => setField("tasaRetorno",e.target.value)}
                       placeholder="8"
                       step="0.5"
                       className="w-full px-4 py-3 rounded-xl text-base font-semibold pr-10"
@@ -330,7 +354,7 @@ export default function CalculadoraJubilacion() {
                     <input
                       type="number"
                       value={inflacion}
-                      onChange={(e) => setInflacion(e.target.value)}
+                      onChange={(e) => setField("inflacion",e.target.value)}
                       placeholder="5"
                       step="0.5"
                       className="w-full px-4 py-3 rounded-xl text-base font-semibold pr-10"
@@ -346,7 +370,7 @@ export default function CalculadoraJubilacion() {
                   <input
                     type="number"
                     value={añosJubilacion}
-                    onChange={(e) => setAñosJubilacion(e.target.value)}
+                    onChange={(e) => setField("añosJubilacion",e.target.value)}
                     placeholder="25"
                     className="w-full px-4 py-3 rounded-xl text-base font-semibold"
                   />

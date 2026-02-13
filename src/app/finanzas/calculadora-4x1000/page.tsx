@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const faqs = [
   {
@@ -30,17 +30,28 @@ const faqs = [
 ];
 
 export default function Calculadora4x1000() {
-  const [monto, setMonto] = useState<string>("");
-  const [frecuencia, setFrecuencia] = useState<"unica" | "mensual" | "anual">("unica");
-  const [cantidadMensual, setCantidadMensual] = useState<string>("1");
+  const { values, setField } = useUrlState(
+    {
+      monto: "",
+      frecuencia: "unica",
+      cantidadMensual: "1",
+    },
+    {
+      paramNames: {
+        monto: "m",
+        frecuencia: "f",
+        cantidadMensual: "cm",
+      },
+    }
+  );
 
-  const montoNum = parseFloat(monto) || 0;
+  const montoNum = parseFloat(values.monto) || 0;
   const impuesto = montoNum * 0.004;
-  const cantidad = parseInt(cantidadMensual) || 1;
+  const cantidad = parseInt(values.cantidadMensual) || 1;
 
   const calcularTotal = () => {
-    if (frecuencia === "unica") return impuesto;
-    if (frecuencia === "mensual") return impuesto * cantidad * 12;
+    if (values.frecuencia === "unica") return impuesto;
+    if (values.frecuencia === "mensual") return impuesto * cantidad * 12;
     return impuesto * cantidad;
   };
 
@@ -63,12 +74,7 @@ export default function Calculadora4x1000() {
 
   return (
     <div className="space-y-8">
-      <Link
-        href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
-      >
-        <span>←</span> Volver a Finanzas
-      </Link>
+      <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
@@ -92,8 +98,8 @@ export default function Calculadora4x1000() {
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
               <CurrencyInput
-                value={monto}
-                onChange={(v) => setMonto(v)}
+                value={values.monto}
+                onChange={(v) => setField("monto", v)}
                 locale="es-CO"
                 placeholder="1.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
@@ -103,9 +109,9 @@ export default function Calculadora4x1000() {
               {ejemplos.map((ej) => (
                 <button
                   key={ej.valor}
-                  onClick={() => setMonto(ej.valor.toString())}
+                  onClick={() => setField("monto", ej.valor.toString())}
                   className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                    monto === ej.valor.toString()
+                    values.monto === ej.valor.toString()
                       ? "bg-teal-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                   }`}
@@ -129,9 +135,9 @@ export default function Calculadora4x1000() {
               ].map((opt) => (
                 <button
                   key={opt.value}
-                  onClick={() => setFrecuencia(opt.value as typeof frecuencia)}
+                  onClick={() => setField("frecuencia", opt.value)}
                   className={`px-4 py-3 rounded-xl font-semibold transition-colors ${
-                    frecuencia === opt.value
+                    values.frecuencia === opt.value
                       ? "bg-teal-500 text-white"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                   }`}
@@ -142,15 +148,15 @@ export default function Calculadora4x1000() {
             </div>
           </div>
 
-          {frecuencia !== "unica" && (
+          {values.frecuencia !== "unica" && (
             <div className="space-y-3">
               <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
-                ¿Cuántas veces {frecuencia === "mensual" ? "al mes" : "al año"}?
+                ¿Cuántas veces {values.frecuencia === "mensual" ? "al mes" : "al año"}?
               </label>
               <input
                 type="number"
-                value={cantidadMensual}
-                onChange={(e) => setCantidadMensual(e.target.value)}
+                value={values.cantidadMensual}
+                onChange={(e) => setField("cantidadMensual", e.target.value)}
                 min="1"
                 className="w-full px-6 py-4 rounded-2xl text-lg font-semibold"
               />
@@ -163,12 +169,12 @@ export default function Calculadora4x1000() {
               <div className="p-6 bg-teal-50 dark:bg-teal-950/50 rounded-3xl ring-1 ring-teal-100 dark:ring-teal-900">
                 <div className="text-center">
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
-                    Impuesto 4x1000 {frecuencia === "unica" ? "" : frecuencia === "mensual" ? "(anual)" : "(total año)"}
+                    Impuesto 4x1000 {values.frecuencia === "unica" ? "" : values.frecuencia === "mensual" ? "(anual)" : "(total año)"}
                   </p>
                   <p className="text-4xl font-black text-teal-600">
                     ${formatMoney(impuestoTotal)}
                   </p>
-                  {frecuencia === "unica" && (
+                  {values.frecuencia === "unica" && (
                     <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
                       Recibes: ${formatMoney(montoNum - impuesto)}
                     </p>

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback, Suspense } from "react";
+import { useMemo, useCallback } from "react";
 import Link from "next/link";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { useUrlState } from "@/hooks/useUrlState";
 import {
   AreaChart,
   Area,
@@ -133,91 +134,36 @@ const faqs = [
 ];
 
 function CalculadoraMetaAhorroContent() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
+  const { values, setField } = useUrlState(
+    {
+      tipoCalculo: "meta",
+      meta: "10000000",
+      meses: "12",
+      capitalInicial: "0",
+      ahorroMensual: "500000",
+      cuentaSeleccionada: "uala",
+      tasaPersonalizada: "10",
+    },
+    {
+      paramNames: {
+        tipoCalculo: "modo",
+        meta: "meta",
+        meses: "meses",
+        capitalInicial: "capital",
+        ahorroMensual: "ahorro",
+        cuentaSeleccionada: "cuenta",
+        tasaPersonalizada: "tasa",
+      },
+    }
+  );
 
-  const [tipoCalculo, setTipoCalculo] = useState<"meta" | "tiempo">(
-    (searchParams.get("modo") as "meta" | "tiempo") || "meta"
-  );
-  const [meta, setMeta] = useState<string>(
-    searchParams.get("meta") || "10000000"
-  );
-  const [meses, setMeses] = useState<string>(
-    searchParams.get("meses") || "12"
-  );
-  const [capitalInicial, setCapitalInicial] = useState<string>(
-    searchParams.get("capital") || "0"
-  );
-  const [ahorroMensual, setAhorroMensual] = useState<string>(
-    searchParams.get("ahorro") || "500000"
-  );
-  const [cuentaSeleccionada, setCuentaSeleccionada] = useState<CuentaId>(
-    (searchParams.get("cuenta") as CuentaId) || "uala"
-  );
-  const [tasaPersonalizada, setTasaPersonalizada] = useState<string>(
-    searchParams.get("tasa") || "10"
-  );
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const { tipoCalculo, meta, meses, capitalInicial, ahorroMensual, cuentaSeleccionada, tasaPersonalizada } = values;
 
   const buildShareUrl = useCallback(() => {
     if (typeof window === "undefined") return "";
-    const params = new URLSearchParams();
-    if (tipoCalculo !== "meta") {
-      params.set("modo", tipoCalculo);
-    }
-    params.set("meta", meta);
-    if (tipoCalculo === "tiempo" && ahorroMensual !== "500000") {
-      params.set("ahorro", ahorroMensual);
-    }
-    if (tipoCalculo === "meta" && meses !== "12") {
-      params.set("meses", meses);
-    }
-    if (capitalInicial && capitalInicial !== "0") {
-      params.set("capital", capitalInicial);
-    }
-    if (cuentaSeleccionada !== "uala") {
-      params.set("cuenta", cuentaSeleccionada);
-    }
-    if (cuentaSeleccionada === "otro" && tasaPersonalizada !== "10") {
-      params.set("tasa", tasaPersonalizada);
-    }
-    const queryString = params.toString();
-    return `${window.location.origin}${pathname}${queryString ? `?${queryString}` : ""}`;
-  }, [meta, meses, capitalInicial, cuentaSeleccionada, pathname, tipoCalculo, ahorroMensual, tasaPersonalizada]);
-
-  useEffect(() => {
-    if (!isClient) return;
-    const params = new URLSearchParams();
-    if (tipoCalculo !== "meta") {
-      params.set("modo", tipoCalculo);
-    }
-    if (meta && meta !== "10000000") {
-      params.set("meta", meta);
-    }
-    if (tipoCalculo === "tiempo" && ahorroMensual && ahorroMensual !== "500000") {
-      params.set("ahorro", ahorroMensual);
-    }
-    if (tipoCalculo === "meta" && meses && meses !== "12") {
-      params.set("meses", meses);
-    }
-    if (capitalInicial && capitalInicial !== "0") {
-      params.set("capital", capitalInicial);
-    }
-    if (cuentaSeleccionada !== "uala") {
-      params.set("cuenta", cuentaSeleccionada);
-    }
-    if (cuentaSeleccionada === "otro" && tasaPersonalizada !== "10") {
-      params.set("tasa", tasaPersonalizada);
-    }
-    const queryString = params.toString();
-    const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
-    router.replace(newUrl, { scroll: false });
-  }, [meta, meses, capitalInicial, cuentaSeleccionada, isClient, pathname, router, tipoCalculo, ahorroMensual, tasaPersonalizada]);
+    const search = window.location.search;
+    return `${window.location.origin}${window.location.pathname}${search}`;
+  }, [values]);
 
   // Obtener la tasa efectiva según la cuenta seleccionada
   const getTasaEfectiva = useCallback((cuentaId: CuentaId) => {
@@ -486,12 +432,7 @@ function CalculadoraMetaAhorroContent() {
 
   return (
     <div className="space-y-8">
-      <Link
-        href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
-      >
-        <span>←</span> Volver a Finanzas
-      </Link>
+      <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
@@ -514,7 +455,7 @@ function CalculadoraMetaAhorroContent() {
             </label>
             <div className="flex rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700">
               <button
-                onClick={() => setTipoCalculo("meta")}
+                onClick={() => setField("tipoCalculo","meta")}
                 className={`flex-1 px-4 py-3 font-semibold transition-colors ${
                   tipoCalculo === "meta"
                     ? "bg-teal-500 text-white"
@@ -524,7 +465,7 @@ function CalculadoraMetaAhorroContent() {
                 ¿Cuánto ahorrar?
               </button>
               <button
-                onClick={() => setTipoCalculo("tiempo")}
+                onClick={() => setField("tipoCalculo","tiempo")}
                 className={`flex-1 px-4 py-3 font-semibold transition-colors ${
                   tipoCalculo === "tiempo"
                     ? "bg-teal-500 text-white"
@@ -550,7 +491,7 @@ function CalculadoraMetaAhorroContent() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
               <CurrencyInput
                 value={meta}
-                onChange={(v) => setMeta(v)}
+                onChange={(v) => setField("meta",v)}
                 locale="es-CO"
                 placeholder="10.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
@@ -560,7 +501,7 @@ function CalculadoraMetaAhorroContent() {
               {[5000000, 10000000, 20000000, 50000000, 100000000].map((monto) => (
                 <button
                   key={monto}
-                  onClick={() => setMeta(monto.toString())}
+                  onClick={() => setField("meta",monto.toString())}
                   className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
                     meta === monto.toString()
                       ? "bg-teal-500 text-white"
@@ -583,7 +524,7 @@ function CalculadoraMetaAhorroContent() {
                 {[6, 12, 24, 36, 60].map((m) => (
                   <button
                     key={m}
-                    onClick={() => setMeses(m.toString())}
+                    onClick={() => setField("meses",m.toString())}
                     className={`px-4 py-2 rounded-xl font-semibold transition-colors ${
                       meses === m.toString()
                         ? "bg-teal-500 text-white"
@@ -600,7 +541,7 @@ function CalculadoraMetaAhorroContent() {
                   <input
                     type="number"
                     value={meses}
-                    onChange={(e) => setMeses(e.target.value)}
+                    onChange={(e) => setField("meses",e.target.value)}
                     min="1"
                     max="600"
                     className="w-full px-4 py-2 pr-16 rounded-xl text-lg font-semibold"
@@ -618,7 +559,7 @@ function CalculadoraMetaAhorroContent() {
                 <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
                 <CurrencyInput
                   value={ahorroMensual}
-                  onChange={(v) => setAhorroMensual(v)}
+                  onChange={(v) => setField("ahorroMensual",v)}
                   locale="es-CO"
                   placeholder="500.000"
                   className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
@@ -628,7 +569,7 @@ function CalculadoraMetaAhorroContent() {
                 {[200000, 500000, 1000000, 2000000].map((monto) => (
                   <button
                     key={monto}
-                    onClick={() => setAhorroMensual(monto.toString())}
+                    onClick={() => setField("ahorroMensual",monto.toString())}
                     className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
                       ahorroMensual === monto.toString()
                         ? "bg-teal-500 text-white"
@@ -651,7 +592,7 @@ function CalculadoraMetaAhorroContent() {
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
               <CurrencyInput
                 value={capitalInicial}
-                onChange={(v) => setCapitalInicial(v)}
+                onChange={(v) => setField("capitalInicial",v)}
                 locale="es-CO"
                 placeholder="0"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
@@ -671,7 +612,7 @@ function CalculadoraMetaAhorroContent() {
               {CUENTAS_AHORRO.map((cuenta) => (
                 <button
                   key={cuenta.id}
-                  onClick={() => setCuentaSeleccionada(cuenta.id)}
+                  onClick={() => setField("cuentaSeleccionada",cuenta.id)}
                   className={`p-3 rounded-xl text-left transition-all border-2 ${
                     cuentaSeleccionada === cuenta.id
                       ? "border-teal-500 bg-teal-50 dark:bg-teal-950/50"
@@ -700,7 +641,7 @@ function CalculadoraMetaAhorroContent() {
                   <input
                     type="number"
                     value={tasaPersonalizada}
-                    onChange={(e) => setTasaPersonalizada(e.target.value)}
+                    onChange={(e) => setField("tasaPersonalizada",e.target.value)}
                     placeholder="10"
                     step="0.1"
                     min="0"
@@ -925,7 +866,7 @@ function CalculadoraMetaAhorroContent() {
                                 ? "bg-teal-50 dark:bg-teal-950/50 ring-2 ring-teal-500"
                                 : "bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700/50 cursor-pointer"
                             }`}
-                            onClick={() => setCuentaSeleccionada(cuenta.id)}
+                            onClick={() => setField("cuentaSeleccionada",cuenta.id)}
                           >
                             <div className="flex items-center gap-3 min-w-0">
                               <div
@@ -1043,26 +984,6 @@ function CalculadoraMetaAhorroContent() {
   );
 }
 
-function CalculadoraLoading() {
-  return (
-    <div className="space-y-8">
-      <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg animate-pulse">
-            <Icon name="target" className="w-10 h-10" />
-          </div>
-          <div className="h-10 bg-slate-200 dark:bg-slate-700 rounded-xl w-3/4 mx-auto mb-3 animate-pulse" />
-          <div className="h-5 bg-slate-100 dark:bg-slate-800 rounded-lg w-1/2 mx-auto animate-pulse" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function CalculadoraMetaAhorro() {
-  return (
-    <Suspense fallback={<CalculadoraLoading />}>
-      <CalculadoraMetaAhorroContent />
-    </Suspense>
-  );
+  return <CalculadoraMetaAhorroContent />;
 }

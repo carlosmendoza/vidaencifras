@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const faqs = [
   {
@@ -36,10 +36,22 @@ const faqs = [
 ];
 
 export default function CalculadoraPrestacionServicios() {
-  const [valorContrato, setValorContrato] = useState<string>("");
-  const [esDeclarante, setEsDeclarante] = useState<boolean>(true);
-  const [incluyeArl, setIncluyeArl] = useState<boolean>(true);
-  const [nivelRiesgo, setNivelRiesgo] = useState<string>("1");
+  const { values, setField } = useUrlState(
+    {
+      valorContrato: "",
+      esDeclarante: "true",
+      incluyeArl: "true",
+      nivelRiesgo: "1",
+    },
+    {
+      paramNames: {
+        valorContrato: "vc",
+        esDeclarante: "ed",
+        incluyeArl: "ia",
+        nivelRiesgo: "nr",
+      },
+    }
+  );
 
   // Constantes 2026
   const SMMLV = 1750905;
@@ -54,7 +66,7 @@ export default function CalculadoraPrestacionServicios() {
     "5": 0.0696,  // Riesgo V - 6.96%
   };
 
-  const valorNum = parseFloat(valorContrato) || 0;
+  const valorNum = parseFloat(values.valorContrato) || 0;
 
   // Calcular IBC (40% del contrato, mínimo 1 SMMLV, máximo 25 SMMLV)
   const ibcCalculado = valorNum * 0.4;
@@ -63,12 +75,12 @@ export default function CalculadoraPrestacionServicios() {
   // Aportes a seguridad social
   const aporteSalud = ibc * 0.125; // 12.5%
   const aportePension = ibc * 0.16; // 16%
-  const tasaArl = TASAS_ARL[nivelRiesgo];
-  const aporteArl = incluyeArl ? ibc * tasaArl : 0;
+  const tasaArl = TASAS_ARL[values.nivelRiesgo];
+  const aporteArl = values.incluyeArl === "true" ? ibc * tasaArl : 0;
   const totalSeguridadSocial = aporteSalud + aportePension + aporteArl;
 
   // Retención en la fuente
-  const tasaRetencion = esDeclarante ? 0.11 : 0.10;
+  const tasaRetencion = values.esDeclarante === "true" ? 0.11 : 0.10;
   const retencion = valorNum * tasaRetencion;
 
   // Valor neto
@@ -88,12 +100,7 @@ export default function CalculadoraPrestacionServicios() {
 
   return (
     <div className="space-y-8">
-      <Link
-        href="/finanzas"
-        className="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center gap-2 font-medium transition-colors"
-      >
-        <span>←</span> Volver a Finanzas
-      </Link>
+      <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
         <div className="text-center mb-10">
@@ -115,8 +122,8 @@ export default function CalculadoraPrestacionServicios() {
             <div className="relative">
               <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold">$</span>
               <CurrencyInput
-                value={valorContrato}
-                onChange={(v) => setValorContrato(v)}
+                value={values.valorContrato}
+                onChange={(v) => setField("valorContrato", v)}
                 locale="es-CO"
                 placeholder="5.000.000"
                 className="w-full pl-12 pr-6 py-4 rounded-2xl text-lg font-semibold"
@@ -130,9 +137,9 @@ export default function CalculadoraPrestacionServicios() {
               ].map((s) => (
                 <button
                   key={s.value}
-                  onClick={() => setValorContrato(s.value.toString())}
+                  onClick={() => setField("valorContrato", s.value.toString())}
                   className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${
-                    valorContrato === s.value.toString()
+                    values.valorContrato === s.value.toString()
                       ? "bg-teal-500 text-white"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
@@ -150,9 +157,9 @@ export default function CalculadoraPrestacionServicios() {
             </label>
             <div className="grid grid-cols-2 gap-2">
               <button
-                onClick={() => setEsDeclarante(true)}
+                onClick={() => setField("esDeclarante", "true")}
                 className={`px-4 py-3 rounded-xl font-semibold transition-colors ${
-                  esDeclarante
+                  values.esDeclarante === "true"
                     ? "bg-teal-500 text-white"
                     : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                 }`}
@@ -160,9 +167,9 @@ export default function CalculadoraPrestacionServicios() {
                 Sí (11% retención)
               </button>
               <button
-                onClick={() => setEsDeclarante(false)}
+                onClick={() => setField("esDeclarante", "false")}
                 className={`px-4 py-3 rounded-xl font-semibold transition-colors ${
-                  !esDeclarante
+                  values.esDeclarante !== "true"
                     ? "bg-teal-500 text-white"
                     : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                 }`}
@@ -176,8 +183,8 @@ export default function CalculadoraPrestacionServicios() {
           <label className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl cursor-pointer">
             <input
               type="checkbox"
-              checked={incluyeArl}
-              onChange={(e) => setIncluyeArl(e.target.checked)}
+              checked={values.incluyeArl === "true"}
+              onChange={(e) => setField("incluyeArl", e.target.checked ? "true" : "false")}
               className="w-5 h-5 rounded-lg border-2 border-slate-300 text-teal-500 focus:ring-teal-500"
             />
             <div>
@@ -191,14 +198,14 @@ export default function CalculadoraPrestacionServicios() {
           </label>
 
           {/* Nivel de riesgo ARL */}
-          {incluyeArl && (
+          {values.incluyeArl === "true" && (
             <div className="space-y-3">
               <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
                 Nivel de riesgo ARL
               </label>
               <select
-                value={nivelRiesgo}
-                onChange={(e) => setNivelRiesgo(e.target.value)}
+                value={values.nivelRiesgo}
+                onChange={(e) => setField("nivelRiesgo", e.target.value)}
                 className="w-full px-4 py-4 rounded-2xl text-base font-semibold bg-white dark:bg-slate-800 border-none"
               >
                 <option value="1">Riesgo I (0.522%) - Oficina, administrativo</option>
@@ -267,7 +274,7 @@ export default function CalculadoraPrestacionServicios() {
                     <span className="font-semibold text-red-500">-${formatMoney(aportePension)}</span>
                   </div>
 
-                  {incluyeArl && (
+                  {values.incluyeArl === "true" && (
                     <div className="flex justify-between items-center">
                       <span className="text-sm text-slate-600 dark:text-slate-300">ARL ({(tasaArl * 100).toFixed(3)}%)</span>
                       <span className="font-semibold text-red-500">-${formatMoney(aporteArl)}</span>
@@ -283,7 +290,7 @@ export default function CalculadoraPrestacionServicios() {
                 <div className="flex justify-between items-center p-4 bg-teal-50 dark:bg-teal-900/20 rounded-xl">
                   <div>
                     <span className="font-semibold text-teal-700 dark:text-teal-300">Retención en la fuente</span>
-                    <p className="text-xs text-teal-500">{esDeclarante ? "11%" : "10%"} del valor bruto</p>
+                    <p className="text-xs text-teal-500">{values.esDeclarante === "true" ? "11%" : "10%"} del valor bruto</p>
                   </div>
                   <span className="font-bold text-lg text-teal-600">
                     -${formatMoney(retencion)}

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
-import Link from "next/link";
 import { FAQ } from "@/components/FAQ";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Icon } from "@/lib/icons";
 import { useUrlState } from "@/hooks/useUrlState";
 
@@ -383,12 +383,7 @@ export default function CalculadoraPomodoro() {
 
   return (
     <div className="space-y-6 sm:space-y-8 overflow-x-hidden">
-      <Link
-        href="/productividad"
-        className="text-slate-500 dark:text-slate-400 hover:text-orange-600 dark:hover:text-orange-400 inline-flex items-center gap-2 font-medium transition-colors"
-      >
-        <span>←</span> Volver a Productividad
-      </Link>
+      <Breadcrumbs />
 
       <div className="card-glass rounded-xl sm:rounded-2xl p-5 sm:p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-orange-500/5">
         <div className="text-center mb-6 sm:mb-8">
