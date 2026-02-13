@@ -71,6 +71,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const legalPages = [
     { url: `${siteUrl}/privacidad`, priority: 0.3, changeFrequency: "yearly" as const },
     { url: `${siteUrl}/terminos`, priority: 0.3, changeFrequency: "yearly" as const },
+    { url: `${siteUrl}/contacto`, priority: 0.4, changeFrequency: "yearly" as const },
   ];
 
   return [

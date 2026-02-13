@@ -114,8 +114,8 @@ export default function PrivacidadPage() {
         <section>
           <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-4">9. Contacto</h2>
           <p className="leading-relaxed">
-            Si tienes preguntas sobre esta política de privacidad, puedes contactarnos a través de
-            nuestras redes sociales o dejando un comentario en el blog.
+            Si tienes preguntas sobre esta política de privacidad, puedes escribirnos a través de
+            nuestra <a href="/contacto" className="text-indigo-600 dark:text-indigo-400 underline hover:no-underline">página de contacto</a>.
           </p>
         </section>
       </div>

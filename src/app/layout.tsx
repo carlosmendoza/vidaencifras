@@ -10,6 +10,8 @@ import { Providers } from "@/components/Providers";
 import CommandPalette from "@/components/CommandPalette";
 import SearchTrigger from "@/components/SearchTrigger";
 import { Icon } from "@/lib/icons";
+import { CookieConsent } from "@/components/CookieConsent";
+import { GoogleTagManager, GoogleTagManagerNoscript } from "@/components/GoogleTagManager";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -157,15 +159,7 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="hYHWKohgrr1oBRch8cS7bFpBDkF15gHhAYoGmeJQJl4" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TF8GVTZ4');`,
-          }}
-        />
+        <GoogleTagManager />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -194,14 +188,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
       </head>
       <body className={`${inter.className} antialiased`}>
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-TF8GVTZ4"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript>
+        <GoogleTagManagerNoscript />
         <Providers>
           <ScrollToTop />
           <nav className="glass sticky top-0 z-50 border-b border-indigo-100/50 dark:border-indigo-900/50">
@@ -254,6 +241,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     <Link href="/terminos" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                       Términos
                     </Link>
+                    <Link href="/contacto" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                      Contacto
+                    </Link>
                   </nav>
                 </div>
                 <div className="flex gap-4 text-xs font-semibold">
@@ -264,6 +254,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               </div>
             </div>
           </footer>
+          <CookieConsent />
         </Providers>
       </body>
     </html>
