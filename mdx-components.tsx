@@ -54,6 +54,16 @@ const OvertimeRatesChart = dynamic(
   { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
 );
 
+const HeartRateZonesChart = dynamic(
+  () => import("@/components/charts/HeartRateZonesChart").then((mod) => mod.HeartRateZonesChart),
+  { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
+);
+
+const SleepCyclesChart = dynamic(
+  () => import("@/components/charts/SleepCyclesChart").then((mod) => mod.SleepCyclesChart),
+  { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
+);
+
 const theadColorsByCategory: Record<string, string> = {
   finanzas: "bg-teal-500",
   salud: "bg-red-500",
@@ -158,6 +168,8 @@ export function useMDXComponents(components: MDXComponents, category?: string): 
     WeeklyTimeChart,
     SalaryBreakdownChart,
     OvertimeRatesChart,
+    HeartRateZonesChart,
+    SleepCyclesChart,
     Callout,
     ...components,
   };
