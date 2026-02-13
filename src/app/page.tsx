@@ -44,7 +44,7 @@ export default function Home() {
   return (
     <div className="space-y-16 md:space-y-32 mb-10 md:mb-20">
       {/* Hero */}
-      <section className="py-12 md:py-20 animate-fade-in-up">
+      <section className="pt-8 md:pt-12 animate-fade-in-up relative z-10">
         <div className="w-12 h-1.5 bg-indigo-600 dark:bg-indigo-400 rounded-full mb-8" />
         <h1 className="text-4xl md:text-7xl font-black tracking-tight leading-[1.1] text-slate-800 dark:text-slate-100">
           Las cuentas que nadie{" "}
@@ -63,6 +63,9 @@ export default function Home() {
               {chip.label}
             </Link>
           ))}
+        </div>
+        <div className="mt-10">
+          <DatoDelDia />
         </div>
       </section>
 
@@ -149,11 +152,6 @@ export default function Home() {
             ))}
           </div>
         </section>
-      </Reveal>
-
-      {/* Dato del día */}
-      <Reveal>
-        <DatoDelDia />
       </Reveal>
 
       {/* Blog */}

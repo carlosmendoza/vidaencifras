@@ -54,9 +54,8 @@ export function CurrencyPrompt() {
     return (
       <div className="fixed bottom-4 right-4 z-50 animate-fade-in-up">
         <div className="bg-emerald-500 text-white rounded-2xl shadow-2xl shadow-emerald-500/30 p-4 flex items-center gap-3">
-          <span className="text-2xl">✓</span>
           <p className="font-medium">
-            Listo, {selectedMoneda?.nombre}
+            {selectedMoneda?.nombre}
           </p>
         </div>
       </div>

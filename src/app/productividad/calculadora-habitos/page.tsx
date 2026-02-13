@@ -348,25 +348,39 @@ export default function CalculadoraHabitosPage() {
 
         {/* Plantillas */}
         <div className="mb-8">
-          <p className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-3">
+          <p className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-4">
             Elige un hábito común o crea el tuyo
           </p>
-          <div className="flex flex-wrap gap-2">
-            {plantillas.map((p) => (
-              <button
-                key={p.nombre}
-                onClick={() => seleccionarPlantilla(p)}
-                className={`px-3 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${values.nombreHabito === p.nombre
-                    ? p.impacto === "positivo"
-                      ? "bg-emerald-500 text-white"
-                      : "bg-rose-500 text-white"
-                    : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
-                  }`}
-              >
-                <Icon name={p.icon} className="w-4 h-4" />
-                {p.nombre}
-              </button>
-            ))}
+          <div className="space-y-4">
+            {(["dinero", "tiempo", "salud"] as TipoHabito[]).map((tipo) => {
+              const grupo = plantillas.filter((p) => p.tipo === tipo);
+              if (grupo.length === 0) return null;
+              const label = tipo === "dinero" ? "Dinero" : tipo === "tiempo" ? "Tiempo" : "Salud";
+              return (
+                <div key={tipo}>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-1.5 block">
+                    {label}
+                  </span>
+                  <div className="grid grid-cols-2 gap-1.5">
+                    {grupo.map((p) => (
+                      <button
+                        key={p.nombre}
+                        onClick={() => seleccionarPlantilla(p)}
+                        className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-1.5 ${values.nombreHabito === p.nombre
+                            ? p.impacto === "positivo"
+                              ? "bg-emerald-500 text-white"
+                              : "bg-rose-500 text-white"
+                            : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
+                          }`}
+                      >
+                        <Icon name={p.icon} className="w-3.5 h-3.5" />
+                        {p.nombre}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
