@@ -8,16 +8,23 @@ import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
 
-// Tasas de referencia de bancos colombianos (actualizar periódicamente)
+// Tasas de referencia de bancos colombianos — febrero 2026
+// Fuentes: Superintendencia Financiera, La República, El Tiempo (corte: 9 feb 2026)
 const BANCOS_PRESETS = [
-  { nombre: "Bancolombia", tasa90: 9.5, tasa180: 10.0, tasa360: 10.5 },
-  { nombre: "Davivienda", tasa90: 9.0, tasa180: 9.8, tasa360: 10.2 },
-  { nombre: "Banco de Bogotá", tasa90: 9.2, tasa180: 9.9, tasa360: 10.3 },
-  { nombre: "BBVA", tasa90: 8.8, tasa180: 9.5, tasa360: 10.0 },
-  { nombre: "Scotiabank", tasa90: 9.3, tasa180: 9.7, tasa360: 10.1 },
-  { nombre: "Banco de Occidente", tasa90: 9.4, tasa180: 10.1, tasa360: 10.6 },
-  { nombre: "Banco Popular", tasa90: 9.6, tasa180: 10.2, tasa360: 10.7 },
-  { nombre: "Banco Caja Social", tasa90: 9.8, tasa180: 10.3, tasa360: 10.8 },
+  { nombre: "Tuya", tasa90: 10.45, tasa180: 11.5, tasa360: 12.89 },
+  { nombre: "MiBanco", tasa90: 10.11, tasa180: 10.8, tasa360: 12.69 },
+  { nombre: "Banco de Bogotá", tasa90: 9.8, tasa180: 10.5, tasa360: 12.14 },
+  { nombre: "AV Villas", tasa90: 9.5, tasa180: 10.3, tasa360: 12.06 },
+  { nombre: "Banco W", tasa90: 8.62, tasa180: 10.2, tasa360: 12.0 },
+  { nombre: "Bold", tasa90: 9.6, tasa180: 11.92, tasa360: 11.92 },
+  { nombre: "Davivienda", tasa90: 9.0, tasa180: 10.0, tasa360: 11.92 },
+  { nombre: "Banco de Occidente", tasa90: 10.15, tasa180: 10.5, tasa360: 11.85 },
+  { nombre: "Credifamilia", tasa90: 9.3, tasa180: 10.6, tasa360: 11.8 },
+  { nombre: "Bancolombia", tasa90: 8.3, tasa180: 9.5, tasa360: 11.48 },
+  { nombre: "BBVA", tasa90: 9.0, tasa180: 9.8, tasa360: 11.48 },
+  { nombre: "Itaú", tasa90: 8.55, tasa180: 9.5, tasa360: 11.05 },
+  { nombre: "Nu Colombia", tasa90: 9.5, tasa180: 10.0, tasa360: 10.5 },
+  { nombre: "Banco Falabella", tasa90: 8.5, tasa180: 9.2, tasa360: 10.0 },
 ];
 
 const RETENCION_FUENTE = 0.04; // 4% de retención en la fuente
