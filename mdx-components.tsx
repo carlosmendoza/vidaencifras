@@ -64,6 +64,16 @@ const SleepCyclesChart = dynamic(
   { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
 );
 
+const HydrationChart = dynamic(
+  () => import("@/components/charts/HydrationChart").then((mod) => mod.HydrationChart),
+  { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
+);
+
+const HealthIndicatorsChart = dynamic(
+  () => import("@/components/charts/HealthIndicatorsChart").then((mod) => mod.HealthIndicatorsChart),
+  { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
+);
+
 const theadColorsByCategory: Record<string, string> = {
   finanzas: "bg-teal-500",
   salud: "bg-red-500",
@@ -170,6 +180,8 @@ export function useMDXComponents(components: MDXComponents, category?: string): 
     OvertimeRatesChart,
     HeartRateZonesChart,
     SleepCyclesChart,
+    HydrationChart,
+    HealthIndicatorsChart,
     Callout,
     ...components,
   };
