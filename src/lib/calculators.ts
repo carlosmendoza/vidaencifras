@@ -724,6 +724,32 @@ const registroHerramientas: CalculadoraMeta[] = [
     ],
     header: { title: "Días Vividos", subtitle: "Descubre tu vida en números" },
   },
+  {
+    nombre: "Calculadora TRM", descripcion: "Convierte dólares a pesos colombianos",
+    href: "/herramientas/calculadora-trm", icon: "coins", gradient: gradients.herramientas, categoria: "herramientas",
+    meta: { title: "Calculadora TRM Hoy Colombia - Convertir Dólares a Pesos", description: "Convierte dólares a pesos colombianos con la TRM del día. Tasa Representativa del Mercado actualizada automáticamente desde el Banco de la República. Gratis.", keywords: ["trm hoy", "dolar a peso colombiano", "calculadora trm", "trm colombia hoy", "precio del dolar hoy colombia", "convertir dolares a pesos", "tasa representativa del mercado", "dolar colombia", "cuanto esta el dolar hoy", "trm del dia"] },
+    jsonLd: { name: "Calculadora TRM Colombia", description: "Convierte dólares a pesos colombianos con la TRM del día.", applicationCategory: "FinanceApplication", priceCurrency: "COP" },
+    faqs: [
+      { question: "¿Qué es la TRM?", answer: "La Tasa Representativa del Mercado (TRM) es el precio oficial del dólar estadounidense en Colombia. La calcula la Superintendencia Financiera con base en las operaciones de compra y venta de dólares entre entidades financieras autorizadas." },
+      { question: "¿Quién fija la TRM en Colombia?", answer: "La TRM no la fija el gobierno ni el Banco de la República. Es el resultado de la oferta y demanda de dólares en el mercado colombiano. La Superintendencia Financiera la certifica diariamente con base en operaciones reales." },
+      { question: "¿Cuándo se actualiza la TRM?", answer: "La TRM se publica cada día hábil después del cierre del mercado y aplica para el día hábil siguiente. Los fines de semana y festivos aplica la TRM del último día hábil." },
+      { question: "¿Es lo mismo la TRM que el precio del dólar en casas de cambio?", answer: "No. La TRM es una tasa de referencia oficial. Las casas de cambio, bancos y plataformas aplican un spread (margen) sobre la TRM, por lo que el precio de compra y venta puede ser diferente." },
+    ],
+    header: { title: "Calculadora TRM", subtitle: "Convierte dólares a pesos colombianos con la TRM del día" },
+  },
+  {
+    nombre: "Calculadora de Edad", descripcion: "Tu edad exacta en años, meses y días",
+    href: "/herramientas/calculadora-edad", icon: "calendar", gradient: gradients.herramientas, categoria: "herramientas",
+    meta: { title: "Calculadora de Edad Exacta - ¿Cuántos Años Tengo?", description: "Calcula tu edad exacta en años, meses y días. Descubre cuántos días has vivido, tu signo zodiacal, generación y cuánto falta para tu próximo cumpleaños.", keywords: ["calculadora de edad", "cuantos años tengo", "calcular edad", "edad exacta", "cuantos dias tengo", "mi edad en dias", "calcular edad exacta", "cuantos meses tengo", "calculadora edad online", "edad en dias"] },
+    jsonLd: { name: "Calculadora de Edad Exacta", description: "Calcula tu edad exacta en años, meses y días desde tu fecha de nacimiento.", applicationCategory: "UtilitiesApplication", priceCurrency: "USD" },
+    faqs: [
+      { question: "¿Cómo se calcula la edad exacta?", answer: "La edad exacta se calcula restando la fecha de nacimiento de la fecha actual, contando años completos, meses restantes y días sobrantes. Un año tiene entre 365 y 366 días (años bisiestos)." },
+      { question: "¿Cuántos días tiene una persona de 30 años?", answer: "Una persona de 30 años ha vivido aproximadamente 10.957 días, contando los años bisiestos. Son más de 263.000 horas o casi 16 millones de minutos." },
+      { question: "¿A qué edad puedo pensionarme en Colombia?", answer: "En Colombia, la edad de pensión es 57 años para mujeres y 62 años para hombres, con un mínimo de 1.300 semanas cotizadas (aproximadamente 25 años de aportes)." },
+      { question: "¿Hasta qué edad estoy como beneficiario en la EPS?", answer: "Los hijos están como beneficiarios en la EPS de sus padres hasta los 25 años, siempre que estén estudiando y dependan económicamente de ellos. Después deben afiliarse por cuenta propia." },
+    ],
+    header: { title: "Calculadora de Edad", subtitle: "Tu edad exacta en años, meses y días" },
+  },
 ];
 
 // ============================================================

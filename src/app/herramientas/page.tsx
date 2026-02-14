@@ -69,6 +69,20 @@ const calculadoras = [
     icon: "receipt",
     gradient: "bg-purple-500",
   },
+  {
+    nombre: "Calculadora TRM",
+    descripcion: "Convierte dólares a pesos colombianos con la TRM del día",
+    href: "/herramientas/calculadora-trm",
+    icon: "coins",
+    gradient: "bg-purple-500",
+  },
+  {
+    nombre: "Calculadora de Edad",
+    descripcion: "Tu edad exacta en años, meses y días desde tu nacimiento",
+    href: "/herramientas/calculadora-edad",
+    icon: "calendar",
+    gradient: "bg-purple-500",
+  },
 ];
 
 export default function HerramientasPage() {
