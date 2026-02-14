@@ -1,34 +1,12 @@
 "use client";
 
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
 import { useUrlState } from "@/hooks/useUrlState";
 import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
-
-const faqs = [
-  {
-    question: "¿Qué es el 4x1000?",
-    answer:
-      "El 4x1000 (o GMF - Gravamen a los Movimientos Financieros) es un impuesto colombiano del 0.4% que se cobra sobre cada transacción financiera: retiros, transferencias, pagos con cheque, etc. Se descuenta automáticamente de tu cuenta.",
-  },
-  {
-    question: "¿Qué transacciones están exentas del 4x1000?",
-    answer:
-      "Puedes marcar UNA cuenta de ahorros o corriente como exenta del 4x1000 para retiros hasta 350 UVT mensuales (aproximadamente $18.3 millones en 2026). Los traslados entre cuentas del mismo titular en el mismo banco también están exentos.",
-  },
-  {
-    question: "¿Cómo marco mi cuenta como exenta del 4x1000?",
-    answer:
-      "Debes solicitar la exención directamente en tu banco, ya sea en sucursal o por canales digitales. Solo puedes tener UNA cuenta exenta en todo el sistema financiero. Si cambias de banco, debes desmarcar la anterior primero.",
-  },
-  {
-    question: "¿El 4x1000 se puede deducir de impuestos?",
-    answer:
-      "Sí. El 50% del GMF pagado durante el año es deducible del impuesto de renta. Esto significa que si pagaste $1.000.000 en 4x1000, puedes deducir $500.000 de tu base gravable.",
-  },
-];
 
 export default function Calculadora4x1000() {
   useCalculatorTracking();
@@ -79,17 +57,7 @@ export default function Calculadora4x1000() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="landmark" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora 4x1000
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Calcula el impuesto a movimientos financieros
-          </p>
-        </div>
+        <CalculatorHeader title="Calculadora 4x1000" subtitle="Calcula el impuesto a movimientos financieros" icon="landmark" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Monto */}
@@ -256,12 +224,7 @@ export default function Calculadora4x1000() {
         </div>
       </div>
 
-      {/* FAQs */}
-      <div className="max-w-2xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="teal" />
-        </div>
-      </div>
+      <CalculatorFooter href="/finanzas/calculadora-4x1000" />
     </div>
   );
 }

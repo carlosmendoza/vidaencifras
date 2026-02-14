@@ -1,36 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
 import { Icon } from "@/lib/icons";
 import { useUrlState } from "@/hooks/useUrlState";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
-
-const faqs = [
-  {
-    question: "¿Por qué los pequeños hábitos importan tanto?",
-    answer:
-      "Los hábitos pequeños se acumulan exponencialmente. Leer 20 minutos al día son 120+ horas al año (unos 40 libros). Ahorrar $10.000 diarios son $3.6 millones al año, sin contar intereses.",
-  },
-  {
-    question: "¿Cómo funciona el interés compuesto en hábitos de ahorro?",
-    answer:
-      "Si inviertes tus ahorros del hábito, los intereses generan más intereses. Ahorrar $300.000/mes al 10% anual te da $62 millones en 10 años, aunque solo aportaste $36 millones.",
-  },
-  {
-    question: "¿Qué hábitos tienen mayor impacto financiero?",
-    answer:
-      "Dejar de fumar puede ahorrarte $2-5 millones al año. Reducir comidas fuera ahorra $1-3 millones. Preparar café en casa en vez de comprarlo ahorra $500.000-1.000.000 al año.",
-  },
-  {
-    question: "¿Cómo mantengo un nuevo hábito?",
-    answer:
-      "Empieza pequeño (2 minutos al día), vincúlalo a un hábito existente, hazlo obvio y atractivo. Rastrea tu progreso y celebra las pequeñas victorias.",
-  },
-];
 
 type TipoHabito = "tiempo" | "dinero" | "salud";
 type TipoImpacto = "positivo" | "negativo";
@@ -329,17 +307,12 @@ export default function CalculadoraHabitosPage() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-orange-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="target" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de Hábitos
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Mide el impacto acumulado de tus hábitos diarios
-          </p>
-        </div>
+        <CalculatorHeader
+          title="Calculadora de Hábitos"
+          subtitle="Mide el impacto acumulado de tus hábitos diarios"
+          icon="target"
+          gradient="productividad"
+        />
 
         {/* Plantillas */}
         <div className="mb-8">
@@ -670,12 +643,7 @@ export default function CalculadoraHabitosPage() {
         </div>
       </div>
 
-      {/* FAQs */}
-      <div className="max-w-2xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="orange" />
-        </div>
-      </div>
+      <CalculatorFooter href="/productividad/calculadora-habitos" />
     </div>
   );
 }

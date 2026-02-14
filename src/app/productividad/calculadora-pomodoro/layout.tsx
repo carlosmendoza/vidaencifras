@@ -1,31 +1,9 @@
-import { Metadata } from "next";
+import { generarMetadata, CalculatorLayout } from "@/lib/calculator-layout";
 
-export const metadata: Metadata = {
-  title: "Calculadora Pomodoro | Planifica tu Tiempo de Trabajo y Descanso",
-  description:
-    "Calcula cuántos pomodoros necesitas para completar tus tareas. Planifica sesiones de trabajo con la técnica Pomodoro y optimiza tu productividad.",
-  keywords: [
-    "técnica pomodoro",
-    "calculadora pomodoro",
-    "productividad",
-    "gestión del tiempo",
-    "trabajo enfocado",
-    "descansos productivos",
-    "planificador pomodoro",
-    "método pomodoro",
-  ],
-  openGraph: {
-    title: "Calculadora Pomodoro",
-    description:
-      "Planifica tus sesiones de trabajo con la técnica Pomodoro. Calcula tiempo total y descansos.",
-    type: "website",
-  },
-};
+const HREF = "/productividad/calculadora-pomodoro";
 
-export default function PomodoroLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return children;
+export const metadata = generarMetadata(HREF);
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <CalculatorLayout href={HREF}>{children}</CalculatorLayout>;
 }

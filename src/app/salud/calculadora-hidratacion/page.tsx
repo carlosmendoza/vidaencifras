@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
-import { RelatedCalculators } from "@/components/RelatedCalculators";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Icon } from "@/lib/icons";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
 
@@ -70,44 +70,6 @@ export default function CalculadoraHidratacion() {
     if (hadInitialParams) calcular();
   }, [hadInitialParams]);
 
-  const faqs = [
-    {
-      question: "¿Cuánta agua debo tomar al día?",
-      answer:
-        "La cantidad recomendada varía según tu peso, actividad física y clima. Una regla general es 35ml por kilogramo de peso corporal, ajustada según tu nivel de actividad y el clima donde vives.",
-    },
-    {
-      question: "¿Cuenta el café y té como hidratación?",
-      answer:
-        "Sí, pero con moderación. Aunque contienen cafeína (diurético leve), la cantidad de agua que aportan supera la pérdida. Sin embargo, el agua pura sigue siendo la mejor opción.",
-    },
-    {
-      question: "¿Cuáles son los signos de deshidratación?",
-      answer:
-        "Los principales signos son: sed intensa, orina oscura, fatiga, dolor de cabeza, mareos, piel seca y confusión. Si tu orina es amarillo claro, estás bien hidratado.",
-    },
-    {
-      question: "¿Es malo tomar demasiada agua?",
-      answer:
-        "Sí, beber agua en exceso puede causar hiponatremia (niveles bajos de sodio). Esto es raro pero puede ocurrir si bebes varios litros en poco tiempo. Escucha a tu cuerpo.",
-    },
-  ];
-
-  const relatedCalculators = [
-    {
-      name: "Calculadora de Calorías",
-      href: "/salud/calculadora-calorias",
-      description: "Calcula tu gasto calórico diario",
-      icon: "flame",
-    },
-    {
-      name: "Calculadora de IMC",
-      href: "/salud/calculadora-imc",
-      description: "Conoce tu peso ideal",
-      icon: "scale",
-    },
-  ];
-
   const nivelesActividad = [
     { value: "sedentario", label: "Sedentario", desc: "Sin ejercicio" },
     { value: "ligero", label: "Ligero", desc: "1-2 días/semana" },
@@ -127,17 +89,7 @@ export default function CalculadoraHidratacion() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-red-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-red-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
-            <Icon name="droplets" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de Hidratación
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Descubre cuánta agua necesitas al día
-          </p>
-        </div>
+        <CalculatorHeader title="Calculadora de Hidratación" subtitle="Descubre cuánta agua necesitas al día" icon="droplets" gradient="salud" />
 
         <div className="space-y-8">
           {/* Peso */}
@@ -319,13 +271,7 @@ export default function CalculadoraHidratacion() {
         </p>
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="red" />
-      </div>
-
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <RelatedCalculators calculators={relatedCalculators} />
-      </div>
+      <CalculatorFooter href="/salud/calculadora-hidratacion" />
     </div>
   );
 }

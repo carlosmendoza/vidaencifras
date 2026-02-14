@@ -1,37 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FAQ } from "@/components/FAQ";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
-
-const faqs = [
-  {
-    question: "¿Por qué es importante conocer el valor de mi hora?",
-    answer:
-      "Conocer el valor de tu hora te ayuda a tomar mejores decisiones sobre cómo invertir tu tiempo. Puedes evaluar si vale la pena hacer algo tú mismo o delegarlo, y establecer tarifas justas si eres freelancer o independiente.",
-  },
-  {
-    question: "¿Qué gastos debo incluir en el cálculo?",
-    answer:
-      "Incluye todos los gastos asociados a trabajar: transporte (gasolina, pasajes, parqueadero), comida fuera de casa, ropa de trabajo, y el tiempo de traslado. Estos costos reducen tu ingreso real por hora.",
-  },
-  {
-    question: "¿Cómo uso el valor de mi hora para tomar decisiones?",
-    answer:
-      "Si tu hora vale $50.000 y un servicio de aseo cobra $40.000 por 2 horas de trabajo, te conviene contratarlo y usar ese tiempo para trabajar o descansar. Aplica esta lógica a cualquier decisión de tiempo vs dinero.",
-  },
-  {
-    question: "¿El valor bruto y neto de la hora son muy diferentes?",
-    answer:
-      "Sí, pueden diferir bastante. El valor bruto solo considera salario/horas. El valor neto descuenta gastos laborales y cuenta el tiempo total invertido (incluyendo traslados), dando una imagen más realista.",
-  },
-];
 
 interface Resultado {
   valorBruto: number;
@@ -162,17 +140,7 @@ export default function ValorHoraPage() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-orange-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="gem" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Valor de tu Hora
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Descubre cuánto vale realmente una hora de tu tiempo
-          </p>
-        </div>
+        <CalculatorHeader title="Valor de tu Hora" subtitle="Descubre cuánto vale realmente una hora de tu tiempo" icon="gem" gradient="productividad" />
 
         <div className="space-y-6">
           {/* Tipo de ingreso */}
@@ -465,12 +433,7 @@ export default function ValorHoraPage() {
         </div>
       </div>
 
-      {/* FAQs */}
-      <div className="max-w-2xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="orange" />
-        </div>
-      </div>
+      <CalculatorFooter href="/productividad/valor-hora" />
     </div>
   );
 }

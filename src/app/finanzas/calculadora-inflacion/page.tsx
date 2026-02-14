@@ -1,35 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
 import { useUrlState } from "@/hooks/useUrlState";
-
-const faqs = [
-  {
-    question: "¿Qué es la inflación y cómo me afecta?",
-    answer:
-      "La inflación es el aumento general de los precios. Te afecta porque el dinero que tienes hoy compra menos cosas mañana. Por ejemplo, si la inflación es 10% anual, algo que hoy cuesta $100.000 costará $110.000 el próximo año.",
-  },
-  {
-    question: "¿Qué es el IPC y quién lo mide en Colombia?",
-    answer:
-      "El IPC (Índice de Precios al Consumidor) mide la variación de precios de una canasta de bienes y servicios. En Colombia lo calcula el DANE mensualmente, midiendo precios en 38 ciudades del país.",
-  },
-  {
-    question: "¿Cómo puedo proteger mi dinero de la inflación?",
-    answer:
-      "Para proteger tu dinero, busca inversiones que rindan por encima de la inflación: CDTs a tasa fija, fondos de inversión, acciones, finca raíz, o bonos indexados a la inflación (TES UVR).",
-  },
-  {
-    question: "¿Por qué el Banco de la República tiene meta de inflación del 3%?",
-    answer:
-      "Una inflación baja y estable (alrededor del 3%) favorece el crecimiento económico, facilita la planificación financiera de familias y empresas, y protege el poder adquisitivo de los colombianos, especialmente de los más vulnerables.",
-  },
-];
 
 interface ResultadoInflacion {
   valorFuturo: number;
@@ -195,15 +173,7 @@ export default function CalculadoraInflacion() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="trending-down" className="w-10 h-10" /></div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de Inflación
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Entiende cómo la inflación afecta tu dinero
-          </p>
-        </div>
+        <CalculatorHeader title="Calculadora de Inflación" subtitle="Entiende cómo la inflación afecta tu dinero" icon="trending-down" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Tipo de cálculo */}
@@ -498,12 +468,7 @@ export default function CalculadoraInflacion() {
         </div>
       </div>
 
-      {/* FAQs */}
-      <div className="max-w-2xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="teal" />
-        </div>
-      </div>
+      <CalculatorFooter href="/finanzas/calculadora-inflacion" />
     </div>
   );
 }

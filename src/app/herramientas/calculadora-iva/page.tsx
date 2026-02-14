@@ -3,9 +3,9 @@
 import { useMemo } from "react";
 import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { ShareButtons } from "@/components/ShareButtons";
-import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
@@ -93,60 +93,17 @@ export default function CalculadoraIVA() {
     }).format(num);
   };
 
-  const faqs = [
-    {
-      question: "¿Cuál es el IVA en Colombia?",
-      answer:
-        "En Colombia, la tarifa general del IVA es del 19%. Sin embargo, existen tasas reducidas del 5% para ciertos productos y del 0% para productos exentos como canasta familiar básica y medicamentos.",
-    },
-    {
-      question: "¿Cómo se calcula el IVA de un producto?",
-      answer:
-        "Para agregar IVA: multiplica el precio base por 1.19 (para 19%). Para quitar IVA: divide el precio total entre 1.19. Para calcular solo el IVA: multiplica el precio base por 0.19.",
-    },
-    {
-      question: "¿Qué productos tienen IVA del 5%?",
-      answer:
-        "Tienen IVA del 5%: algunos alimentos procesados, embutidos, bicicletas hasta 50 UVT, servicios de vigilancia con armas, entre otros definidos en el Estatuto Tributario.",
-    },
-    {
-      question: "¿Qué productos están exentos de IVA?",
-      answer:
-        "Están exentos: canasta familiar básica (arroz, pan, leche, huevos, frutas, verduras), medicamentos, libros, cuadernos, servicios de salud, educación y transporte público.",
-    },
-  ];
-
-  const relatedCalculators = [
-    {
-      name: "Calculadora de Porcentajes",
-      href: "/herramientas/calculadora-porcentajes",
-      description: "Calcula cualquier porcentaje",
-      icon: "percent",
-    },
-    {
-      name: "Calculadora de Descuentos",
-      href: "/herramientas/calculadora-descuentos",
-      description: "Precio final y ahorro",
-      icon: "tag",
-    },
-  ];
-
   return (
     <div className="space-y-8">
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-purple-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-purple-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="receipt" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de IVA
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Calcula el IVA en Colombia al instante
-          </p>
-        </div>
+        <CalculatorHeader
+          title="Calculadora de IVA"
+          subtitle="Calcula el IVA en Colombia al instante"
+          icon="receipt"
+          gradient="herramientas"
+        />
 
         <div className="space-y-6">
           {/* Selector de modo */}
@@ -307,13 +264,7 @@ export default function CalculadoraIVA() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="purple" />
-      </div>
-
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <RelatedCalculators calculators={relatedCalculators} />
-      </div>
+      <CalculatorFooter href="/herramientas/calculadora-iva" />
     </div>
   );
 }

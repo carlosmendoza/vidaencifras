@@ -1,39 +1,12 @@
 "use client";
 
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
 import { useUrlState } from "@/hooks/useUrlState";
-
-const faqs = [
-  {
-    question: "¿Qué es el IBC (Ingreso Base de Cotización)?",
-    answer:
-      "El IBC es la base sobre la cual se calculan los aportes a seguridad social. Para independientes, corresponde al 40% del valor mensual del contrato. No puede ser menor a 1 SMMLV ni mayor a 25 SMMLV.",
-  },
-  {
-    question: "¿Cuánto debo pagar de seguridad social como independiente?",
-    answer:
-      "Debes pagar el 28.5% de tu IBC: 12.5% para salud y 16% para pensión. Además, dependiendo del riesgo de tu actividad, debes aportar a ARL (desde 0.522% para riesgo I).",
-  },
-  {
-    question: "¿Cuál es la diferencia entre retención del 10% y 11%?",
-    answer:
-      "Si eres declarante de renta (obligado a presentar declaración), la retención es del 11%. Si no eres declarante, la retención es del 10%. Esto aplica para contratos de prestación de servicios.",
-  },
-  {
-    question: "¿Los aportes a seguridad social son deducibles de impuestos?",
-    answer:
-      "Sí, los aportes obligatorios a salud y pensión son 100% deducibles en tu declaración de renta. Esto reduce tu base gravable y por ende tu impuesto.",
-  },
-  {
-    question: "¿Qué pasa si no pago seguridad social como independiente?",
-    answer:
-      "El contratante está obligado a verificar que estés al día con tus aportes. Si no pagas, puede retener pagos. Además, pierdes cobertura en salud y semanas cotizadas para pensión.",
-  },
-];
 
 export default function CalculadoraPrestacionServicios() {
   const { values, setField } = useUrlState(
@@ -103,15 +76,7 @@ export default function CalculadoraPrestacionServicios() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="file-text" className="w-10 h-10" /></div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora Prestación de Servicios
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Calcula tus descuentos como independiente 2026
-          </p>
-        </div>
+        <CalculatorHeader title="Calculadora Prestación de Servicios" subtitle="Calcula tus descuentos como independiente 2026" icon="file-text" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Valor del contrato */}
@@ -378,12 +343,7 @@ export default function CalculadoraPrestacionServicios() {
         </div>
       </div>
 
-      {/* FAQs */}
-      <div className="max-w-2xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="teal" />
-        </div>
-      </div>
+      <CalculatorFooter href="/finanzas/calculadora-prestacion-servicios" />
     </div>
   );
 }

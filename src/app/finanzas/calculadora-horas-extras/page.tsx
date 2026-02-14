@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
-import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { calcularHorasExtras, type HorasExtrasOutput } from "@/lib/calculadoras";
 import { SMMLV, TIPOS_HORA, type TipoHora } from "@/lib/calculadoras/constantes";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 
 interface TipoHoraUI {
   id: TipoHora;
@@ -63,66 +63,12 @@ export default function CalculadoraHorasExtras() {
 
   const tipoSeleccionado = tiposHora.find((t) => t.id === values.tipoHora)!;
 
-  const faqs = [
-    {
-      question: "¿Cómo se calcula el valor de la hora extra?",
-      answer:
-        "El valor hora se calcula dividiendo el salario mensual entre las horas de la jornada mensual (182 horas para jornada de 42h/semana en 2026). Luego se aplica el recargo según el tipo de hora extra.",
-    },
-    {
-      question: "¿Cuál es la diferencia entre hora extra y recargo?",
-      answer:
-        "La hora extra es tiempo adicional después de completar tu jornada laboral. El recargo aplica cuando trabajas en horario nocturno o dominical dentro de tu jornada normal, sin ser tiempo adicional.",
-    },
-    {
-      question: "¿Cuántas horas extras puedo trabajar al mes?",
-      answer:
-        "El máximo legal en Colombia es de 2 horas extras diarias y 12 semanales. El empleador debe solicitar autorización al Ministerio de Trabajo para que sus empleados trabajen horas extras.",
-    },
-    {
-      question: "¿Las horas extras pagan aportes a salud y pensión?",
-      answer:
-        "Sí. Las horas extras hacen parte del salario y sobre ellas se calculan los aportes a salud, pensión y parafiscales. También se incluyen en la base para calcular prestaciones sociales.",
-    },
-  ];
-
-  const relatedCalculators = [
-    {
-      name: "Calculadora de Salario Neto",
-      href: "/finanzas/calculadora-salario-neto",
-      description: "Calcula tu sueldo después de descuentos",
-      icon: "banknote",
-    },
-    {
-      name: "Calculadora de Liquidación",
-      href: "/finanzas/calculadora-liquidacion",
-      description: "Calcula tu liquidación laboral",
-      icon: "clipboard",
-    },
-    {
-      name: "Calculadora de Vacaciones",
-      href: "/finanzas/calculadora-vacaciones",
-      description: "Calcula tus días y dinero",
-      icon: "palmtree",
-    },
-  ];
-
   return (
     <div className="space-y-8">
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg text-white">
-            <Icon name="clock" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de Horas Extras
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Recargos laborales Colombia 2026
-          </p>
-        </div>
+        <CalculatorHeader title="Calculadora de Horas Extras" subtitle="Recargos laborales Colombia 2026" icon="clock" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Salario */}
@@ -308,13 +254,7 @@ export default function CalculadoraHorasExtras() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="teal" />
-      </div>
-
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <RelatedCalculators calculators={relatedCalculators} />
-      </div>
+      <CalculatorFooter href="/finanzas/calculadora-horas-extras" />
     </div>
   );
 }

@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
-import { RelatedCalculators } from "@/components/RelatedCalculators";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Icon } from "@/lib/icons";
 import { calcularVacaciones, type VacacionesOutput } from "@/lib/calculadoras";
 import { SMMLV } from "@/lib/calculadoras/constantes";
@@ -40,66 +40,12 @@ export default function CalculadoraVacaciones() {
     }).format(num);
   };
 
-  const faqs = [
-    {
-      question: "¿Cuántos días de vacaciones me corresponden en Colombia?",
-      answer:
-        "Por cada año trabajado tienes derecho a 15 días hábiles de vacaciones remuneradas. Si no has cumplido el año, se calculan proporcionalmente según el tiempo trabajado.",
-    },
-    {
-      question: "¿Cómo se calcula el pago de vacaciones?",
-      answer:
-        "El valor de las vacaciones se calcula dividiendo tu salario mensual entre 30 y multiplicando por los días de vacaciones. El auxilio de transporte NO se incluye en este cálculo.",
-    },
-    {
-      question: "¿Puedo acumular vacaciones?",
-      answer:
-        "Sí, puedes acumular hasta 2 años de vacaciones (30 días hábiles). Después de este límite, el empleador debe concederte las vacaciones obligatoriamente.",
-    },
-    {
-      question: "¿Me pueden pagar las vacaciones en dinero?",
-      answer:
-        "Solo se puede compensar en dinero la mitad de las vacaciones (7.5 días por año). La otra mitad debe disfrutarse obligatoriamente como descanso. La compensación total solo aplica al terminar el contrato.",
-    },
-  ];
-
-  const relatedCalculators = [
-    {
-      name: "Calculadora de Salario Neto",
-      href: "/finanzas/calculadora-salario-neto",
-      description: "Calcula tu sueldo después de descuentos",
-      icon: "banknote",
-    },
-    {
-      name: "Calculadora de Prima",
-      href: "/finanzas/calculadora-prima",
-      description: "Calcula tu prima de servicios",
-      icon: "gift",
-    },
-    {
-      name: "Calculadora de Liquidación",
-      href: "/finanzas/calculadora-liquidacion",
-      description: "Calcula tu liquidación laboral",
-      icon: "clipboard",
-    },
-  ];
-
   return (
     <div className="space-y-8">
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="palmtree" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de Vacaciones
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Días y dinero que te corresponden
-          </p>
-        </div>
+        <CalculatorHeader title="Calculadora de Vacaciones" subtitle="Días y dinero que te corresponden" icon="palmtree" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Salario */}
@@ -280,13 +226,7 @@ export default function CalculadoraVacaciones() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="teal" />
-      </div>
-
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <RelatedCalculators calculators={relatedCalculators} />
-      </div>
+      <CalculatorFooter href="/finanzas/calculadora-vacaciones" />
     </div>
   );
 }

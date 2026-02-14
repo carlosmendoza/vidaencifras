@@ -1,34 +1,12 @@
 "use client";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Icon } from "@/lib/icons";
 import { useUrlState } from "@/hooks/useUrlState";
 import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
-
-const faqs = [
-  {
-    question: "¿Qué es la técnica Pomodoro?",
-    answer:
-      "Es un método de gestión del tiempo creado por Francesco Cirillo. Consiste en trabajar en bloques de 25 minutos (pomodoros) con descansos cortos de 5 minutos. Después de 4 pomodoros, tomas un descanso largo de 15-30 minutos.",
-  },
-  {
-    question: "¿Por qué funcionan los bloques de 25 minutos?",
-    answer:
-      "25 minutos es el tiempo óptimo para mantener la concentración sin fatigarse. Es lo suficientemente corto para sentirse manejable, pero lo suficientemente largo para hacer progreso real. Los descansos previenen el agotamiento mental.",
-  },
-  {
-    question: "¿Qué hago si me interrumpen durante un pomodoro?",
-    answer:
-      "Apunta la interrupción y vuelve a tu tarea. Si es urgente, detén el pomodoro (ese pomodoro no cuenta) y reinicia después. Con práctica, aprenderás a proteger tus pomodoros de interrupciones.",
-  },
-  {
-    question: "¿Puedo ajustar la duración de los pomodoros?",
-    answer:
-      "Sí. Aunque 25 minutos es el estándar, puedes experimentar con 50/10 para trabajo profundo o 15/5 si recién empiezas. Lo importante es mantener la proporción trabajo/descanso y ser consistente.",
-  },
-];
 
 type TimerMode = "trabajo" | "descanso-corto" | "descanso-largo";
 type ViewMode = "planificar" | "temporizador";
@@ -388,17 +366,12 @@ export default function CalculadoraPomodoro() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-xl sm:rounded-2xl p-5 sm:p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-orange-500/5">
-        <div className="text-center mb-6 sm:mb-8">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-orange-500 rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg text-white">
-            <Icon name="timer" className="w-8 h-8 sm:w-10 sm:h-10" />
-          </div>
-          <h1 className="text-2xl sm:text-4xl font-black text-slate-800 dark:text-slate-100 mb-2 sm:mb-3 tracking-tight">
-            Calculadora Pomodoro
-          </h1>
-          <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 font-medium">
-            Planifica tu sesión y trabaja enfocado
-          </p>
-        </div>
+        <CalculatorHeader
+          title="Calculadora Pomodoro"
+          subtitle="Planifica tu sesión y trabaja enfocado"
+          icon="timer"
+          gradient="productividad"
+        />
 
         {/* Tabs */}
         <div className="flex gap-2 mb-6 sm:mb-8 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl sm:rounded-2xl">
@@ -805,12 +778,7 @@ export default function CalculadoraPomodoro() {
         </div>
       </div>
 
-      {/* FAQs */}
-      <div className="max-w-2xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="orange" />
-        </div>
-      </div>
+      <CalculatorFooter href="/productividad/calculadora-pomodoro" />
     </div>
   );
 }

@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
 import { CurrencyInput } from "@/components/CurrencyInput";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Icon } from "@/lib/icons";
 import { calcularInteresCompuesto, type InteresCompuestoOutput, type TipoTasa, type FrecuenciaAporte } from "@/lib/calculadoras";
 import { useUrlState } from "@/hooks/useUrlState";
@@ -88,17 +89,7 @@ export default function InteresCompuesto() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="trending-up" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Interés Compuesto
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Calcula cuánto crecerá tu dinero con el tiempo
-          </p>
-        </div>
+        <CalculatorHeader title="Interés Compuesto" subtitle="Calcula cuánto crecerá tu dinero con el tiempo" icon="trending-up" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Capital inicial */}
@@ -412,35 +403,7 @@ export default function InteresCompuesto() {
           </div>
         </div>
 
-        <div className="pt-8">
-          <h3 className="text-lg font-bold text-slate-700 dark:text-slate-300 mb-6 px-2">También te puede interesar</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Link
-              href="/finanzas/calculadora-prestamos"
-              className="p-6 card-glass card-hover card-hover-teal rounded-3xl flex items-center gap-4 group"
-            >
-              <div className="w-12 h-12 bg-teal-100 dark:bg-teal-900/50 rounded-xl flex items-center justify-center text-teal-600 dark:text-teal-400 transition-transform group-hover:scale-110">
-                <Icon name="landmark" className="w-6 h-6" />
-              </div>
-              <div className="flex-1">
-                <p className="font-bold text-slate-800 dark:text-slate-100">Préstamos</p>
-                <p className="text-xs text-slate-500 dark:text-slate-400">Cuotas y amortización</p>
-              </div>
-            </Link>
-            <Link
-              href="/finanzas/calculadora-salario-neto"
-              className="p-6 card-glass card-hover card-hover-teal rounded-3xl flex items-center gap-4 group"
-            >
-              <div className="w-12 h-12 bg-teal-100 dark:bg-teal-900/50 rounded-xl flex items-center justify-center text-teal-600 dark:text-teal-400 transition-transform group-hover:scale-110">
-                <Icon name="banknote" className="w-6 h-6" />
-              </div>
-              <div className="flex-1">
-                <p className="font-bold text-slate-800 dark:text-slate-100">Salario Neto</p>
-                <p className="text-xs text-slate-500 dark:text-slate-400">Deducciones legales</p>
-              </div>
-            </Link>
-          </div>
-        </div>
+        <CalculatorFooter href="/finanzas/calculadora-interes-compuesto" />
       </div>
     </div>
   );

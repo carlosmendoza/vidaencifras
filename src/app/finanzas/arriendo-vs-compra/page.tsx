@@ -2,7 +2,8 @@
 
 import { useMemo } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { CalculatorResult } from "@/components/CalculatorResult";
 import { ShareButtons } from "@/components/ShareButtons";
 import { Icon } from "@/lib/icons";
@@ -10,28 +11,6 @@ import { CurrencyInput } from "@/components/CurrencyInput";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
 import { useUrlState } from "@/hooks/useUrlState";
 
-const faqs = [
-  {
-    question: "¿Cuándo conviene más comprar que arrendar?",
-    answer:
-      "Generalmente conviene comprar si planeas quedarte más de 5-7 años, tienes la cuota inicial, el costo mensual de la hipoteca es similar o menor al arriendo, y esperas que la propiedad se valorice. Cada caso es diferente según tus circunstancias.",
-  },
-  {
-    question: "¿Qué costos adicionales tiene comprar vivienda en Colombia?",
-    answer:
-      "Además del precio, debes considerar: escrituración y registro (aprox. 1.5% del valor), avalúo, estudio de títulos, seguros obligatorios, y gastos de mudanza. También hay costos continuos como predial, administración y mantenimiento.",
-  },
-  {
-    question: "¿Cuál es una cuota inicial razonable?",
-    answer:
-      "Lo ideal es dar mínimo 20-30% de cuota inicial. Con menos del 20%, algunos bancos cobran seguro adicional (PMI). Una cuota inicial mayor reduce tu cuota mensual y el total de intereses pagados.",
-  },
-  {
-    question: "¿Cómo afecta la valorización a la decisión?",
-    answer:
-      "La valorización promedio en Colombia es del 3-5% anual, pero varía mucho según la zona. En zonas de alta demanda puede ser mayor. Sin embargo, la valorización no es garantizada y hay períodos donde los inmuebles pierden valor.",
-  },
-];
 
 interface Resultado {
   // Escenario compra
@@ -228,17 +207,7 @@ export default function ArriendoVsCompra() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg text-white">
-            <Icon name="home" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            ¿Arrendar o Comprar?
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Compara financieramente ambas opciones según tu situación
-          </p>
-        </div>
+        <CalculatorHeader title="¿Arrendar o Comprar?" subtitle="Compara financieramente ambas opciones según tu situación" icon="home" gradient="finanzas" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Columna Compra */}
@@ -580,12 +549,7 @@ export default function ArriendoVsCompra() {
         </div>
       </div>
 
-      {/* FAQs */}
-      <div className="max-w-4xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="teal" />
-        </div>
-      </div>
+      <CalculatorFooter href="/finanzas/arriendo-vs-compra" />
     </div>
   );
 }

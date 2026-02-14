@@ -2,9 +2,9 @@
 
 import { useMemo } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
-import { RelatedCalculators } from "@/components/RelatedCalculators";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Icon } from "@/lib/icons";
 import { calcularRetencionFuente, type RetencionFuenteOutput } from "@/lib/calculadoras";
 import { TASAS_RETENCION, UVT_2025, type TipoRetencion } from "@/lib/calculadoras/constantes";
@@ -37,60 +37,12 @@ export default function CalculadoraRetencion() {
     }).format(num);
   };
 
-  const faqs = [
-    {
-      question: "¿Qué es la retención en la fuente?",
-      answer:
-        "Es un mecanismo de recaudo anticipado del impuesto de renta. El pagador descuenta un porcentaje del pago y lo transfiere a la DIAN a nombre del beneficiario.",
-    },
-    {
-      question: "¿Cuándo aplica la retención en la fuente?",
-      answer:
-        "Aplica cuando el pagador es agente retenedor y el pago supera las bases mínimas establecidas por la DIAN para cada concepto.",
-    },
-    {
-      question: "¿Qué pasa si soy declarante de renta?",
-      answer:
-        "Si eres declarante, las tasas de retención son menores. Por ejemplo, en servicios la tasa es 10% vs 11% para no declarantes.",
-    },
-    {
-      question: "¿Puedo recuperar la retención en la fuente?",
-      answer:
-        "Sí, la retención se cruza con tu impuesto de renta anual. Si te retuvieron más de lo debido, puedes solicitar devolución.",
-    },
-  ];
-
-  const relatedCalculators = [
-    {
-      name: "Impuesto de Renta",
-      href: "/finanzas/calculadora-impuesto-renta",
-      description: "Calcula tu impuesto anual",
-      icon: "landmark",
-    },
-    {
-      name: "Salario Neto",
-      href: "/finanzas/calculadora-salario-neto",
-      description: "Calcula tu salario después de deducciones",
-      icon: "banknote",
-    },
-  ];
-
   return (
     <div className="space-y-8">
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="file-text" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Retención en la Fuente
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Calcula la retención para diferentes conceptos
-          </p>
-        </div>
+        <CalculatorHeader title="Retención en la Fuente" subtitle="Calcula la retención para diferentes conceptos" icon="file-text" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Selector de tipo */}
@@ -258,13 +210,7 @@ export default function CalculadoraRetencion() {
         </p>
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="teal" />
-      </div>
-
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <RelatedCalculators calculators={relatedCalculators} />
-      </div>
+      <CalculatorFooter href="/finanzas/calculadora-retencion-fuente" />
     </div>
   );
 }

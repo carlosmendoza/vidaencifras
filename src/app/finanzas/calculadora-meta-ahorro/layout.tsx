@@ -1,42 +1,9 @@
-import { Metadata } from "next";
+import { generarMetadata, CalculatorLayout } from "@/lib/calculator-layout";
 
-const CANONICAL_URL = "https://vidaencifras.com/finanzas/calculadora-meta-ahorro";
+const HREF = "/finanzas/calculadora-meta-ahorro";
 
-export const metadata: Metadata = {
-  title: "Calculadora de Ahorro | Meta, Tiempo y Tasa Personalizada",
-  description:
-    "Calcula cuánto ahorrar mensualmente o cuánto tiempo necesitas para tu meta. Ingresa tu propia tasa de interés o compara opciones. Opción sin rendimiento y tasa personalizada.",
-  keywords: [
-    "calculadora ahorro",
-    "meta de ahorro",
-    "cuánto ahorrar mensualmente",
-    "cuánto tiempo ahorrar",
-    "calculadora ahorro mensual",
-    "plan de ahorro",
-    "objetivo de ahorro",
-    "ahorro programado",
-    "interés compuesto ahorro",
-    "fondo de emergencia",
-    "ahorro sin intereses",
-    "simulador ahorro",
-    "calculadora meta financiera",
-  ],
-  openGraph: {
-    title: "Calculadora de Ahorro | Meta y Tiempo",
-    description:
-      "Descubre cuánto ahorrar o cuánto tiempo necesitas para alcanzar tu meta. Compara cuentas o usa tu propia tasa.",
-    type: "website",
-    url: CANONICAL_URL,
-  },
-  alternates: {
-    canonical: CANONICAL_URL,
-  },
-};
+export const metadata = generarMetadata(HREF);
 
-export default function CalculadoraMetaAhorroLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return children;
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <CalculatorLayout href={HREF}>{children}</CalculatorLayout>;
 }

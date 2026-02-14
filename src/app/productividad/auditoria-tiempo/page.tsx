@@ -1,34 +1,12 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { Icon } from "@/lib/icons";
 import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
-
-const faqs = [
-  {
-    question: "¿Por qué 168 horas?",
-    answer:
-      "Todos tenemos exactamente 168 horas a la semana (24 horas × 7 días). Es el gran ecualizador: millonarios y personas comunes tienen el mismo tiempo. La diferencia está en cómo lo usan.",
-  },
-  {
-    question: "¿Cuántas horas debería dormir?",
-    answer:
-      "Los adultos necesitan 7-9 horas por noche (49-63 horas semanales). Dormir menos de 6 horas afecta la memoria, el sistema inmune y aumenta el riesgo de enfermedades crónicas.",
-  },
-  {
-    question: "¿Cuánto tiempo de ocio es saludable?",
-    answer:
-      "Se recomienda entre 2-5 horas de tiempo libre de calidad al día. Muy poco causa agotamiento; demasiado sin propósito puede causar insatisfacción. El balance es clave.",
-  },
-  {
-    question: "¿Cómo puedo encontrar más tiempo?",
-    answer:
-      "Audita primero: registra tu tiempo real por una semana. Identifica 'fugas' como redes sociales o reuniones innecesarias. Pequeños ajustes (20-30 min/día) suman 2+ horas semanales.",
-  },
-];
 
 interface Categoria {
   id: string;
@@ -320,17 +298,12 @@ export default function AuditoriaTiempoPage() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-3xl mx-auto shadow-xl shadow-orange-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="clock" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Auditoría de Tiempo
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Todos tenemos 168 horas a la semana. ¿Cómo usas las tuyas?
-          </p>
-        </div>
+        <CalculatorHeader
+          title="Auditoría de Tiempo"
+          subtitle="Todos tenemos 168 horas a la semana. ¿Cómo usas las tuyas?"
+          icon="clock"
+          gradient="productividad"
+        />
 
         {/* Contador de horas */}
         <div
@@ -546,12 +519,7 @@ export default function AuditoriaTiempoPage() {
         </div>
       </div>
 
-      {/* FAQs */}
-      <div className="max-w-3xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="orange" />
-        </div>
-      </div>
+      <CalculatorFooter href="/productividad/auditoria-tiempo" />
     </div>
   );
 }

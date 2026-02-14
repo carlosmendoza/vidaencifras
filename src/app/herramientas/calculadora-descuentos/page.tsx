@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
-import { RelatedCalculators } from "@/components/RelatedCalculators";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
@@ -65,60 +65,17 @@ export default function CalculadoraDescuentos() {
     });
   };
 
-  const faqs = [
-    {
-      question: "¿Cómo se calculan los descuentos encadenados?",
-      answer:
-        "Los descuentos no se suman directamente. Un 30% + 20% adicional NO es 50%. Primero se aplica el 30% al precio original, y luego el 20% se aplica al precio ya rebajado. Ejemplo: $100 con 30% = $70, luego 20% de $70 = $56 (44% total, no 50%).",
-    },
-    {
-      question: "¿Cómo calcular el precio original desde el precio con descuento?",
-      answer:
-        "Divide el precio final entre (1 - descuento/100). Ejemplo: si el precio final es $75 y el descuento fue 25%, el original era: $75 / (1 - 0.25) = $75 / 0.75 = $100.",
-    },
-    {
-      question: "¿Qué es mejor: 30% de descuento o $30.000 de descuento?",
-      answer:
-        "Depende del precio original. Si el producto cuesta $100.000, el 30% ($30.000) es igual. Si cuesta más de $100.000, el 30% es mejor. Si cuesta menos, los $30.000 fijos son mejor.",
-    },
-    {
-      question: "¿Los descuentos incluyen IVA?",
-      answer:
-        "Generalmente los descuentos se aplican al precio con IVA incluido, que es el precio que ves en la etiqueta. El descuento reduce el total que pagas, incluyendo impuestos.",
-    },
-  ];
-
-  const relatedCalculators = [
-    {
-      name: "Calculadora de Porcentajes",
-      href: "/herramientas/calculadora-porcentajes",
-      description: "Calcula cualquier porcentaje",
-      icon: "percent",
-    },
-    {
-      name: "Dividir Cuenta",
-      href: "/herramientas/calculadora-dividir-cuenta",
-      description: "Divide gastos entre amigos",
-      icon: "receipt",
-    },
-  ];
-
   return (
     <div className="space-y-8">
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-purple-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-purple-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
-            <Icon name="tag" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de Descuentos
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Calcula el precio final y cuánto ahorras
-          </p>
-        </div>
+        <CalculatorHeader
+          title="Calculadora de Descuentos"
+          subtitle="Calcula el precio final y cuánto ahorras"
+          icon="tag"
+          gradient="herramientas"
+        />
 
         <div className="space-y-6">
           {/* Precio original */}
@@ -307,13 +264,7 @@ export default function CalculadoraDescuentos() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="purple" />
-      </div>
-
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <RelatedCalculators calculators={relatedCalculators} />
-      </div>
+      <CalculatorFooter href="/herramientas/calculadora-descuentos" />
     </div>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { FAQ } from "@/components/FAQ";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Icon } from "@/lib/icons";
 import { calcularLiquidacion, type TipoTerminacion, type TipoContrato } from "@/lib/calculadoras";
@@ -8,29 +7,8 @@ import { AUXILIO_TRANSPORTE, SMMLV, TOPE_AUXILIO } from "@/lib/calculadoras/cons
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
-
-const faqs = [
-  {
-    question: "¿Qué incluye la liquidación laboral?",
-    answer:
-      "La liquidación incluye: salario pendiente, prima de servicios proporcional, cesantías proporcionales, intereses sobre cesantías, vacaciones no disfrutadas. Si el despido es sin justa causa, también incluye indemnización.",
-  },
-  {
-    question: "¿Cuándo me deben pagar la liquidación?",
-    answer:
-      "El empleador debe pagar la liquidación al momento de terminar el contrato. Si no paga el último día, debe pagar un día de salario por cada día de mora (sanción moratoria), hasta por 24 meses.",
-  },
-  {
-    question: "¿Cómo se calcula la indemnización por despido sin justa causa?",
-    answer:
-      "Para contratos a término indefinido: si tienes menos de 1 año, son 30 días de salario. Si tienes más de 1 año, son 30 días por el primer año + 20 días por cada año adicional. Para salarios altos (más de 10 SMMLV) los días adicionales son 15.",
-  },
-  {
-    question: "¿Si renuncio tengo derecho a indemnización?",
-    answer:
-      "No. La indemnización solo aplica cuando el empleador termina el contrato sin justa causa. Si renuncias voluntariamente, solo recibes las prestaciones sociales proporcionales (prima, cesantías, vacaciones).",
-  },
-];
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 
 export default function CalculadoraLiquidacion() {
   const { values, setField } = useUrlState(
@@ -76,15 +54,7 @@ export default function CalculadoraLiquidacion() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="clipboard" className="w-10 h-10" /></div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de Liquidación
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Calcula tu liquidación laboral completa
-          </p>
-        </div>
+        <CalculatorHeader title="Calculadora de Liquidación" subtitle="Calcula tu liquidación laboral completa" icon="clipboard" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Tipo de terminación */}
@@ -362,12 +332,7 @@ export default function CalculadoraLiquidacion() {
         </div>
       </div>
 
-      {/* FAQs */}
-      <div className="max-w-2xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="teal" />
-        </div>
-      </div>
+      <CalculatorFooter href="/finanzas/calculadora-liquidacion" />
     </div>
   );
 }

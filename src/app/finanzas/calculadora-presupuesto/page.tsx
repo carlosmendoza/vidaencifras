@@ -2,36 +2,14 @@
 
 import { useState } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
 import { useUrlState } from "@/hooks/useUrlState";
-
-const faqs = [
-  {
-    question: "¿Qué es la regla 50/30/20?",
-    answer:
-      "Es un método de presupuesto creado por Elizabeth Warren que divide tu ingreso neto en tres categorías: 50% para necesidades esenciales (arriendo, servicios, mercado), 30% para deseos (entretenimiento, salidas), y 20% para ahorro e inversión.",
-  },
-  {
-    question: "¿Cómo saber qué es una necesidad y qué es un deseo?",
-    answer:
-      "Una necesidad es un gasto que no puedes evitar sin afectar tu calidad de vida básica: vivienda, alimentación, transporte al trabajo, salud. Un deseo es algo que mejora tu vida pero podrías vivir sin ello: Netflix, restaurantes, ropa de marca.",
-  },
-  {
-    question: "¿Puedo ajustar los porcentajes 50/30/20?",
-    answer:
-      "Sí. Si vives en una ciudad costosa, quizás necesites 60/20/20. Si quieres ahorrar más agresivamente, podrías usar 50/20/30 (destinando 30% al ahorro). Lo importante es que los porcentajes sumen 100% y sean realistas para ti.",
-  },
-  {
-    question: "¿Qué debo incluir en el 20% de ahorro?",
-    answer:
-      "El 20% incluye: fondo de emergencia (3-6 meses de gastos), ahorro para metas específicas (vacaciones, carro), inversiones, aportes a pensión voluntaria, y pagos extra para eliminar deudas más rápido.",
-  },
-];
 
 interface Distribucion {
   necesidades: number;
@@ -127,17 +105,7 @@ export default function CalculadoraPresupuesto() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="bar-chart" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Presupuesto 50/30/20
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Organiza tu plata de forma simple y efectiva
-          </p>
-        </div>
+        <CalculatorHeader title="Presupuesto 50/30/20" subtitle="Organiza tu plata de forma simple y efectiva" icon="bar-chart" gradient="finanzas" />
 
         <div className="space-y-6">
           <div className="space-y-3">
@@ -358,12 +326,7 @@ export default function CalculadoraPresupuesto() {
         </div>
       </div>
 
-      {/* FAQs */}
-      <div className="max-w-2xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="teal" />
-        </div>
-      </div>
+      <CalculatorFooter href="/finanzas/calculadora-presupuesto" />
     </div>
   );
 }

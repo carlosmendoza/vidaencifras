@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CalculatorResult } from "@/components/CalculatorResult";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -13,29 +14,6 @@ import { useUrlState } from "@/hooks/useUrlState";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
 
 const TABLA_TARIFAS = TABLA_TARIFAS_RENTA;
-
-const faqs = [
-  {
-    question: "¿Quiénes deben declarar renta en Colombia?",
-    answer:
-      "Deben declarar renta las personas naturales cuyos ingresos brutos en el año gravable hayan sido iguales o superiores a 1.400 UVT (aproximadamente $69,7 millones en 2025), o que tengan un patrimonio bruto superior a 4.500 UVT al 31 de diciembre.",
-  },
-  {
-    question: "¿Qué es el UVT y para qué sirve?",
-    answer:
-      "La Unidad de Valor Tributario (UVT) es una medida de valor que permite ajustar automáticamente los valores en las normas tributarias. Para 2025, el UVT es de $49.799. Se actualiza cada año según la inflación.",
-  },
-  {
-    question: "¿Qué deducciones puedo aplicar?",
-    answer:
-      "Puedes deducir aportes a salud y pensión, intereses de vivienda, dependientes (hasta 10% de ingresos), medicina prepagada, y el 25% de renta exenta laboral. El total de deducciones no puede superar el 40% de tus ingresos ni 5.040 UVT.",
-  },
-  {
-    question: "¿Cuándo debo pagar el impuesto de renta?",
-    answer:
-      "Las personas naturales declaran y pagan entre agosto y octubre del año siguiente, según los dos últimos dígitos del NIT. Por ejemplo, para ingresos de 2024, se declara en 2025.",
-  },
-];
 
 export default function CalculadoraImpuestoRenta() {
   const { values, setField, hadInitialParams } = useUrlState(
@@ -73,20 +51,10 @@ export default function CalculadoraImpuestoRenta() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
-            <Icon name="landmark" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de Impuesto de Renta
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Estima tu impuesto de renta en Colombia para el año 2025
-          </p>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
-            UVT 2025: ${formatMoney(UVT_2025)}
-          </p>
-        </div>
+        <CalculatorHeader title="Calculadora de Impuesto de Renta" subtitle="Estima tu impuesto de renta en Colombia para el año 2025" icon="landmark" gradient="finanzas" />
+        <p className="text-xs text-slate-400 dark:text-slate-500 text-center -mt-6 mb-8">
+          UVT 2025: ${formatMoney(UVT_2025)}
+        </p>
 
         <div className="space-y-6">
           {/* Tipo de trabajador */}
@@ -399,12 +367,7 @@ export default function CalculadoraImpuestoRenta() {
         </div>
       </div>
 
-      {/* FAQs */}
-      <div className="max-w-2xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="teal" />
-        </div>
-      </div>
+      <CalculatorFooter href="/finanzas/calculadora-impuesto-renta" />
     </div>
   );
 }

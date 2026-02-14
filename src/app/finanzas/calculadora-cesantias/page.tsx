@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { FAQ } from "@/components/FAQ";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Icon } from "@/lib/icons";
 import { calcularCesantias } from "@/lib/calculadoras";
@@ -9,29 +8,8 @@ import { AUXILIO_TRANSPORTE, SMMLV, TOPE_AUXILIO } from "@/lib/calculadoras/cons
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
 import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
-
-const faqs = [
-  {
-    question: "¿Qué son las cesantías?",
-    answer:
-      "Las cesantías son una prestación social que equivale a un mes de salario por cada año trabajado. Se llaman así porque originalmente servían para cuando el trabajador quedaba cesante (sin empleo). Hoy se pueden usar para vivienda, educación o al terminar el contrato.",
-  },
-  {
-    question: "¿Cuándo se consignan las cesantías?",
-    answer:
-      "El empleador debe consignar las cesantías al fondo antes del 14 de febrero de cada año. Las cesantías corresponden al año anterior (enero a diciembre). Si no consigna a tiempo, debe pagar un día de salario por cada día de mora.",
-  },
-  {
-    question: "¿Puedo retirar mis cesantías antes de renunciar?",
-    answer:
-      "Sí, puedes hacer retiros parciales para: compra de vivienda, remodelación de vivienda propia, pago de créditos hipotecarios, o educación propia o de tu familia (cónyuge, hijos). Necesitas autorización del empleador y documentos que soporten el uso.",
-  },
-  {
-    question: "¿Qué son los intereses sobre cesantías?",
-    answer:
-      "Son un pago adicional del 12% anual sobre las cesantías acumuladas. El empleador debe pagarlos directamente al trabajador (no al fondo) antes del 31 de enero de cada año. Si trabajaste menos de un año, se calculan proporcionalmente.",
-  },
-];
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 
 export default function CalculadoraCesantias() {
   useCalculatorTracking();
@@ -68,15 +46,7 @@ export default function CalculadoraCesantias() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="briefcase" className="w-10 h-10" /></div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de Cesantías
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Calcula tus cesantías e intereses 2026
-          </p>
-        </div>
+        <CalculatorHeader title="Calculadora de Cesantías" subtitle="Calcula tus cesantías e intereses 2026" icon="briefcase" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Salario */}
@@ -290,12 +260,7 @@ export default function CalculadoraCesantias() {
         </div>
       </div>
 
-      {/* FAQs */}
-      <div className="max-w-2xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="teal" />
-        </div>
-      </div>
+      <CalculatorFooter href="/finanzas/calculadora-cesantias" />
     </div>
   );
 }

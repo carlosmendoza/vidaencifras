@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { useCurrency } from "@/context/CurrencyContext";
 import { CurrencySelector } from "@/components/CurrencySelector";
@@ -9,29 +10,6 @@ import { CurrencyInput } from "@/components/CurrencyInput";
 import { Icon } from "@/lib/icons";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
 import { useUrlState } from "@/hooks/useUrlState";
-
-const faqs = [
-  {
-    question: "¿A qué edad me puedo pensionar en Colombia?",
-    answer:
-      "La edad de pensión en Colombia es 57 años para mujeres y 62 para hombres. Además, debes haber cotizado mínimo 1.300 semanas (aproximadamente 25 años). Si no cumples las semanas, puedes acceder a una devolución de saldos o seguir cotizando.",
-  },
-  {
-    question: "¿Cuánto debería ahorrar para mi jubilación?",
-    answer:
-      "Se recomienda ahorrar entre 10% y 15% de tu ingreso para la jubilación. Si empiezas tarde (después de los 40), considera aumentar a 20% o más. La clave es empezar lo antes posible para aprovechar el interés compuesto.",
-  },
-  {
-    question: "¿Qué es la pensión voluntaria y cuáles son sus beneficios?",
-    answer:
-      "La pensión voluntaria es un ahorro adicional al obligatorio que ofrece beneficios tributarios: puedes deducir hasta el 30% de tu ingreso (máximo 3.800 UVT) de tu declaración de renta. Además, los rendimientos no pagan impuestos si cumples los requisitos de permanencia.",
-  },
-  {
-    question: "¿Es mejor el régimen de prima media o el RAIS?",
-    answer:
-      "Prima Media (Colpensiones) suele ser mejor para salarios altos y carreras laborales estables. RAIS (fondos privados) puede ser mejor para salarios bajos o carreras cortas. Si tienes más de 750 semanas cotizadas, evalúa bien antes de cambiarte.",
-  },
-];
 
 interface ResultadoJubilacion {
   ahorroNecesario: number;
@@ -202,15 +180,7 @@ export default function CalculadoraJubilacion() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg"><Icon name="umbrella" className="w-10 h-10" /></div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de Jubilación
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Planifica tu retiro con tranquilidad
-          </p>
-        </div>
+        <CalculatorHeader title="Calculadora de Jubilación" subtitle="Planifica tu retiro con tranquilidad" icon="umbrella" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Edad actual */}
@@ -530,12 +500,7 @@ export default function CalculadoraJubilacion() {
         </div>
       </div>
 
-      {/* FAQs */}
-      <div className="max-w-2xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="teal" />
-        </div>
-      </div>
+      <CalculatorFooter href="/finanzas/calculadora-jubilacion" />
     </div>
   );
 }

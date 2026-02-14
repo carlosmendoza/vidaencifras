@@ -2,9 +2,9 @@
 
 import { useMemo } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { ShareButtons } from "@/components/ShareButtons";
-import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
@@ -71,60 +71,13 @@ export default function CalculadoraImpuestoVehicular() {
     }).format(num);
   };
 
-  const faqs = [
-    {
-      question: "¿Cómo se calcula el impuesto vehicular?",
-      answer:
-        "Se aplica un porcentaje sobre el valor comercial según tablas de la DIAN. Las tarifas varían por tipo de vehículo y rango de valor.",
-    },
-    {
-      question: "¿Qué pasa si no pago el impuesto?",
-      answer:
-        "Acumulas intereses de mora y sanciones. Además, no podrás hacer traspaso ni renovar documentos.",
-    },
-    {
-      question: "¿Cuánto es el descuento por pronto pago?",
-      answer:
-        "La mayoría de departamentos ofrecen 10% de descuento si pagas antes de la fecha límite.",
-    },
-    {
-      question: "¿Dónde consulto el valor comercial?",
-      answer:
-        "En la Resolución de valores del Ministerio de Transporte o en tu Secretaría de Hacienda departamental.",
-    },
-  ];
-
-  const relatedCalculators = [
-    {
-      name: "Calculadora de Préstamos",
-      href: "/finanzas/calculadora-prestamos",
-      description: "Financia tu vehículo",
-      icon: "landmark",
-    },
-    {
-      name: "Impuesto de Renta",
-      href: "/finanzas/calculadora-impuesto-renta",
-      description: "Calcula tu impuesto anual",
-      icon: "file-text",
-    },
-  ];
 
   return (
     <div className="space-y-8">
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="car" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Impuesto Vehicular
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Calcula el impuesto de tu vehículo en Colombia
-          </p>
-        </div>
+        <CalculatorHeader title="Impuesto Vehicular" subtitle="Calcula el impuesto de tu vehículo en Colombia" icon="car" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Departamento */}
@@ -302,13 +255,7 @@ export default function CalculadoraImpuestoVehicular() {
         </p>
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="teal" />
-      </div>
-
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <RelatedCalculators calculators={relatedCalculators} />
-      </div>
+      <CalculatorFooter href="/finanzas/calculadora-impuesto-vehicular" />
     </div>
   );
 }

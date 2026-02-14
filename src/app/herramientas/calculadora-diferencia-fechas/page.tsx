@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Icon } from "@/lib/icons";
 import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
 
@@ -142,17 +144,12 @@ export default function DiferenciaFechas() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-purple-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-purple-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
-            <Icon name="calendar" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Diferencia entre Fechas
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Calcula el tiempo exacto entre dos fechas
-          </p>
-        </div>
+        <CalculatorHeader
+          title="Diferencia entre Fechas"
+          subtitle="Calcula el tiempo exacto entre dos fechas"
+          icon="calendar"
+          gradient="herramientas"
+        />
 
         <div className="space-y-6">
           {/* Fecha inicio */}
@@ -298,6 +295,8 @@ export default function DiferenciaFechas() {
           </li>
         </ul>
       </div>
+
+      <CalculatorFooter href="/herramientas/calculadora-diferencia-fechas" />
     </div>
   );
 }

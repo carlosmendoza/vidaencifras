@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
-import { RelatedCalculators } from "@/components/RelatedCalculators";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Icon } from "@/lib/icons";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
 
@@ -77,44 +77,6 @@ export default function CalculadoraFrecuenciaCardiaca() {
     if (hadInitialParams) calcular();
   }, [hadInitialParams]);
 
-  const faqs = [
-    {
-      question: "¿Cómo mido mi frecuencia cardíaca en reposo?",
-      answer:
-        "Mídela al despertar, antes de levantarte de la cama. Cuenta tus pulsaciones durante 60 segundos colocando dos dedos en la muñeca o el cuello. Hazlo varios días y promedia los resultados.",
-    },
-    {
-      question: "¿Qué es la frecuencia cardíaca máxima?",
-      answer:
-        "Es el número máximo de latidos por minuto que tu corazón puede alcanzar durante el ejercicio intenso. Disminuye con la edad y varía entre personas.",
-    },
-    {
-      question: "¿En qué zona debo entrenar?",
-      answer:
-        "Depende de tu objetivo. Zona 2 para quemar grasa y resistencia base, Zona 3 para mejorar capacidad aeróbica, Zonas 4-5 para rendimiento deportivo y velocidad.",
-    },
-    {
-      question: "¿Qué es el método Karvonen?",
-      answer:
-        "Es un método preciso para calcular zonas de entrenamiento que considera tu frecuencia cardíaca en reposo, no solo tu edad. Es más personalizado que la fórmula básica.",
-    },
-  ];
-
-  const relatedCalculators = [
-    {
-      name: "Calculadora de Calorías",
-      href: "/salud/calculadora-calorias",
-      description: "Calcula tu gasto calórico",
-      icon: "flame",
-    },
-    {
-      name: "Calculadora de IMC",
-      href: "/salud/calculadora-imc",
-      description: "Conoce tu peso ideal",
-      icon: "scale",
-    },
-  ];
-
   // Colores que Tailwind puede detectar (clases completas)
   const zonaColores = [
     { bg: "bg-emerald-50 dark:bg-emerald-950/50", text: "text-emerald-600 dark:text-emerald-400", border: "border-emerald-200 dark:border-emerald-800", bar: "bg-emerald-400" },
@@ -129,17 +91,7 @@ export default function CalculadoraFrecuenciaCardiaca() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-red-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-red-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
-            <Icon name="heart" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de Frecuencia Cardíaca
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Calcula tus zonas de entrenamiento
-          </p>
-        </div>
+        <CalculatorHeader title="Calculadora de Frecuencia Cardíaca" subtitle="Calcula tus zonas de entrenamiento" icon="heart" gradient="salud" />
 
         <div className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -275,13 +227,7 @@ export default function CalculadoraFrecuenciaCardiaca() {
         </p>
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="red" />
-      </div>
-
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <RelatedCalculators calculators={relatedCalculators} />
-      </div>
+      <CalculatorFooter href="/salud/calculadora-frecuencia-cardiaca" />
     </div>
   );
 }

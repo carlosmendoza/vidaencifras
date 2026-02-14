@@ -2,9 +2,9 @@
 
 import { useMemo } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { ShareButtons } from "@/components/ShareButtons";
-import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
@@ -55,60 +55,13 @@ export default function CalculadoraSubsidioVivienda() {
 
   const ingresosSMMLV = parseFloat(values.ingresosFamiliares) / SMMLV_2025;
 
-  const faqs = [
-    {
-      question: "¿Qué es el programa Mi Casa Ya?",
-      answer:
-        "Mi Casa Ya otorga subsidios para vivienda nueva VIS y VIP a familias de bajos ingresos. Incluye subsidio a la cuota inicial y cobertura a la tasa.",
-    },
-    {
-      question: "¿Cuánto es el subsidio?",
-      answer:
-        "Hasta 30 SMMLV para VIP y 20 SMMLV para VIS, dependiendo de tus ingresos familiares.",
-    },
-    {
-      question: "¿Cuáles son los requisitos?",
-      answer:
-        "Ser colombiano, ingresos hasta 4 SMMLV, no ser propietario, no haber recibido subsidio antes, tener crédito aprobado.",
-    },
-    {
-      question: "¿Aplica para vivienda usada?",
-      answer:
-        "No, Mi Casa Ya solo aplica para vivienda nueva. Para usada, consulta opciones del FNA.",
-    },
-  ];
-
-  const relatedCalculators = [
-    {
-      name: "Comparador de Préstamos",
-      href: "/finanzas/comparador-prestamos",
-      description: "Compara créditos hipotecarios",
-      icon: "landmark",
-    },
-    {
-      name: "Arriendo vs Compra",
-      href: "/finanzas/arriendo-vs-compra",
-      description: "¿Te conviene comprar?",
-      icon: "home",
-    },
-  ];
 
   return (
     <div className="space-y-8">
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="home" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Subsidio Mi Casa Ya
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Verifica si eres elegible para el subsidio de vivienda
-          </p>
-        </div>
+        <CalculatorHeader title="Subsidio Mi Casa Ya" subtitle="Verifica si eres elegible para el subsidio de vivienda" icon="home" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Valor de la vivienda */}
@@ -364,13 +317,7 @@ export default function CalculadoraSubsidioVivienda() {
         </ul>
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="teal" />
-      </div>
-
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <RelatedCalculators calculators={relatedCalculators} />
-      </div>
+      <CalculatorFooter href="/finanzas/calculadora-subsidio-vivienda" />
     </div>
   );
 }

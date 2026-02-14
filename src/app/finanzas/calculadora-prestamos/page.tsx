@@ -9,6 +9,8 @@ import { Icon } from "@/lib/icons";
 import { calcularPrestamo, type PrestamoOutput } from "@/lib/calculadoras";
 import { useUrlState } from "@/hooks/useUrlState";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 
 export default function Prestamos() {
   const { moneda } = useCurrency();
@@ -46,17 +48,7 @@ export default function Prestamos() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="landmark" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de Préstamos
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Calcula tu cuota mensual y amortización
-          </p>
-        </div>
+        <CalculatorHeader title="Calculadora de Préstamos" subtitle="Calcula tu cuota mensual y amortización" icon="landmark" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Monto del préstamo */}
@@ -237,6 +229,8 @@ export default function Prestamos() {
           pero esto se invierte gradualmente a lo largo del préstamo.
         </p>
       </div>
+
+      <CalculatorFooter href="/finanzas/calculadora-prestamos" />
     </div>
   );
 }

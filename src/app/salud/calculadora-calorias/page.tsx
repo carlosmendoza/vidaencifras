@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
-import { RelatedCalculators } from "@/components/RelatedCalculators";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Icon } from "@/lib/icons";
 import { Callout } from "@/components/Callout";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
@@ -97,60 +97,12 @@ export default function Calorias() {
     if (hadInitialParams) calcular();
   }, [hadInitialParams]);
 
-  const faqs = [
-    {
-      question: "¿Qué es el TDEE y cómo se calcula?",
-      answer:
-        "TDEE (Total Daily Energy Expenditure) es el total de calorías que quemas al día, incluyendo actividad física. Se calcula multiplicando tu TMB (metabolismo basal) por un factor de actividad.",
-    },
-    {
-      question: "¿Qué es el metabolismo basal (TMB)?",
-      answer:
-        "El TMB son las calorías que tu cuerpo necesita en reposo absoluto para funciones vitales como respirar, bombear sangre y mantener la temperatura corporal.",
-    },
-    {
-      question: "¿Cuántas calorías debo comer para bajar de peso?",
-      answer:
-        "Para perder peso de forma saludable, se recomienda un déficit de 300-500 calorías diarias respecto a tu TDEE. Esto permite perder aproximadamente 0.5 kg por semana.",
-    },
-    {
-      question: "¿Qué son los macronutrientes?",
-      answer:
-        "Los macronutrientes son proteínas, carbohidratos y grasas. Su distribución afecta tus resultados: más proteína ayuda a mantener músculo, los carbos dan energía, y las grasas son esenciales para hormonas.",
-    },
-  ];
-
-  const relatedCalculators = [
-    {
-      name: "Calculadora de IMC",
-      href: "/salud/calculadora-imc",
-      description: "Calcula tu Índice de Masa Corporal",
-      icon: "scale",
-    },
-    {
-      name: "Calculadora de Porcentajes",
-      href: "/herramientas/calculadora-porcentajes",
-      description: "Para calcular % de macros",
-      icon: "percent",
-    },
-  ];
-
   return (
     <div className="space-y-8">
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-red-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-red-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
-            <Icon name="flame" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de Calorías
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            TDEE y macronutrientes personalizados
-          </p>
-        </div>
+        <CalculatorHeader title="Calculadora de Calorías" subtitle="TDEE y macronutrientes personalizados" icon="flame" gradient="salud" />
 
         <div className="space-y-6">
           {/* Sexo */}
@@ -598,13 +550,7 @@ export default function Calorias() {
         </Callout>
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="red" />
-      </div>
-
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <RelatedCalculators calculators={relatedCalculators} />
-      </div>
+      <CalculatorFooter href="/salud/calculadora-calorias" />
     </div>
   );
 }

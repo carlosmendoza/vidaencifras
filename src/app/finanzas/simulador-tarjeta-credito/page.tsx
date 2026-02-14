@@ -3,9 +3,9 @@
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
 import { ShareButtons } from "@/components/ShareButtons";
-import { RelatedCalculators } from "@/components/RelatedCalculators";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
@@ -176,60 +176,12 @@ export default function SimuladorTarjetaCredito() {
     }).format(num);
   };
 
-  const faqs = [
-    {
-      question: "¿Por qué es malo pagar solo el mínimo?",
-      answer:
-        "Pagar solo el mínimo puede tardar años en saldar la deuda. El mínimo apenas cubre los intereses, por lo que el capital casi no se reduce.",
-    },
-    {
-      question: "¿Cuál es la tasa de usura en Colombia?",
-      answer:
-        "La tasa de usura para tarjetas ronda entre 28% y 32% EA. La Superfinanciera la actualiza mensualmente.",
-    },
-    {
-      question: "¿Cómo se calcula el pago mínimo?",
-      answer:
-        "Generalmente es un porcentaje del saldo (2% a 5%) más los intereses del período.",
-    },
-    {
-      question: "¿Cuánto debería pagar cada mes?",
-      answer:
-        "Lo ideal es pagar el total facturado. Si no es posible, una cuota fija superior al mínimo te ahorrará mucho dinero.",
-    },
-  ];
-
-  const relatedCalculators = [
-    {
-      name: "Calculadora de Préstamos",
-      href: "/finanzas/calculadora-prestamos",
-      description: "Calcula cuotas y amortización",
-      icon: "landmark",
-    },
-    {
-      name: "Interés Compuesto",
-      href: "/finanzas/calculadora-interes-compuesto",
-      description: "Simula el crecimiento de tu dinero",
-      icon: "trending-up",
-    },
-  ];
-
   return (
     <div className="space-y-8">
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-3xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="credit-card" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Simulador de Tarjeta de Crédito
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Compara pago mínimo vs cuota fija
-          </p>
-        </div>
+        <CalculatorHeader title="Simulador de Tarjeta de Crédito" subtitle="Compara pago mínimo vs cuota fija" icon="credit-card" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Saldo actual */}
@@ -447,13 +399,7 @@ export default function SimuladorTarjetaCredito() {
         </ul>
       </div>
 
-      <div className="max-w-3xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="teal" />
-      </div>
-
-      <div className="max-w-3xl mx-auto p-8 card-glass rounded-xl">
-        <RelatedCalculators calculators={relatedCalculators} />
-      </div>
+      <CalculatorFooter href="/finanzas/simulador-tarjeta-credito" />
     </div>
   );
 }

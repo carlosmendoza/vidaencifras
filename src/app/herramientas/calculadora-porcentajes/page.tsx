@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
-import { RelatedCalculators } from "@/components/RelatedCalculators";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Icon } from "@/lib/icons";
 import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
 
@@ -93,58 +93,17 @@ export default function Porcentajes() {
 
   const labels = getLabels();
 
-  const faqs = [
-    {
-      question: "¿Cómo calcular el porcentaje de un número?",
-      answer:
-        "Para calcular el X% de un número Y, multiplica Y por X y divide entre 100. Ejemplo: el 15% de 200 es (200 × 15) / 100 = 30.",
-    },
-    {
-      question: "¿Cómo saber qué porcentaje es un número de otro?",
-      answer:
-        "Divide el número menor entre el mayor y multiplica por 100. Ejemplo: para saber qué porcentaje es 30 de 200: (30 / 200) × 100 = 15%.",
-    },
-    {
-      question: "¿Cómo calcular un descuento porcentual?",
-      answer:
-        "Multiplica el precio original por (1 - descuento/100). Ejemplo: un producto de $100 con 25% de descuento: 100 × (1 - 0.25) = $75.",
-    },
-    {
-      question: "¿Cómo calcular un aumento porcentual?",
-      answer:
-        "Multiplica el valor original por (1 + aumento/100). Ejemplo: un salario de $1000 con aumento del 10%: 1000 × (1 + 0.10) = $1100.",
-    },
-  ];
-
-  const relatedCalculators = [
-    {
-      name: "Calculadora de Préstamos",
-      href: "/finanzas/calculadora-prestamos",
-      description: "Calcula cuotas e intereses",
-      icon: "landmark",
-    },
-    {
-      name: "Calculadora de Interés Compuesto",
-      href: "/finanzas/calculadora-interes-compuesto",
-      description: "Simula el crecimiento de tu dinero",
-      icon: "trending-up",
-    },
-  ];
-
   return (
     <div className="space-y-8">
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-purple-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-purple-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg">%</div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de Porcentajes
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Calcula cualquier porcentaje fácilmente
-          </p>
-        </div>
+        <CalculatorHeader
+          title="Calculadora de Porcentajes"
+          subtitle="Calcula cualquier porcentaje fácilmente"
+          icon="%"
+          gradient="herramientas"
+        />
 
         <div className="space-y-6">
           {/* Selector de tipo */}
@@ -251,13 +210,7 @@ export default function Porcentajes() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="purple" />
-      </div>
-
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <RelatedCalculators calculators={relatedCalculators} />
-      </div>
+      <CalculatorFooter href="/herramientas/calculadora-porcentajes" />
     </div>
   );
 }

@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
-import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { calcularSalarioNeto, type SalarioNetoOutput } from "@/lib/calculadoras";
 import { SMMLV, AUXILIO_TRANSPORTE, TOPE_AUXILIO, UVT_2026 } from "@/lib/calculadoras/constantes";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 
 export default function CalculadoraSalarioNeto() {
   const { values, setField, hadInitialParams } = useUrlState(
@@ -61,71 +61,12 @@ export default function CalculadoraSalarioNeto() {
 
   const salarioRapido = [SMMLV, SMMLV * 2, SMMLV * 3, SMMLV * 4];
 
-  const faqs = [
-    {
-      question: "¿Qué descuentos se hacen al salario en Colombia?",
-      answer:
-        "Los descuentos obligatorios son: salud (4%), pensión (4%), y para salarios altos, Fondo de Solidaridad (1%+) y retención en la fuente. La retención depende del salario y las deducciones personales.",
-    },
-    {
-      question: "¿El auxilio de transporte tiene descuentos?",
-      answer:
-        "No. El auxilio de transporte no tiene descuentos de salud ni pensión. Se suma íntegro al salario neto. Aplica para quienes ganan hasta 2 SMMLV.",
-    },
-    {
-      question: "¿Desde qué salario aplica retención en la fuente?",
-      answer:
-        "La retención aplica cuando la base gravable supera 95 UVT (aprox. $4.975.000 en 2026). Puedes reducirla declarando dependientes, medicina prepagada, intereses de vivienda o aportes AFC.",
-    },
-    {
-      question: "¿Cómo reduzco la retención en la fuente?",
-      answer:
-        "Puedes reducirla con: dependientes económicos (10% cada uno, máx 4), medicina prepagada (hasta 16 UVT/mes), intereses de vivienda (hasta 100 UVT/mes), y aportes voluntarios AFC o pensión.",
-    },
-    {
-      question: "¿Qué es el Fondo de Solidaridad Pensional?",
-      answer:
-        "Es un aporte adicional del 1% que deben hacer los trabajadores que ganan 4 SMMLV o más. Este dinero se destina a subsidiar las pensiones de adultos mayores de escasos recursos.",
-    },
-  ];
-
-  const relatedCalculators = [
-    {
-      name: "Calculadora de Prima",
-      href: "/finanzas/calculadora-prima",
-      description: "Calcula tu prima de servicios",
-      icon: "gift",
-    },
-    {
-      name: "Calculadora de Liquidación",
-      href: "/finanzas/calculadora-liquidacion",
-      description: "Calcula tu liquidación laboral",
-      icon: "clipboard",
-    },
-    {
-      name: "Calculadora de Horas Extras",
-      href: "/finanzas/calculadora-horas-extras",
-      description: "Calcula el valor de tus extras",
-      icon: "clock",
-    },
-  ];
-
   return (
     <div className="space-y-8">
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
-            <Icon name="banknote" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de Salario Neto
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            ¿Cuánto recibes realmente? Colombia 2026
-          </p>
-        </div>
+        <CalculatorHeader title="Calculadora de Salario Neto" subtitle="¿Cuánto recibes realmente? Colombia 2026" icon="banknote" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Salario bruto */}
@@ -499,13 +440,7 @@ export default function CalculadoraSalarioNeto() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="teal" />
-      </div>
-
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <RelatedCalculators calculators={relatedCalculators} />
-      </div>
+      <CalculatorFooter href="/finanzas/calculadora-salario-neto" />
     </div>
   );
 }

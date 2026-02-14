@@ -1,33 +1,11 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Icon } from "@/lib/icons";
 import { useCalculatorTracking } from "@/hooks/useCalculatorTracking";
-
-const faqs = [
-  {
-    question: "¿Qué es la Matriz de Eisenhower?",
-    answer:
-      "Es una herramienta de gestión del tiempo creada por Dwight D. Eisenhower. Clasifica las tareas según su urgencia e importancia en 4 cuadrantes: Hacer (urgente e importante), Programar (importante pero no urgente), Delegar (urgente pero no importante), y Eliminar (ni urgente ni importante).",
-  },
-  {
-    question: "¿Cómo distingo entre urgente e importante?",
-    answer:
-      "Lo urgente requiere atención inmediata y suele estar relacionado con las prioridades de otros. Lo importante contribuye a tus metas y valores a largo plazo. Una llamada puede ser urgente pero no importante; planificar tu carrera es importante pero rara vez urgente.",
-  },
-  {
-    question: "¿Cuántas tareas debo tener en cada cuadrante?",
-    answer:
-      "Idealmente, la mayoría de tu tiempo debería ir al cuadrante 2 (Programar - importante pero no urgente). Esto previene que las cosas se vuelvan urgentes. Si tienes muchas tareas en 'Hacer', probablemente no estás planificando suficiente.",
-  },
-  {
-    question: "¿Cada cuánto debo revisar mi matriz?",
-    answer:
-      "Revísala al inicio de cada día y haz una revisión más profunda semanal. Las prioridades cambian, y lo que ayer era importante puede no serlo hoy. La revisión constante es clave para mantenerte enfocado.",
-  },
-];
 
 interface Tarea {
   id: string;
@@ -157,17 +135,12 @@ export default function MatrizEisenhower() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-6xl mx-auto shadow-xl shadow-orange-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="grid" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Matriz de Eisenhower
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Prioriza tus tareas según urgencia e importancia
-          </p>
-        </div>
+        <CalculatorHeader
+          title="Matriz de Eisenhower"
+          subtitle="Prioriza tus tareas según urgencia e importancia"
+          icon="grid"
+          gradient="productividad"
+        />
 
         {/* Agregar nueva tarea */}
         <div className="mb-8 p-4 md:p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
@@ -321,12 +294,7 @@ export default function MatrizEisenhower() {
         </div>
       </div>
 
-      {/* FAQs */}
-      <div className="max-w-6xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="orange" />
-        </div>
-      </div>
+      <CalculatorFooter href="/productividad/matriz-eisenhower" />
     </div>
   );
 }

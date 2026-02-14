@@ -2,7 +2,8 @@
 
 import { useState, useMemo, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Icon } from "@/lib/icons";
 import { useUrlState } from "@/hooks/useUrlState";
@@ -12,29 +13,6 @@ const WeeksGrid = dynamic(
   () => import("@/components/charts/WeeksGrid").then((mod) => mod.WeeksGrid),
   { loading: () => <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl animate-pulse" /> }
 );
-
-const faqs = [
-  {
-    question: "¿Por qué visualizar la vida en semanas?",
-    answer:
-      "Ver tu vida como una cuadrícula finita de semanas hace tangible lo abstracto. Es un recordatorio poderoso de que el tiempo es limitado y cada semana cuenta. Inspira a vivir con más intención.",
-  },
-  {
-    question: "¿Cuál es la expectativa de vida promedio?",
-    answer:
-      "En Colombia es ~77 años, en México ~75, en Argentina ~76, en España ~83. Factores como estilo de vida, ejercicio, alimentación y genética pueden aumentarla significativamente.",
-  },
-  {
-    question: "¿Cuántas semanas tiene una vida de 80 años?",
-    answer:
-      "Una vida de 80 años tiene 4,160 semanas. Parece mucho, pero si tienes 30 años ya usaste 1,560 semanas (37.5%). Te quedan aproximadamente 2,600 semanas.",
-  },
-  {
-    question: "¿Cómo puedo aprovechar mejor mis semanas restantes?",
-    answer:
-      "Define qué es importante para ti. Programa primero lo que importa (familia, salud, metas). Di no a lo que no te acerca a tu visión. Cada semana que pasa no vuelve.",
-  },
-];
 
 interface Estadisticas {
   semanasVividas: number;
@@ -146,17 +124,12 @@ export default function VidaEnSemanasPage() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-orange-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="calendar" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Tu Vida en Semanas
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Cada cuadrito es una semana de tu vida. ¿Cuántas te quedan?
-          </p>
-        </div>
+        <CalculatorHeader
+          title="Tu Vida en Semanas"
+          subtitle="Cada cuadrito es una semana de tu vida. ¿Cuántas te quedan?"
+          icon="calendar"
+          gradient="productividad"
+        />
 
         <div className="max-w-md mx-auto space-y-6">
           {/* Fecha de nacimiento */}
@@ -388,12 +361,7 @@ export default function VidaEnSemanasPage() {
         </div>
       </div>
 
-      {/* FAQs */}
-      <div className="max-w-4xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="orange" />
-        </div>
-      </div>
+      <CalculatorFooter href="/productividad/vida-en-semanas" />
     </div>
   );
 }

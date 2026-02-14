@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { useUrlState } from "@/hooks/useUrlState";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
-import { RelatedCalculators } from "@/components/RelatedCalculators";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Icon } from "@/lib/icons";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
 
@@ -132,60 +132,12 @@ export default function CalculadoraSueno() {
     }
   };
 
-  const faqs = [
-    {
-      question: "¿Qué es un ciclo de sueño?",
-      answer:
-        "Un ciclo de sueño dura aproximadamente 90 minutos y pasa por diferentes fases: sueño ligero, sueño profundo y sueño REM. Despertar al final de un ciclo te hace sentir más descansado.",
-    },
-    {
-      question: "¿Cuántas horas de sueño necesito?",
-      answer:
-        "La mayoría de adultos necesitan entre 7-9 horas (4-6 ciclos). Sin embargo, lo importante es despertar al final de un ciclo completo, no la cantidad exacta de horas.",
-    },
-    {
-      question: "¿Por qué me siento cansado aunque dormí 8 horas?",
-      answer:
-        "Probablemente despertaste en medio de un ciclo de sueño profundo. Despertar entre ciclos (no durante uno) te hace sentir más descansado, incluso con menos horas totales.",
-    },
-    {
-      question: "¿Qué pasa si duermo menos de 4 ciclos?",
-      answer:
-        "Dormir menos de 6 horas (4 ciclos) regularmente puede afectar tu salud, concentración, memoria y sistema inmune. Intenta siempre completar al menos 4 ciclos.",
-    },
-  ];
-
-  const relatedCalculators = [
-    {
-      name: "Calculadora de Calorías",
-      href: "/salud/calculadora-calorias",
-      description: "Calcula tu gasto calórico",
-      icon: "flame",
-    },
-    {
-      name: "Calculadora de Hidratación",
-      href: "/salud/calculadora-hidratacion",
-      description: "Cuánta agua necesitas",
-      icon: "droplets",
-    },
-  ];
-
   return (
     <div className="space-y-8">
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-red-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-red-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
-            <Icon name="moon" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de Sueño
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Optimiza tus ciclos de sueño
-          </p>
-        </div>
+        <CalculatorHeader title="Calculadora de Sueño" subtitle="Optimiza tus ciclos de sueño" icon="moon" gradient="salud" />
 
         <div className="space-y-8">
           {/* Selector de modo */}
@@ -317,13 +269,7 @@ export default function CalculadoraSueno() {
         </p>
       </div>
 
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="red" />
-      </div>
-
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <RelatedCalculators calculators={relatedCalculators} />
-      </div>
+      <CalculatorFooter href="/salud/calculadora-sueno" />
     </div>
   );
 }

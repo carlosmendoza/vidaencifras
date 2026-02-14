@@ -2,9 +2,9 @@
 
 import { useMemo } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { ShareButtons } from "@/components/ShareButtons";
-import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
@@ -103,60 +103,13 @@ export default function ComparadorPrestamos() {
     ? peorOpcion.costoTotal - mejorOpcion.costoTotal
     : 0;
 
-  const faqs = [
-    {
-      question: "¿Cómo elijo el mejor préstamo?",
-      answer:
-        "Compara el Costo Total del Crédito, no solo la tasa. Un préstamo con tasa más baja puede ser más caro por seguros y administración.",
-    },
-    {
-      question: "¿Qué diferencia hay entre tasa nominal y efectiva?",
-      answer:
-        "La tasa efectiva anual (EA) es la que realmente pagas. Siempre compara usando tasa EA.",
-    },
-    {
-      question: "¿Puedo pagar mi préstamo antes de tiempo?",
-      answer:
-        "Sí, por ley puedes prepagar sin penalización. Esto reduce los intereses totales.",
-    },
-    {
-      question: "¿Qué documentos necesito?",
-      answer:
-        "Generalmente: cédula, certificado de ingresos, extractos bancarios y declaración de renta si aplica.",
-    },
-  ];
-
-  const relatedCalculators = [
-    {
-      name: "Calculadora de Préstamos",
-      href: "/finanzas/calculadora-prestamos",
-      description: "Calcula cuotas detalladamente",
-      icon: "landmark",
-    },
-    {
-      name: "Comparador de CDTs",
-      href: "/finanzas/comparador-cdt",
-      description: "Compara tasas de ahorro",
-      icon: "bar-chart",
-    },
-  ];
 
   return (
     <div className="space-y-8">
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg text-white">
-            <Icon name="landmark" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Comparador de Préstamos
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Encuentra la mejor tasa entre bancos colombianos
-          </p>
-        </div>
+        <CalculatorHeader title="Comparador de Préstamos" subtitle="Encuentra la mejor tasa entre bancos colombianos" icon="landmark" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Tipo de préstamo */}
@@ -375,13 +328,7 @@ export default function ComparadorPrestamos() {
         </ul>
       </div>
 
-      <div className="max-w-4xl mx-auto p-8 card-glass rounded-xl">
-        <FAQ items={faqs} colorClass="teal" />
-      </div>
-
-      <div className="max-w-4xl mx-auto p-8 card-glass rounded-xl">
-        <RelatedCalculators calculators={relatedCalculators} />
-      </div>
+      <CalculatorFooter href="/finanzas/comparador-prestamos" />
     </div>
   );
 }

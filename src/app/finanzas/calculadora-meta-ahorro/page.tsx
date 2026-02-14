@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useCallback } from "react";
-import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { useUrlState } from "@/hooks/useUrlState";
 import {
@@ -14,7 +13,8 @@ import {
   ResponsiveContainer,
   ReferenceLine,
 } from "recharts";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
@@ -104,34 +104,6 @@ const CUENTAS_AHORRO = [
 ];
 
 type CuentaId = (typeof CUENTAS_AHORRO)[number]["id"];
-
-const faqs = [
-  {
-    question: "¿Cómo se calcula el aporte mensual necesario?",
-    answer:
-      "Usamos la fórmula de valor futuro de anualidades con interés compuesto. Consideramos tu capital inicial, la tasa de interés de la cuenta seleccionada y el plazo que elegiste para calcular exactamente cuánto necesitas aportar cada mes.",
-  },
-  {
-    question: "¿Por qué con mejores tasas necesito ahorrar menos?",
-    answer:
-      "Porque el interés compuesto hace más trabajo por ti. Con una tasa más alta, tus aportes generan más intereses, y esos intereses generan más intereses. Así, una parte mayor de tu meta viene de los rendimientos en lugar de tu bolsillo.",
-  },
-  {
-    question: "¿Qué pasa si no puedo ahorrar el monto sugerido?",
-    answer:
-      "Tienes dos opciones: extender el plazo (más tiempo = menos ahorro mensual) o reducir tu meta. También puedes empezar con un capital inicial mayor si tienes ahorros disponibles.",
-  },
-  {
-    question: "¿El cálculo incluye inflación?",
-    answer:
-      "No, el cálculo muestra el valor nominal. Si quieres que tu meta mantenga poder adquisitivo, considera aumentarla según la inflación esperada (aprox. 5% anual en Colombia).",
-  },
-  {
-    question: "¿Puedo cambiar de cuenta durante el ahorro?",
-    answer:
-      "Sí, puedes mover tu dinero entre cuentas sin penalidad. Si encuentras una mejor tasa, simplemente transfiere tu saldo. Esto puede acelerar el logro de tu meta.",
-  },
-];
 
 function CalculadoraMetaAhorroContent() {
   const { values, setField } = useUrlState(
@@ -435,17 +407,7 @@ function CalculadoraMetaAhorroContent() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
-            <Icon name="target" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Calculadora de Meta de Ahorro
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Descubre cuánto debes ahorrar mensualmente para alcanzar tu objetivo
-          </p>
-        </div>
+        <CalculatorHeader title="Calculadora de Meta de Ahorro" subtitle="Descubre cuánto debes ahorrar mensualmente para alcanzar tu objetivo" icon="target" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Toggle de modo */}
@@ -951,35 +913,7 @@ function CalculadoraMetaAhorroContent() {
         </div>
       </div>
 
-      {/* Link al comparador */}
-      <div className="max-w-4xl mx-auto">
-        <Link
-          href="/finanzas/simulador-cuenta-ahorro"
-          className="block p-6 card-glass rounded-2xl hover:ring-2 hover:ring-teal-500 transition-all group"
-        >
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-teal-500 rounded-xl flex items-center justify-center text-white">
-              <Icon name="landmark" className="w-6 h-6" />
-            </div>
-            <div className="flex-1">
-              <h3 className="font-bold text-slate-700 dark:text-slate-200 group-hover:text-teal-600 transition-colors">
-                Comparador de Cuentas de Ahorro
-              </h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
-                ¿Ya tienes dinero? Simula cuánto crecerá en cada cuenta
-              </p>
-            </div>
-            <span className="text-slate-400 group-hover:text-teal-500 transition-colors">→</span>
-          </div>
-        </Link>
-      </div>
-
-      {/* FAQs */}
-      <div className="max-w-4xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="teal" />
-        </div>
-      </div>
+      <CalculatorFooter href="/finanzas/calculadora-meta-ahorro" />
     </div>
   );
 }
