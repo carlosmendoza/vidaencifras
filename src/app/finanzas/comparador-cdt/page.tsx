@@ -2,55 +2,34 @@
 
 import { useState, useMemo } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
 
-// Tasas de referencia de bancos colombianos — febrero 2026
-// Fuentes: Superintendencia Financiera, La República, El Tiempo (corte: 9 feb 2026)
+// Tasas de referencia CDT bancos colombianos — febrero 2026
+// Fuentes: Superfinanciera vía Semana/La República, El Tiempo, La FM (corte: 14 feb 2026)
+// Nota: solo CDTs reales (no cuentas de ahorro ni bolsillos programados)
 const BANCOS_PRESETS = [
-  { nombre: "Tuya", tasa90: 10.45, tasa180: 11.5, tasa360: 12.89 },
-  { nombre: "MiBanco", tasa90: 10.11, tasa180: 10.8, tasa360: 12.69 },
+  { nombre: "Tuya", tasa90: 10.45, tasa180: 11.41, tasa360: 12.89 },
+  { nombre: "MiBanco", tasa90: 10.11, tasa180: 10.19, tasa360: 12.69 },
   { nombre: "Banco de Bogotá", tasa90: 9.8, tasa180: 10.5, tasa360: 12.14 },
   { nombre: "AV Villas", tasa90: 9.5, tasa180: 10.3, tasa360: 12.06 },
-  { nombre: "Banco W", tasa90: 8.62, tasa180: 10.2, tasa360: 12.0 },
-  { nombre: "Bold", tasa90: 9.6, tasa180: 11.92, tasa360: 11.92 },
   { nombre: "Davivienda", tasa90: 9.0, tasa180: 10.0, tasa360: 11.92 },
-  { nombre: "Banco de Occidente", tasa90: 10.15, tasa180: 10.5, tasa360: 11.85 },
+  { nombre: "Bold", tasa90: 11.0, tasa180: 11.20, tasa360: 11.92 },
+  { nombre: "Banco de Occidente", tasa90: 10.15, tasa180: 11.49, tasa360: 11.85 },
   { nombre: "Credifamilia", tasa90: 9.3, tasa180: 10.6, tasa360: 11.8 },
-  { nombre: "Bancolombia", tasa90: 8.3, tasa180: 9.5, tasa360: 11.48 },
   { nombre: "BBVA", tasa90: 9.0, tasa180: 9.8, tasa360: 11.48 },
+  { nombre: "Banco W", tasa90: 10.05, tasa180: 10.2, tasa360: 11.47 },
+  { nombre: "Bancolombia", tasa90: 8.3, tasa180: 9.5, tasa360: 11.20 },
   { nombre: "Itaú", tasa90: 8.55, tasa180: 9.5, tasa360: 11.05 },
-  { nombre: "Nu Colombia", tasa90: 9.5, tasa180: 10.0, tasa360: 10.5 },
-  { nombre: "Banco Falabella", tasa90: 8.5, tasa180: 9.2, tasa360: 10.0 },
+  { nombre: "Nu Colombia", tasa90: 9.7, tasa180: 10.5, tasa360: 10.5 },
+  { nombre: "Banco Falabella", tasa90: 8.5, tasa180: 9.2, tasa360: 9.95 },
 ];
 
 const RETENCION_FUENTE = 0.04; // 4% de retención en la fuente
-
-const faqs = [
-  {
-    question: "¿Qué es un CDT y cómo funciona?",
-    answer:
-      "Un CDT (Certificado de Depósito a Término) es un producto de ahorro donde depositas dinero por un plazo fijo y recibes intereses. No puedes retirar el dinero antes del vencimiento sin penalización. A mayor plazo, generalmente mayor tasa de interés.",
-  },
-  {
-    question: "¿Cuál es la retención en la fuente de los CDTs?",
-    answer:
-      "Los rendimientos de CDTs tienen una retención en la fuente del 4% sobre los intereses ganados. Esta retención se aplica al momento del pago de los intereses y es descontable en tu declaración de renta.",
-  },
-  {
-    question: "¿Qué pasa si necesito el dinero antes del vencimiento?",
-    answer:
-      "La mayoría de bancos permiten cancelar anticipadamente con una penalización, que suele ser la pérdida parcial o total de los intereses. Algunos bancos ofrecen CDTs 'redimibles' que permiten retiros sin penalización.",
-  },
-  {
-    question: "¿Es mejor un CDT o una cuenta de ahorros?",
-    answer:
-      "Los CDTs ofrecen tasas más altas (10-12% vs 3-4% de cuentas de ahorro), pero no tienes liquidez. Si no necesitarás el dinero en el plazo del CDT, es mejor opción. Si necesitas acceso al dinero, la cuenta de ahorros es más conveniente.",
-  },
-];
 
 interface CDTConfig {
   id: string;
@@ -177,17 +156,7 @@ export default function ComparadorCDT() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg text-white">
-            <Icon name="bar-chart" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Comparador de CDTs
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Compara tasas de diferentes bancos y encuentra la mejor opción
-          </p>
-        </div>
+        <CalculatorHeader title="Comparador de CDTs" subtitle="Compara tasas de diferentes bancos y encuentra la mejor opción" icon="bar-chart" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Capital a invertir */}
@@ -296,39 +265,41 @@ export default function ComparadorCDT() {
                       : "bg-slate-50 dark:bg-slate-900 border-slate-100 dark:border-slate-800 opacity-60"
                   }`}
                 >
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-start gap-3">
                     <input
                       type="checkbox"
                       checked={cdt.habilitado}
                       onChange={(e) => actualizarCDT(cdt.id, "habilitado", e.target.checked)}
-                      className="w-5 h-5 rounded-lg border-2 border-slate-300 text-teal-500 focus:ring-teal-500"
+                      className="w-5 h-5 mt-2 rounded-lg border-2 border-slate-300 text-teal-500 focus:ring-teal-500 flex-shrink-0"
                     />
-                    <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-3">
-                      <input
-                        type="text"
-                        value={cdt.banco}
-                        onChange={(e) => actualizarCDT(cdt.id, "banco", e.target.value)}
-                        className="px-3 py-2 rounded-xl text-sm font-semibold bg-transparent border border-slate-200 dark:border-slate-700"
-                        placeholder="Nombre del banco"
-                      />
-                      <div className="relative">
+                    <div className="flex-1 min-w-0">
+                      <div className="grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-3">
                         <input
-                          type="number"
-                          value={cdt.tasaAnual}
-                          onChange={(e) => actualizarCDT(cdt.id, "tasaAnual", parseFloat(e.target.value) || 0)}
-                          step="0.1"
-                          className="w-full px-3 py-2 rounded-xl text-sm font-semibold bg-transparent border border-slate-200 dark:border-slate-700 pr-10"
-                          placeholder="Tasa"
+                          type="text"
+                          value={cdt.banco}
+                          onChange={(e) => actualizarCDT(cdt.id, "banco", e.target.value)}
+                          className="w-full px-3 py-2 rounded-xl text-sm font-semibold bg-transparent border border-slate-200 dark:border-slate-700"
+                          placeholder="Nombre del banco"
                         />
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">% EA</span>
-                      </div>
-                      <div className="text-sm text-slate-500 dark:text-slate-400 flex items-center">
-                        {plazoSeleccionado} días
+                        <div className="relative">
+                          <input
+                            type="number"
+                            value={cdt.tasaAnual}
+                            onChange={(e) => actualizarCDT(cdt.id, "tasaAnual", parseFloat(e.target.value) || 0)}
+                            step="0.1"
+                            className="w-full px-3 py-2 rounded-xl text-sm font-semibold bg-transparent border border-slate-200 dark:border-slate-700 pr-10"
+                            placeholder="Tasa"
+                          />
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">% EA</span>
+                        </div>
+                        <div className="hidden md:flex text-sm text-slate-500 dark:text-slate-400 items-center">
+                          {plazoSeleccionado} días
+                        </div>
                       </div>
                     </div>
                     <button
                       onClick={() => eliminarCDT(cdt.id)}
-                      className="p-2 text-slate-400 hover:text-red-500 transition-colors"
+                      className="p-2 text-slate-400 hover:text-red-500 transition-colors flex-shrink-0"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -391,8 +362,8 @@ export default function ComparadorCDT() {
                 />
               </div>
 
-              {/* Tabla comparativa */}
-              <div className="overflow-x-auto rounded-2xl ring-1 ring-slate-200 dark:ring-slate-700">
+              {/* Tabla comparativa — desktop */}
+              <div className="hidden md:block overflow-x-auto rounded-2xl ring-1 ring-slate-200 dark:ring-slate-700">
                 <table className="w-full text-sm">
                   <thead className="bg-slate-50 dark:bg-slate-800">
                     <tr>
@@ -437,6 +408,40 @@ export default function ComparadorCDT() {
                 </table>
               </div>
 
+              {/* Cards comparativas — mobile */}
+              <div className="md:hidden space-y-3">
+                {resultados.map((r, index) => (
+                  <div
+                    key={r.id}
+                    className={`p-4 rounded-2xl border ${
+                      index === 0
+                        ? "bg-emerald-50/50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800"
+                        : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="font-bold text-slate-800 dark:text-slate-100">
+                        {index === 0 && <Icon name="seal-check" className="w-4 h-4 inline-block mr-1 text-teal-600" />}
+                        {r.banco}
+                      </span>
+                      <span className="text-sm font-semibold text-slate-500 dark:text-slate-400">
+                        {r.tasaAnual.toFixed(1)}% EA
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <p className="text-xs text-slate-400">Interés neto</p>
+                        <p className="font-bold text-emerald-600">${formatMoney(r.interesNeto)}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs text-slate-400">Total final</p>
+                        <p className="font-bold text-slate-700 dark:text-slate-200">${formatMoney(r.totalFinal)}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
               {/* Nota sobre retención */}
               <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-2xl border border-amber-200 dark:border-amber-800">
                 <p className="text-sm text-amber-700 dark:text-amber-300">
@@ -478,12 +483,7 @@ export default function ComparadorCDT() {
         </div>
       </div>
 
-      {/* FAQs */}
-      <div className="max-w-4xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="teal" />
-        </div>
-      </div>
+      <CalculatorFooter href="/finanzas/comparador-cdt" />
     </div>
   );
 }
