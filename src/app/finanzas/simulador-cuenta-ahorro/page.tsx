@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo, useCallback } from "react";
-import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { useUrlState } from "@/hooks/useUrlState";
 import {
@@ -15,7 +14,8 @@ import {
   ResponsiveContainer,
   ReferenceLine,
 } from "recharts";
-import { FAQ } from "@/components/FAQ";
+import { CalculatorHeader } from "@/components/CalculatorHeader";
+import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
@@ -100,39 +100,6 @@ const CUENTAS_AHORRO = [
 type CuentaId = (typeof CUENTAS_AHORRO)[number]["id"];
 
 const INFLACION_DEFECTO = 5.5;
-
-const faqs = [
-  {
-    question: "¿Cuál es la mejor cuenta de ahorro en Colombia?",
-    answer:
-      "Depende de tu situación. Ualá ofrece la mejor tasa (12% EA) pero tiene límite de $10M. Pibank y Global66 ofrecen 11% sin límites. Para montos grandes, considera diversificar entre varias opciones.",
-  },
-  {
-    question: "¿Qué significa tasa EA (Efectiva Anual)?",
-    answer:
-      "La tasa EA representa el rendimiento real que obtienes en un año, incluyendo el efecto del interés compuesto. Una tasa del 12% EA significa que $1.000.000 se convertirán en $1.120.000 después de un año.",
-  },
-  {
-    question: "¿Por qué guardar dinero bajo el colchón es mala idea?",
-    answer:
-      "Por la inflación. Si la inflación es del 5% anual, tu dinero pierde poder de compra cada día. Un millón de pesos hoy comprará menos cosas en un año, aunque nominalmente siga siendo un millón.",
-  },
-  {
-    question: "¿Las cuentas de ahorro digitales son seguras?",
-    answer:
-      "Sí, las entidades listadas están vigiladas por la Superintendencia Financiera de Colombia. Los depósitos están protegidos por Fogafin hasta $50 millones por persona. Puedes retirar tu dinero en cualquier momento.",
-  },
-  {
-    question: "¿Por qué Ualá tiene límite de $10 millones?",
-    answer:
-      "Ualá opera como SEDPE (Sociedad Especializada en Depósitos y Pagos Electrónicos), lo que le permite ofrecer tasas más altas pero con límite de saldo. Es ideal para tu fondo de emergencia.",
-  },
-  {
-    question: "¿Debo pagar impuestos sobre los intereses ganados?",
-    answer:
-      "Los intereses de cuentas de ahorro están sujetos a retención en la fuente del 4% para montos mayores a cierto umbral. Sin embargo, esto ya está aplicado por la entidad, así que la tasa que ves es neta.",
-  },
-];
 
 interface DatoEvolucion {
   mes: number;
@@ -345,17 +312,7 @@ function SimuladorCuentaAhorroContent() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-5xl mx-auto shadow-xl shadow-teal-500/5">
-        <div className="text-center mb-10">
-          <div className="w-20 h-20 bg-teal-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg">
-            <Icon name="piggy-bank" className="w-10 h-10" />
-          </div>
-          <h1 className="text-4xl font-black text-slate-800 dark:text-slate-100 mb-3 tracking-tight">
-            Comparador de Cuentas de Ahorro
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Compara rendimientos de las mejores cuentas remuneradas en Colombia
-          </p>
-        </div>
+        <CalculatorHeader title="Comparador de Cuentas de Ahorro" subtitle="Compara rendimientos de las mejores cuentas remuneradas en Colombia" icon="piggy-bank" gradient="finanzas" />
 
         <div className="space-y-6">
           {/* Selector de cuentas */}
@@ -363,7 +320,7 @@ function SimuladorCuentaAhorroContent() {
             <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
               Selecciona las cuentas a comparar
             </label>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
               {CUENTAS_AHORRO.map((cuenta) => (
                 <button
                   key={cuenta.id}
@@ -374,19 +331,21 @@ function SimuladorCuentaAhorroContent() {
                       : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600"
                   }`}
                 >
-                  <div className="flex items-center gap-2 mb-1">
-                    <div
-                      className="w-3 h-3 rounded-full"
-                      style={{ backgroundColor: cuenta.color }}
-                    />
-                    <span className="font-semibold text-sm text-slate-700 dark:text-slate-200">
-                      {cuenta.nombre}
-                    </span>
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <div
+                        className="w-3 h-3 shrink-0 rounded-full"
+                        style={{ backgroundColor: cuenta.color }}
+                      />
+                      <span className="font-semibold text-sm text-slate-700 dark:text-slate-200 truncate">
+                        {cuenta.nombre}
+                      </span>
+                    </div>
+                    <div className="text-lg font-black shrink-0" style={{ color: cuenta.color }}>
+                      {cuenta.tasa}% EA
+                    </div>
                   </div>
-                  <div className="text-lg font-black" style={{ color: cuenta.color }}>
-                    {cuenta.tasa}% EA
-                  </div>
-                  <p className="text-xs text-slate-400 mt-1 line-clamp-1">{cuenta.nota}</p>
+                  <p className="text-xs text-slate-400 mt-1 line-clamp-2">{cuenta.nota}</p>
                 </button>
               ))}
             </div>
@@ -546,13 +505,13 @@ function SimuladorCuentaAhorroContent() {
                   {resultado.resumenCuentas.map((cuenta, index) => (
                     <div
                       key={cuenta.id}
-                      className={`p-4 rounded-2xl flex items-center justify-between gap-3 ${
+                      className={`p-4 rounded-2xl ${
                         index === 0
                           ? "bg-white dark:bg-slate-800 ring-2 ring-teal-500"
                           : "bg-white/60 dark:bg-slate-800/60"
                       }`}
                     >
-                      <div className="flex items-center gap-3 min-w-0">
+                      <div className="flex items-center gap-3">
                         <div
                           className={`w-8 h-8 shrink-0 rounded-full flex items-center justify-center text-white font-bold text-sm ${
                             index === 0 ? "bg-teal-500" : index === 1 ? "bg-slate-400" : "bg-slate-300"
@@ -560,32 +519,30 @@ function SimuladorCuentaAhorroContent() {
                         >
                           {index + 1}
                         </div>
-                        <div className="min-w-0">
+                        <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-2">
                             <div
                               className="w-3 h-3 shrink-0 rounded-full"
                               style={{ backgroundColor: cuenta.color }}
                             />
-                            <span className="font-bold text-sm sm:text-base text-slate-700 dark:text-slate-200">
+                            <span className="font-bold text-sm sm:text-base text-slate-700 dark:text-slate-200 truncate">
                               {cuenta.nombre}
                             </span>
                             <span className="text-xs text-slate-400 shrink-0">{cuenta.tasa}% EA</span>
                           </div>
-                          <p className="text-xs text-slate-400">{cuenta.nota}</p>
+                          <p className="text-xs text-slate-400 line-clamp-2">{cuenta.nota}</p>
                         </div>
                       </div>
-                      <div className="text-right shrink-0">
+                      <div className="flex items-baseline justify-between mt-2 ml-11">
                         <p className="font-black text-base sm:text-lg" style={{ color: cuenta.color }}>
                           ${formatMoney(cuenta.montoFinal)}
                         </p>
                         <p
-                          className={`text-xs sm:text-sm font-medium ${
+                          className={`text-xs sm:text-sm font-medium shrink-0 ${
                             cuenta.ganancia >= 0 ? "text-emerald-600" : "text-red-500"
                           }`}
                         >
-                          {cuenta.ganancia >= 0 ? "+" : ""}${formatMoney(cuenta.ganancia)} (
-                          {cuenta.rendimiento >= 0 ? "+" : ""}
-                          {cuenta.rendimiento.toFixed(1)}%)
+                          {cuenta.ganancia >= 0 ? "+" : ""}${formatMoney(cuenta.ganancia)} ({cuenta.rendimiento >= 0 ? "+" : ""}{cuenta.rendimiento.toFixed(1)}%)
                         </p>
                       </div>
                     </div>
@@ -673,29 +630,6 @@ function SimuladorCuentaAhorroContent() {
         </div>
       </div>
 
-      {/* Link a Calculadora de Meta */}
-      <div className="max-w-5xl mx-auto">
-        <Link
-          href="/finanzas/calculadora-meta-ahorro"
-          className="block p-6 card-glass rounded-2xl hover:ring-2 hover:ring-teal-500 transition-all group"
-        >
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-teal-500 rounded-xl flex items-center justify-center text-white shadow-lg">
-              <Icon name="target" className="w-7 h-7" />
-            </div>
-            <div className="flex-1">
-              <h3 className="font-bold text-lg text-slate-700 dark:text-slate-200 group-hover:text-teal-600 transition-colors">
-                Calculadora de Meta de Ahorro
-              </h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
-                ¿Cuánto debo ahorrar mensualmente para llegar a mi meta?
-              </p>
-            </div>
-            <span className="text-2xl text-slate-400 group-hover:text-teal-500 transition-colors">→</span>
-          </div>
-        </Link>
-      </div>
-
       {/* Disclaimer */}
       <div className="max-w-5xl mx-auto">
         <div className="p-4 bg-slate-100 dark:bg-slate-800 rounded-xl text-center">
@@ -706,12 +640,7 @@ function SimuladorCuentaAhorroContent() {
         </div>
       </div>
 
-      {/* FAQs */}
-      <div className="max-w-5xl mx-auto">
-        <div className="p-8 card-glass rounded-xl">
-          <FAQ items={faqs} colorClass="teal" />
-        </div>
-      </div>
+      <CalculatorFooter href="/finanzas/simulador-cuenta-ahorro" />
     </div>
   );
 }
