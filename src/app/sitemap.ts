@@ -9,103 +9,99 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Páginas principales
   const mainPages = [
     { url: siteUrl, priority: 1.0, changeFrequency: "weekly" as const },
-    { url: `${siteUrl}/blog`, priority: 0.9, changeFrequency: "weekly" as const },
-    { url: `${siteUrl}/finanzas`, priority: 0.8, changeFrequency: "monthly" as const },
-    { url: `${siteUrl}/salud`, priority: 0.8, changeFrequency: "monthly" as const },
-    { url: `${siteUrl}/herramientas`, priority: 0.8, changeFrequency: "monthly" as const },
-    { url: `${siteUrl}/productividad`, priority: 0.7, changeFrequency: "monthly" as const },
+    { url: `${siteUrl}/blog`, priority: 0.8, changeFrequency: "weekly" as const },
+    { url: `${siteUrl}/finanzas`, priority: 0.7, changeFrequency: "monthly" as const },
+    { url: `${siteUrl}/salud`, priority: 0.7, changeFrequency: "monthly" as const },
+    { url: `${siteUrl}/herramientas`, priority: 0.7, changeFrequency: "monthly" as const },
+    { url: `${siteUrl}/productividad`, priority: 0.6, changeFrequency: "monthly" as const },
   ];
 
   // Calculadoras de finanzas
   const finanzas = [
-    { slug: "calculadora-salario-neto", priority: 0.9 },
-    { slug: "calculadora-interes-compuesto", priority: 0.9 },
-    { slug: "calculadora-prestamos", priority: 0.9 },
-    { slug: "calculadora-prestacion-servicios", priority: 0.9 },
-    { slug: "calculadora-prima", priority: 0.9 },
-    { slug: "calculadora-cesantias", priority: 0.9 },
-    { slug: "calculadora-liquidacion", priority: 0.9 },
-    { slug: "calculadora-vacaciones", priority: 0.8 },
-    { slug: "calculadora-horas-extras", priority: 0.8 },
-    { slug: "calculadora-impuesto-renta", priority: 0.8 },
-    { slug: "calculadora-retencion-fuente", priority: 0.8 },
-    { slug: "calculadora-impuesto-vehicular", priority: 0.7 },
-    { slug: "calculadora-4x1000", priority: 0.7 },
-    { slug: "calculadora-meta-ahorro", priority: 0.8 },
-    { slug: "calculadora-jubilacion", priority: 0.8 },
-    { slug: "calculadora-inflacion", priority: 0.7 },
-    { slug: "calculadora-presupuesto", priority: 0.8 },
-    { slug: "calculadora-subsidio-vivienda", priority: 0.7 },
-    { slug: "arriendo-vs-compra", priority: 0.8 },
-    { slug: "comparador-prestamos", priority: 0.8 },
-    { slug: "comparador-cdt", priority: 0.8 },
-    { slug: "simulador-cuenta-ahorro", priority: 0.7 },
-    { slug: "simulador-tarjeta-credito", priority: 0.7 },
+    { slug: "calculadora-salario-neto", priority: 0.7 },
+    { slug: "calculadora-interes-compuesto", priority: 0.7 },
+    { slug: "calculadora-prestamos", priority: 0.7 },
+    { slug: "calculadora-prestacion-servicios", priority: 0.7 },
+    { slug: "calculadora-prima", priority: 0.7 },
+    { slug: "calculadora-cesantias", priority: 0.7 },
+    { slug: "calculadora-liquidacion", priority: 0.7 },
+    { slug: "calculadora-vacaciones", priority: 0.6 },
+    { slug: "calculadora-horas-extras", priority: 0.6 },
+    { slug: "calculadora-impuesto-renta", priority: 0.6 },
+    { slug: "calculadora-retencion-fuente", priority: 0.6 },
+    { slug: "calculadora-impuesto-vehicular", priority: 0.5 },
+    { slug: "calculadora-4x1000", priority: 0.5 },
+    { slug: "calculadora-meta-ahorro", priority: 0.6 },
+    { slug: "calculadora-jubilacion", priority: 0.6 },
+    { slug: "calculadora-inflacion", priority: 0.5 },
+    { slug: "calculadora-presupuesto", priority: 0.6 },
+    { slug: "calculadora-subsidio-vivienda", priority: 0.5 },
+    { slug: "arriendo-vs-compra", priority: 0.6 },
+    { slug: "comparador-prestamos", priority: 0.6 },
+    { slug: "comparador-cdt", priority: 0.6 },
+    { slug: "simulador-cuenta-ahorro", priority: 0.5 },
+    { slug: "simulador-tarjeta-credito", priority: 0.5 },
   ];
 
   // Calculadoras de salud
   const salud = [
-    { slug: "calculadora-calorias", priority: 0.9 },
-    { slug: "calculadora-imc", priority: 0.9 },
-    { slug: "calculadora-hidratacion", priority: 0.8 },
-    { slug: "calculadora-sueno", priority: 0.8 },
-    { slug: "calculadora-frecuencia-cardiaca", priority: 0.8 },
+    { slug: "calculadora-calorias", priority: 0.7 },
+    { slug: "calculadora-imc", priority: 0.7 },
+    { slug: "calculadora-hidratacion", priority: 0.6 },
+    { slug: "calculadora-sueno", priority: 0.6 },
+    { slug: "calculadora-frecuencia-cardiaca", priority: 0.6 },
   ];
 
   // Herramientas
   const herramientas = [
-    { slug: "calculadora-porcentajes", priority: 1.0 },
-    { slug: "conversor-unidades", priority: 0.9 },
-    { slug: "calculadora-diferencia-fechas", priority: 0.8 },
-    { slug: "calculadora-dias-vividos", priority: 0.8 },
-    { slug: "calculadora-dividir-cuenta", priority: 0.8 },
-    { slug: "calculadora-descuentos", priority: 0.8 },
-    { slug: "calculadora-iva", priority: 0.8 },
+    { slug: "calculadora-porcentajes", priority: 0.7 },
+    { slug: "conversor-unidades", priority: 0.7 },
+    { slug: "calculadora-diferencia-fechas", priority: 0.6 },
+    { slug: "calculadora-dias-vividos", priority: 0.6 },
+    { slug: "calculadora-dividir-cuenta", priority: 0.6 },
+    { slug: "calculadora-descuentos", priority: 0.6 },
+    { slug: "calculadora-iva", priority: 0.6 },
   ];
 
   // Productividad
   const productividad = [
-    { slug: "calculadora-pomodoro", priority: 0.7 },
-    { slug: "calculadora-habitos", priority: 0.7 },
-    { slug: "matriz-eisenhower", priority: 0.7 },
-    { slug: "auditoria-tiempo", priority: 0.7 },
-    { slug: "vida-en-semanas", priority: 0.7 },
-    { slug: "valor-hora", priority: 0.7 },
+    { slug: "calculadora-pomodoro", priority: 0.5 },
+    { slug: "calculadora-habitos", priority: 0.5 },
+    { slug: "matriz-eisenhower", priority: 0.5 },
+    { slug: "auditoria-tiempo", priority: 0.5 },
+    { slug: "vida-en-semanas", priority: 0.5 },
+    { slug: "valor-hora", priority: 0.5 },
   ];
 
   const calculadorasUrls = [
     ...finanzas.map((calc) => ({
       url: `${siteUrl}/finanzas/${calc.slug}`,
-      lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: calc.priority,
     })),
     ...salud.map((calc) => ({
       url: `${siteUrl}/salud/${calc.slug}`,
-      lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: calc.priority,
     })),
     ...herramientas.map((calc) => ({
       url: `${siteUrl}/herramientas/${calc.slug}`,
-      lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: calc.priority,
     })),
     ...productividad.map((calc) => ({
       url: `${siteUrl}/productividad/${calc.slug}`,
-      lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: calc.priority,
     })),
   ];
 
-  // Artículos del blog (sin fecha específica para contenido evergreen)
+  // Artículos del blog — usa la fecha real del post
   const blogUrls = posts.map((post) => ({
     url: `${siteUrl}/blog/${post.slug}`,
-    lastModified: new Date(),
+    lastModified: new Date(post.date),
     changeFrequency: "monthly" as const,
-    priority: 0.7,
+    priority: 0.6,
   }));
 
   // Páginas legales
@@ -116,15 +112,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return [
-    ...mainPages.map((page) => ({
-      ...page,
-      lastModified: new Date(),
-    })),
+    ...mainPages,
     ...calculadorasUrls,
     ...blogUrls,
-    ...legalPages.map((page) => ({
-      ...page,
-      lastModified: new Date(),
-    })),
+    ...legalPages,
   ];
 }
