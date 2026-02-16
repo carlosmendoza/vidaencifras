@@ -141,14 +141,6 @@ export default function RootLayout({
     name: "VidaEnCifras",
     description: "Calculadoras gratuitas de finanzas, salud y productividad",
     url: siteUrl,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${siteUrl}/?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
     publisher: {
       "@type": "Organization",
       name: "VidaEnCifras",
