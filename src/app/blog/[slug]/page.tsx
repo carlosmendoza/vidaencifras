@@ -33,6 +33,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.description,
       type: "article",
     },
+    alternates: {
+      canonical: `https://vidaencifras.com/blog/${slug}`,
+    },
   };
 }
 

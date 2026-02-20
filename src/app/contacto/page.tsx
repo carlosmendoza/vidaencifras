@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "Contacto",
   description:
     "Conoce quién está detrás de VidaEnCifras y cómo contactarnos. Calculadoras gratuitas para la vida adulta en Colombia.",
+  alternates: {
+    canonical: "https://vidaencifras.com/contacto",
+  },
 };
 
 export default function ContactoPage() {

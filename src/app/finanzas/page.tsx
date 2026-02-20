@@ -21,6 +21,9 @@ export const metadata: Metadata = {
     "prestaciones sociales",
     "calculadora laboral",
   ],
+  alternates: {
+    canonical: "https://vidaencifras.com/finanzas",
+  },
 };
 
 const calculadoras = [

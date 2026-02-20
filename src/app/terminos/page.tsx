@@ -3,6 +3,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Términos de Uso",
   description: "Términos y condiciones de uso de VidaEnCifras. Lee las reglas y condiciones para usar nuestro sitio.",
+  alternates: {
+    canonical: "https://vidaencifras.com/terminos",
+  },
 };
 
 export default function TerminosPage() {

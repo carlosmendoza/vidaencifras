@@ -17,6 +17,9 @@ export const metadata: Metadata = {
     "diferencia fechas",
     "calculadora tiempo",
   ],
+  alternates: {
+    canonical: "https://vidaencifras.com/herramientas",
+  },
 };
 
 const calculadoras = [

@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     "frecuencia cardiaca",
     "ciclos de sueño",
   ],
+  alternates: {
+    canonical: "https://vidaencifras.com/salud",
+  },
 };
 
 const calculadoras = [

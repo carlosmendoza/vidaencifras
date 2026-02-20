@@ -20,6 +20,9 @@ export const metadata: Metadata = {
     "cuanto vale mi hora",
     "como distribuyo mi tiempo",
   ],
+  alternates: {
+    canonical: "https://vidaencifras.com/productividad",
+  },
 };
 
 const herramientas = [

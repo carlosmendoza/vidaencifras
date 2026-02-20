@@ -11,6 +11,9 @@ export const metadata: Metadata = {
     description:
       "Artículos sobre finanzas personales, salud, productividad y más.",
   },
+  alternates: {
+    canonical: "https://vidaencifras.com/blog",
+  },
 };
 
 export default function BlogPage() {

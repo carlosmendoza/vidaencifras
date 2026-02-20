@@ -3,6 +3,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Política de Privacidad",
   description: "Política de privacidad de VidaEnCifras. Conoce cómo protegemos tu información y qué datos recopilamos.",
+  alternates: {
+    canonical: "https://vidaencifras.com/privacidad",
+  },
 };
 
 export default function PrivacidadPage() {
