@@ -1,6 +1,6 @@
 // Datos de referencia de préstamos de bancos colombianos
 // NOTA: Estas tasas son aproximadas y deben verificarse con cada entidad
-// Última actualización: Enero 2025
+// Última actualización: Enero 2026
 
 export interface BancoPrestamo {
   nombre: string;

@@ -8,7 +8,7 @@ import { CalculatorResult } from "@/components/CalculatorResult";
 import { ShareButtons } from "@/components/ShareButtons";
 import { Icon } from "@/lib/icons";
 import { calcularImpuestoRenta, type ImpuestoRentaOutput, type TipoTrabajador } from "@/lib/calculadoras";
-import { UVT_2025, TABLA_TARIFAS_RENTA } from "@/lib/calculadoras/constantes";
+import { UVT_2026, TABLA_TARIFAS_RENTA } from "@/lib/calculadoras/constantes";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
@@ -51,9 +51,9 @@ export default function CalculadoraImpuestoRenta() {
       <Breadcrumbs />
 
       <div className="card-glass rounded-2xl p-8 md:p-12 max-w-2xl mx-auto shadow-xl shadow-teal-500/5">
-        <CalculatorHeader title="Calculadora de Impuesto de Renta" subtitle="Estima tu impuesto de renta en Colombia para el año 2025" icon="landmark" gradient="finanzas" />
+        <CalculatorHeader title="Calculadora de Impuesto de Renta" subtitle="Estima tu impuesto de renta en Colombia para el año 2026" icon="landmark" gradient="finanzas" />
         <p className="text-xs text-slate-400 dark:text-slate-500 text-center -mt-6 mb-8">
-          UVT 2025: ${formatMoney(UVT_2025)}
+          UVT 2026: ${formatMoney(UVT_2026)}
         </p>
 
         <div className="space-y-6">
@@ -304,7 +304,7 @@ export default function CalculadoraImpuestoRenta() {
                   <span className="w-6 h-6 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600">
                     <Icon name="bar-chart" className="w-4 h-4" />
                   </span>
-                  Tabla de tarifas 2025
+                  Tabla de tarifas 2026
                 </h3>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">

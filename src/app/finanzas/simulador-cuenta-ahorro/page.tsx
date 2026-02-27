@@ -21,7 +21,7 @@ import { Icon } from "@/lib/icons";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
 
-// Cuentas de ahorro disponibles en Colombia (tasas actualizadas febrero 2025)
+// Cuentas de ahorro disponibles en Colombia (tasas actualizadas febrero 2026)
 const CUENTAS_AHORRO = [
   {
     id: "uala",
@@ -634,7 +634,7 @@ function SimuladorCuentaAhorroContent() {
       <div className="max-w-5xl mx-auto">
         <div className="p-4 bg-slate-100 dark:bg-slate-800 rounded-xl text-center">
           <p className="text-xs text-slate-500 dark:text-slate-400">
-            <strong>Nota:</strong> Las tasas mostradas son aproximadas y pueden variar. Última actualización: Febrero 2025.
+            <strong>Nota:</strong> Las tasas mostradas son aproximadas y pueden variar. Última actualización: Febrero 2026.
             Verifica las tasas actuales directamente con cada entidad antes de tomar decisiones financieras.
           </p>
         </div>

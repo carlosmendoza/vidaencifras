@@ -7,7 +7,7 @@ import { CalculatorHeader } from "@/components/CalculatorHeader";
 import { CalculatorFooter } from "@/components/CalculatorFooter";
 import { Icon } from "@/lib/icons";
 import { calcularRetencionFuente, type RetencionFuenteOutput } from "@/lib/calculadoras";
-import { TASAS_RETENCION, UVT_2025, type TipoRetencion } from "@/lib/calculadoras/constantes";
+import { TASAS_RETENCION, UVT_2026, type TipoRetencion } from "@/lib/calculadoras/constantes";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { useUrlState } from "@/hooks/useUrlState";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
@@ -115,7 +115,7 @@ export default function CalculadoraRetencion() {
               />
             </div>
             <p className="text-xs text-slate-400 ml-1">
-              Base mínima para retención: ${formatMoney(tasaActual.baseMinima * UVT_2025)} ({tasaActual.baseMinima} UVT)
+              Base mínima para retención: ${formatMoney(tasaActual.baseMinima * UVT_2026)} ({tasaActual.baseMinima} UVT)
             </p>
           </div>
 
@@ -181,7 +181,7 @@ export default function CalculadoraRetencion() {
           <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600 dark:text-teal-400">
             <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
           </span>
-          Tasas de retención 2025
+          Tasas de retención 2026
         </h2>
         <div className="overflow-x-auto rounded-2xl ring-1 ring-slate-200 dark:ring-slate-700">
           <table className="w-full text-sm">
@@ -206,7 +206,7 @@ export default function CalculadoraRetencion() {
           </table>
         </div>
         <p className="text-xs text-slate-400 mt-3">
-          UVT 2025: ${formatMoney(UVT_2025)} (valor estimado, confirmar con DIAN)
+          UVT 2026: ${formatMoney(UVT_2026)}
         </p>
       </div>
 

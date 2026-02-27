@@ -1,21 +1,21 @@
 // Datos del programa Mi Casa Ya y subsidios de vivienda en Colombia
-// Última actualización: Enero 2025
+// Última actualización: Enero 2026
 
-// SMMLV 2025 (Salario Mínimo Mensual Legal Vigente)
-export const SMMLV_2025 = 1423500;
+// SMMLV 2026 (Salario Mínimo Mensual Legal Vigente)
+export const SMMLV_2026 = 1750905;
 
 // Límites del programa Mi Casa Ya
 export const LIMITES_MI_CASA_YA = {
   // Vivienda de Interés Prioritario (VIP)
   vip: {
-    valorMaximo: 70 * SMMLV_2025, // Hasta 70 SMMLV
+    valorMaximo: 70 * SMMLV_2026, // Hasta 70 SMMLV
     nombre: "VIP (Vivienda de Interés Prioritario)",
     descripcion: "Viviendas de hasta 70 SMMLV",
   },
   // Vivienda de Interés Social (VIS)
   vis: {
-    valorMinimo: 70 * SMMLV_2025 + 1,
-    valorMaximo: 150 * SMMLV_2025, // De 70 a 150 SMMLV
+    valorMinimo: 70 * SMMLV_2026 + 1,
+    valorMaximo: 150 * SMMLV_2026, // De 70 a 150 SMMLV
     nombre: "VIS (Vivienda de Interés Social)",
     descripcion: "Viviendas entre 70 y 150 SMMLV",
   },
@@ -106,7 +106,7 @@ export function calcularElegibilidad(
   }
 
   // Verificar ingresos
-  const ingresosSMMLV = ingresosFamiliares / SMMLV_2025;
+  const ingresosSMMLV = ingresosFamiliares / SMMLV_2026;
   if (ingresosSMMLV > 4) {
     esElegible = false;
     razones.push("Los ingresos familiares superan 4 SMMLV");
@@ -138,7 +138,7 @@ export function calcularElegibilidad(
     }
   }
 
-  const subsidioMonto = subsidioSMMLV * SMMLV_2025;
+  const subsidioMonto = subsidioSMMLV * SMMLV_2026;
 
   // Calcular cuotas aproximadas (15 años, 12% EA)
   const montoCredito = valorVivienda - subsidioMonto;

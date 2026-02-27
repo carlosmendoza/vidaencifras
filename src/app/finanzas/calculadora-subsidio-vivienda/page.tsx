@@ -10,7 +10,7 @@ import { CurrencyInput } from "@/components/CurrencyInput";
 import { ResultWithMascot } from "@/components/ResultWithMascot";
 import { useUrlState } from "@/hooks/useUrlState";
 import {
-  SMMLV_2025,
+  SMMLV_2026,
   LIMITES_MI_CASA_YA,
   REQUISITOS_MI_CASA_YA,
   DOCUMENTOS_REQUERIDOS,
@@ -53,7 +53,7 @@ export default function CalculadoraSubsidioVivienda() {
     }).format(num);
   };
 
-  const ingresosSMMLV = parseFloat(values.ingresosFamiliares) / SMMLV_2025;
+  const ingresosSMMLV = parseFloat(values.ingresosFamiliares) / SMMLV_2026;
 
 
   return (
@@ -105,7 +105,7 @@ export default function CalculadoraSubsidioVivienda() {
               />
             </div>
             <p className="text-xs text-slate-400 ml-1">
-              Equivale a {ingresosSMMLV.toFixed(2)} SMMLV (máximo 4 SMMLV = ${formatMoney(4 * SMMLV_2025)})
+              Equivale a {ingresosSMMLV.toFixed(2)} SMMLV (máximo 4 SMMLV = ${formatMoney(4 * SMMLV_2026)})
             </p>
           </div>
 

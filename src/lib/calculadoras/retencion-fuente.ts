@@ -1,5 +1,5 @@
 import {
-  UVT_2025,
+  UVT_2026,
   TASAS_RETENCION,
   type TipoRetencion,
 } from "./constantes";
@@ -30,7 +30,7 @@ export function calcularRetencionFuente(input: RetencionFuenteInput): RetencionF
   const tasaActual = TASAS_RETENCION.find((t) => t.tipo === tipoRetencion);
   if (!tasaActual) return null;
 
-  const baseMinimaPesos = tasaActual.baseMinima * UVT_2025;
+  const baseMinimaPesos = tasaActual.baseMinima * UVT_2026;
   const superaBaseMinima = valorBruto >= baseMinimaPesos;
 
   const tasaAplicada = esDeclarante ? tasaActual.tasaDeclarante : tasaActual.tasaNoDeclarante;

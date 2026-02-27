@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { calcularImpuestoRenta } from "../impuesto-renta";
-import { UVT_2025 } from "../constantes";
+import { UVT_2026 } from "../constantes";
 
 describe("calcularImpuestoRenta", () => {
   it("retorna null si los ingresos son 0", () => {
@@ -123,7 +123,7 @@ describe("calcularImpuestoRenta", () => {
     })!;
 
     const limite40 = 200000000 * 0.40;
-    const limite5040 = 5040 * UVT_2025;
+    const limite5040 = 5040 * UVT_2026;
     expect(res.totalDeducciones).toBeLessThanOrEqual(Math.min(limite40, limite5040) + 1);
   });
 
@@ -137,6 +137,6 @@ describe("calcularImpuestoRenta", () => {
       aportesVoluntarios: 0,
     })!;
 
-    expect(res.rentaLiquidaUVT).toBeCloseTo(res.rentaLiquidaGravable / UVT_2025, 0);
+    expect(res.rentaLiquidaUVT).toBeCloseTo(res.rentaLiquidaGravable / UVT_2026, 0);
   });
 });

@@ -1,6 +1,6 @@
 // Tarifas de impuesto vehicular por departamento en Colombia
 // Las tarifas varían según el valor comercial y tipo de vehículo
-// Última actualización: Enero 2025
+// Última actualización: Enero 2026
 
 export interface TarifaVehiculo {
   rangoMin: number;

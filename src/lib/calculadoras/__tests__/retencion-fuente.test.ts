@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { calcularRetencionFuente } from "../retencion-fuente";
-import { UVT_2025 } from "../constantes";
+import { UVT_2026 } from "../constantes";
 
 describe("calcularRetencionFuente", () => {
   it("retorna null si el valor es 0", () => {
@@ -13,7 +13,7 @@ describe("calcularRetencionFuente", () => {
 
   it("no aplica retención bajo la base mínima", () => {
     // Servicios: base mínima = 4 UVT
-    const baseMinima = 4 * UVT_2025;
+    const baseMinima = 4 * UVT_2026;
     const res = calcularRetencionFuente({
       tipoRetencion: "servicios",
       esDeclarante: true,
@@ -87,7 +87,7 @@ describe("calcularRetencionFuente", () => {
   });
 
   it("base mínima compras es 27 UVT", () => {
-    const baseMinima = 27 * UVT_2025;
+    const baseMinima = 27 * UVT_2026;
     const bajo = calcularRetencionFuente({
       tipoRetencion: "compras",
       esDeclarante: true,
