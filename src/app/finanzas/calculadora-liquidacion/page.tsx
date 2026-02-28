@@ -300,35 +300,148 @@ export default function CalculadoraLiquidacion() {
         </div>
       </div>
 
-      {/* Información educativa */}
-      <div className="max-w-2xl mx-auto">
+      {/* Contenido educativo SEO */}
+      <div className="max-w-2xl mx-auto space-y-6">
+
+        {/* ¿Qué es la liquidación? */}
         <div className="p-8 card-glass rounded-xl">
           <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-500"><Icon name="lightbulb" className="w-5 h-5" weight="fill" /></span>
-            Sobre la liquidación
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-500">
+              <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
+            </span>
+            ¿Qué es la liquidación laboral en Colombia?
           </h2>
-          <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
-            <li className="flex gap-3">
-              <span className="text-teal-500">•</span>
-              <span><strong>Prima:</strong> 15 días de salario por semestre trabajado.</span>
-            </li>
-            <li className="flex gap-3">
-              <span className="text-teal-500">•</span>
-              <span><strong>Cesantías:</strong> 1 mes de salario por año trabajado.</span>
-            </li>
-            <li className="flex gap-3">
-              <span className="text-teal-500">•</span>
-              <span><strong>Intereses:</strong> 12% anual sobre las cesantías.</span>
-            </li>
-            <li className="flex gap-3">
-              <span className="text-teal-500">•</span>
-              <span><strong>Vacaciones:</strong> 15 días hábiles por año trabajado.</span>
-            </li>
-            <li className="flex gap-3">
-              <span className="text-teal-500">•</span>
-              <span><strong>Indemnización:</strong> Solo aplica si te despiden sin justa causa.</span>
-            </li>
-          </ul>
+          <div className="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p>
+              La <strong className="text-slate-700 dark:text-slate-300">liquidación laboral</strong> es el pago que recibe un trabajador cuando termina su relación laboral con una empresa. Incluye todas las prestaciones sociales proporcionales al tiempo trabajado, más la indemnización si aplica.
+            </p>
+            <p>
+              En Colombia, el empleador está obligado a pagar la liquidación <strong className="text-slate-700 dark:text-slate-300">al momento de la terminación del contrato</strong>. Si no lo hace, debe pagar una sanción de un día de salario por cada día de mora, según el artículo 65 del Código Sustantivo del Trabajo.
+            </p>
+            <p>
+              La liquidación aplica sin importar la razón de la terminación: renuncia voluntaria, despido (con o sin justa causa), terminación de contrato a término fijo o mutuo acuerdo.
+            </p>
+          </div>
+        </div>
+
+        {/* Componentes de la liquidación */}
+        <div className="p-8 card-glass rounded-xl">
+          <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-500">
+              <Icon name="list" className="w-5 h-5" weight="fill" />
+            </span>
+            ¿Qué conceptos incluye la liquidación?
+          </h2>
+          <div className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
+            <div className="p-4 bg-white dark:bg-slate-800 rounded-xl ring-1 ring-slate-100 dark:ring-slate-700">
+              <p className="font-bold text-slate-700 dark:text-slate-300 mb-1">1. Prima de servicios proporcional</p>
+              <p className="text-xs leading-relaxed">Equivale a 15 días de salario por semestre. La fórmula es: <span className="font-mono bg-slate-50 dark:bg-slate-900 px-1 rounded">Prima = (Salario + Auxilio) × Días trabajados en el semestre ÷ 360</span>. Se calculan los días desde el 1 de enero o el 1 de julio hasta la fecha de retiro.</p>
+            </div>
+            <div className="p-4 bg-white dark:bg-slate-800 rounded-xl ring-1 ring-slate-100 dark:ring-slate-700">
+              <p className="font-bold text-slate-700 dark:text-slate-300 mb-1">2. Cesantías proporcionales</p>
+              <p className="text-xs leading-relaxed">Equivalen a un mes de salario por año trabajado. La fórmula es: <span className="font-mono bg-slate-50 dark:bg-slate-900 px-1 rounded">Cesantías = (Salario + Auxilio) × Días trabajados en el año ÷ 360</span>. Se calculan los días desde el 1 de enero (o fecha de ingreso) hasta la fecha de retiro.</p>
+            </div>
+            <div className="p-4 bg-white dark:bg-slate-800 rounded-xl ring-1 ring-slate-100 dark:ring-slate-700">
+              <p className="font-bold text-slate-700 dark:text-slate-300 mb-1">3. Intereses sobre cesantías</p>
+              <p className="text-xs leading-relaxed">Son el 12% anual sobre las cesantías causadas. La fórmula es: <span className="font-mono bg-slate-50 dark:bg-slate-900 px-1 rounded">Intereses = Cesantías × Días trabajados en el año × 0.12 ÷ 360</span>. Es dinero adicional que se te paga directamente a ti.</p>
+            </div>
+            <div className="p-4 bg-white dark:bg-slate-800 rounded-xl ring-1 ring-slate-100 dark:ring-slate-700">
+              <p className="font-bold text-slate-700 dark:text-slate-300 mb-1">4. Vacaciones no disfrutadas</p>
+              <p className="text-xs leading-relaxed">Tienes derecho a 15 días hábiles de vacaciones por cada año trabajado. Si no las tomaste, te las pagan en dinero. La fórmula es: <span className="font-mono bg-slate-50 dark:bg-slate-900 px-1 rounded">Vacaciones = Salario × Días pendientes ÷ 30</span>. Las vacaciones se calculan solo sobre el salario, sin auxilio de transporte.</p>
+            </div>
+            <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-xl ring-1 ring-red-200 dark:ring-red-800">
+              <p className="font-bold text-red-700 dark:text-red-300 mb-1">5. Indemnización por despido sin justa causa</p>
+              <p className="text-xs leading-relaxed text-red-600 dark:text-red-400">Solo aplica cuando el empleador termina el contrato sin justa causa. Para contratos indefinidos con salario hasta 10 SMMLV: 30 días por el primer año + 20 días por cada año adicional. Para salarios superiores a 10 SMMLV: 20 días por el primer año + 15 días por cada año adicional.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Ejemplo práctico */}
+        <div className="p-8 card-glass rounded-xl">
+          <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-500">
+              <Icon name="calculator" className="w-5 h-5" weight="fill" />
+            </span>
+            Ejemplo: liquidación con salario mínimo y 2 años trabajados
+          </h2>
+          <div className="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p>
+              Supongamos que ganas {formatMoney(SMMLV)} (1 SMMLV) con auxilio de transporte de {formatMoney(AUXILIO_TRANSPORTE)}, y renuncias después de exactamente 2 años (del 1 de enero de 2024 al 31 de diciembre de 2025):
+            </p>
+            <div className="space-y-2 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl font-mono text-xs">
+              <div className="flex justify-between"><span>Prima (180 días del semestre)</span><span className="text-slate-700 dark:text-slate-300">{formatMoney((SMMLV + AUXILIO_TRANSPORTE) * 180 / 360)}</span></div>
+              <div className="flex justify-between"><span>Cesantías (360 días del año)</span><span className="text-slate-700 dark:text-slate-300">{formatMoney(SMMLV + AUXILIO_TRANSPORTE)}</span></div>
+              <div className="flex justify-between"><span>Intereses sobre cesantías (12%)</span><span className="text-slate-700 dark:text-slate-300">{formatMoney((SMMLV + AUXILIO_TRANSPORTE) * 0.12)}</span></div>
+              <div className="flex justify-between"><span>Vacaciones (30 días pendientes)</span><span className="text-slate-700 dark:text-slate-300">{formatMoney(SMMLV)}</span></div>
+              <div className="border-t border-slate-200 dark:border-slate-700 pt-2 flex justify-between font-bold text-teal-600">
+                <span>Total liquidación</span>
+                <span>{formatMoney((SMMLV + AUXILIO_TRANSPORTE) * 180 / 360 + (SMMLV + AUXILIO_TRANSPORTE) + (SMMLV + AUXILIO_TRANSPORTE) * 0.12 + SMMLV)}</span>
+              </div>
+            </div>
+            <p>
+              Este es un ejemplo simplificado. En la práctica, las fechas exactas, los días de vacaciones ya tomados y los cambios de salario afectan el cálculo. Usa la calculadora de arriba para un resultado preciso con tus datos reales.
+            </p>
+          </div>
+        </div>
+
+        {/* Tipos de terminación */}
+        <div className="p-8 card-glass rounded-xl">
+          <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-500">
+              <Icon name="info" className="w-5 h-5" weight="fill" />
+            </span>
+            ¿Cómo cambia la liquidación según el tipo de terminación?
+          </h2>
+          <div className="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            <div className="space-y-3">
+              <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+                <p className="font-bold text-slate-700 dark:text-slate-300">Renuncia voluntaria</p>
+                <p className="text-xs mt-1">Recibes prima, cesantías, intereses y vacaciones. No hay indemnización. Debes dar preaviso de 30 días (aunque no es obligatorio legalmente, es una buena práctica).</p>
+              </div>
+              <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+                <p className="font-bold text-slate-700 dark:text-slate-300">Despido sin justa causa</p>
+                <p className="text-xs mt-1">Recibes todo lo anterior MÁS la indemnización. Es el escenario más favorable económicamente para el trabajador. La indemnización depende del tipo de contrato y del tiempo trabajado.</p>
+              </div>
+              <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+                <p className="font-bold text-slate-700 dark:text-slate-300">Despido con justa causa</p>
+                <p className="text-xs mt-1">Recibes prima, cesantías, intereses y vacaciones. No hay indemnización. Las causas justas están definidas en el artículo 62 del CST (faltas graves, bajo rendimiento comprobado, etc.).</p>
+              </div>
+              <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+                <p className="font-bold text-slate-700 dark:text-slate-300">Fin de contrato a término fijo</p>
+                <p className="text-xs mt-1">Recibes prima, cesantías, intereses y vacaciones. Si el empleador no renueva y no avisa con 30 días de anticipación, se considera prórroga automática y podría haber indemnización.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Consejos importantes */}
+        <div className="p-8 card-glass rounded-xl">
+          <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
+            <span className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center text-amber-600">
+              <Icon name="warning" className="w-5 h-5" weight="fill" />
+            </span>
+            Consejos al recibir tu liquidación
+          </h2>
+          <div className="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            <ul className="space-y-3">
+              <li className="flex gap-2">
+                <span className="text-teal-500 mt-0.5">•</span>
+                <span><strong className="text-slate-700 dark:text-slate-300">Revisa cada concepto:</strong> compara lo que te pagaron con lo que calculaste. Muchos empleadores cometen errores (a veces intencionales) en el cálculo de cesantías o vacaciones.</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-teal-500 mt-0.5">•</span>
+                <span><strong className="text-slate-700 dark:text-slate-300">No firmes sin leer:</strong> el documento de liquidación detalla cada pago. Si no estás de acuerdo con algún valor, puedes firmar con una nota de &quot;no conforme&quot; y reclamar después.</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-teal-500 mt-0.5">•</span>
+                <span><strong className="text-slate-700 dark:text-slate-300">Plazo para reclamar:</strong> tienes 3 años para reclamar derechos laborales ante un juez. Después de este plazo, prescriben.</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-teal-500 mt-0.5">•</span>
+                <span><strong className="text-slate-700 dark:text-slate-300">Sanción por mora:</strong> si tu empleador no te paga la liquidación a tiempo, puedes reclamar la sanción moratoria (1 día de salario por cada día de retraso).</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 

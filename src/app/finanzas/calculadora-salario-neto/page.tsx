@@ -409,33 +409,189 @@ export default function CalculadoraSalarioNeto() {
         </div>
       </div>
 
-      {/* Info sobre aportes del empleador */}
-      <div className="max-w-2xl mx-auto p-8 card-glass rounded-xl">
-        <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
-          <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600">
-            <Icon name="info" className="w-5 h-5" weight="fill" />
-          </span>
-          ¿Y el empleador qué paga?
-        </h2>
-        <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed mb-4">
-          Además de tu salario, el empleador aporta por ti:
-        </p>
-        <div className="grid grid-cols-2 gap-3 text-sm">
-          <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
-            <p className="font-bold text-slate-700 dark:text-slate-300">Salud</p>
-            <p className="text-slate-500 dark:text-slate-400">8.5%</p>
+      {/* Contenido educativo SEO */}
+      <div className="max-w-2xl mx-auto space-y-6">
+
+        {/* ¿Cómo se calcula? */}
+        <div className="p-8 card-glass rounded-xl">
+          <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600">
+              <Icon name="lightbulb" className="w-5 h-5" weight="fill" />
+            </span>
+            ¿Cómo se calcula el salario neto en Colombia?
+          </h2>
+          <div className="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p>
+              El <strong className="text-slate-700 dark:text-slate-300">salario neto</strong> es el dinero que realmente recibes en tu cuenta cada mes, después de que tu empleador descuenta los aportes obligatorios por ley. En Colombia, la fórmula básica es:
+            </p>
+            <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl font-mono text-center text-slate-700 dark:text-slate-300">
+              Salario Neto = Salario Bruto + Auxilio de Transporte − Descuentos Obligatorios
+            </div>
+            <p>
+              Los descuentos obligatorios que se aplican a todo trabajador con contrato laboral en Colombia son el aporte a <strong className="text-slate-700 dark:text-slate-300">salud (4%)</strong> y el aporte a <strong className="text-slate-700 dark:text-slate-300">pensión (4%)</strong>, calculados sobre el salario básico mensual (sin incluir el auxilio de transporte). Si tu salario supera los 4 SMMLV, se suma un descuento adicional por el Fondo de Solidaridad Pensional.
+            </p>
           </div>
-          <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
-            <p className="font-bold text-slate-700 dark:text-slate-300">Pensión</p>
-            <p className="text-slate-500 dark:text-slate-400">12%</p>
+        </div>
+
+        {/* Descuentos paso a paso */}
+        <div className="p-8 card-glass rounded-xl">
+          <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600">
+              <Icon name="list" className="w-5 h-5" weight="fill" />
+            </span>
+            Descuentos obligatorios de nómina en Colombia 2026
+          </h2>
+          <div className="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p>
+              Todo empleado con contrato laboral tiene los siguientes descuentos en su nómina mensual. Estos porcentajes se calculan sobre el <strong className="text-slate-700 dark:text-slate-300">salario básico</strong>, no sobre el total devengado:
+            </p>
+            <div className="space-y-3">
+              <div className="p-4 bg-white dark:bg-slate-800 rounded-xl ring-1 ring-slate-100 dark:ring-slate-700">
+                <div className="flex justify-between items-center mb-1">
+                  <p className="font-bold text-slate-700 dark:text-slate-300">Aporte a Salud</p>
+                  <span className="text-teal-600 dark:text-teal-400 font-black">4%</span>
+                </div>
+                <p className="text-xs">Del total del 12.5%, tú pagas 4% y tu empleador paga 8.5%. Este aporte financia tu EPS (Entidad Promotora de Salud) y te da derecho a atención médica, medicamentos y procedimientos.</p>
+              </div>
+              <div className="p-4 bg-white dark:bg-slate-800 rounded-xl ring-1 ring-slate-100 dark:ring-slate-700">
+                <div className="flex justify-between items-center mb-1">
+                  <p className="font-bold text-slate-700 dark:text-slate-300">Aporte a Pensión</p>
+                  <span className="text-teal-600 dark:text-teal-400 font-black">4%</span>
+                </div>
+                <p className="text-xs">Del total del 16%, tú pagas 4% y tu empleador paga 12%. Este dinero va a tu fondo de pensiones (Colpensiones o un fondo privado como Porvenir, Protección, Colfondos o Skandia).</p>
+              </div>
+              <div className="p-4 bg-white dark:bg-slate-800 rounded-xl ring-1 ring-slate-100 dark:ring-slate-700">
+                <div className="flex justify-between items-center mb-1">
+                  <p className="font-bold text-slate-700 dark:text-slate-300">Fondo de Solidaridad Pensional</p>
+                  <span className="text-amber-600 dark:text-amber-400 font-black">1% - 2%</span>
+                </div>
+                <p className="text-xs">Solo aplica si ganas 4 SMMLV o más ({formatMoney(SMMLV * 4)} en 2026). Es 1% para salarios entre 4 y 16 SMMLV, y 2% para salarios superiores a 16 SMMLV. Financia pensiones de adultos mayores en situación de pobreza.</p>
+              </div>
+              <div className="p-4 bg-white dark:bg-slate-800 rounded-xl ring-1 ring-slate-100 dark:ring-slate-700">
+                <div className="flex justify-between items-center mb-1">
+                  <p className="font-bold text-slate-700 dark:text-slate-300">Retención en la Fuente</p>
+                  <span className="text-amber-600 dark:text-amber-400 font-black">Variable</span>
+                </div>
+                <p className="text-xs">Es un anticipo del impuesto de renta que te descuentan mensualmente. Solo aplica si tu ingreso gravable supera las 95 UVT ({formatMoney(95 * UVT)}). Se puede reducir con deducciones como dependientes, medicina prepagada e intereses de vivienda.</p>
+              </div>
+            </div>
           </div>
-          <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
-            <p className="font-bold text-slate-700 dark:text-slate-300">ARL</p>
-            <p className="text-slate-500 dark:text-slate-400">0.52% - 6.96%</p>
+        </div>
+
+        {/* Ejemplo práctico */}
+        <div className="p-8 card-glass rounded-xl">
+          <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600">
+              <Icon name="calculator" className="w-5 h-5" weight="fill" />
+            </span>
+            Ejemplo: salario neto con 1 SMMLV en 2026
+          </h2>
+          <div className="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p>
+              Si ganas el salario mínimo mensual legal vigente de <strong className="text-slate-700 dark:text-slate-300">{formatMoney(SMMLV)}</strong>, tu nómina se calcula así:
+            </p>
+            <div className="space-y-2 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl font-mono text-xs">
+              <div className="flex justify-between"><span>Salario bruto</span><span className="text-slate-700 dark:text-slate-300">{formatMoney(SMMLV)}</span></div>
+              <div className="flex justify-between text-emerald-600"><span>+ Auxilio de transporte</span><span>{formatMoney(AUXILIO_TRANSPORTE)}</span></div>
+              <div className="flex justify-between text-rose-600"><span>− Salud (4%)</span><span>−{formatMoney(SMMLV * 0.04)}</span></div>
+              <div className="flex justify-between text-rose-600"><span>− Pensión (4%)</span><span>−{formatMoney(SMMLV * 0.04)}</span></div>
+              <div className="border-t border-slate-200 dark:border-slate-700 pt-2 flex justify-between font-bold text-teal-600">
+                <span>= Salario neto</span>
+                <span>{formatMoney(SMMLV + AUXILIO_TRANSPORTE - SMMLV * 0.04 - SMMLV * 0.04)}</span>
+              </div>
+            </div>
+            <p>
+              Con salario mínimo, los descuentos totales representan el 8% de tu salario básico. El auxilio de transporte no tiene descuentos y se suma íntegro. Esto significa que recibes el <strong className="text-slate-700 dark:text-slate-300">92%</strong> de tu salario más el auxilio completo.
+            </p>
           </div>
-          <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
-            <p className="font-bold text-slate-700 dark:text-slate-300">Parafiscales</p>
-            <p className="text-slate-500 dark:text-slate-400">9% (SENA, ICBF, CCF)</p>
+        </div>
+
+        {/* Auxilio de transporte */}
+        <div className="p-8 card-glass rounded-xl">
+          <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600">
+              <Icon name="truck" className="w-5 h-5" weight="fill" />
+            </span>
+            ¿Quién recibe auxilio de transporte en 2026?
+          </h2>
+          <div className="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p>
+              El auxilio de transporte de <strong className="text-slate-700 dark:text-slate-300">{formatMoney(AUXILIO_TRANSPORTE)}</strong> aplica para trabajadores que ganan hasta 2 SMMLV (<strong className="text-slate-700 dark:text-slate-300">{formatMoney(TOPE_AUXILIO)}</strong>). Si ganas más de este monto, no recibes auxilio de transporte.
+            </p>
+            <p>
+              Es importante saber que el auxilio de transporte <strong className="text-slate-700 dark:text-slate-300">no es salario</strong>, pero sí se incluye en la base para calcular prestaciones sociales como prima de servicios y cesantías. No se le descuenta salud ni pensión.
+            </p>
+            <p>
+              Si trabajas desde casa (teletrabajo o trabajo remoto), tu empleador puede optar por no pagarte auxilio de transporte, ya que no incurres en gastos de desplazamiento. Sin embargo, muchas empresas lo mantienen como beneficio.
+            </p>
+          </div>
+        </div>
+
+        {/* Aportes del empleador */}
+        <div className="p-8 card-glass rounded-xl">
+          <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600">
+              <Icon name="info" className="w-5 h-5" weight="fill" />
+            </span>
+            ¿Cuánto paga tu empleador por ti?
+          </h2>
+          <div className="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p>
+              Además de tu salario, tu empleador asume costos adicionales que no aparecen en tu nómina pero que son parte de tu compensación total:
+            </p>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+                <p className="font-bold text-slate-700 dark:text-slate-300">Salud</p>
+                <p className="text-xs">8.5% del salario</p>
+              </div>
+              <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+                <p className="font-bold text-slate-700 dark:text-slate-300">Pensión</p>
+                <p className="text-xs">12% del salario</p>
+              </div>
+              <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+                <p className="font-bold text-slate-700 dark:text-slate-300">ARL</p>
+                <p className="text-xs">0.52% - 6.96% (según riesgo)</p>
+              </div>
+              <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+                <p className="font-bold text-slate-700 dark:text-slate-300">Parafiscales</p>
+                <p className="text-xs">9% (SENA 2%, ICBF 3%, CCF 4%)</p>
+              </div>
+            </div>
+            <p>
+              Esto significa que por cada {formatMoney(1000000)} que ganas, tu empleador paga aproximadamente {formatMoney(300000)} adicionales en aportes. Si sumas prestaciones sociales (prima, cesantías, vacaciones), el costo total del empleador es entre un <strong className="text-slate-700 dark:text-slate-300">45% y 55%</strong> adicional sobre tu salario bruto.
+            </p>
+          </div>
+        </div>
+
+        {/* Diferencia bruto vs neto */}
+        <div className="p-8 card-glass rounded-xl">
+          <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-3">
+            <span className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center text-teal-600">
+              <Icon name="bar-chart" className="w-5 h-5" weight="fill" />
+            </span>
+            Salario bruto vs. salario neto: ¿cuál es la diferencia?
+          </h2>
+          <div className="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p>
+              Cuando te ofrecen un empleo en Colombia, el salario que te mencionan suele ser el <strong className="text-slate-700 dark:text-slate-300">salario bruto</strong> (antes de descuentos). Es fundamental que entiendas la diferencia para no llevarte sorpresas con tu primer pago:
+            </p>
+            <ul className="space-y-2 ml-4">
+              <li className="flex gap-2">
+                <span className="text-teal-500 mt-0.5">•</span>
+                <span><strong className="text-slate-700 dark:text-slate-300">Salario bruto:</strong> es el valor pactado en tu contrato laboral, antes de cualquier descuento. Es la base para calcular aportes y prestaciones.</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-teal-500 mt-0.5">•</span>
+                <span><strong className="text-slate-700 dark:text-slate-300">Salario neto:</strong> es lo que realmente llega a tu cuenta bancaria cada mes, después de descontar salud, pensión, fondo de solidaridad y retención en la fuente (si aplica).</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-teal-500 mt-0.5">•</span>
+                <span><strong className="text-slate-700 dark:text-slate-300">Total devengado:</strong> incluye el salario bruto más otros pagos como auxilio de transporte, horas extras, comisiones y bonificaciones.</span>
+              </li>
+            </ul>
+            <p>
+              Cuando negocies tu salario, siempre pregunta si el valor ofrecido es bruto o neto. Usa esta calculadora para saber exactamente cuánto recibirás con un salario bruto determinado.
+            </p>
           </div>
         </div>
       </div>
