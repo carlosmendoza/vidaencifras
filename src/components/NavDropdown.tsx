@@ -61,6 +61,8 @@ export function NavDropdown() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         onMouseEnter={() => setIsOpen(true)}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
         className={`flex items-center gap-1 transition-colors ${isActive
             ? "text-indigo-600 dark:text-indigo-400"
             : "text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400"
@@ -87,6 +89,7 @@ export function NavDropdown() {
               key={cat.href}
               href={cat.href}
               onClick={() => setIsOpen(false)}
+              aria-current={pathname.startsWith(cat.href) ? "page" : undefined}
               className={`flex items-center gap-3 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors ${pathname.startsWith(cat.href)
                   ? "bg-slate-50 dark:bg-slate-800"
                   : ""

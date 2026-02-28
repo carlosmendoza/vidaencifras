@@ -110,21 +110,6 @@ body::after {
     radial-gradient(ellipse 80% 50% at 50% -30%, rgba(99, 102, 241, 0.15) 0%, transparent 60%);
 }
 
-/* Floating animation - disabled for cleaner look */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-.animate-float {
-  /* animation: float 6s ease-in-out infinite; */
-}
-
 /* Scroll reveal classes */
 .reveal {
   opacity: 0;
@@ -135,21 +120,6 @@ body::after {
 .reveal.active {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* Pulse animation - disabled for cleaner look */
-@keyframes pulse-subtle {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
-
-.animate-pulse-subtle {
-  /* animation: pulse-subtle 4s ease-in-out infinite; */
 }
 
 .glass {
@@ -307,15 +277,6 @@ html {
 
 .card-hover:hover {
   box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.12);
-}
-
-/* Card accent colors - kept for backwards compatibility but simplified */
-.card-hover-indigo,
-.card-hover-emerald,
-.card-hover-red,
-.card-hover-amber,
-.card-hover-pink {
-  /* Colors maintained via CSS variables if needed in future */
 }
 
 .dark .card-hover:hover {

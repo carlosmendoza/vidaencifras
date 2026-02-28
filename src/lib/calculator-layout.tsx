@@ -10,6 +10,9 @@ export function generarMetadata(href: string): Metadata {
   const pageUrl = `${siteUrl}${href}`;
   const { meta } = calc;
 
+  // OG image dinámica con título y categoría
+  const ogImageUrl = `${siteUrl}/og?title=${encodeURIComponent(meta.ogTitle || meta.title)}&category=${encodeURIComponent(calc.categoria)}`;
+
   return {
     title: meta.title,
     description: meta.description,
@@ -19,6 +22,20 @@ export function generarMetadata(href: string): Metadata {
       description: meta.ogDescription || meta.description,
       url: pageUrl,
       type: "website",
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: meta.ogTitle || meta.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: meta.ogTitle || meta.title,
+      description: meta.ogDescription || meta.description,
+      images: [ogImageUrl],
     },
     alternates: {
       canonical: pageUrl,

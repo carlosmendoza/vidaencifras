@@ -106,47 +106,17 @@ export const categoryColors: Record<string, string> = {
   herramientas: "bg-purple-500",
 };
 
-export const calculadoraNames: Record<string, string> = {
-  "/finanzas/calculadora-salario-neto": "Salario Neto",
-  "/finanzas/calculadora-prestamos": "Préstamos",
-  "/finanzas/calculadora-interes-compuesto": "Interés Compuesto",
-  "/finanzas/calculadora-liquidacion": "Liquidación",
-  "/finanzas/calculadora-prima": "Prima",
-  "/finanzas/calculadora-cesantias": "Cesantías",
-  "/finanzas/calculadora-horas-extras": "Horas Extras",
-  "/finanzas/calculadora-vacaciones": "Vacaciones",
-  "/finanzas/calculadora-impuesto-renta": "Impuesto de Renta",
-  "/finanzas/calculadora-retencion-fuente": "Retención en la Fuente",
-  "/finanzas/calculadora-4x1000": "4x1000",
-  "/finanzas/calculadora-inflacion": "Inflación",
-  "/finanzas/calculadora-jubilacion": "Jubilación",
-  "/finanzas/calculadora-meta-ahorro": "Meta de Ahorro",
-  "/finanzas/calculadora-presupuesto": "Presupuesto 50/30/20",
-  "/finanzas/calculadora-prestacion-servicios": "Prestación de Servicios",
-  "/finanzas/calculadora-subsidio-vivienda": "Subsidio Mi Casa Ya",
-  "/finanzas/calculadora-impuesto-vehicular": "Impuesto Vehicular",
-  "/finanzas/comparador-cdt": "Comparador de CDTs",
-  "/finanzas/comparador-prestamos": "Comparador de Préstamos",
-  "/finanzas/simulador-tarjeta-credito": "Tarjeta de Crédito",
-  "/finanzas/simulador-cuenta-ahorro": "Cuentas de Ahorro",
-  "/finanzas/arriendo-vs-compra": "Arrendar o Comprar",
-  "/salud/calculadora-imc": "IMC",
-  "/salud/calculadora-calorias": "Calorías",
-  "/salud/calculadora-hidratacion": "Hidratación",
-  "/salud/calculadora-frecuencia-cardiaca": "Frecuencia Cardíaca",
-  "/salud/calculadora-sueno": "Sueño",
-  "/productividad": "Productividad",
-  "/productividad/valor-hora": "Valor de tu Hora",
-  "/productividad/calculadora-habitos": "Hábitos",
-  "/productividad/calculadora-pomodoro": "Pomodoro",
-  "/productividad/matriz-eisenhower": "Matriz Eisenhower",
-  "/productividad/vida-en-semanas": "Vida en Semanas",
-  "/productividad/auditoria-tiempo": "Auditoría de Tiempo",
-  "/herramientas/calculadora-descuentos": "Descuentos",
-  "/herramientas/calculadora-dias-vividos": "Días Vividos",
-  "/herramientas/calculadora-diferencia-fechas": "Diferencia entre Fechas",
-  "/herramientas/calculadora-dividir-cuenta": "Dividir Cuenta",
-  "/herramientas/calculadora-iva": "IVA",
-  "/herramientas/calculadora-porcentajes": "Porcentajes",
-  "/herramientas/conversor-unidades": "Conversor de Unidades",
-};
+// Derivado del registry centralizado — se genera una vez al importar el módulo
+import { getCalculadora } from "./calculators";
+
+export function getCalculadoraName(href: string): string {
+  const calc = getCalculadora(href);
+  return calc?.nombre || "Calculadora";
+}
+
+// Proxy para compatibilidad con código existente que usa calculadoraNames[href]
+export const calculadoraNames = new Proxy<Record<string, string>>({}, {
+  get(_target, prop: string) {
+    return getCalculadoraName(prop);
+  },
+});

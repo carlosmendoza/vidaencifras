@@ -70,6 +70,7 @@ export function MobileMenu() {
                 key={cat.href}
                 href={cat.href}
                 onClick={closeMenu}
+                aria-current={pathname.startsWith(cat.href) ? "page" : undefined}
                 className={`flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition-colors ${pathname.startsWith(cat.href)
                     ? "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400"
                     : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
@@ -83,6 +84,7 @@ export function MobileMenu() {
             <Link
               href="/blog"
               onClick={closeMenu}
+              aria-current={pathname.startsWith("/blog") ? "page" : undefined}
               className={`px-4 py-2 rounded-lg font-medium transition-colors ${pathname.startsWith("/blog")
                   ? "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400"
                   : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"

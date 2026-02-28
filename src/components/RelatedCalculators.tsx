@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Icon, getIconName } from "@/lib/icons";
-import { Link2 } from "lucide-react";
 
 interface Calculator {
   name: string;
@@ -25,7 +24,7 @@ export function RelatedCalculators({
     <div className="space-y-4">
       <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 flex items-center gap-3">
         <span className="w-8 h-8 bg-indigo-50 dark:bg-indigo-950 rounded-lg flex items-center justify-center text-indigo-600 dark:text-indigo-400">
-          <Link2 className="w-4 h-4" />
+          <Icon name="link" className="w-4 h-4" />
         </span>
         {title}
       </h2>

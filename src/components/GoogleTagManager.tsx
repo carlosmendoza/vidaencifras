@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-const GTM_ID = "GTM-TF8GVTZ4";
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "GTM-TF8GVTZ4";
 const CONSENT_KEY = "cookie-consent";
 
 function loadGTM() {

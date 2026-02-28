@@ -13,6 +13,7 @@ import { Icon } from "@/lib/icons";
 import { CookieConsent } from "@/components/CookieConsent";
 import { GoogleTagManager, GoogleTagManagerNoscript } from "@/components/GoogleTagManager";
 import { AnalyticsClickTracker } from "@/components/AnalyticsClickTracker";
+import { WebVitals } from "@/components/WebVitals";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -50,7 +51,8 @@ export const metadata: Metadata = {
     "conversor unidades",
     "calculadora fechas",
     "diferencia entre fechas",
-    "calcular promedio notas",
+    "calculadora edad",
+    "trm hoy",
     "dividir cuenta",
     "dias vividos",
     "herramientas calculo",
@@ -70,7 +72,7 @@ export const metadata: Metadata = {
       "Calculadoras gratuitas de finanzas, salud y productividad: salario neto, impuesto de renta, interés compuesto, IMC, Pomodoro y más.",
     url: siteUrl,
     siteName: "VidaEnCifras",
-    locale: "es_ES",
+    locale: "es_CO",
     type: "website",
     images: [
       {
@@ -247,6 +249,7 @@ export default function RootLayout({
               </div>
             </div>
           </footer>
+          <WebVitals />
           <CookieConsent />
           <AnalyticsClickTracker />
         </Providers>

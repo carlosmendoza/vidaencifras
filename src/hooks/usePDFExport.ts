@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useCallback, RefObject } from "react";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 
 export interface PDFExportOptions {
   filename: string;
@@ -32,6 +30,12 @@ export function usePDFExport() {
       setState({ status: "loading", error: null });
 
       try {
+        // Lazy-load dependencias pesadas solo cuando el usuario exporta
+        const [{ default: html2canvas }, { default: jsPDF }] = await Promise.all([
+          import("html2canvas"),
+          import("jspdf"),
+        ]);
+
         const element = elementRef.current;
         const { filename, title, orientation = "portrait", margin = 10 } = options;
 
